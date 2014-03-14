@@ -8,14 +8,27 @@ type Repository m = Set (Component m)
 
 implies a b = (not a) || b
 
-class PalladioComponentModel m where
+class (Ord (Parameter m),
+       Ord (Method m),
+       Ord (LinkingResource m),
+       Ord (Interface m),
+       Ord (ResourceContainer m),
+       Ord (Component m)  ) => PalladioComponentModel m where
   data Component m
   data Interface m
+  data Parameter m
+  data Method m
   data DataType m
   data System m
   data AssemblyContext m
   data ResourceContainer m
   data LinkingResource m
+  
+  
+  methods :: Interface m -> Set (Method m)
+  inputParameters :: Method m -> Set (Parameter m)
+  outputParameters :: Method m -> Set (Parameter m)
+  typeOf :: Parameter m -> DataType m
   
   
   components :: Repository m
@@ -49,8 +62,8 @@ class PalladioComponentModel m where
   
   system :: Set (AssemblyContext m)
   
-  systemProvides :: Component m -> Set (Interface m)
-  systemRequires :: Component m -> Set (Interface m)
+  systemProvides :: Set (Interface m)
+  systemRequires :: Set (Interface m)
 
   componentOf :: AssemblyContext m -> Component m
   
@@ -65,8 +78,8 @@ class PalladioComponentModel m where
                               -> Set (Component m) -- the assembly contexts  actually requiring it
 
 
-  ressources :: Set (ResourceContainer m)
-  links :: Set (LinkingResource m)
+  resourcecontainers :: Set (ResourceContainer m)
+  linkingresources :: Set (LinkingResource m)
   
   runsOn :: AssemblyContext m -> ResourceContainer m
   
