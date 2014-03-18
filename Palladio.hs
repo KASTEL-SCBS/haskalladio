@@ -6,6 +6,9 @@ import Data.Set as Set
 
 type Repository m = Set (Component m)
 
+data AssemblyRequirementSatisfaction a = AsSystemRequirement | ByAssembly a
+
+
 implies a b = (not a) || b
 
 class (Ord (Parameter m),
@@ -13,6 +16,7 @@ class (Ord (Parameter m),
        Ord (LinkingResource m),
        Ord (Interface m),
        Ord (ResourceContainer m),
+       Ord (AssemblyContext m),
        Ord (Component m)  ) => PalladioComponentModel m where
   data Component m
   data Interface m
@@ -24,6 +28,7 @@ class (Ord (Parameter m),
   data ResourceContainer m
   data LinkingResource m
   
+
   
   methods :: Interface m -> Set (Method m)
   inputParameters :: Method m -> Set (Parameter m)
@@ -67,16 +72,12 @@ class (Ord (Parameter m),
 
   componentOf :: AssemblyContext m -> Component m
   
+  
   systemAssembledTo ::    AssemblyContext m  -- the assembly context
                        -> Interface m       -- an interface required by the assemblys component
-                       -> AssemblyContext m -- another assembly context providing that interface
-
-  systemDelegatesProvides ::   Interface m        -- an Interface provided by the System
-                            -> AssemblyContext m  -- the assembly context
+                       -> AssemblyRequirementSatisfaction (AssemblyContext m) -- Another assembly resolving that requirement,
+                                                                              -- Unless requirement becomes a system requirement.
   
-  systemDelegatesRequires  ::    Interface m       -- an Interface required by the system
-                              -> Set (Component m) -- the assembly contexts  actually requiring it
-
 
   resourcecontainers :: Set (ResourceContainer m)
   linkingresources :: Set (LinkingResource m)
@@ -88,6 +89,27 @@ class (Ord (Parameter m),
 isComposite :: PalladioComponentModel m => Component m -> Bool
 isComposite = not . isBasic
 
+
+assembliesOn :: PalladioComponentModel m => ResourceContainer m -> Set (AssemblyContext m)
+assembliesOn container = fromList $
+  [ assembly | assembly <- elems system,
+               runsOn assembly ==  container
+  ]
+
+providedInterfacesOn :: PalladioComponentModel m => ResourceContainer m -> Set (Interface m)
+providedInterfacesOn container = fromList $
+  [ interface   | assembly <- elems system,
+                  let container = runsOn assembly
+                      component = componentOf assembly,
+                  interface <- elems $ provides component
+  ]
+requiredInterfacesOn :: PalladioComponentModel m => ResourceContainer m -> Set (Interface m)
+requiredInterfacesOn container = fromList $
+  [ interface   | assembly <- elems system,
+                  let container = runsOn assembly
+                      component = componentOf assembly,
+                  interface <- elems $ requires component
+  ]
 
 
 
@@ -119,4 +141,7 @@ wellFormed c = providesWellFormed c &&
       ) && True -- TODO: check consistency of delegatesRequired
 
 
--- TODO: wellFormedSystem
+-- TODO: wellFormedSystem, insbesondere:: konsistenz von:   
+-- systemRequires :: Set (Interface m)
+-- mit
+-- systemAssembledTo
