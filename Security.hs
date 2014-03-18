@@ -82,8 +82,10 @@ instance (AbstractDesignModel m) => AnalysisModel m where
 
 
 
-data Sharing = OpenShared | ControlledExclusive | ControlledShared
+data Sharing = OpenShared | ControlledExclusive -- | ControlledShared
+  deriving Eq
 data FurtherConnections = Possible | Existing | Complete
+  deriving Eq
 
 
 class (Ord (Location m),
@@ -136,10 +138,19 @@ class (Ord (DataSet m),
 
 
 instance (ConcreteDesignModel m) => AbstractDesignModel m where
- containersFullyAccessibleBy attacker =
-    Set.fromList [ container | container <- (containersPhysicalAccessibleBy attacker ⋅),
-                               containerTamperableByAttackerWithAbilities container (tamperingAbilities attacker)
-                 ]
+ containersFullyAccessibleBy attacker = fromList $
+    [ container | container <- (containersPhysicalAccessibleBy attacker ⋅),
+                  containerTamperableByAttackerWithAbilities container (tamperingAbilities attacker)
+    ] ++
+    [ container | container <- (resourcecontainers ⋅),
+                  sharing container == OpenShared
+                  furtherConnections container == Existing,
+    ] ++
+    [ container | container <- (containersPhysicalAccessibleBy attacker ⋅),
+                  sharing container == OpenShared
+                  furtherConnections container == Possible,
+    ]
+
  linksFullyAccessibleBy attacker =
     Set.fromList [ link | link <- (linksPhysicalAccessibleBy attacker⋅),
                           linkTamperableByAttackerWithAbilities link (tamperingAbilities attacker)
