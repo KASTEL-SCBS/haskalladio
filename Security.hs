@@ -31,14 +31,14 @@ class (BasicDesignModel m) => AbstractDesignModel m where
 accessibleParameters :: (AbstractDesignModel m) => (Attacker m) -> Set (Parameter m)
 accessibleParameters attacker = fromList $
   -- Ausgabe-Parameter, auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat
-  [ parameter | interface <- (interfacesAccessibleBy attacker ⋅), 
+  [ parameter | interface <- (interfacesAllowedToBeUsedBy attacker ⋅),
                 interface ∈  systemProvides,
-                method    <- elems $ methods interface,
-                parameter <- elems $ outputParameters method
+                method    <- (methods interface⋅),
+                parameter <- (outputParameters method⋅)
   ] ++
 
   -- Eingabe-Parameter,auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat, weil er vom System Aufgerufen wird.
-  [ parameter | interface <- (interfacesAccessibleBy attacker ⋅),
+  [ parameter | interface <- (interfacesAllowedToBeUsedBy attacker ⋅),
                 interface ∈  systemRequires,
                 method    <- (methods interface ⋅),
                 parameter <- (inputParameters method ⋅)
@@ -51,9 +51,10 @@ accessibleParameters attacker = fromList $
                 parameter <- ((inputParameters method) `union` (outputParameters method) ⋅)
   ] ++
 
-  -- Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResourece angreifen konnte.
-  [ parameter | link <- elems $ linksFullyAccessibleBy attacker,
-                let (containerLeft, containerRight) = linkBetween link,
+  -- Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
+  [ parameter | link                  <- (linksFullyAccessibleBy attacker⋅),
+                let (containerLeft,
+                     containerRight)   = linkBetween link,
                 left                   <- (assembliesOn containerLeft ⋅),
                 interface              <- (requires (componentOf left) ⋅),
                 let (ByAssembly right) = systemAssembledTo left interface,
@@ -65,7 +66,7 @@ accessibleParameters attacker = fromList $
 
 observableMethods :: (AbstractDesignModel m) => (Attacker m) -> Set (Method m)
 observableMethods attacker = fromList $
-  [ method | interface <- elems $ interfacesAccessibleBy attacker,
+  [ method | interface <- elems $ interfacesAllowedToBeUsedBy attacker,
              interface ∈ systemRequires,
              method    <- elems $ methods interface
   ] ++
@@ -76,8 +77,8 @@ observableMethods attacker = fromList $
 instance (AbstractDesignModel m) => AnalysisModel m where
   -- data AccessProof m = Unit
   dataAccessibleTo attacker = fromList $
-    [ classificationOf parameter  | parameter <- elems $ accessibleParameters attacker] ++
-    [ classificationOfCall method | method    <- elems $ observableMethods attacker ]
+    [ classificationOf parameter  | parameter <- (accessibleParameters attacker ⋅)] ++
+    [ classificationOfCall method | method    <- (observableMethods attacker ⋅)]
 
 
 
@@ -106,14 +107,14 @@ class (Ord (Location m),
 
 linksPhysicalAccessibleBy      :: (ConcreteDesignModel m ) => Attacker m -> Set (LinkingResource m)
 linksPhysicalAccessibleBy attacker =
-  Set.fromList [ link | link     <- elems linkingresources,
-                        linkLocality link `Set.member` locationsAccessibleBy attacker
+  Set.fromList [ link | link              <- (linkingresources ⋅),
+                        linkLocality link ∈ locationsAccessibleBy attacker
                ]
 
 containersPhysicalAccessibleBy :: (ConcreteDesignModel m ) => Attacker m -> Set (ResourceContainer m)
 containersPhysicalAccessibleBy attacker =
-  Set.fromList [ container | container <- elems resourcecontainers,
-                             locality container `Set.member` locationsAccessibleBy attacker
+  Set.fromList [ container | container          <- (resourcecontainers ⋅),
+                             locality container ∈ locationsAccessibleBy attacker
                ]
 
 
@@ -126,7 +127,7 @@ class (Ord (DataSet m),
   datasets :: Set (DataSet m)
   attackers :: Set (Attacker m)
 
-  interfacesAccessibleBy :: Attacker m -> Set (Interface m)
+  interfacesAllowedToBeUsedBy :: Attacker m -> Set (Interface m)
 
   dataAllowedToBeAccessedBy :: Attacker m -> Set (DataSet m)
 
@@ -136,10 +137,10 @@ class (Ord (DataSet m),
 
 instance (ConcreteDesignModel m) => AbstractDesignModel m where
  containersFullyAccessibleBy attacker =
-    Set.fromList [ container | container <- elems $ containersPhysicalAccessibleBy attacker,
+    Set.fromList [ container | container <- (containersPhysicalAccessibleBy attacker ⋅),
                                containerTamperableByAttackerWithAbilities container (tamperingAbilities attacker)
                  ]
  linksFullyAccessibleBy attacker =
-    Set.fromList [ link | link <- elems $ linksPhysicalAccessibleBy attacker,
+    Set.fromList [ link | link <- (linksPhysicalAccessibleBy attacker⋅),
                           linkTamperableByAttackerWithAbilities link (tamperingAbilities attacker)
                  ]
