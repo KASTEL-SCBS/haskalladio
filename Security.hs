@@ -16,11 +16,11 @@ import Palladio
 (⋅) :: Set a -> [a]
 (⋅) = Set.elems
 
-class (BasicDesignModel m) => AnalysisModel m where
+class (BasicDesignModel m) => AnalysisResult m where
   -- data AccessProof m
   dataAccessibleTo   :: Attacker m -> Set (DataSet m)
 
-isSecureWithRespectTo :: (AnalysisModel m) => Attacker m -> Bool
+isSecureWithRespectTo :: (AnalysisResult m) => Attacker m -> Bool
 isSecureWithRespectTo attacker = (dataAccessibleTo attacker) `isSubsetOf` (dataAllowedToBeAccessedBy attacker)
 
 class (BasicDesignModel m) => AbstractDesignModel m where
@@ -74,7 +74,7 @@ observableMethods attacker = fromList $
      -- einen passenden Resourcecontainer oder LinkResource angreifen kann.
 
 
-instance (AbstractDesignModel m) => AnalysisModel m where
+instance (AbstractDesignModel m) => AnalysisResult m where
   -- data AccessProof m = Unit
   dataAccessibleTo attacker = fromList $
     [ classificationOf parameter  | parameter <- (accessibleParameters attacker ⋅)] ++
@@ -143,12 +143,12 @@ instance (ConcreteDesignModel m) => AbstractDesignModel m where
                   containerTamperableByAttackerWithAbilities container (tamperingAbilities attacker)
     ] ++
     [ container | container <- (resourcecontainers ⋅),
-                  sharing container == OpenShared
-                  furtherConnections container == Existing,
+                  sharing container == OpenShared,
+                  furtherConnections container == Existing
     ] ++
     [ container | container <- (containersPhysicalAccessibleBy attacker ⋅),
-                  sharing container == OpenShared
-                  furtherConnections container == Possible,
+                  sharing container == OpenShared,
+                  furtherConnections container == Possible
     ]
 
  linksFullyAccessibleBy attacker =
