@@ -23,7 +23,6 @@ class (Ord (Parameter m),
   data Parameter m
   data Method m
   data DataType m
-  data System m
   data AssemblyContext m
   data ResourceContainer m
   data LinkingResource m
@@ -123,10 +122,7 @@ wellFormed c = providesWellFormed c &&
                       not (Set.null (provides c))
      | otherwise    = True
 
-    completeWellFormed c
-     | isComplete c = not (Set.null (requires c)) &&
-                      not (Set.null (provides c))
-     | otherwise = True
+    completeWellFormed c = True
 
     subComponentsWellFormed c =
        (isBasic c) == (Set.null (subComponents c)) && (
