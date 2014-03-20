@@ -81,7 +81,7 @@ instance (AbstractDesignModel m) => AnalysisResult m where
     [ classificationOfCall method | method    <- (observableMethods attacker ⋅)]
 
 
-
+-- TODO: was bedeutet ControlledShared
 data Sharing = OpenShared | ControlledExclusive -- | ControlledShared
   deriving Eq
 data FurtherConnections = Possible | Existing | Complete

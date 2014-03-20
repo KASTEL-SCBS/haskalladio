@@ -77,6 +77,8 @@ class (Ord (Parameter m),
                        -> AssemblyRequirementSatisfaction (AssemblyContext m) -- Another assembly resolving that requirement,
                                                                               -- Unless requirement becomes a system requirement.
   
+  systemProvidesAsssembledTo ::    Interface m       -- an interface provided by the system
+                                -> AssemblyContext m -- the assembly providing that interface
 
   resourcecontainers :: Set (ResourceContainer m)
   linkingresources :: Set (LinkingResource m)
