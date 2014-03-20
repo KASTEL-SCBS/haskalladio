@@ -7,14 +7,7 @@ module Security where
 import Data.Set as Set
 import Palladio
 
-(∈) :: Ord a => a -> Set a -> Bool
-(∈) = Set.member
-
-(∆) :: Set a -> [a]
-(∆) = Set.elems
-
-(⋅) :: Set a -> [a]
-(⋅) = Set.elems
+import Misc
 
 class (BasicDesignModel m) => AnalysisResult m where
   -- data AccessProof m

@@ -1,5 +1,6 @@
 {-# LANGUAGE TypeFamilies #-} 
 {-# LANGUAGE FlexibleContexts #-}
+
 module Palladio where
 
 import Data.Set as Set
@@ -114,7 +115,7 @@ requiredInterfacesOn container = fromList $
 
 
 
-wellFormed :: (Ord (Interface m), Ord (Component m)) => PalladioComponentModel m => Component m  -> Bool
+wellFormed ::  PalladioComponentModel m => Component m  -> Bool
 wellFormed c = providesWellFormed c &&
                completeWellFormed c &&
                subComponentsWellFormed c
