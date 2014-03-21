@@ -9,18 +9,111 @@ import Palladio
 
 import Misc
 
+{- So soll im einfachsten Fall ein Analyseresult eines Modells aussehen.
+   * Mögliche Erweiterung: Berechnung eines "schwächsten Angreifers":
+      weakestAttackerWithAccessTo :: DataSet m -> Attacker
+
+   * Mögliche Erweiterung: "Beweis" der nachvollziehbar macht, wie und warum ein Angreifer Zugruff hat:
+      dataAccessibleTo   :: Attacker m -> Set ((DataSet m, AccessProof m))
+
+   * Mögliche Erweiterung: "kleinste Menge an Änderungen" die Notwendig sind, um das System abzusichern
+      dataAccessibleTo   :: Attacker m -> Set ((DataSet m, ChangeRequest m))
+-}
 class (BasicDesignModel m) => AnalysisResult m where
-  -- data AccessProof m
   dataAccessibleTo   :: Attacker m -> Set (DataSet m)
 
+{- Der Sicherheitsbegriff -}
 isSecureWithRespectTo :: (AnalysisResult m) => Attacker m -> Bool
-isSecureWithRespectTo attacker = (dataAccessibleTo attacker) `isSubsetOf` (dataAllowedToBeAccessedBy attacker)
+isSecureWithRespectTo attacker = (dataAccessibleTo attacker) ⊆ (dataAllowedToBeAccessedBy attacker)
 
+
+{- Egal wie genau nun ein Sicherheitsmodell aussieht (sharing,locations etc pp),
+   es muss mindestens folgende Dinge spezifizieren:
+-}
+class (Ord (DataSet m),
+       PalladioComponentModel m) => BasicDesignModel m where
+  data Attacker m
+  data DataSet m
+  datasets  :: Set (DataSet m)
+  attackers :: Set (Attacker m)
+
+  interfacesAllowedToBeUsedBy :: Attacker m -> Set (Interface m)
+  dataAllowedToBeAccessedBy   :: Attacker m -> Set (DataSet m)
+
+  classificationOf  :: (Parameter m) -> (DataSet m)
+  classificationOfCall :: (Method m) -> (DataSet m)
+
+
+
+{- Egal wie genau nun ein Sicherheitsmodell aussieht (sharing,locations etc pp),
+   es muss möglich sein, damit Folgende Dinge herauszufinden:
+-}
 class (BasicDesignModel m) => AbstractDesignModel m where
   containersFullyAccessibleBy  :: Attacker m -> Set (ResourceContainer m)
-  linksFullyAccessibleBy :: Attacker m -> Set (LinkingResource m)
+  linksFullyAccessibleBy       :: Attacker m -> Set (LinkingResource m)
+
+{- Denn damit kann man direkt ein Analyserusultat bestimmen: -}
+instance (AbstractDesignModel m) => AnalysisResult m where
+  dataAccessibleTo attacker = fromList $
+    [ classificationOf parameter  | parameter <- (accessibleParameters attacker ⋅)] ++
+    [ classificationOfCall method | method    <- (observableMethods attacker ⋅)]
 
 
+
+
+
+
+{- Eine Variante eines konkreten Sicherheitsmodells -}
+data Sharing = OpenShared
+             | ControlledExclusive
+          -- | ControlledShared
+             deriving Eq
+-- TODO: was bedeutet ControlledShared
+
+data FurtherConnections = Possible
+                        | Existing
+                        | Complete
+                        deriving Eq
+
+class (Ord (Location m),
+       BasicDesignModel m) => ConcreteDesignModel m where
+  data TamperingMethod m
+  data Location m
+
+  tamperingAbilities    :: Attacker m -> Set (TamperingMethod m)
+
+  locationsAccessibleBy :: Attacker m -> Set (Location m)
+
+  containerTamperableByAttackerWithAbilities :: ResourceContainer m -> Set (TamperingMethod m) -> Bool
+  linkTamperableByAttackerWithAbilities      :: LinkingResource m   -> Set (TamperingMethod m) -> Bool
+
+  furtherConnections :: ResourceContainer m -> FurtherConnections
+  sharing            :: ResourceContainer m -> Sharing
+  locality           :: ResourceContainer m -> Location m
+
+  linkLocality       :: LinkingResource m -> Location m
+
+{- Damit erhält man ein Analyseergebnis folgendermaßen: -}
+instance (ConcreteDesignModel m) => AbstractDesignModel m where
+ containersFullyAccessibleBy attacker = fromList $
+    [ container | container <- (containersPhysicalAccessibleBy attacker ⋅),
+                  containerTamperableByAttackerWithAbilities container (tamperingAbilities attacker)
+    ] ++
+    [ container | container <- (resourcecontainers ⋅),
+                  sharing container == OpenShared,
+                  furtherConnections container == Existing
+    ] ++
+    [ container | container <- (containersPhysicalAccessibleBy attacker ⋅),
+                  sharing container == OpenShared,
+                  furtherConnections container == Possible
+    ]
+
+ linksFullyAccessibleBy attacker =
+    Set.fromList [ link | link <- (linksPhysicalAccessibleBy attacker⋅),
+                          linkTamperableByAttackerWithAbilities link (tamperingAbilities attacker)
+                 ]
+
+{- ... unter Verwendung folgender "Hilfsbegriffe" ... -}
 accessibleParameters :: (AbstractDesignModel m) => (Attacker m) -> Set (Parameter m)
 accessibleParameters attacker = fromList $
   -- Ausgabe-Parameter, auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat
@@ -67,38 +160,6 @@ observableMethods attacker = fromList $
      -- einen passenden Resourcecontainer oder LinkResource angreifen kann.
 
 
-instance (AbstractDesignModel m) => AnalysisResult m where
-  -- data AccessProof m = Unit
-  dataAccessibleTo attacker = fromList $
-    [ classificationOf parameter  | parameter <- (accessibleParameters attacker ⋅)] ++
-    [ classificationOfCall method | method    <- (observableMethods attacker ⋅)]
-
-
--- TODO: was bedeutet ControlledShared
-data Sharing = OpenShared | ControlledExclusive -- | ControlledShared
-  deriving Eq
-data FurtherConnections = Possible | Existing | Complete
-  deriving Eq
-
-
-class (Ord (Location m),
-       BasicDesignModel m) => ConcreteDesignModel m where
-  data TamperingMethod m
-  data Location m
-
-  tamperingAbilities :: Attacker m -> Set (TamperingMethod m)
-
-  locationsAccessibleBy :: Attacker m -> Set (Location m)
-
-  containerTamperableByAttackerWithAbilities :: ResourceContainer m -> (Set (TamperingMethod m) -> Bool)
-  linkTamperableByAttackerWithAbilities :: LinkingResource m -> (Set (TamperingMethod m) -> Bool)
-
-  furtherConnections :: ResourceContainer m -> FurtherConnections
-  sharing :: ResourceContainer m -> Sharing
-  locality :: ResourceContainer m -> Location m
-
-  linkLocality :: LinkingResource m -> Location m
-
 
 linksPhysicalAccessibleBy      :: (ConcreteDesignModel m ) => Attacker m -> Set (LinkingResource m)
 linksPhysicalAccessibleBy attacker =
@@ -113,38 +174,6 @@ containersPhysicalAccessibleBy attacker =
                ]
 
 
-class (Ord (DataSet m),
-       PalladioComponentModel m) => BasicDesignModel m where
-  data Attacker m
-  data DataSet m
 
 
-  datasets :: Set (DataSet m)
-  attackers :: Set (Attacker m)
 
-  interfacesAllowedToBeUsedBy :: Attacker m -> Set (Interface m)
-
-  dataAllowedToBeAccessedBy :: Attacker m -> Set (DataSet m)
-
-  classificationOf  :: (Parameter m) -> (DataSet m)
-  classificationOfCall :: (Method m) -> (DataSet m)
-
-
-instance (ConcreteDesignModel m) => AbstractDesignModel m where
- containersFullyAccessibleBy attacker = fromList $
-    [ container | container <- (containersPhysicalAccessibleBy attacker ⋅),
-                  containerTamperableByAttackerWithAbilities container (tamperingAbilities attacker)
-    ] ++
-    [ container | container <- (resourcecontainers ⋅),
-                  sharing container == OpenShared,
-                  furtherConnections container == Existing
-    ] ++
-    [ container | container <- (containersPhysicalAccessibleBy attacker ⋅),
-                  sharing container == OpenShared,
-                  furtherConnections container == Possible
-    ]
-
- linksFullyAccessibleBy attacker =
-    Set.fromList [ link | link <- (linksPhysicalAccessibleBy attacker⋅),
-                          linkTamperableByAttackerWithAbilities link (tamperingAbilities attacker)
-                 ]
