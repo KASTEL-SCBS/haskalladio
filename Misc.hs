@@ -18,5 +18,15 @@ import Data.Set as Set
 (∪) :: Ord α => Set α -> Set α -> Set α
 (∪) = union
 
+μ :: (Eq a) => (Set a -> Set a) -> Set a
+μ = smallest
 showByLine :: Show t => [t] -> String
 showByLine set = Prelude.foldr (\x lines -> (show x) ++ "\n" ++ lines) [] set
+
+
+smallest :: (Eq a) => (Set a -> Set a) -> Set a
+smallest f = fixiter Set.empty where
+ fixiter current
+  | next    == current = current
+  | otherwise          = fixiter next
+  where next = f current
