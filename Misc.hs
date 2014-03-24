@@ -18,6 +18,10 @@ import Data.Set as Set
 (∪) :: Ord α => Set α -> Set α -> Set α
 (∪) = union
 
+implies a b = (not a) || b
+(→) :: Bool -> Bool -> Bool
+(→) = implies
+
 μ :: (Eq a) => (Set a -> Set a) -> Set a
 μ = smallest
 

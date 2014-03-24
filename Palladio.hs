@@ -4,15 +4,11 @@
 module Palladio where
 
 import Data.Set as Set
+import Misc
 
 type Repository m = Set (Component m)
 
 data AssemblyRequirementSatisfaction a = AsSystemRequirement | ByAssembly a
-
-
-implies a b = (not a) || b
-
-
 
 
 class (Ord (Parameter m),
@@ -129,7 +125,7 @@ wellFormed c = providesWellFormed c &&
 
     subComponentsWellFormed c =
        (isBasic c) == (Set.null (subComponents c)) && (
-       implies (isComplete c) $
+       (isComplete c) →
          and [ required `Set.member` (provides providing) | sub <- elems $ subComponents c,
                                                         required  <- elems $ requires sub,
                                                         providing <- [assembledTo c sub required]
