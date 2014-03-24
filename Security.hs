@@ -9,6 +9,14 @@ import Palladio
 
 import Misc
 
+class ComponentRepository m => InformationFlowSpecification m where
+  possiblyInfluencedBy      :: Parameter m -> Set (Parameter m)
+  callsPossiblyInfluencedBy :: Parameter m -> Set (Method m)
+
+  possiblyInfluencedByCall      :: Method m -> Set (Parameter m)
+  callsPossiblyInfluencedByCall :: Method m -> Set (Method m)
+
+
 {- So soll im einfachsten Fall ein Analyseresult eines Modells aussehen.
    * Mögliche Erweiterung: Berechnung eines "schwächsten Angreifers":
       weakestAttackerWithAccessTo :: DataSet m -> Attacker
