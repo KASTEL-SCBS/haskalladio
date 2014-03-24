@@ -12,24 +12,19 @@ data AssemblyRequirementSatisfaction a = AsSystemRequirement | ByAssembly a
 
 implies a b = (not a) || b
 
+
+
+
 class (Ord (Parameter m),
        Ord (Method m),
-       Ord (LinkingResource m),
        Ord (Interface m),
-       Ord (ResourceContainer m),
-       Ord (AssemblyContext m),
-       Ord (Component m)  ) => PalladioComponentModel m where
+       Ord (Component m)  ) => ComponentRepository m where
   data Component m
   data Interface m
   data Parameter m
   data Method m
   data DataType m
-  data AssemblyContext m
-  data ResourceContainer m
-  data LinkingResource m
-  
 
-  
   methods :: Interface m -> Set (Method m)
   inputParameters :: Method m -> Set (Parameter m)
   outputParameters :: Method m -> Set (Parameter m)
@@ -60,11 +55,16 @@ class (Ord (Parameter m),
   delegatesRequires  ::  Component m  -- the composite component
                       -> Interface m  -- an Interface required by the composite component
                       -> Set (Component m)  -- the sub components actually requiring it
-  
-  
-  
 
-  
+
+class (Ord (LinkingResource m),
+       Ord (ResourceContainer m),
+       Ord (AssemblyContext m),
+       ComponentRepository m) => PalladioComponentModel m where
+  data AssemblyContext m
+  data ResourceContainer m
+  data LinkingResource m
+
   system :: Set (AssemblyContext m)
   
   systemProvides :: Set (Interface m)

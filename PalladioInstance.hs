@@ -5,34 +5,14 @@ module PalladioInstance where
 
 import qualified Palladio as P -- hiding (componentOf, runsOn, linkBetween)
 import Data.Set
+import Misc
 
 data ExampleOne = ExampleOne
 
 type Id = Integer
 
 
-class All a where
-  allValues' :: [a]
-
-allValues :: (Bounded a, Enum a) => [a]
-allValues = [minBound..]
-
-digitalMeterContext = Context { contextId = 1, componentOf = DigitalMeter, runsOn = DigitalMeterContainer }
-controllerContext   = Context { contextId = 2, componentOf = Controller,   runsOn = ControllerContainer }
-tabletContext       = Context { contextId = 3, componentOf = Tablet, runsOn = TabletContainer }
---meterReaderrContext = Context { contextId = 4, componentOf = Controller,   runsOn = controllerContainer }
-instance All (P.AssemblyContext ExampleOne) where
-  allValues' = [digitalMeterContext, controllerContext, tabletContext]
-
-
-linkMeterController  = Link { linkId = 1, linkBetween = (DigitalMeterContainer, ControllerContainer) }
-linkControllerTablet = Link { linkId = 2, linkBetween = (ControllerContainer, TabletContainer) }
-instance All (P.LinkingResource ExampleOne) where
-  allValues' = [linkMeterController, linkControllerTablet]
-
-
-
-instance  P.PalladioComponentModel ExampleOne where
+instance P.ComponentRepository ExampleOne where
   data Component ExampleOne = DigitalMeter
                             | Controller
                             | Tablet
@@ -52,19 +32,6 @@ instance  P.PalladioComponentModel ExampleOne where
   data DataType ExampleOne  = TimedConsumption
                             | ConsumptionHistory
                             deriving (Ord,Eq,Show,Bounded,Enum)
-  data AssemblyContext ExampleOne =
-                              Context { contextId :: Id,
-                                        componentOf :: P.Component ExampleOne,
-                                        runsOn :: P.ResourceContainer ExampleOne
-                                      } deriving (Ord,Eq,Show)
-  data ResourceContainer ExampleOne = DigitalMeterContainer
-                                    | ControllerContainer
-                                    | TabletContainer
-                                    deriving (Ord,Eq,Show,Bounded,Enum)
-  data LinkingResource ExampleOne =
-                              Link { linkId :: Id,
-                                     linkBetween :: (P.ResourceContainer ExampleOne, P.ResourceContainer ExampleOne)
-                                   } deriving (Ord,Eq,Show)
 
 
   methods CurrentMeterDataReceiving        = fromList [StoreCurrentConsumption]
@@ -105,9 +72,47 @@ instance  P.PalladioComponentModel ExampleOne where
   
   delegatesRequires  _ _ = undefined
 
-  
+
+
+
+
+
+
+digitalMeterContext = Context { contextId = 1, componentOf = DigitalMeter, runsOn = DigitalMeterContainer }
+controllerContext   = Context { contextId = 2, componentOf = Controller,   runsOn = ControllerContainer }
+tabletContext       = Context { contextId = 3, componentOf = Tablet, runsOn = TabletContainer }
+--meterReaderrContext = Context { contextId = 4, componentOf = Controller,   runsOn = controllerContainer }
+instance All (P.AssemblyContext ExampleOne) where
+  allValues' = [digitalMeterContext, controllerContext, tabletContext]
+
+
+linkMeterController  = Link { linkId = 1, linkBetween = (DigitalMeterContainer, ControllerContainer) }
+linkControllerTablet = Link { linkId = 2, linkBetween = (ControllerContainer, TabletContainer) }
+instance All (P.LinkingResource ExampleOne) where
+  allValues' = [linkMeterController, linkControllerTablet]
+
+
+instance  P.PalladioComponentModel ExampleOne where
+  data AssemblyContext ExampleOne =
+                              Context { contextId :: Id,
+                                        componentOf :: P.Component ExampleOne,
+                                        runsOn :: P.ResourceContainer ExampleOne
+                                      } deriving (Ord,Eq,Show)
+  data ResourceContainer ExampleOne = DigitalMeterContainer
+                                    | ControllerContainer
+                                    | TabletContainer
+                                    deriving (Ord,Eq,Show,Bounded,Enum)
+  data LinkingResource ExampleOne =
+                              Link { linkId :: Id,
+                                     linkBetween :: (P.ResourceContainer ExampleOne, P.ResourceContainer ExampleOne)
+                                   } deriving (Ord,Eq,Show)
+
+
+
+
+
   system = fromList [ digitalMeterContext, controllerContext, tabletContext ]
-  
+
   systemProvides = fromList [CurrentConsumptionDataDisplaying]
   systemRequires = fromList []
 
@@ -115,7 +120,7 @@ instance  P.PalladioComponentModel ExampleOne where
    | context   == digitalMeterContext &&
      interface == CurrentMeterDataReceiving = P.ByAssembly controllerContext
    | context   == tabletContext &&
-     interface == ConsumptionDataSending    = P.ByAssembly controllerContext 
+     interface == ConsumptionDataSending    = P.ByAssembly controllerContext
    | otherwise                              = undefined
 
   systemProvidesAsssembledTo CurrentConsumptionDataDisplaying = tabletContext

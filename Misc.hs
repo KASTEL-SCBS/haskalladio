@@ -20,9 +20,6 @@ import Data.Set as Set
 
 μ :: (Eq a) => (Set a -> Set a) -> Set a
 μ = smallest
-showByLine :: Show t => [t] -> String
-showByLine set = Prelude.foldr (\x lines -> (show x) ++ "\n" ++ lines) [] set
-
 
 smallest :: (Eq a) => (Set a -> Set a) -> Set a
 smallest f = fixiter Set.empty where
@@ -30,3 +27,12 @@ smallest f = fixiter Set.empty where
   | next    == current = current
   | otherwise          = fixiter next
   where next = f current
+
+showByLine :: Show t => [t] -> String
+showByLine set = Prelude.foldr (\x lines -> (show x) ++ "\n" ++ lines) [] set
+
+class All a where
+  allValues' :: [a]
+
+allValues :: (Bounded a, Enum a) => [a]
+allValues = [minBound..]
