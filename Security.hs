@@ -132,9 +132,9 @@ accessibleParameters attacker = fromList $
 
   -- Parameter, auf die der Angreifer Zugriff hat, weil er einen entsprechenden ResourceContainer angreifen konnte.
   [ parameter | container <- (containersFullyAccessibleBy attacker ⋅),
-                interface <- ((providedInterfacesOn container) `union` (requiredInterfacesOn container) ⋅),
+                interface <- ((providedInterfacesOn container) ∪ (requiredInterfacesOn container) ⋅),
                 method    <- (methods interface⋅),
-                parameter <- ((inputParameters method) `union` (outputParameters method) ⋅)
+                parameter <- ((inputParameters method) ∪ (outputParameters method) ⋅)
   ] ++
 
   -- Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
@@ -146,7 +146,7 @@ accessibleParameters attacker = fromList $
                 let (ByAssembly right) = systemAssembledTo left interface,
                 right                  ∈  assembliesOn containerRight,
                 method                 <- (methods interface ⋅),
-                parameter              <- ((inputParameters method) `union` (outputParameters method) ⋅)
+                parameter              <- ((inputParameters method) ∪ (outputParameters method) ⋅)
   ]
 
 
