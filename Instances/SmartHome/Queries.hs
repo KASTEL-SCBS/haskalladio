@@ -1,9 +1,9 @@
-module Queries where
+module Instances.SmartHome.Queries where
 
 import Palladio
-import PalladioInstance
+import Instances.SmartHome.PalladioInstance
 import Security
-import SecurityInstance
+import Instances.SmartHome.SecurityInstance
 
 import Misc
 import Data.Set
