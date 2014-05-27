@@ -1,7 +1,7 @@
 {-# LANGUAGE TypeFamilies #-} 
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE UndecidableInstances #-}
-module Instances.SmartHome.PalladioInstance where
+module Instances.SmartHome.ExampleOne.Palladio where
 
 import qualified Palladio as P -- hiding (componentOf, runsOn, linkBetween)
 import Data.Set
