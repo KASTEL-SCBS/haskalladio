@@ -11,10 +11,10 @@ import Misc
 
 class ComponentRepository m => InformationFlowSpecification m where
   possiblyInfluencedBy      :: Parameter m -> Set (Parameter m)
-  callsPossiblyInfluencedBy :: Parameter m -> Set (Method m)
+  callsPossiblyInfluencedBy :: Parameter m -> Set (Service m)
 
-  possiblyInfluencedByCall      :: Method m -> Set (Parameter m)
-  callsPossiblyInfluencedByCall :: Method m -> Set (Method m)
+  possiblyInfluencedByCall      :: Service m -> Set (Parameter m)
+  callsPossiblyInfluencedByCall :: Service m -> Set (Service m)
 
 
 {- So soll im einfachsten Fall ein Analyseresult eines Modells aussehen.
@@ -49,7 +49,7 @@ class (Ord (DataSet m),
   dataAllowedToBeAccessedBy   :: Attacker m -> Set (DataSet m)
 
   classificationOf  :: (Parameter m) -> (DataSet m)
-  classificationOfCall :: (Method m) -> (DataSet m)
+  classificationOfCall :: (Service m) -> (DataSet m)
 
 
 
@@ -64,7 +64,7 @@ class (BasicDesignModel m) => AbstractDesignModel m where
 instance (AbstractDesignModel m) => AnalysisResult m where
   dataAccessibleTo attacker = fromList $
     [ classificationOf parameter  | parameter <- (accessibleParameters attacker ⋅)] ++
-    [ classificationOfCall method | method    <- (observableMethods attacker ⋅)]
+    [ classificationOfCall method | method    <- (observableServices attacker ⋅)]
 
 
 
@@ -158,13 +158,13 @@ accessibleParameters attacker = fromList $
   ]
 
 
-observableMethods :: (AbstractDesignModel m) => (Attacker m) -> Set (Method m)
-observableMethods attacker = fromList $
+observableServices :: (AbstractDesignModel m) => (Attacker m) -> Set (Service m)
+observableServices attacker = fromList $
   [ method | interface <- elems $ interfacesAllowedToBeUsedBy attacker,
              interface ∈ systemRequires,
              method    <- elems $ methods interface
   ] ++
-  [] -- TODO: Erweitern auf die Methoden deren Aufruf beobachtet werden kann, weil der Angreifer
+  [] -- TODO: Erweitern auf die Serviceen deren Aufruf beobachtet werden kann, weil der Angreifer
      -- einen passenden Resourcecontainer oder LinkResource angreifen kann.
 
 

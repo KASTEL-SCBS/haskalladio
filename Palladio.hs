@@ -12,18 +12,18 @@ data AssemblyRequirementSatisfaction a = AsSystemRequirement | ByAssembly a
 
 
 class (Ord (Parameter m),
-       Ord (Method m),
+       Ord (Service m),
        Ord (Interface m),
        Ord (Component m)  ) => ComponentRepository m where
   data Component m
   data Interface m
   data Parameter m
-  data Method m
+  data Service m
   data DataType m
 
-  methods :: Interface m -> Set (Method m)
-  inputParameters :: Method m -> Set (Parameter m)
-  outputParameters :: Method m -> Set (Parameter m)
+  methods :: Interface m -> Set (Service m)
+  inputParameters :: Service m -> Set (Parameter m)
+  outputParameters :: Service m -> Set (Parameter m)
   typeOf :: Parameter m -> DataType m
   
   

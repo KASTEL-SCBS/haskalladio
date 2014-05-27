@@ -22,9 +22,9 @@ instance P.ComponentRepository ExampleOne where
                             | CurrentConsumptionDataDisplaying
                             deriving (Ord,Eq,Show,Bounded,Enum)
   data Parameter ExampleOne = Consumption
-                            | Return (P.Method ExampleOne)
+                            | Return (P.Service ExampleOne)
                             deriving (Ord,Eq,Show)
-  data Method ExampleOne    = StoreCurrentConsumption
+  data Service ExampleOne    = StoreCurrentConsumption
                             | GetCurrentConsumptionConsumptionDataSending
                             | GetHistoricConsumption
                             | GetCurrentConsumptionCurrentConsumptionDataDisplaying
