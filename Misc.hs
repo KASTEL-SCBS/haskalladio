@@ -28,16 +28,24 @@ implies a b = (not a) || b
 (→) :: Bool -> Bool -> Bool
 (→) = implies
 
-μ :: (Eq a) => (Set a -> Set a) -> Set a
-μ = smallest
+𝝁 :: (Eq a) => (Set a -> Set a) -> Set a
+𝝁 = smallest
+
+(㎲⊒) :: (Eq a) => Set a -> (Set a -> Set a) -> Set a
+(㎲⊒) = smallestContaining
 
 
-smallest :: (Eq a) => (Set a -> Set a) -> Set a
-smallest f = fixiter Set.empty where
+
+smallestContaining :: (Eq a) => Set a -> (Set a -> Set a) -> Set a
+smallestContaining s f = fixiter s where
  fixiter current
   | next    == current = current
   | otherwise          = fixiter next
   where next = f current
+
+smallest :: (Eq a) => (Set a -> Set a) -> Set a
+smallest = smallestContaining Set.empty
+
 
 showByLine :: Show t => [t] -> String
 showByLine set = Prelude.foldr (\x lines -> (show x) ++ "\n" ++ lines) [] set
