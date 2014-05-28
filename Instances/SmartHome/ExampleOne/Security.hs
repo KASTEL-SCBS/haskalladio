@@ -92,6 +92,6 @@ instance ConcreteDesignModel ExampleOne where
    locality DigitalMeterContainer = Unattended
 
    linkLocality link
-     | link == linkMeterController   = Unattended
-     | link == linkControllerTablet  = Outdoors
+     | link == linkMeterController   = Set.fromList [Unattended]
+     | link == linkControllerTablet  = Set.fromList [Outdoors]
 

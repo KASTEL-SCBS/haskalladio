@@ -18,12 +18,19 @@ import Data.Set as Set
 (∪) :: Ord α => Set α -> Set α -> Set α
 (∪) = union
 
+(∩) :: Ord α => Set α -> Set α -> Set α
+(∩) = intersection
+
+isEmpty :: Set a -> Bool
+isEmpty = Set.null
+
 implies a b = (not a) || b
 (→) :: Bool -> Bool -> Bool
 (→) = implies
 
 μ :: (Eq a) => (Set a -> Set a) -> Set a
 μ = smallest
+
 
 smallest :: (Eq a) => (Set a -> Set a) -> Set a
 smallest f = fixiter Set.empty where

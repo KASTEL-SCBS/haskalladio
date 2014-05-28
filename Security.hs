@@ -74,9 +74,7 @@ instance (AbstractDesignModel m) => AnalysisResult m where
 {- Eine Variante eines konkreten Sicherheitsmodells -}
 data Sharing = OpenShared
              | ControlledExclusive
-          -- | ControlledShared
              deriving Eq
--- TODO: was bedeutet ControlledShared
 
 data FurtherConnections = Possible
                         | Existing
@@ -99,7 +97,7 @@ class (Ord (Location m),
   sharing            :: ResourceContainer m -> Sharing
   locality           :: ResourceContainer m -> Location m
 
-  linkLocality       :: LinkingResource m -> Location m
+  linkLocality       :: LinkingResource m -> Set (Location m)
 
 {- Damit erhält man ein Analyseergebnis folgendermaßen: -}
 instance (ConcreteDesignModel m) => AbstractDesignModel m where
@@ -172,7 +170,7 @@ observableServices attacker = fromList $
 linksPhysicalAccessibleBy      :: (ConcreteDesignModel m ) => Attacker m -> Set (LinkingResource m)
 linksPhysicalAccessibleBy attacker =
   Set.fromList [ link | link              <- (linkingresources ⋅),
-                        linkLocality link ∈ locationsAccessibleBy attacker
+                        not $ isEmpty (linkLocality link ∩ locationsAccessibleBy attacker)
                ]
 
 containersPhysicalAccessibleBy :: (ConcreteDesignModel m ) => Attacker m -> Set (ResourceContainer m)
