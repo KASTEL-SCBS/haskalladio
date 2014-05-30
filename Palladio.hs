@@ -97,15 +97,15 @@ assembliesOn container = fromList $
 providedInterfacesOn :: PalladioComponentModel m => ResourceContainer m -> Set (Interface m)
 providedInterfacesOn container = fromList $
   [ interface   | assembly <- elems system,
-                  let container = runsOn assembly
-                      component = componentOf assembly,
+                  container == runsOn assembly,
+                  let component = componentOf assembly,
                   interface <- elems $ provides component
   ]
 requiredInterfacesOn :: PalladioComponentModel m => ResourceContainer m -> Set (Interface m)
 requiredInterfacesOn container = fromList $
   [ interface   | assembly <- elems system,
-                  let container = runsOn assembly
-                      component = componentOf assembly,
+                  container == runsOn assembly,
+                  let component = componentOf assembly,
                   interface <- elems $ requires component
   ]
 
