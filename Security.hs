@@ -158,12 +158,26 @@ accessibleParameters attacker = fromList $
 
 observableServices :: (AbstractDesignModel m) => (Attacker m) -> Set (Service m)
 observableServices attacker = fromList $
-  [ method | interface <- elems $ interfacesAllowedToBeUsedBy attacker,
-             interface ∈ systemRequires,
-             method    <- elems $ methods interface
+  -- Services, deren Aufrufe der Angreifer als regulärer "Benutzer" des Systems beobachten kann
+  [ service | interface <- (interfacesAllowedToBeUsedBy attacker ⋅),
+              interface ∈  systemProvides,
+              service   <- (methods interface ⋅)
   ] ++
-  [] -- TODO: Erweitern auf die Serviceen deren Aufruf beobachtet werden kann, weil der Angreifer
-     -- einen passenden Resourcecontainer oder LinkResource angreifen kann.
+  -- Services, deren Aufrufe der Angreifer beobachten kann, weil er einen entsprechenden ResourceContainer angreifen konnte.
+  [ service | container <- (containersFullyAccessibleBy attacker ⋅),
+              interface <- ((providedInterfacesOn container) ∪ (requiredInterfacesOn container) ⋅),
+              service   <- (methods interface⋅)
+  ] ++
+  -- Services, deren Aufrufe der Angreifer beobachten kann, weil er eine entsprechende LinkResource angreifen konnte.
+  [ service   | link                  <- (linksFullyAccessibleBy attacker⋅),
+                let (containerLeft,
+                     containerRight)   = linkBetween link,
+                left                   <- (assembliesOn containerLeft ⋅),
+                interface              <- (requires (componentOf left) ⋅),
+                let (ByAssembly right) = systemAssembledTo left interface,
+                right                  ∈  assembliesOn containerRight,
+                service                <- (methods interface ⋅)
+  ]
 
 
 
@@ -178,8 +192,6 @@ containersPhysicalAccessibleBy attacker =
   Set.fromList [ container | container          <- (resourcecontainers ⋅),
                              locality container ∈ locationsAccessibleBy attacker
                ]
-
-
 
 
 
