@@ -17,6 +17,13 @@ class ComponentRepository m => InformationFlowSpecification m where
   callsPossiblyInfluencedByCall :: Service m -> Set (Service m)
 
 
+{- Der Sicherheitsbegriff -}
+class (BasicDesignModel m) => (SecurityProperty m) where
+  isSecureWithRespectTo ::  Attacker m -> Bool
+
+
+
+
 {- So soll im einfachsten Fall ein Analyseresult eines Modells aussehen.
    * Mögliche Erweiterung: Berechnung eines "schwächsten Angreifers":
       weakestAttackerWithAccessTo :: DataSet m -> Attacker
@@ -30,9 +37,9 @@ class ComponentRepository m => InformationFlowSpecification m where
 class (BasicDesignModel m) => AnalysisResult m where
   dataAccessibleTo   :: Attacker m -> Set (DataSet m)
 
-{- Der Sicherheitsbegriff -}
-isSecureWithRespectTo :: (AnalysisResult m) => Attacker m -> Bool
-isSecureWithRespectTo attacker = (dataAccessibleTo attacker) ⊆ (dataAllowedToBeAccessedBy attacker)
+instance (AnalysisResult m) => (SecurityProperty m) where
+  isSecureWithRespectTo attacker = (dataAccessibleTo attacker) ⊆ (dataAllowedToBeAccessedBy attacker)
+
 
 
 {- Egal wie genau nun ein Sicherheitsmodell aussieht (sharing,locations etc pp),
