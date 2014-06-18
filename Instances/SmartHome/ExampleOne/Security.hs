@@ -41,12 +41,12 @@ instance BasicDesignModel ExampleOne where
   
   classificationOfCall _ = PublicData
 
-
 instance ConcreteDesignModel ExampleOne where
    data TamperingMethod ExampleOne = PlombeEntfernen
                                    | GerätÖffnen
                                    | WPA2Knacken
                                    | EthernetSnifferBesitzen
+                                   | HasWLANPSK
                                    deriving (Ord,Show,Eq)
    data Location ExampleOne        = Attended   -- "In der Wohnung!?!?"
                                    | Unattended -- "Im Keller?!?!?"
@@ -75,9 +75,6 @@ instance ConcreteDesignModel ExampleOne where
    containerTamperableByAttackerWithAbilities ControllerContainer   abilities =
       PlombeEntfernen ∈ abilities
    
-   linkTamperableByAttackerWithAbilities link abilities
-     | link == linkMeterController  = EthernetSnifferBesitzen ∈ abilities
-     | link == linkControllerTablet = WPA2Knacken ∈ abilities
 
    furtherConnections TabletContainer       = Possible
    furtherConnections ControllerContainer   = Possible

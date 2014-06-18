@@ -58,7 +58,8 @@ class (Ord (DataSet m),
 -}
 class (BasicDesignModel m) => AbstractDesignModel m where
   containersFullyAccessibleBy  :: Attacker m -> Set (ResourceContainer m)
-  linksFullyAccessibleBy       :: Attacker m -> Set (LinkingResource m)
+  linksMetaDataFullyAccessibleBy       :: Attacker m -> Set (LinkingResource m)
+  linksPayloadFullyAccessibleBy       :: Attacker m -> Set (LinkingResource m)
 
 {- Denn damit kann man direkt ein Analyserusultat bestimmen: -}
 instance (AbstractDesignModel m) => AnalysisResult m where
@@ -81,6 +82,14 @@ data FurtherConnections = Possible
                         | Complete
                         deriving Eq
 
+
+class (Ord (Location m),
+       BasicDesignModel m) => LinkAccessModel m where
+  -- linksExposingPayloadWhenPysicalliAccessibleTo
+  exposesPhsicallyAccessiblePayloadTo  :: LinkingResource m -> Attacker m ->  Bool
+  exposesPhsicallyAccessibleMetaDataTo :: LinkingResource m -> Attacker m ->  Bool
+
+
 class (Ord (Location m),
        BasicDesignModel m) => ConcreteDesignModel m where
   data TamperingMethod m
@@ -91,7 +100,6 @@ class (Ord (Location m),
   locationsAccessibleBy :: Attacker m -> Set (Location m)
 
   containerTamperableByAttackerWithAbilities :: ResourceContainer m -> Set (TamperingMethod m) -> Bool
-  linkTamperableByAttackerWithAbilities      :: LinkingResource m   -> Set (TamperingMethod m) -> Bool
 
   furtherConnections :: ResourceContainer m -> FurtherConnections
   sharing            :: ResourceContainer m -> Sharing
@@ -99,8 +107,9 @@ class (Ord (Location m),
 
   linkLocality       :: LinkingResource m -> Set (Location m)
 
+  
 {- Damit erhält man ein Analyseergebnis folgendermaßen: -}
-instance (ConcreteDesignModel m) => AbstractDesignModel m where
+instance (ConcreteDesignModel m, LinkAccessModel m) => AbstractDesignModel m where
  containersFullyAccessibleBy attacker = fromList $
     [ container | container <- (containersPhysicalAccessibleBy attacker ⋅),
                   containerTamperableByAttackerWithAbilities container (tamperingAbilities attacker)
@@ -114,10 +123,16 @@ instance (ConcreteDesignModel m) => AbstractDesignModel m where
                   furtherConnections container == Possible
     ]
 
- linksFullyAccessibleBy attacker =
+ linksPayloadFullyAccessibleBy attacker =
     Set.fromList [ link | link <- (linksPhysicalAccessibleBy attacker⋅),
-                          linkTamperableByAttackerWithAbilities link (tamperingAbilities attacker)
+                          link `exposesPhsicallyAccessiblePayloadTo` attacker
                  ]
+
+ linksMetaDataFullyAccessibleBy attacker =
+    Set.fromList [ link | link <- (linksPhysicalAccessibleBy attacker⋅),
+                          link `exposesPhsicallyAccessibleMetaDataTo` attacker
+                 ]
+
 
 {- ... unter Verwendung folgender "Hilfsbegriffe" ... -}
 accessibleParameters :: (AbstractDesignModel m) => (Attacker m) -> Set (Parameter m)
@@ -144,7 +159,7 @@ accessibleParameters attacker = fromList $
   ] ++
 
   -- Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
-  [ parameter | link                  <- (linksFullyAccessibleBy attacker⋅),
+  [ parameter | link                  <- (linksPayloadFullyAccessibleBy attacker⋅),
                 let (containerLeft,
                      containerRight)   = linkBetween link,
                 left                   <- (assembliesOn containerLeft ⋅),
@@ -169,7 +184,7 @@ observableServices attacker = fromList $
               service   <- (methods interface⋅)
   ] ++
   -- Services, deren Aufrufe der Angreifer beobachten kann, weil er eine entsprechende LinkResource angreifen konnte.
-  [ service   | link                  <- (linksFullyAccessibleBy attacker⋅),
+  [ service   | link                  <- (linksMetaDataFullyAccessibleBy attacker⋅),
                 let (containerLeft,
                      containerRight)   = linkBetween link,
                 left                   <- (assembliesOn containerLeft ⋅),

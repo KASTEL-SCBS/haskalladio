@@ -47,6 +47,13 @@ smallest :: (Eq a) => (Set a -> Set a) -> Set a
 smallest = smallestContaining Set.empty
 
 
+(∀) :: (Eq a, Enum a, Bounded a, Ord a) => (a -> Bool) -> Bool
+(∀) pred = isEmpty $ Set.filter (not.pred) (fromList allValues)
+
+(∃) :: (Eq a, Enum a, Bounded a, Ord a) => (a -> Bool) -> Bool
+(∃) pred = (not.isEmpty) $ Set.filter pred (fromList allValues)
+
+
 showByLine :: Show t => [t] -> String
 showByLine set = Prelude.foldr (\x lines -> (show x) ++ "\n" ++ lines) [] set
 
@@ -55,3 +62,8 @@ class All a where
 
 allValues :: (Bounded a, Enum a) => [a]
 allValues = [minBound..]
+
+data Lol = A | B deriving (Bounded, Enum, Ord, Eq)
+rofl = (∃) tt
+  where tt :: Lol -> Bool
+        tt x = True
