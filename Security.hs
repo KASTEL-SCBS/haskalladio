@@ -55,8 +55,8 @@ class (Ord (DataSet m),
   interfacesAllowedToBeUsedBy :: Attacker m -> Set (Interface m)
   dataAllowedToBeAccessedBy   :: Attacker m -> Set (DataSet m)
 
-  classificationOf  :: (Parameter m) -> (DataSet m)
-  classificationOfCall :: (Service m) -> (DataSet m)
+  classificationOf  :: (Parameter m) -> Set (DataSet m)
+  classificationOfCall :: (Service m) -> Set (DataSet m)
 
 
 

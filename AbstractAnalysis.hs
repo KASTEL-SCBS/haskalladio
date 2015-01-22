@@ -79,5 +79,5 @@ observableServices attacker = fromList $
 {- Denn damit kann man direkt ein Analyserusultat bestimmen: -}
 instance (AbstractDesignModel m) => AnalysisResult m where
   dataAccessibleTo attacker = fromList $
-    [ classificationOf parameter  | parameter <- (accessibleParameters attacker ⋅)] ++
-    [ classificationOfCall method | method    <- (observableServices attacker ⋅)]
+    [ dataSet  | parameter <- (accessibleParameters attacker ⋅), dataSet <- (classificationOf parameter ⋅)] ++
+    [ dataSet  | method    <- (observableServices attacker ⋅),   dataSet <- (classificationOfCall method ⋅) ]

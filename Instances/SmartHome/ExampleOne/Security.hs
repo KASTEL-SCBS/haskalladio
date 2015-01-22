@@ -34,12 +34,12 @@ instance BasicDesignModel ExampleOne where
   dataAllowedToBeAccessedBy Burglar  = fromList [PublicData]
   dataAllowedToBeAccessedBy BlindDeafGuy = fromList [PublicData]
   
-  classificationOf Consumption = InhabitantData
-  classificationOf (Return GetCurrentConsumptionConsumptionDataSending) = InhabitantData
-  classificationOf (Return GetCurrentConsumptionCurrentConsumptionDataDisplaying) = InhabitantData
-  classificationOf (Return GetHistoricConsumption) = ProviderData
+  classificationOf Consumption = fromList [InhabitantData]
+  classificationOf (Return GetCurrentConsumptionConsumptionDataSending) = fromList [InhabitantData]
+  classificationOf (Return GetCurrentConsumptionCurrentConsumptionDataDisplaying) = fromList [InhabitantData]
+  classificationOf (Return GetHistoricConsumption) = fromList [ProviderData]
   
-  classificationOfCall _ = PublicData
+  classificationOfCall _ = fromList [PublicData]
 
 instance ConcreteDesignModel ExampleOne where
    data TamperingMethod ExampleOne = PlombeEntfernen
