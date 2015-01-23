@@ -1,0 +1,23 @@
+\documentclass[varwidth=20cm]{standalone}
+
+\usepackage{rules}
+
+\begin{document}
+\textbf{Komponenten-Repository} (\texttt{ComponentRepository} in \texttt{Palladio.hs})\\
+
+Mengen: $\tobespecified{Component}, \tobespecified{Interfaces}, \tobespecified{Parameters}, \tobespecified{Services}, DataType$ \\
+
+$DataType$: Menge von Palladio Typen \discuss{Vorerst nur Primitive Typen?}\\
+
+Relationen:
+\begin{description}
+  \item[$\tobespecified{services(Interfaces, Services)}$]
+        mit $\tobespecified{services}(i, s)$ gdw. Interface $i$ bietet Service $s$ an
+  \item[$\tobespecified{inputParameters(Service, Parameters)}$]
+        mit $\tobespecified{inputParameters}(s, p)$ gdw. Parameter $p$ ist ein Eingabeparameter vom Service $s$
+  \item[$\tobespecified{outParameters(Service, Parameters)}$]
+        mit $\tobespecified{outputParameters}(s, p)$ gdw. Parameter $p$ ist ein Ausgabeparameter vom Service $s$ \\
+        (Palladio: maximal 1 solches $p$ für jedes $s$)
+  \item[$\tobespecified{\ldots}$]
+\end{description}
+\end{document}

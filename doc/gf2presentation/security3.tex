@@ -1,0 +1,54 @@
+\documentclass[varwidth=18cm]{standalone}
+\usepackage{rules}
+
+\begin{document}
+\textbf{Erweiterte Sicherheits-Modellierung (2/2)} (\texttt{ConcreteDesignModel} in \texttt{Security.hs})\\
+
+Mengen: $Sharing = \left\{openShared, controlledExclusive\right\}$, \\
+        $FurtherConnections = \left\{possible, existing, complete \right\}$, \\
+        $\tobespecified{TamperingMethods}$ \\
+
+
+Funktionen:
+\begin{description}
+  \item[$\tobespecified{furtherConnections :: ResourceContainer \rightarrow FurtherConnections}$]
+        wo $\tobespecified{furtherConnections}(c)$ beschreibt, ob neben den modellierten
+        Verbindungen für den Container $c$ 
+        \begin{itemize}
+           \item keine weiteren Verbindungen mehr bestehen ($complete$)
+           \item weitere Verbindungen bestehen ($existing$)
+           \item keine weiteren Verbindunggen mehr bestehen, 
+                 es aber für Angreifer mit Zugang zur Location von $c$ es möglich ist,
+                 weitere Verbindungen \enquote{anzubringen}
+        \end{itemize} (siehe Folie zu \texttt{AbstractDesginModel}).
+  \item[$\tobespecified{sharing :: ResourceContainer \rightarrow Sharing}$]
+        wo $\tobespecified{sharing}(c)$ beschreibt, ob neben den modellierten
+        Komponenten auf dem Container $c$ noch weitere Komponenten
+        \begin{itemize}
+           \item installiert sein könnten  ($openShared$)
+           \item oder nicht ($controlledExclusive$)
+        \end{itemize} (siehe Folie zu \texttt{AbstractDesginModel}).
+  \item[$\tobespecified{location :: ResourceContainer \rightarrow Location}$]
+        wo $\tobespecified{sharing}(c)$ die Location ist, in der sich $c$ befindet
+\end{description}
+
+
+Relationen:
+\begin{description}
+  \item[$\tobespecified{linkLocations(LinkingResource, Locations)}$]
+        mit $\tobespecified{linkLocations}(lr, l)$ gdw. Wenn Link $lr$
+        von der Location $l$ aus Zugänglich ist.
+
+  \item[$\tobespecified{locationsAccessibleBy(Attacker, Locations)}$]
+        mit $\tobespecified{locationsAccessibleBy}(a, l)$ gdw. wenn Angreifer $a$
+        Zugang zur Locastion $l$ hat (\enquote{Zugetraut wird, dass er ihn sich beschafft}).
+
+  \item[$\tobespecified{tamperingAbilites(Attacker, TamperingMethods)}$]
+        mit $\tobespecified{tamperingAbilites}(a, ta)$ gdw. Angreifer $a$ die
+        Tampering-Methode $ta$ beherrscht.
+
+  \item[$\tobespecified{containerTamperableByAttackerWithAbilities(ResourceContainer,
+        \mathcal{P}\left(TamperingMethods\right))}$]
+        mit $\tobespecified{containerTamperableByAttackerWithAbilities(c, abilities)}$ gdw. die Fähigkeiten $abilities$ ausreichen, den Container $c$ zu knacken
+\end{description}
+\end{document}
