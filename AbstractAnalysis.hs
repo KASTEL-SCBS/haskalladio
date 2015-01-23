@@ -18,22 +18,22 @@ accessibleParameters attacker = fromList $
   -- Ausgabe-Parameter, auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat
   [ parameter | interface <- (interfacesAllowedToBeUsedBy attacker ⋅),
                 interface ∈  systemProvides,
-                method    <- (methods interface⋅),
-                parameter <- (outputParameters method⋅)
+                service   <- (services interface⋅),
+                parameter <- (outputParameters service⋅)
   ] ++
 
   -- Eingabe-Parameter,auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat, weil er vom System Aufgerufen wird.
   [ parameter | interface <- (interfacesAllowedToBeUsedBy attacker ⋅),
                 interface ∈  systemRequires,
-                method    <- (methods interface ⋅),
-                parameter <- (inputParameters method ⋅)
+                service    <- (services interface ⋅),
+                parameter <- (inputParameters service ⋅)
   ] ++
 
   -- Parameter, auf die der Angreifer Zugriff hat, weil er einen entsprechenden ResourceContainer angreifen konnte.
   [ parameter | container <- (containersFullyAccessibleBy attacker ⋅),
                 interface <- ((providedInterfacesOn container) ∪ (requiredInterfacesOn container) ⋅),
-                method    <- (methods interface⋅),
-                parameter <- ((inputParameters method) ∪ (outputParameters method) ⋅)
+                service    <- (services interface⋅),
+                parameter <- ((inputParameters service) ∪ (outputParameters service) ⋅)
   ] ++
 
   -- Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
@@ -44,8 +44,8 @@ accessibleParameters attacker = fromList $
                 interface              <- (requires (componentOf left) ⋅),
                 let (ByAssembly right) = systemAssembledTo left interface,
                 right                  ∈  assembliesOn containerRight,
-                method                 <- (methods interface ⋅),
-                parameter              <- ((inputParameters method) ∪ (outputParameters method) ⋅)
+                service                 <- (services interface ⋅),
+                parameter              <- ((inputParameters service) ∪ (outputParameters service) ⋅)
   ]
 
 
@@ -54,12 +54,12 @@ observableServices attacker = fromList $
   -- Services, deren Aufrufe der Angreifer als regulärer "Benutzer" des Systems beobachten kann
   [ service | interface <- (interfacesAllowedToBeUsedBy attacker ⋅),
               interface ∈  systemProvides,
-              service   <- (methods interface ⋅)
+              service   <- (services interface ⋅)
   ] ++
   -- Services, deren Aufrufe der Angreifer beobachten kann, weil er einen entsprechenden ResourceContainer angreifen konnte.
   [ service | container <- (containersFullyAccessibleBy attacker ⋅),
               interface <- ((providedInterfacesOn container) ∪ (requiredInterfacesOn container) ⋅),
-              service   <- (methods interface⋅)
+              service   <- (services interface⋅)
   ] ++
   -- Services, deren Aufrufe der Angreifer beobachten kann, weil er eine entsprechende LinkResource angreifen konnte.
   [ service   | link                  <- (linksMetaDataFullyAccessibleBy attacker⋅),
@@ -69,7 +69,7 @@ observableServices attacker = fromList $
                 interface              <- (requires (componentOf left) ⋅),
                 let (ByAssembly right) = systemAssembledTo left interface,
                 right                  ∈  assembliesOn containerRight,
-                service                <- (methods interface ⋅)
+                service                <- (services interface ⋅)
   ]
 
 
@@ -80,4 +80,4 @@ observableServices attacker = fromList $
 instance (AbstractDesignModel m) => AnalysisResult m where
   dataAccessibleTo attacker = fromList $
     [ dataSet  | parameter <- (accessibleParameters attacker ⋅), dataSet <- (classificationOf parameter ⋅)] ++
-    [ dataSet  | method    <- (observableServices attacker ⋅),   dataSet <- (classificationOfCall method ⋅) ]
+    [ dataSet  | service    <- (observableServices attacker ⋅),   dataSet <- (classificationOfCall service ⋅) ]

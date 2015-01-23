@@ -21,7 +21,7 @@ class (Ord (Parameter m),
   data Service m
   data DataType m
 
-  methods :: Interface m -> Set (Service m)
+  services :: Interface m -> Set (Service m)
   inputParameters :: Service m -> Set (Parameter m)
   outputParameters :: Service m -> Set (Parameter m)
   typeOf :: Parameter m -> DataType m
@@ -105,6 +105,20 @@ requiredInterfacesOn :: PalladioComponentModel m => ResourceContainer m -> Set (
 requiredInterfacesOn container = fromList $
   [ interface   | assembly <- elems system,
                   container == runsOn assembly,
+                  let component = componentOf assembly,
+                  interface <- elems $ requires component
+  ]
+
+
+providedInterfaces :: PalladioComponentModel m => Set (Interface m)
+providedInterfaces = fromList $
+  [ interface   | assembly <- elems system,
+                  let component = componentOf assembly,
+                  interface <- elems $ provides component
+  ]
+requiredInterfaces :: PalladioComponentModel m => Set (Interface m)
+requiredInterfaces = fromList $
+  [ interface   | assembly <- elems system,
                   let component = componentOf assembly,
                   interface <- elems $ requires component
   ]

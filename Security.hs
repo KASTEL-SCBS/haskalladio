@@ -3,25 +3,18 @@
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE PostfixOperators #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+
 module Security where
 import Data.Set as Set
 import Palladio
 
 import Misc
 
-class ComponentRepository m => InformationFlowSpecification m where
-  possiblyInfluencedBy      :: Parameter m -> Set (Parameter m)
-  callsPossiblyInfluencedBy :: Parameter m -> Set (Service m)
-
-  possiblyInfluencedByCall      :: Service m -> Set (Parameter m)
-  callsPossiblyInfluencedByCall :: Service m -> Set (Service m)
-
 
 {- Der Sicherheitsbegriff -}
 class (BasicDesignModel m) => (SecurityProperty m) where
   isSecureWithRespectTo ::  Attacker m -> Bool
-
-
 
 
 {- So soll im einfachsten Fall ein Analyseresult eines Modells aussehen.

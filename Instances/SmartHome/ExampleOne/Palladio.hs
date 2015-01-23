@@ -34,15 +34,15 @@ instance P.ComponentRepository ExampleOne where
                             deriving (Ord,Eq,Show,Bounded,Enum)
 
 
-  methods CurrentMeterDataReceiving        = fromList [StoreCurrentConsumption]
-  methods ConsumptionDataSending           = fromList [GetCurrentConsumptionConsumptionDataSending, GetHistoricConsumption]
-  methods CurrentConsumptionDataDisplaying = fromList [GetCurrentConsumptionCurrentConsumptionDataDisplaying]
+  services CurrentMeterDataReceiving        = fromList [StoreCurrentConsumption]
+  services ConsumptionDataSending           = fromList [GetCurrentConsumptionConsumptionDataSending, GetHistoricConsumption]
+  services CurrentConsumptionDataDisplaying = fromList [GetCurrentConsumptionCurrentConsumptionDataDisplaying]
   
   inputParameters StoreCurrentConsumption = fromList [Consumption]
   inputParameters _                       = fromList []
   
   outputParameters StoreCurrentConsumption = fromList []
-  outputParameters method = fromList [Return method]
+  outputParameters service = fromList [Return service]
   
   typeOf Consumption = TimedConsumption
   typeOf (Return GetCurrentConsumptionConsumptionDataSending)           = TimedConsumption

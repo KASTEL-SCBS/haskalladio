@@ -6,14 +6,15 @@ import Data.Set as Set
 (∈) :: Ord a => a -> Set a -> Bool
 (∈) = Set.member
 
-(∆) :: Set a -> [a]
-(∆) = Set.elems
-
 (⋅) :: Set a -> [a]
 (⋅) = Set.elems
 
 (⊆) :: Ord a => Set a -> Set a -> Bool
 (⊆) = Set.isSubsetOf
+
+
+(⊇) :: Ord a => Set a -> Set a -> Bool
+(⊇) = flip Set.isSubsetOf
 
 (∪) :: Ord α => Set α -> Set α -> Set α
 (∪) = union
@@ -52,6 +53,13 @@ smallest = smallestContaining Set.empty
 
 (∃) :: (Eq a, Enum a, Bounded a, Ord a) => (a -> Bool) -> Bool
 (∃) pred = (not.isEmpty) $ Set.filter pred (fromList allValues)
+
+
+(∀∈) :: [a] -> (a -> Bool) -> Bool
+(∀∈) = flip all
+
+(∃∈) :: [a] -> (a -> Bool) -> Bool
+(∃∈) = flip any
 
 
 showByLine :: Show t => [t] -> String
