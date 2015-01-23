@@ -42,7 +42,7 @@ instance BasicDesignModel ExampleOne where
   classificationOfCall _ = fromList [PublicData]
 
 instance ConcreteDesignModel ExampleOne where
-   data TamperingMethod ExampleOne = PlombeEntfernen
+   data TamperingAbility ExampleOne = PlombeEntfernen
                                    | GerätÖffnen
                                    | WPA2Knacken
                                    | EthernetSnifferBesitzen
@@ -84,11 +84,11 @@ instance ConcreteDesignModel ExampleOne where
    sharing ControllerContainer   = ControlledExclusive
    sharing DigitalMeterContainer = ControlledExclusive
 
-   locality TabletContainer       = Attended
-   locality ControllerContainer   = Unattended
-   locality DigitalMeterContainer = Unattended
+   location TabletContainer       = Attended
+   location ControllerContainer   = Unattended
+   location DigitalMeterContainer = Unattended
 
-   linkLocality link
+   linkLocation link
      | link == linkMeterController   = Set.fromList [Unattended]
      | link == linkControllerTablet  = Set.fromList [Outdoors]
 

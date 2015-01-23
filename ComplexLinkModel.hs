@@ -20,7 +20,7 @@ class (Ord (Location m),
        BasicDesignModel m) => ComplexLinkAccessModel m where
   data EncryptionScheme m
 
-  linkAccessibleByAttackerWithAbilities :: LinkingResource m -> Set (TamperingMethod m) -> Bool
+  linkAccessibleByAttackerWithAbilities :: LinkingResource m -> Set (TamperingAbility m) -> Bool
   encryptionAppliedOn                   :: LinkingResource m -> OSI -> Set (EncryptionScheme m)
 
   serviceCallDetectableFromLayer        :: LinkingResource m -> OSI
@@ -58,12 +58,12 @@ canAccess link attacker layer =
 
 data DecryptionAbility     = NSA | Hacker | None  deriving (Ord, Enum, Eq, Bounded)
 class (Ord (Location m),
-       Ord (TamperingMethod m),
+       Ord (TamperingAbility m),
        ConcreteDesignModel m) => SimpleLinkProfileModel m where
   linkType               :: LinkingResource m -> LinkProfile
   decryptionAbilityOf    :: Attacker m -> DecryptionAbility
 
-  hasPSK :: TamperingMethod m
+  hasPSK :: TamperingAbility m
 
 
 

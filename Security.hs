@@ -87,20 +87,20 @@ class (Ord (Location m),
 
 class (Ord (Location m),
        BasicDesignModel m) => ConcreteDesignModel m where
-  data TamperingMethod m
+  data TamperingAbility m
   data Location m
 
-  tamperingAbilities    :: Attacker m -> Set (TamperingMethod m)
+  tamperingAbilities    :: Attacker m -> Set (TamperingAbility m)
 
   locationsAccessibleBy :: Attacker m -> Set (Location m)
 
-  containerTamperableByAttackerWithAbilities :: ResourceContainer m -> Set (TamperingMethod m) -> Bool
+  containerTamperableByAttackerWithAbilities :: ResourceContainer m -> Set (TamperingAbility m) -> Bool
 
   furtherConnections :: ResourceContainer m -> FurtherConnections
   sharing            :: ResourceContainer m -> Sharing
-  locality           :: ResourceContainer m -> Location m
+  location           :: ResourceContainer m -> Location m
 
-  linkLocality       :: LinkingResource m -> Set (Location m)
+  linkLocation       :: LinkingResource m -> Set (Location m)
 
   
 {- Damit erhält man ein Analyseergebnis folgendermaßen: -}
@@ -133,13 +133,13 @@ instance (ConcreteDesignModel m, LinkAccessModel m) => AbstractDesignModel m whe
 linksPhysicalAccessibleBy      :: (ConcreteDesignModel m ) => Attacker m -> Set (LinkingResource m)
 linksPhysicalAccessibleBy attacker =
   Set.fromList [ link | link              <- (linkingresources ⋅),
-                        not $ isEmpty (linkLocality link ∩ locationsAccessibleBy attacker)
+                        not $ isEmpty (linkLocation link ∩ locationsAccessibleBy attacker)
                ]
 
 containersPhysicalAccessibleBy :: (ConcreteDesignModel m ) => Attacker m -> Set (ResourceContainer m)
 containersPhysicalAccessibleBy attacker =
   Set.fromList [ container | container          <- (resourcecontainers ⋅),
-                             locality container ∈ locationsAccessibleBy attacker
+                             location container ∈ locationsAccessibleBy attacker
                ]
 
 
