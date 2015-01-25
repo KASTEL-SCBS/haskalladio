@@ -1,0 +1,19 @@
+\documentclass[varwidth=18cm]{standalone}
+\usepackage{rules}
+
+\begin{document}
+\textbf{Erweiterte Sicherheits-Modellierung (3/3)} (\texttt{ConcreteDesignModel} in \texttt{Security.hs})\\
+
+Mengen: $\tobespecified{TamperingMethods}$ \\
+
+Relationen:
+\begin{description}
+  \item[$\tobespecified{tamperingAbilites(Attacker, TamperingMethods)}$]
+        mit $\tobespecified{tamperingAbilites}(a, ta)$ gdw. Angreifer $a$ die
+        Tampering-Methode $ta$ beherrscht.
+
+  \item[$\tobespecified{containerTamperableByAttackerWithAbilities(ResourceContainer,
+        \mathcal{P}\left(TamperingMethods\right))}$]
+        mit $\tobespecified{containerTamperableByAttackerWithAbilities(c, abilities)}$ gdw. die Fähigkeiten $abilities$ ausreichen, den Container $c$ zu knacken
+\end{description}
+\end{document}

@@ -1,0 +1,41 @@
+\documentclass[varwidth=25cm]{standalone}
+\usepackage{rules}
+
+\begin{document}
+\textbf{Hilfsbegriffe 1/n} (\texttt{AbstractDesignModel} in \texttt{Security.hs})\\
+
+
+
+Relationen:
+\begin{description}
+  \item[$\tobeinferred{containersPhysicallyAccessibleBy(Attackers, ResourceContainers)}$]
+        wo $\tobeinferred{containersFullyAccessibleBy(a, rc)}$ gdw. es Angreifer $a$
+        möglich ist, \enquote{physikalischen}  Zugriff auf RessourceContainer $rc$ zu erlangen,
+        also zugang zum \enquote{Standort} von $rc$ hat.
+
+        Dies bedeutet noch nicht notwendigerweise, dass er auch alle Daten dort ablesen kann,
+        z.B. wenn der RessourceContainer keine Schnittstellen hierzu ermöglicht,
+        oder irgendwie gesichert ist.
+\[
+   \inferrule{\tobespecified{location(rc)}=loc \\
+              \tobespecified{locationsAccessibleBy(a,loc)}
+             }
+             {\tobeinferred{containersPhysicalAccessibleBy(a,rc)}}
+\]
+
+
+  \item[$\tobeinferred{linksPhysicallyAccessibleBy(Attackers, LinkingResource)}$]
+        wo $\tobeinferred{containersFullyAccessibleBy(a, rc)}$ gdw. es Angreifer $a$
+        möglich ist, \enquote{physikalischen}  Zugriff auf RessourceContainer $rc$ zu erlangen,
+        also zugang zum \enquote{Standort} von $rc$ hat.
+
+\[
+   \inferrule{\tobespecified{linkLocation(link,loc)} \\
+              \tobespecified{locationsAccessibleBy(a,loc)}
+             }
+             {\tobeinferred{linksPhysicalAccessibleBy(a,rc)}}
+\]
+
+\end{description}
+
+\end{document}
