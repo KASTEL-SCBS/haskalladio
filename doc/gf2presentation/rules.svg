@@ -10,8 +10,8 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="15906"
-   height="11636"
+   width="47220.969"
+   height="12870.139"
    id="svg3112"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.04375"
-     inkscape:cx="26272.78"
-     inkscape:cy="4678"
+     inkscape:zoom="0.021875"
+     inkscape:cx="24907.564"
+     inkscape:cy="5091.9444"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -36,10 +36,10 @@
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0" />
+     fit-margin-top="200"
+     fit-margin-left="200"
+     fit-margin-right="200"
+     fit-margin-bottom="20" />
   <metadata
      id="metadata3117">
     <rdf:RDF>
@@ -55,113 +55,170 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(2210.1428,10082.781)">
+     transform="translate(2863.864,10930.705)">
+    <rect
+       style="fill:#008000;stroke:#000000"
+       id="rect3256-4"
+       width="8640.002"
+       height="4022.8574"
+       x="15869.856"
+       y="-2103.9241" />
+    <rect
+       style="fill:#ffffff;stroke:#000000"
+       id="rect4267-1-4"
+       width="6691.2505"
+       height="2941.5642"
+       x="16844.232"
+       y="-1563.2775" />
+    <rect
+       style="fill:#008000;stroke:#000000"
+       id="rect3256"
+       width="37531.43"
+       height="4022.8574"
+       x="2041.2858"
+       y="-6355.3521" />
+    <rect
+       style="fill:#ffffff;stroke:#000000"
+       id="rect4267-1-6"
+       width="6691.2505"
+       height="2941.5642"
+       x="31884.232"
+       y="-5814.7056" />
+    <rect
+       style="fill:#ffffff;stroke:#000000"
+       id="rect4267-1"
+       width="6691.2505"
+       height="2941.5642"
+       x="24634.162"
+       y="-5814.7056" />
+    <rect
+       style="fill:#ffffff;stroke:#000000"
+       id="rect4267"
+       width="6691.2505"
+       height="2941.5642"
+       x="17571.176"
+       y="-5814.7056" />
+    <rect
+       style="fill:#ffffff;stroke:#000000"
+       id="rect4200"
+       width="6529.626"
+       height="2262.7417"
+       x="10492.026"
+       y="-5475.2944" />
+    <rect
+       style="fill:#ffffff;stroke:#000000"
+       id="rect4133"
+       width="7305.4233"
+       height="2876.9146"
+       x="2637.0806"
+       y="-5782.3809" />
+    <rect
+       style="fill:#0000ff;stroke:#000000"
+       id="rect3681-3"
+       width="34871.957"
+       height="4132.2705"
+       x="9284.6484"
+       y="-10730.205" />
     <rect
        style="fill:#ffffff;stroke:#000000"
        id="rect3882-6-2"
        width="4662.8569"
        height="1988.5714"
        x="39138.43"
-       y="-9749.6377" />
+       y="-9658.3564" />
     <rect
        style="fill:#ffffff;stroke:#000000"
        id="rect3882-6"
        width="4662.8569"
        height="1988.5714"
        x="33858.426"
-       y="-9749.6387" />
+       y="-9658.3564" />
     <rect
        style="fill:#ffffff;stroke:#000000"
        id="rect3882"
        width="4662.8569"
        height="1988.5714"
-       x="30971.428"
-       y="321.71429"
-       transform="translate(-2210.1428,-10082.781)" />
+       x="28761.285"
+       y="-9658.3564" />
     <rect
        style="fill:#ffffff;stroke:#000000"
        id="rect3815"
        width="4914.2856"
        height="1920"
-       x="25760"
-       y="321.71429"
-       transform="translate(-2210.1428,-10082.781)" />
+       x="23549.857"
+       y="-9624.0703" />
     <rect
        style="fill:#ffffff;stroke:#000000"
        id="rect3748"
        width="4891.4287"
        height="2902.8572"
-       x="20594.285"
-       y="-112.57141"
-       transform="translate(-2210.1428,-10082.781)" />
+       x="18384.143"
+       y="-10115.499" />
     <rect
        style="fill:#0000ff;stroke:#000000"
        id="rect3681"
-       width="11565.715"
-       height="4617.1436"
-       x="-228.57144"
-       y="-843.99994"
-       transform="translate(-2210.1428,-10082.781)" />
+       width="11662.69"
+       height="4132.2705"
+       x="-2663.364"
+       y="-10730.205" />
     <rect
        style="fill:#ffffff;stroke:#000000"
        id="rect3679"
        width="3725.7144"
        height="2377.1428"
-       x="16457.143"
-       y="184.57144"
-       transform="translate(-2210.1428,-10082.781)" />
+       x="14247"
+       y="-9852.6416" />
     <rect
        style="fill:#ffffff;stroke:#000000"
        id="rect3612"
        width="4297.1431"
        height="3382.8572"
-       x="11520"
-       y="-249.71426"
-       transform="translate(-2210.1428,-10082.781)" />
+       x="9600.7812"
+       y="-10355.499" />
     <rect
        style="fill:#ffffff;stroke:#000000;stroke-width:0.71602082"
        id="rect3440-7"
        width="5165.9985"
        height="1783.1411"
        x="3686.8579"
-       y="-9829.7803" />
+       y="-9555.6406" />
     <rect
        style="fill:#ffffff;stroke:#000000;stroke-width:0.71602082"
        id="rect3440"
        width="5165.9985"
        height="1783.1411"
        x="-1935.9993"
-       y="-9784.0654" />
+       y="-9555.6406" />
     <image
-       y="-9587.9951"
+       y="-9359.5703"
        x="-1655.6428"
        id="image3437"
        xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/palladio.png"
        height="1391"
        width="4651" />
     <image
-       y="-9500.71"
+       y="-9226.5703"
        x="3907.8572"
        id="image3510"
        xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/palladio2.png"
        height="1125"
        width="4724" />
     <image
-       y="-9858.2812"
-       x="9664.0713"
+       y="-9835.5703"
+       x="9954.9951"
        id="image3609"
        xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/security.png"
        height="2343"
        width="3543" />
     <image
-       y="-9600.21"
+       y="-9486.0703"
        x="14597.929"
        id="image3676"
        xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/security2.png"
        height="1644"
        width="3001" />
     <image
-       y="-9847.1387"
+       y="-9801.5703"
        x="18707.5"
        id="image3745"
        xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/security3.png"
@@ -169,32 +226,74 @@
        width="4199"
        style="fill:#ffffff" />
     <image
-       y="-9347.0664"
+       y="-9210.0703"
        x="23987.643"
        id="image3812"
        xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/security4.png"
        height="1092"
        width="4153" />
     <image
-       y="-9324.21"
+       y="-9210.0703"
        x="28993.357"
        id="image3879"
        xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/security4.png"
        height="1092"
        width="4153" />
     <image
-       y="-9118.7812"
+       y="-8936.0703"
        x="34054.5"
        id="image3946"
        xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/security5.png"
        height="544"
        width="4225" />
     <image
-       y="-9433.9951"
+       y="-9365.5703"
        x="39321"
        id="image4029"
        xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/security6.png"
        height="1403"
        width="4252" />
+    <image
+       y="-5161.9233"
+       x="3369.1167"
+       id="image4130"
+       xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/analysis0.png"
+       height="1636"
+       width="5906" />
+    <image
+       y="-5180.4233"
+       x="10771.515"
+       id="image4197"
+       xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/analysis1.png"
+       height="1673"
+       width="5906" />
+    <image
+       y="-5395.4233"
+       x="17979.963"
+       id="image4264"
+       xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/analysis2.png"
+       height="2103"
+       width="5906" />
+    <image
+       y="-5196.9233"
+       x="24865.164"
+       id="image4331"
+       xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/analysis3.png"
+       height="1706"
+       width="5906" />
+    <image
+       y="-5690.9233"
+       x="32156.006"
+       id="image4414"
+       xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/analysis4.png"
+       height="2694"
+       width="5906" />
+    <image
+       y="-932.99536"
+       x="17044.213"
+       id="image3253"
+       xlink:href="file:///home/martin/haskalladio/doc/gf2presentation/analysis5.png"
+       height="1681"
+       width="5697" />
   </g>
 </svg>
