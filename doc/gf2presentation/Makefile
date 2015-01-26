@@ -3,13 +3,14 @@ PAGES_PDF=$(patsubst %.tex,%.pdf,$(PAGES_TEX))
 PAGES_PNG=$(patsubst %.tex,%.png,$(PAGES_TEX))
 
 PRESENTATION=rules.svg
-.PHONY: all clean clean-latex newversion
+.PHONY: all clean clean-latex newversion force
+.PRECIOUS: $(PAGES_PDF)
 
 all: $(PRESENTATION)
 
 $(PRESENTATION): $(PAGES_PNG)
 
-%.pdf : %.tex
+%.pdf : %.tex force
 	rubber -v -n -1 -I. -s --pdf $<
 
 %.png : %.pdf
@@ -17,6 +18,7 @@ $(PRESENTATION): $(PAGES_PNG)
 
 clean: clean-latex
 	rm -f $(PAGES_PNG)
+	rm -f $(PAGES_PDF)
 	rm -f *~
 
 clean-latex:

@@ -1,0 +1,15 @@
+Verwendete Programme/Pakete
+  pdflatex, inkscape, convert, rubbber, make, mathpartir
+
+aus den entsprechenden ubuntu/debian paketen, also insbesondere:
+  sudo apt-get install inkscape imagemagick rubber make mathpartir
+
+Außerdem verwendet: die  inkscape-extension sozi, wobei mir hier das ubuntu paket "sozi" zu veraltet war.
+Deswegen:
+  http://sozi.baierouge.fr/pages/20-install.html
+
+
+
+Ich hätte auch überhaupt nichts dagegen die Dateistruktur komplett zu ändern
+oder das .svg/sozi Präsentationsformat aufzugeben wenn es dadurch einfacher wird,
+zusammen an den Regeln zu arbeiten.
