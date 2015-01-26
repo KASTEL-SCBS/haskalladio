@@ -31,9 +31,9 @@ Relationen:
 
 \[
    \inferrule{\tobeinferred{dataAccessible(a, ds)} \\
-              \neg \tobespecified{dataAllowedToBeAccessedBy(a)} \\
+              \neg \tobespecified{dataAllowedToBeAccessedBy(a, ds)} \\
              }
-             {\tobeinferred{isInSecureWithRespectTo(Attackers)}}
+             {\tobeinferred{isInSecureWithRespectTo(a)}}
 \]
 
 
