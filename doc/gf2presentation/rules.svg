@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.030935922"
-     inkscape:cx="24907.564"
-     inkscape:cy="5091.9444"
+     inkscape:zoom="0.026130369"
+     inkscape:cx="23610.484"
+     inkscape:cy="6435.0693"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -57,6 +57,14 @@
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Layer 1">
+    <rect
+       transform="translate(-2863.864,-10930.705)"
+       y="-3624.0793"
+       x="-1722.1342"
+       height="21010.037"
+       width="52888.652"
+       id="rect3106"
+       style="fill:none;stroke:#000000" />
     <rect
        y="-2103.9241"
        x="15869.856"
@@ -3070,23 +3078,9 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
      ns1:show-in-frame-list="true"
      ns1:clip="false"
      ns1:hide="false"
-     ns1:sequence="1"
+     ns1:sequence="2"
      ns1:title="palladio"
      ns1:refid="rect3440" />
-  <ns1:frame
-     ns1:refid="rect3679"
-     ns1:title="Untitled"
-     ns1:sequence="20"
-     ns1:hide="false"
-     ns1:clip="false"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="linear"
-     ns1:transition-path-hide="true"
-     id="frame1291" />
   <ns1:frame
      ns1:refid="rect3748"
      ns1:title="Untitled"
@@ -3102,20 +3096,6 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
      ns1:transition-path-hide="true"
      id="frame1265" />
   <ns1:frame
-     ns1:refid="rect3748"
-     ns1:title="Untitled"
-     ns1:sequence="21"
-     ns1:hide="false"
-     ns1:clip="false"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="linear"
-     ns1:transition-path-hide="true"
-     id="frame1293" />
-  <ns1:frame
      ns1:refid="rect3815"
      ns1:title="Untitled"
      ns1:sequence="7"
@@ -3130,20 +3110,6 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
      ns1:transition-path-hide="true"
      id="frame1266" />
   <ns1:frame
-     ns1:refid="rect3815"
-     ns1:title="Untitled"
-     ns1:sequence="22"
-     ns1:hide="false"
-     ns1:clip="false"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="linear"
-     ns1:transition-path-hide="true"
-     id="frame1295" />
-  <ns1:frame
      ns1:refid="rect3882"
      ns1:title="Untitled"
      ns1:sequence="8"
@@ -3157,20 +3123,6 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
      ns1:transition-profile="linear"
      ns1:transition-path-hide="true"
      id="frame1268" />
-  <ns1:frame
-     ns1:refid="rect3882"
-     ns1:title="Untitled"
-     ns1:sequence="23"
-     ns1:hide="false"
-     ns1:clip="false"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="linear"
-     ns1:transition-path-hide="true"
-     id="frame1297" />
   <ns1:frame
      ns1:refid="rect3882-6"
      ns1:title="Untitled"
@@ -3202,7 +3154,7 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
   <ns1:frame
      ns1:refid="rect4133"
      ns1:title="Untitled"
-     ns1:sequence="11"
+     ns1:sequence="12"
      ns1:hide="false"
      ns1:clip="false"
      ns1:show-in-frame-list="true"
@@ -3216,7 +3168,7 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
   <ns1:frame
      ns1:refid="rect4200"
      ns1:title="Untitled"
-     ns1:sequence="12"
+     ns1:sequence="13"
      ns1:hide="false"
      ns1:clip="false"
      ns1:show-in-frame-list="true"
@@ -3230,7 +3182,7 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
   <ns1:frame
      ns1:refid="rect4267"
      ns1:title="Untitled"
-     ns1:sequence="13"
+     ns1:sequence="14"
      ns1:hide="false"
      ns1:clip="false"
      ns1:show-in-frame-list="true"
@@ -3244,7 +3196,7 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
   <ns1:frame
      ns1:refid="rect4267-1"
      ns1:title="Untitled"
-     ns1:sequence="14"
+     ns1:sequence="15"
      ns1:hide="false"
      ns1:clip="false"
      ns1:show-in-frame-list="true"
@@ -3258,7 +3210,7 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
   <ns1:frame
      ns1:refid="rect4267-1-6"
      ns1:title="Untitled"
-     ns1:sequence="15"
+     ns1:sequence="16"
      ns1:hide="false"
      ns1:clip="false"
      ns1:show-in-frame-list="true"
@@ -3270,23 +3222,9 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
      ns1:transition-path-hide="true"
      id="frame1282" />
   <ns1:frame
-     ns1:refid="rect3440"
-     ns1:title="Untitled"
-     ns1:sequence="2"
-     ns1:hide="false"
-     ns1:clip="false"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="linear"
-     ns1:transition-path-hide="true"
-     id="frame1260" />
-  <ns1:frame
      ns1:refid="rect4267-1-4"
      ns1:title="Untitled"
-     ns1:sequence="16"
+     ns1:sequence="18"
      ns1:hide="false"
      ns1:clip="false"
      ns1:show-in-frame-list="true"
@@ -3312,20 +3250,6 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
      ns1:transition-path-hide="true"
      id="frame1261" />
   <ns1:frame
-     ns1:refid="rect3440"
-     ns1:title="Untitled"
-     ns1:sequence="17"
-     ns1:hide="false"
-     ns1:clip="false"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="linear"
-     ns1:transition-path-hide="true"
-     id="frame1286" />
-  <ns1:frame
      ns1:refid="rect3612"
      ns1:title="Untitled"
      ns1:sequence="4"
@@ -3339,20 +3263,6 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
      ns1:transition-profile="linear"
      ns1:transition-path-hide="true"
      id="frame1262" />
-  <ns1:frame
-     ns1:refid="rect3440-7"
-     ns1:title="Untitled"
-     ns1:sequence="18"
-     ns1:hide="false"
-     ns1:clip="false"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="linear"
-     ns1:transition-path-hide="true"
-     id="frame1288" />
   <ns1:frame
      ns1:refid="rect3679"
      ns1:title="Untitled"
@@ -3368,17 +3278,45 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
      ns1:transition-path-hide="true"
      id="frame1264" />
   <ns1:frame
-     ns1:refid="rect3612"
-     ns1:title="Untitled"
-     ns1:sequence="19"
-     ns1:hide="false"
-     ns1:clip="false"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="linear"
+     id="frame1831"
      ns1:transition-path-hide="true"
-     id="frame1290" />
+     ns1:transition-profile="linear"
+     ns1:transition-zoom-percent="0.0"
+     ns1:transition-duration-ms="1000.0"
+     ns1:timeout-ms="5000.0"
+     ns1:timeout-enable="false"
+     ns1:show-in-frame-list="true"
+     ns1:clip="false"
+     ns1:hide="true"
+     ns1:sequence="1"
+     ns1:title="Overview"
+     ns1:refid="rect3106" />
+  <ns1:frame
+     id="frame1158"
+     ns1:transition-path-hide="true"
+     ns1:transition-profile="linear"
+     ns1:transition-zoom-percent="0.0"
+     ns1:transition-duration-ms="1000.0"
+     ns1:timeout-ms="5000.0"
+     ns1:timeout-enable="false"
+     ns1:show-in-frame-list="true"
+     ns1:clip="false"
+     ns1:hide="true"
+     ns1:sequence="17"
+     ns1:title="Overview"
+     ns1:refid="rect3106" />
+  <ns1:frame
+     id="frame1155"
+     ns1:transition-path-hide="true"
+     ns1:transition-profile="linear"
+     ns1:transition-zoom-percent="0.0"
+     ns1:transition-duration-ms="1000.0"
+     ns1:timeout-ms="5000.0"
+     ns1:timeout-enable="false"
+     ns1:show-in-frame-list="true"
+     ns1:clip="false"
+     ns1:hide="true"
+     ns1:sequence="11"
+     ns1:title="Overview"
+     ns1:refid="rect3106" />
 </svg>
