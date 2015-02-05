@@ -3,15 +3,15 @@ PAGES_PDF=$(patsubst %.tex,%.pdf,$(PAGES_TEX))
 PAGES_PNG=$(patsubst %.tex,%.png,$(PAGES_TEX))
 
 PRESENTATION=rules.svg
-.PHONY: all clean clean-latex newversion force
+.PHONY: all clean clean-latex newversion
 .PRECIOUS: $(PAGES_PDF)
 
 all: $(PRESENTATION)
 
 $(PRESENTATION): $(PAGES_PNG)
 
-%.pdf : %.tex force
-	rubber -v -n -1 -I. -s --pdf $<
+%.pdf : %.tex
+	TEXINPUTS=.:./latexstuff/: pdflatex $<
 
 %.png : %.pdf
 	convert -density 600 $< $@
@@ -22,7 +22,7 @@ clean: clean-latex
 	rm -f *~
 
 clean-latex:
-	rubber --clean $(PAGES_TEX)
+	rm -f *.toc *.log *.aux *.tmp *.dvi *.bbl *.blg *.out
 
 NOW:=$(shell date +%Y-%m-%d-%H-%M)
 newversion: $(PRESENTATION)

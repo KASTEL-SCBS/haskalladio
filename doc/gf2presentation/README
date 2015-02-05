@@ -1,8 +1,8 @@
 Verwendete Programme/Pakete
-  pdflatex, inkscape, convert, rubbber, make, mathpartir
+  pdflatex, inkscape, convert, make
 
 aus den entsprechenden ubuntu/debian paketen, also insbesondere:
-  sudo apt-get install inkscape imagemagick rubber make mathpartir
+  sudo apt-get install inkscape imagemagick make
 
 Außerdem verwendet: die  inkscape-extension sozi, wobei mir hier das ubuntu paket "sozi" zu veraltet war.
 Deswegen:
