@@ -4,7 +4,7 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE PostfixOperators #-}
 module AbstractAnalysis where
-import Data.Set as Set
+import Data.Set.Monad as Set
 import Palladio
 import Security
 

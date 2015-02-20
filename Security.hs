@@ -6,7 +6,7 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 
 module Security where
-import Data.Set as Set
+import Data.Set.Monad as Set
 import Palladio
 
 import Misc

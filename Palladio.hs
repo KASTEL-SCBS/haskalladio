@@ -3,7 +3,7 @@
 
 module Palladio where
 
-import Data.Set as Set
+import Data.Set.Monad as Set
 import Misc
 
 type Repository m = Set (Component m)

@@ -4,7 +4,7 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE PostfixOperators #-}
 module TamperableLinkModel where
-import Data.Set as Set
+import Data.Set.Monad as Set
 import Palladio
 import Security
 
@@ -13,7 +13,7 @@ import Misc
 
 class (Ord (Location m),
        BasicDesignModel m) => TamperAbilitiesLinkAccessModel m where
-  linkTamperableByAttackerWithAbilities :: LinkingResource m -> Set (TamperingMethod m) -> Bool
+  linkTamperableByAttackerWithAbilities :: LinkingResource m -> Set (TamperingAbility m) -> Bool
 
 instance (TamperAbilitiesLinkAccessModel m, ConcreteDesignModel m) => LinkAccessModel m where
   link `exposesPhsicallyAccessiblePayloadTo`  attacker = linkTamperableByAttackerWithAbilities link (tamperingAbilities attacker)

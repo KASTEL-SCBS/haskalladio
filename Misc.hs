@@ -1,12 +1,12 @@
 module Misc where
 
-import Data.Set as Set
+import Data.Set.Monad as Set
 
 -- TODO: Use Data.Set.Unicode
 (∈) :: Ord a => a -> Set a -> Bool
 (∈) = Set.member
 
-(⋅) :: Set a -> [a]
+(⋅) :: Ord a => Set a -> [a]
 (⋅) = Set.elems
 
 (⊆) :: Ord a => Set a -> Set a -> Bool
@@ -22,29 +22,29 @@ import Data.Set as Set
 (∩) :: Ord α => Set α -> Set α -> Set α
 (∩) = intersection
 
-isEmpty :: Set a -> Bool
+isEmpty :: Ord a => Set a -> Bool
 isEmpty = Set.null
 
 implies a b = (not a) || b
 (→) :: Bool -> Bool -> Bool
 (→) = implies
 
-𝝁 :: (Eq a) => (Set a -> Set a) -> Set a
+𝝁 :: (Ord a) => (Set a -> Set a) -> Set a
 𝝁 = smallest
 
-(㎲⊒) :: (Eq a) => Set a -> (Set a -> Set a) -> Set a
+(㎲⊒) :: (Ord a) => Set a -> (Set a -> Set a) -> Set a
 (㎲⊒) = smallestContaining
 
 
 
-smallestContaining :: (Eq a) => Set a -> (Set a -> Set a) -> Set a
+smallestContaining :: (Ord a) => Set a -> (Set a -> Set a) -> Set a
 smallestContaining s f = fixiter s where
  fixiter current
   | next    == current = current
   | otherwise          = fixiter next
   where next = f current
 
-smallest :: (Eq a) => (Set a -> Set a) -> Set a
+smallest :: (Ord a) => (Set a -> Set a) -> Set a
 smallest = smallestContaining Set.empty
 
 

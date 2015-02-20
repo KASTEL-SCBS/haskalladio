@@ -18,7 +18,7 @@ import Instances.SmartHome.ExampleOne.ComplexLinkModel
 
 
 import Misc
-import Data.Set
+import Data.Set.Monad
 
 #ifdef ABSTRACT_ANALYSIS
 query1 :: [(Attacker ExampleOne, Set (Parameter ExampleOne))]

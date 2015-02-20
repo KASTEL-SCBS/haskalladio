@@ -4,7 +4,7 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE PostfixOperators #-}
 module ComplexLinkModel where
-import Data.Set as Set
+import Data.Set.Monad as Set
 import Palladio
 import Security
 

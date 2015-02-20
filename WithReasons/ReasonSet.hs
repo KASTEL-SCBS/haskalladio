@@ -32,8 +32,13 @@ grandparents person = [ p'' | p' <- parents person, p'' <- parents p', age p'' >
 
 
 data Relation = Mothers | Fathers | Parents | Grantparents deriving (Eq,Ord,Show)
-data Reason = Axiom Relation Person Person deriving (Eq, Ord, Show)
+data Reason = Axiom Relation Person Person
+            | OldEnough Person
+  deriving (Eq, Ord, Show)
 type WithReason a = WriterT [Reason] Set a
+
+because :: [Reason] -> WithReason ()
+because = tell
 
 mothersM :: Person -> WithReason Person
 mothersM person = do
@@ -56,7 +61,10 @@ parentsM person = msum [ [ m | m <- mothersM person ],
                        ]
 
 grandparentsM :: Person -> WithReason Person
-grandparentsM person = [ p'' | p' <- parentsM person, p'' <- parentsM p', age p'' > 60 ]
+grandparentsM person = [ p'' | p' <- parentsM person, p'' <- parentsM p', age p'' > 60, _ <- because [OldEnough p''] ]
+
+
+
 
 withoutReasons :: Ord a => WithReason a -> Set a
 withoutReasons = map fst . runWriterT

@@ -4,7 +4,7 @@
 module Instances.SmartHome.ExampleOne.Palladio where
 
 import qualified Palladio as P -- hiding (componentOf, runsOn, linkBetween)
-import Data.Set
+import Data.Set.Monad 
 import Misc
 
 data ExampleOne = ExampleOne

@@ -1,7 +1,7 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 module Instances.SmartHome.ExampleOne.Security where
-import Data.Set as Set
+import Data.Set.Monad as Set
 import Instances.SmartHome.ExampleOne.Palladio
 import Security
 import Palladio
