@@ -6,8 +6,8 @@ import Data.Set.Monad as Set
 (∈) :: Ord a => a -> Set a -> Bool
 (∈) = Set.member
 
-(⋅) :: Ord a => Set a -> [a]
-(⋅) = Set.elems
+-- (⋅) :: Ord a => Set a -> [a]
+-- (⋅) = Set.elems
 
 (⊆) :: Ord a => Set a -> Set a -> Bool
 (⊆) = Set.isSubsetOf

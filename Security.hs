@@ -4,6 +4,7 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE PostfixOperators #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE MonadComprehensions #-}
 
 module Security where
 import Data.Set.Monad as Set
@@ -102,45 +103,45 @@ class (Ord (Location m),
 
   linkLocation       :: LinkingResource m -> Set (Location m)
 
-  
+
 {- Damit erhält man ein Analyseergebnis folgendermaßen: -}
 instance (ConcreteDesignModel m, LinkAccessModel m) => AbstractDesignModel m where
- containersFullyAccessibleBy attacker = fromList $
-    [ container | container <- (containersPhysicalAccessibleBy attacker ⋅),
+ containersFullyAccessibleBy attacker =
+    [ container | container <- containersPhysicalAccessibleBy attacker,
                   containerTamperableByAttackerWithAbilities container (tamperingAbilities attacker)
-    ] ++
-    [ container | container <- (resourcecontainers ⋅),
+    ] ∪
+    [ container | container <- resourcecontainers,
                   sharing container == OpenShared,
                   furtherConnections container == Existing
-    ] ++
-    [ container | container <- (containersPhysicalAccessibleBy attacker ⋅),
+    ] ∪
+    [ container | container <- containersPhysicalAccessibleBy attacker,
                   sharing container == OpenShared,
                   furtherConnections container == Possible
     ]
 
  linksPayloadFullyAccessibleBy attacker =
-    Set.fromList [ link | link <- (linksPhysicalAccessibleBy attacker⋅),
-                          link `exposesPhsicallyAccessiblePayloadTo` attacker
-                 ]
+    [ link | link <- linksPhysicalAccessibleBy attacker,
+             link `exposesPhsicallyAccessiblePayloadTo` attacker
+    ]
 
  linksMetaDataFullyAccessibleBy attacker =
-    Set.fromList [ link | link <- (linksPhysicalAccessibleBy attacker⋅),
-                          link `exposesPhsicallyAccessibleMetaDataTo` attacker
-                 ]
+    [ link | link <- linksPhysicalAccessibleBy attacker,
+             link `exposesPhsicallyAccessibleMetaDataTo` attacker
+    ]
 
 
 
 linksPhysicalAccessibleBy      :: (ConcreteDesignModel m ) => Attacker m -> Set (LinkingResource m)
 linksPhysicalAccessibleBy attacker =
-  Set.fromList [ link | link              <- (linkingresources ⋅),
-                        not $ isEmpty (linkLocation link ∩ locationsAccessibleBy attacker)
-               ]
+    [ link | link <- linkingresources,
+             not $ isEmpty (linkLocation link ∩ locationsAccessibleBy attacker)
+    ]
 
 containersPhysicalAccessibleBy :: (ConcreteDesignModel m ) => Attacker m -> Set (ResourceContainer m)
 containersPhysicalAccessibleBy attacker =
-  Set.fromList [ container | container          <- (resourcecontainers ⋅),
-                             location container ∈ locationsAccessibleBy attacker
-               ]
+    [ container | container <- resourcecontainers,
+                  location container ∈ locationsAccessibleBy attacker
+    ]
 
 
 

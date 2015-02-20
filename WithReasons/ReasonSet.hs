@@ -13,12 +13,13 @@ import Test.QuickCheck
 data Person = Inge | Emil | Petra | Willi | Kunibert | Fritz deriving (Eq,Ord,Show)
 
 
-age Fritz = 30
+age Fritz = 80
 age _     = 90
 
 mothers Emil = fromList [Inge]
 mothers Petra = fromList [Inge]
 mothers Willi = fromList [Petra]
+mothers Kunibert = fromList [Petra]
 mothers _  = fromList []
 
 fathers Emil = fromList [Fritz]

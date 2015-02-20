@@ -8,7 +8,7 @@ import Security
 #define ASTRACT_ANALYSIS
 #ifdef ASTRACT_ANALYSIS
 import AbstractAnalysis
-#endif 
+#endif
 
 
 import Instances.SmartHome.ExampleOne.Security

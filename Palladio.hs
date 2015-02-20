@@ -1,5 +1,6 @@
 {-# LANGUAGE TypeFamilies #-} 
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE MonadComprehensions #-}
 
 module Palladio where
 
@@ -89,38 +90,38 @@ isComposite = not . isBasic
 
 
 assembliesOn :: PalladioComponentModel m => ResourceContainer m -> Set (AssemblyContext m)
-assembliesOn container = fromList $
-  [ assembly | assembly <- elems system,
+assembliesOn container = 
+  [ assembly | assembly <- system,
                runsOn assembly ==  container
   ]
 
 providedInterfacesOn :: PalladioComponentModel m => ResourceContainer m -> Set (Interface m)
-providedInterfacesOn container = fromList $
-  [ interface   | assembly <- elems system,
+providedInterfacesOn container =
+  [ interface   | assembly <- system,
                   container == runsOn assembly,
                   let component = componentOf assembly,
-                  interface <- elems $ provides component
+                  interface <- provides component
   ]
 requiredInterfacesOn :: PalladioComponentModel m => ResourceContainer m -> Set (Interface m)
-requiredInterfacesOn container = fromList $
-  [ interface   | assembly <- elems system,
+requiredInterfacesOn container =
+  [ interface   | assembly <- system,
                   container == runsOn assembly,
                   let component = componentOf assembly,
-                  interface <- elems $ requires component
+                  interface <- requires component
   ]
 
 
 providedInterfaces :: PalladioComponentModel m => Set (Interface m)
-providedInterfaces = fromList $
-  [ interface   | assembly <- elems system,
+providedInterfaces =
+  [ interface   | assembly <- system,
                   let component = componentOf assembly,
-                  interface <- elems $ provides component
+                  interface <- provides component
   ]
 requiredInterfaces :: PalladioComponentModel m => Set (Interface m)
-requiredInterfaces = fromList $
-  [ interface   | assembly <- elems system,
+requiredInterfaces = 
+  [ interface   | assembly <- system,
                   let component = componentOf assembly,
-                  interface <- elems $ requires component
+                  interface <- requires component
   ]
 
 
