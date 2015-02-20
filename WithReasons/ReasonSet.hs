@@ -1,5 +1,5 @@
 {-# LANGUAGE MonadComprehensions #-}
-module ReasonSet where
+module WithReasons.ReasonSet where
 
 import Prelude hiding (map)
 import Control.Monad.Trans.Writer.Lazy

@@ -1,5 +1,5 @@
 {-# LANGUAGE MonadComprehensions #-}
-module Reason where
+module WithReason.Reason where
 
 import Control.Monad.Trans.Writer.Lazy
 import Control.Monad(msum)
