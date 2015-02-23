@@ -54,24 +54,15 @@ instance Reasons Relatives where
   data Relation Relatives = Mothers | Fathers | Parents | Grantparents deriving (Eq,Ord,Show,Typeable)
   data Function Relatives = Age deriving (Eq,Ord,Show,Typeable)
 
-
-mothersM :: Person -> WithReason Relatives Person
-mothersM person = do
-   m <- lift $ mothers person
-   tell $ [Axiom2 Mothers person m]
-   return m
+mothersM = liftR2 Mothers mothers
+fathersM = liftR2 Fathers fathers
+ageM = liftF Age age
 
 
-fathersM :: Person -> WithReason Relatives Person
-fathersM person = do
-   f <- lift $ fathers person
-   tell $ [Axiom2 Fathers person f]
-   return f
 
-ageM :: Person -> WithReason Relatives Integer
-ageM person = do
-   tell $ [MapsTo Age person (age person)]
-   return (age person)
+
+
+
 
 parentsM :: Person -> WithReason Relatives Person
 parentsM person = msum [ [ m | m <- mothersM person ],

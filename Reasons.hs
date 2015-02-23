@@ -7,6 +7,8 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE ConstraintKinds #-}
+
 
 
 module Reasons where
@@ -22,6 +24,8 @@ import Data.Set.Monad
 import Test.QuickCheck
 import Data.Typeable
 
+
+type ReasonLike r = (Eq r, Ord r, Show r, Typeable r)
 
 class (Eq (Function r), Ord (Function r), Show (Function r), Typeable (Function r),
        Eq (Relation r), Ord (Relation r), Show (Relation r), Typeable (Relation r)
@@ -59,3 +63,17 @@ because = tell
 
 withoutReasons :: (Ord a, Reasons r) => WithReason r a -> Set a
 withoutReasons = map fst . runWriterT
+
+
+liftR2 :: (Reasons r, ReasonLike a, ReasonLike b) => Relation r -> (a -> Set b) -> (a -> WithReason r b)
+liftR2 r f a = do
+   b <- lift $ f a
+   tell $ [Axiom2 r a b]
+   return b
+
+
+liftF :: (Reasons r, ReasonLike a, ReasonLike b) => Function r -> (a -> b) -> (a -> WithReason r b)
+liftF r f a = do
+   tell $ [MapsTo r a y]
+   return y
+  where y = f a
