@@ -54,6 +54,8 @@ class (Ord (DataSet m),
 
 
 
+
+
 {- Egal wie genau nun ein Sicherheitsmodell aussieht (sharing,locations etc pp),
    es muss möglich sein, damit Folgende Dinge herauszufinden:
 -}
@@ -145,3 +147,18 @@ containersPhysicalAccessibleBy attacker =
 
 
 
+
+
+data Relation = Mothers | Fathers | Parents | Grantparents deriving (Eq,Ord,Show)
+data Reason = Axiom Relation Person Person
+            | OldEnough Person
+  deriving (Eq, Ord, Show)
+type WithReason a = WriterT [Reason] Set a
+
+
+interfacesAllowedToBeUsedBy :: Attacker m -> Set (Interface m)
+
+-- dataAllowedToBeAccessedBy   :: Attacker m -> Set (DataSet m)
+
+  -- classificationOf  :: (Parameter m) -> Set (DataSet m)
+  -- classificationOfCall :: (Service m) -> Set (DataSet m)
