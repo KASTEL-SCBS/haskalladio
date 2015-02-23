@@ -1,13 +1,16 @@
 {-# LANGUAGE TypeFamilies #-} 
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE UndecidableInstances #-}
+{-# LANGUAGE DeriveDataTypeable #-}
 module Instances.SmartHome.ExampleOne.Palladio where
 
 import qualified Palladio as P -- hiding (componentOf, runsOn, linkBetween)
 import Data.Set.Monad 
 import Misc
+import Data.Typeable
 
-data ExampleOne = ExampleOne
+data ExampleOne = ExampleOne deriving Typeable
+
 
 type Id = Integer
 

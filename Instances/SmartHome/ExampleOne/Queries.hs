@@ -4,6 +4,10 @@ module Instances.SmartHome.ExampleOne.Queries where
 import Palladio
 import Instances.SmartHome.ExampleOne.Palladio
 import Security
+import Reasons
+
+import Control.Monad.Trans.Writer.Lazy
+
 
 #define ASTRACT_ANALYSIS
 #ifdef ASTRACT_ANALYSIS
@@ -13,8 +17,8 @@ import AbstractAnalysis
 
 import Instances.SmartHome.ExampleOne.Security
 -- import Instances.SmartHome.ExampleOne.SimpleLinkModel
--- import Instances.SmartHome.ExampleOne.TamperableLinkModel
-import Instances.SmartHome.ExampleOne.ComplexLinkModel
+import Instances.SmartHome.ExampleOne.TamperableLinkModel
+-- import Instances.SmartHome.ExampleOne.ComplexLinkModel
 
 
 import Misc
@@ -36,6 +40,12 @@ query4 = [(attacker, linksMetaDataFullyAccessibleBy attacker) | attacker <- allV
 
 query5 :: [(Attacker ExampleOne, Set (DataSet ExampleOne))]
 query5 = [(attacker, dataAccessibleTo attacker) | attacker <- allValues ]
+
+query6 :: [(Attacker ExampleOne, Set (Insecure,[Reason ExampleOne]))]
+query6 = [(attacker, runWriterT $ isInSecureWithRespectTo attacker) | attacker <- allValues ]
+
+query7 :: [(Attacker ExampleOne, Set (DataSet ExampleOne))]
+query7 = [(attacker, dataAllowedToBeAccessedBy attacker) | attacker <- allValues ]
 
 pretty :: Show t => [t] -> IO ()
 pretty list  = putStrLn $ showByLine $ list

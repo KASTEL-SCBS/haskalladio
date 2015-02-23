@@ -5,17 +5,25 @@
 {-# LANGUAGE PostfixOperators #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE MonadComprehensions #-}
+{-# LANGUAGE ConstraintKinds #-}
+
 
 module Security where
 import Data.Set.Monad as Set
 import Palladio
 
 import Misc
+import Reasons
+import ReasonsModel
 
+import Control.Monad.Trans.Class(lift)
+import Control.Monad(guard)
+
+data Insecure = Insecure deriving (Show,Eq, Ord)
 
 {- Der Sicherheitsbegriff -}
 class (BasicDesignModel m) => (SecurityProperty m) where
-  isSecureWithRespectTo ::  Attacker m -> Bool
+  isInSecureWithRespectTo ::  Attacker m -> WithReason m Insecure
 
 
 {- So soll im einfachsten Fall ein Analyseresult eines Modells aussehen.
@@ -31,15 +39,19 @@ class (BasicDesignModel m) => (SecurityProperty m) where
 class (BasicDesignModel m) => AnalysisResult m where
   dataAccessibleTo   :: Attacker m -> Set (DataSet m)
 
-instance (AnalysisResult m) => (SecurityProperty m) where
-  isSecureWithRespectTo attacker = (dataAccessibleTo attacker) ⊆ (dataAllowedToBeAccessedBy attacker)
+instance (AnalysisResult m, Reasons m) => (SecurityProperty m) where
+  isInSecureWithRespectTo attacker = do
+    dacc <- lift $ dataAccessibleTo attacker
+    guard $ not (dacc ∈ (dataAllowedToBeAccessedBy attacker))
+    because $ [Not (Axiom2 DataAllowedToBeAccessedBy attacker dacc)]
+    return Insecure
 
 
 
 {- Egal wie genau nun ein Sicherheitsmodell aussieht (sharing,locations etc pp),
    es muss mindestens folgende Dinge spezifizieren:
 -}
-class (Ord (DataSet m),
+class (Ord (DataSet m), ReasonLike (DataSet m), ReasonLike (Attacker m),
        PalladioComponentModel m) => BasicDesignModel m where
   data Attacker m
   data DataSet m

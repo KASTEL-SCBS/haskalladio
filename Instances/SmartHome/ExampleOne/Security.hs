@@ -1,5 +1,6 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE DeriveDataTypeable #-}
 module Instances.SmartHome.ExampleOne.Security where
 import Data.Set.Monad as Set
 import Instances.SmartHome.ExampleOne.Palladio
@@ -7,17 +8,20 @@ import Security
 import Palladio
 import Misc
 
+import Data.Typeable
+
+
 instance BasicDesignModel ExampleOne where
   data Attacker ExampleOne = Guest
                            | HandyMan
                            | Anybody
                            | Burglar
                            | BlindDeafGuy
-                           deriving (Ord,Show,Eq,Bounded,Enum)
+                           deriving (Ord,Show,Eq,Bounded,Enum,Typeable)
   data DataSet ExampleOne = InhabitantData
                           | ProviderData
                           | PublicData
-                          deriving (Ord,Show,Eq,Bounded,Enum)
+                          deriving (Ord,Show,Eq,Bounded,Enum,Typeable)
 
   datasets = fromList [InhabitantData, ProviderData, PublicData]
   attackers = fromList [Guest, HandyMan, Anybody]
