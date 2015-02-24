@@ -58,8 +58,8 @@ class (Ord (Parameter m), ReasonLike (Parameter m),
 
 
 class (Ord (LinkingResource m), ReasonLike (LinkingResource m),
-       Ord (ResourceContainer m), ReasonLike (ResourceContainer m),
-       Ord (AssemblyContext m),
+       Ord (ResourceContainer m),
+       Ord (AssemblyContext m), ReasonLike (ResourceContainer m),
        ComponentRepository m) => PalladioComponentModel m where
   data AssemblyContext m
   data ResourceContainer m

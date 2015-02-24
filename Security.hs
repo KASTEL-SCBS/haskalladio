@@ -6,12 +6,15 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE MonadComprehensions #-}
 {-# LANGUAGE ConstraintKinds #-}
+{-# LANGUAGE DeriveDataTypeable #-}
 
 
 module Security where
 import Data.Set.Monad as Set
 import Palladio
 
+
+import Data.Typeable
 import Misc
 import Reasons
 import ReasonsModel
@@ -77,7 +80,7 @@ class (Ord (DataSet m), ReasonLike (DataSet m), ReasonLike (Attacker m),
    es muss möglich sein, damit Folgende Dinge herauszufinden:
 -}
 class (BasicDesignModel m) => AbstractDesignModel m where
-  containersFullyAccessibleBy  :: Attacker m -> Set (ResourceContainer m)
+  containersFullyAccessibleBy  :: Attacker m -> WithReason m (ResourceContainer m)
   linksMetaDataFullyAccessibleBy       :: Attacker m -> Set (LinkingResource m)
   linksPayloadFullyAccessibleBy       :: Attacker m -> Set (LinkingResource m)
 
@@ -90,12 +93,12 @@ class (BasicDesignModel m) => AbstractDesignModel m where
 {- Eine Variante eines konkreten Sicherheitsmodells -}
 data Sharing = OpenShared
              | ControlledExclusive
-             deriving Eq
+             deriving (Show, Eq, Ord, Typeable)
 
 data FurtherConnections = Possible
                         | Existing
                         | Complete
-                        deriving Eq
+                        deriving (Show, Eq, Ord, Typeable)
 
 
 class (Ord (Location m),
@@ -124,18 +127,18 @@ class (Ord (Location m),
 
 
 {- Damit erhält man ein Analyseergebnis folgendermaßen: -}
-instance (ConcreteDesignModel m, LinkAccessModel m) => AbstractDesignModel m where
+instance (ConcreteDesignModel m, LinkAccessModel m, Reasons m) => AbstractDesignModel m where
  containersFullyAccessibleBy attacker =
-    [ container | container <- containersPhysicalAccessibleBy attacker,
+    [ container | container <- containersPhysicalAccessibleByM attacker,
                   containerTamperableByAttackerWithAbilities container (tamperingAbilities attacker)
-    ] ∪
-    [ container | container <- resourcecontainers,
-                  sharing container == OpenShared,
-                  furtherConnections container == Existing
-    ] ∪
-    [ container | container <- containersPhysicalAccessibleBy attacker,
-                  sharing container == OpenShared,
-                  furtherConnections container == Possible
+    ] ⊔
+    [ container | container <- lift $ resourcecontainers,
+                  sharing            <- sharingM container,                       sharing == OpenShared,
+                  furtherConnections <- furtherConnectionsM container, furtherConnections == Existing
+    ] ⊔
+    [ container | container <- lift $ containersPhysicalAccessibleBy attacker,
+                  sharing            <- sharingM container,                       sharing == OpenShared,
+                  furtherConnections <- furtherConnectionsM container, furtherConnections == Possible
     ]
 
  linksPayloadFullyAccessibleBy attacker =
@@ -162,6 +165,15 @@ containersPhysicalAccessibleBy attacker =
                   location container ∈ locationsAccessibleBy attacker
     ]
 
+
+containersPhysicalAccessibleByM :: (ConcreteDesignModel m, Reasons m) => Attacker m -> WithReason m (ResourceContainer m)
+containersPhysicalAccessibleByM = liftI2 ContainerPhysicallyAccessibleBy containersPhysicalAccessibleBy
+
+sharingM :: (ConcreteDesignModel m, Reasons m) => (ResourceContainer m) -> WithReason m Sharing
+sharingM = liftF Sharing sharing
+
+furtherConnectionsM :: (ConcreteDesignModel m, Reasons m) => (ResourceContainer m) -> WithReason m FurtherConnections
+furtherConnectionsM = liftF FurtherConnections furtherConnections
 
 
 {-

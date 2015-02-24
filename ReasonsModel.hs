@@ -23,6 +23,9 @@ instance (Typeable m) => Reasons m where
                   | ContainerFullyAccessible
                   | LinksPayloadFullyAccessibleBy
                   | LinksMetaDataFullyAccessibleBy
-                    deriving (Eq,Ord,Show,Typeable)
-  data Function m = Age deriving (Eq,Ord,Show,Typeable)
+                  | ContainerPhysicallyAccessibleBy
+                  deriving (Eq,Ord,Show,Typeable)
+  data Function m = Sharing
+                  | FurtherConnections
+                  deriving (Eq,Ord,Show,Typeable)
 

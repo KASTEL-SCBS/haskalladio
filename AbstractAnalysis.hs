@@ -34,7 +34,7 @@ accessibleParameters attacker =
   ] ⊔
 
   -- Parameter, auf die der Angreifer Zugriff hat, weil er einen entsprechenden ResourceContainer angreifen konnte.
-  [ parameter | container <- lift $ containersFullyAccessibleBy attacker,
+  [ parameter | container <- containersFullyAccessibleBy attacker,
                 interface <- (providedInterfacesOnM container) ⊔ (requiredInterfacesOnM container),
                 service   <- lift $ services interface,
                 parameter <- lift $ (inputParameters service) ∪ (outputParameters service),
@@ -63,7 +63,7 @@ observableServices attacker =
               service   <- lift $ services interface
   ] ⊔
   -- Services, deren Aufrufe der Angreifer beobachten kann, weil er einen entsprechenden ResourceContainer angreifen konnte.
-  [ service | container <- lift $ containersFullyAccessibleBy attacker,
+  [ service | container <- containersFullyAccessibleBy attacker,
               interface <- (providedInterfacesOnM container) ⊔ (requiredInterfacesOnM container),
               service   <- lift $ services interface,
               _ <- because [Inferred2 ContainerFullyAccessible attacker container]
