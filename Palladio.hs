@@ -17,7 +17,7 @@ data AssemblyRequirementSatisfaction a = AsSystemRequirement | ByAssembly a
 
 class (Ord (Parameter m), ReasonLike (Parameter m),
        Ord (Service m), ReasonLike (Service m),
-       Ord (Interface m),
+       Ord (Interface m), ReasonLike (Interface m),
        Ord (Component m)  ) => ComponentRepository m where
   data Component m
   data Interface m
@@ -57,8 +57,8 @@ class (Ord (Parameter m), ReasonLike (Parameter m),
                       -> Set (Component m)  -- the sub components actually requiring it
 
 
-class (Ord (LinkingResource m),
-       Ord (ResourceContainer m),
+class (Ord (LinkingResource m), ReasonLike (LinkingResource m),
+       Ord (ResourceContainer m), ReasonLike (ResourceContainer m),
        Ord (AssemblyContext m),
        ComponentRepository m) => PalladioComponentModel m where
   data AssemblyContext m

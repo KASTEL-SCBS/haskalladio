@@ -91,8 +91,15 @@ notM r b = do
 withoutReasons :: (Ord a, Reasons r) => WithReason r a -> Set a
 withoutReasons = map fst . runWriterT
 
-liftR2 :: (Reasons r, ReasonLike a, ReasonLike b) => Relation r -> (a -> Set b) -> (a -> WithReason r b)
-liftR2 r f a = do
+
+liftI2 :: (Reasons r, ReasonLike a, ReasonLike b) => Relation r -> (a -> Set b) -> (a -> WithReason r b)
+liftI2 r f a = do
+   b <- lift $ f a
+   because $ [Inferred2 r a b]
+   return b
+
+liftA2 :: (Reasons r, ReasonLike a, ReasonLike b) => Relation r -> (a -> Set b) -> (a -> WithReason r b)
+liftA2 r f a = do
    b <- lift $ f a
    because $ [Axiom2 r a b]
    return b

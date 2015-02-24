@@ -23,7 +23,7 @@ instance P.ComponentRepository ExampleOne where
   data Interface ExampleOne = CurrentMeterDataReceiving
                             | ConsumptionDataSending
                             | CurrentConsumptionDataDisplaying
-                            deriving (Ord,Eq,Show,Bounded,Enum)
+                            deriving (Ord,Eq,Show,Bounded,Enum, Typeable)
   data Parameter ExampleOne = Consumption
                             | Return (P.Service ExampleOne)
                             deriving (Ord,Eq,Show,Typeable)
@@ -104,11 +104,11 @@ instance  P.PalladioComponentModel ExampleOne where
   data ResourceContainer ExampleOne = DigitalMeterContainer
                                     | ControllerContainer
                                     | TabletContainer
-                                    deriving (Ord,Eq,Show,Bounded,Enum)
+                                    deriving (Ord,Eq,Show,Bounded,Enum,Typeable)
   data LinkingResource ExampleOne =
                               Link { linkId :: Id,
                                      linkBetween :: (P.ResourceContainer ExampleOne, P.ResourceContainer ExampleOne)
-                                   } deriving (Ord,Eq,Show)
+                                   } deriving (Ord,Eq,Show, Typeable)
 
 
 

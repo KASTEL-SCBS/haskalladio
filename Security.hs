@@ -48,7 +48,7 @@ instance (AnalysisResult m, Reasons m) => (SecurityProperty m) where
 --dataAccessibleToM = liftR2 DataAccessibleTo dataAccessibleTo
 
 dataAllowedToBeAccessedByM :: (AnalysisResult m, Reasons m) => Attacker m -> WithReason m (DataSet m)
-dataAllowedToBeAccessedByM = liftR2 DataAllowedToBeAccessedBy dataAllowedToBeAccessedBy
+dataAllowedToBeAccessedByM = liftA2 DataAllowedToBeAccessedBy dataAllowedToBeAccessedBy
 
 notDataAllowedToBeAccessedByM :: (AnalysisResult m, Reasons m) => Attacker m -> DataSet m ->  WithReason m ()
 notDataAllowedToBeAccessedByM = liftNot2 DataAllowedToBeAccessedBy dataAllowedToBeAccessedBy

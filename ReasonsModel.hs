@@ -17,6 +17,12 @@ instance (Typeable m) => Reasons m where
                   | DataAccessibleTo
                   | ClassificationOfCall
                   | ClassificationOf
+                  | InterfacesAllowedToBeUsedBy
+                  | ProvidedInterfacesOn
+                  | RequiredInterfacesOn
+                  | ContainerFullyAccessible
+                  | LinksPayloadFullyAccessibleBy
+                  | LinksMetaDataFullyAccessibleBy
                     deriving (Eq,Ord,Show,Typeable)
   data Function m = Age deriving (Eq,Ord,Show,Typeable)
 
