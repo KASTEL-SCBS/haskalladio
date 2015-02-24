@@ -14,7 +14,9 @@ import Reasons
 -- when all we need to be Typable is *Relation m* and *Function m*
 instance (Typeable m) => Reasons m where
   data Relation m = DataAllowedToBeAccessedBy
-                  | DataAccessibleTo 
+                  | DataAccessibleTo
+                  | ClassificationOfCall
+                  | ClassificationOf
                     deriving (Eq,Ord,Show,Typeable)
   data Function m = Age deriving (Eq,Ord,Show,Typeable)
 

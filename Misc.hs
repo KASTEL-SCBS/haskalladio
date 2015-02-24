@@ -2,6 +2,8 @@ module Misc where
 
 import Data.Set.Monad as Set
 
+import Control.Monad(MonadPlus, mplus)
+
 -- TODO: Use Data.Set.Unicode
 (∈) :: Ord a => a -> Set a -> Bool
 (∈) = Set.member
@@ -18,6 +20,9 @@ import Data.Set.Monad as Set
 
 (∪) :: Ord α => Set α -> Set α -> Set α
 (∪) = union
+
+(⊔) :: MonadPlus m =>  m a -> m a -> m a
+(⊔) = mplus
 
 (∩) :: Ord α => Set α -> Set α -> Set α
 (∩) = intersection

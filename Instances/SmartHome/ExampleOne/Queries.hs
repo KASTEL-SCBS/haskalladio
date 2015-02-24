@@ -22,7 +22,7 @@ import Instances.SmartHome.ExampleOne.TamperableLinkModel
 
 
 import Misc
-import Data.Set.Monad
+import Data.Set.Monad as Set
 
 #ifdef ABSTRACT_ANALYSIS
 query1 :: [(Attacker ExampleOne, Set (Parameter ExampleOne))]
@@ -38,14 +38,17 @@ query3 = [(attacker, linksPayloadFullyAccessibleBy attacker) | attacker <- allVa
 query4 :: [(Attacker ExampleOne, Set (LinkingResource ExampleOne))]
 query4 = [(attacker, linksMetaDataFullyAccessibleBy attacker) | attacker <- allValues ]
 
-query5 :: [(Attacker ExampleOne, Set (DataSet ExampleOne))]
-query5 = [(attacker, dataAccessibleTo attacker) | attacker <- allValues ]
+query5 :: [(Attacker ExampleOne, Set (DataSet ExampleOne, [Reason ExampleOne]))]
+query5 = [(attacker, runWriterT $ dataAccessibleTo attacker) | attacker <- allValues ]
 
 query6 :: [(Attacker ExampleOne, Set (Insecure,[Reason ExampleOne]))]
 query6 = [(attacker, runWriterT $ isInSecureWithRespectTo attacker) | attacker <- allValues ]
 
 query7 :: [(Attacker ExampleOne, Set (DataSet ExampleOne))]
 query7 = [(attacker, dataAllowedToBeAccessedBy attacker) | attacker <- allValues ]
+
+woReasons :: [(a, Set (b,[Reason ExampleOne]))] -> [(a, Set b)]
+woReasons = fmap (\(a,s) -> (a, fmap fst s))
 
 pretty :: Show t => [t] -> IO ()
 pretty list  = putStrLn $ showByLine $ list

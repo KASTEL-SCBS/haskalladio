@@ -17,7 +17,6 @@ import Reasons
 import ReasonsModel
 
 import Control.Monad.Trans.Class(lift)
-import Control.Monad(guard)
 
 data Insecure = Insecure deriving (Show,Eq, Ord)
 
@@ -37,15 +36,16 @@ class (BasicDesignModel m) => (SecurityProperty m) where
       dataAccessibleTo   :: Attacker m -> Set ((DataSet m, ChangeRequest m))
 -}
 class (BasicDesignModel m) => AnalysisResult m where
-  dataAccessibleTo   :: Attacker m -> Set (DataSet m)
+  dataAccessibleTo   :: Attacker m -> WithReason m (DataSet m)
 
 instance (AnalysisResult m, Reasons m) => (SecurityProperty m) where
-  isInSecureWithRespectTo attacker = [ Insecure | accessed <- dataAccessibleToM attacker,
+  isInSecureWithRespectTo attacker = [ Insecure | accessed <- dataAccessibleTo attacker,
+                                                         _ <- because [Inferred2 DataAccessibleTo attacker accessed],
                                                          _ <- notDataAllowedToBeAccessedByM attacker accessed
                                      ]
 
-dataAccessibleToM :: (AnalysisResult m, Reasons m) => Attacker m -> WithReason m (DataSet m)
-dataAccessibleToM = liftR2 DataAccessibleTo dataAccessibleTo
+--dataAccessibleToM :: (AnalysisResult m, Reasons m) => Attacker m -> WithReason m (DataSet m)
+--dataAccessibleToM = liftR2 DataAccessibleTo dataAccessibleTo
 
 dataAllowedToBeAccessedByM :: (AnalysisResult m, Reasons m) => Attacker m -> WithReason m (DataSet m)
 dataAllowedToBeAccessedByM = liftR2 DataAllowedToBeAccessedBy dataAllowedToBeAccessedBy

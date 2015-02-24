@@ -42,6 +42,8 @@ data Reason r  where
                Typeable t, Show t, Ord t, Reasons r) => Relation r -> s -> t -> Reason r
     MapsTo :: (Typeable s, Show s, Ord s,
                Typeable t, Show t, Ord t, Reasons r) => Function r -> s -> t -> Reason r
+    Inferred2 :: (Typeable s, Show s, Ord s,
+                  Typeable t, Show t, Ord t, Reasons r) => Relation r -> s -> t -> Reason r
     Not    :: Reason r -> Reason r
 deriving instance Show (Reason r)
 
@@ -54,6 +56,7 @@ instance Ord (Reason r) where
   Axiom1 r x    <= Axiom1 r' x'    = r <  r' || (r == r' && ( Just x <= cast x' ))
   Axiom2 r x y  <= Axiom2 r' x' y' = r <  r' || (r == r' && ((Just x <= cast x') || (Just x == cast x') && Just y <= cast y'))
   MapsTo f x y  <= MapsTo f' x' y' = f <  f' || (f == f' && ((Just x <= cast x') || (Just x == cast x') && Just y <= cast y'))
+  Inferred2 r x y  <= Inferred2 r' x' y' = r <  r' || (r == r' && ((Just x <= cast x') || (Just x == cast x') && Just y <= cast y'))
   Not r         <= Not r'          = r <= r'
 
   Axiom1 _ _    <= _               = True
@@ -62,6 +65,8 @@ instance Ord (Reason r) where
   _             <= Axiom2 _ _ _    = False
   MapsTo _ _ _  <= _               = True
   _             <= MapsTo _ _ _    = False
+  Inferred2 _ _ _  <= _               = True
+  _             <= Inferred2 _ _ _    = False
   Not _         <= _               = True
   _             <= Not _           = False
 

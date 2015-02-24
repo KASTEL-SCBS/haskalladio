@@ -26,12 +26,12 @@ instance P.ComponentRepository ExampleOne where
                             deriving (Ord,Eq,Show,Bounded,Enum)
   data Parameter ExampleOne = Consumption
                             | Return (P.Service ExampleOne)
-                            deriving (Ord,Eq,Show)
+                            deriving (Ord,Eq,Show,Typeable)
   data Service ExampleOne    = StoreCurrentConsumption
                             | GetCurrentConsumptionConsumptionDataSending
                             | GetHistoricConsumption
                             | GetCurrentConsumptionCurrentConsumptionDataDisplaying
-                            deriving (Ord,Eq,Show,Bounded,Enum)
+                            deriving (Ord,Eq,Show,Bounded,Enum,Typeable)
   data DataType ExampleOne  = TimedConsumption
                             | ConsumptionHistory
                             deriving (Ord,Eq,Show,Bounded,Enum)

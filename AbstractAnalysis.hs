@@ -10,7 +10,10 @@ import Palladio
 import Security
 
 import Misc
+import Reasons
+import ReasonsModel
 
+import Control.Monad.Trans.Class(lift)
 
 
 {- ... unter Verwendung folgender "Hilfsbegriffe" ... -}
@@ -78,7 +81,14 @@ observableServices attacker =
 
 
 {- Denn damit kann man direkt ein Analyserusultat bestimmen: -}
-instance (AbstractDesignModel m) => AnalysisResult m where
-  dataAccessibleTo attacker = 
-    [ dataSet  | parameter <- accessibleParameters attacker, dataSet <- classificationOf parameter] ∪
-    [ dataSet  | service   <- observableServices attacker,   dataSet <- classificationOfCall service]
+instance (AbstractDesignModel m, Reasons m) => AnalysisResult m where
+  dataAccessibleTo attacker =
+    [ dataSet  | parameter <- lift $ accessibleParameters attacker, dataSet <- classificationOfM parameter] ⊔
+    [ dataSet  | service   <- lift $ observableServices attacker,   dataSet <- classificationOfCallM service]
+
+
+classificationOfM :: (BasicDesignModel m, Reasons m) => Parameter m -> WithReason m (DataSet m)
+classificationOfM = liftR2 ClassificationOf classificationOf
+
+classificationOfCallM :: (BasicDesignModel m, Reasons m) => Service m -> WithReason m (DataSet m)
+classificationOfCallM = liftR2 ClassificationOfCall classificationOfCall

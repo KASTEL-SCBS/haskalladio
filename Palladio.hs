@@ -1,10 +1,13 @@
 {-# LANGUAGE TypeFamilies #-} 
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MonadComprehensions #-}
+{-# LANGUAGE ConstraintKinds #-}
+
 
 module Palladio where
 
 import Data.Set.Monad as Set
+import Reasons
 import Misc
 
 type Repository m = Set (Component m)
@@ -12,8 +15,8 @@ type Repository m = Set (Component m)
 data AssemblyRequirementSatisfaction a = AsSystemRequirement | ByAssembly a
 
 
-class (Ord (Parameter m),
-       Ord (Service m),
+class (Ord (Parameter m), ReasonLike (Parameter m),
+       Ord (Service m), ReasonLike (Service m),
        Ord (Interface m),
        Ord (Component m)  ) => ComponentRepository m where
   data Component m
