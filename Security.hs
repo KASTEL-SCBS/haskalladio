@@ -40,13 +40,18 @@ class (BasicDesignModel m) => AnalysisResult m where
   dataAccessibleTo   :: Attacker m -> Set (DataSet m)
 
 instance (AnalysisResult m, Reasons m) => (SecurityProperty m) where
-  isInSecureWithRespectTo attacker = do
-    dacc <- lift $ dataAccessibleTo attacker
-    guard $ not (dacc ∈ (dataAllowedToBeAccessedBy attacker))
-    because $ [Not (Axiom2 DataAllowedToBeAccessedBy attacker dacc)]
-    return Insecure
+  isInSecureWithRespectTo attacker = [ Insecure | accessed <- dataAccessibleToM attacker,
+                                                         _ <- notDataAllowedToBeAccessedByM attacker accessed
+                                     ]
 
+dataAccessibleToM :: (AnalysisResult m, Reasons m) => Attacker m -> WithReason m (DataSet m)
+dataAccessibleToM = liftR2 DataAccessibleTo dataAccessibleTo
 
+dataAllowedToBeAccessedByM :: (AnalysisResult m, Reasons m) => Attacker m -> WithReason m (DataSet m)
+dataAllowedToBeAccessedByM = liftR2 DataAllowedToBeAccessedBy dataAllowedToBeAccessedBy
+
+notDataAllowedToBeAccessedByM :: (AnalysisResult m, Reasons m) => Attacker m -> DataSet m ->  WithReason m ()
+notDataAllowedToBeAccessedByM = liftNot2 DataAllowedToBeAccessedBy dataAllowedToBeAccessedBy
 
 {- Egal wie genau nun ein Sicherheitsmodell aussieht (sharing,locations etc pp),
    es muss mindestens folgende Dinge spezifizieren:

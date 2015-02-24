@@ -16,7 +16,7 @@ module Reasons where
 
 import Prelude hiding (map)
 import Control.Monad.Trans.Writer.Lazy
-import Control.Monad(msum)
+import Control.Monad(msum, guard)
 import Control.Monad.Trans.Class(lift)
 
 import Data.Set.Monad
@@ -24,6 +24,8 @@ import Data.Set.Monad
 import Test.QuickCheck
 import Data.Typeable
 
+
+import Misc
 
 type ReasonLike r = (Eq r, Ord r, Show r, Typeable r)
 
@@ -68,19 +70,34 @@ type WithReason r a = WriterT [Reason r] Set a
 because :: [Reason r] -> WithReason r ()
 because = tell
 
+neg :: (Ord a) => Reason r -> WithReason r a -> WithReason r ()
+neg r a = do
+  guard $ isEmpty successes
+  because $ [Not r]
+  return ()
+ where successes  = runWriterT a
+
+notM :: Reason r -> Bool ->  WithReason r ()
+notM r b = do
+  guard $ not b
+  because $ [Not r]
+  return ()
+
 withoutReasons :: (Ord a, Reasons r) => WithReason r a -> Set a
 withoutReasons = map fst . runWriterT
-
 
 liftR2 :: (Reasons r, ReasonLike a, ReasonLike b) => Relation r -> (a -> Set b) -> (a -> WithReason r b)
 liftR2 r f a = do
    b <- lift $ f a
-   tell $ [Axiom2 r a b]
+   because $ [Axiom2 r a b]
    return b
 
+liftNot2 :: (Reasons r, ReasonLike a, ReasonLike b) => Relation r -> (a -> Set b) -> (a -> b -> WithReason r ())
+liftNot2 r f a b = notM (Axiom2 r a b)
+                        (b ∈ f a )
 
 liftF :: (Reasons r, ReasonLike a, ReasonLike b) => Function r -> (a -> b) -> (a -> WithReason r b)
 liftF r f a = do
-   tell $ [MapsTo r a y]
+   because $ [MapsTo r a y]
    return y
   where y = f a
