@@ -24,6 +24,8 @@ instance (Typeable m) => Reasons m where
                   | LinksPayloadFullyAccessibleBy
                   | LinksMetaDataFullyAccessibleBy
                   | ContainerPhysicallyAccessibleBy
+                  | ContainerSecuredByMethod
+                  | TamperingAbilities
                   deriving (Eq,Ord,Show,Typeable)
   data Function m = Sharing
                   | FurtherConnections

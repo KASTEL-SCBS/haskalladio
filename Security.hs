@@ -108,7 +108,7 @@ class (Ord (Location m),
   exposesPhsicallyAccessibleMetaDataTo :: LinkingResource m -> Attacker m ->  Bool
 
 
-class (Ord (Location m),
+class (Ord (Location m), ReasonLike (TamperingAbility m),
        BasicDesignModel m) => ConcreteDesignModel m where
   data TamperingAbility m
   data Location m
@@ -117,7 +117,7 @@ class (Ord (Location m),
 
   locationsAccessibleBy :: Attacker m -> Set (Location m)
 
-  containerTamperableByAttackerWithAbilities :: ResourceContainer m -> Set (TamperingAbility m) -> Bool
+  containerSecuredByMethod :: ResourceContainer m -> Set (TamperingAbility m)
 
   furtherConnections :: ResourceContainer m -> FurtherConnections
   sharing            :: ResourceContainer m -> Sharing
@@ -130,7 +130,9 @@ class (Ord (Location m),
 instance (ConcreteDesignModel m, LinkAccessModel m, Reasons m) => AbstractDesignModel m where
  containersFullyAccessibleBy attacker =
     [ container | container <- containersPhysicalAccessibleByM attacker,
-                  containerTamperableByAttackerWithAbilities container (tamperingAbilities attacker)
+                  method    <- containerSecuredByMethodM container,
+                  ability   <- tamperingAbilitiesM attacker,
+                  method == ability
     ] ⊔
     [ container | container <- lift $ resourcecontainers,
                   sharing            <- sharingM container,                       sharing == OpenShared,
@@ -175,6 +177,12 @@ sharingM = liftF Sharing sharing
 furtherConnectionsM :: (ConcreteDesignModel m, Reasons m) => (ResourceContainer m) -> WithReason m FurtherConnections
 furtherConnectionsM = liftF FurtherConnections furtherConnections
 
+
+tamperingAbilitiesM :: (ConcreteDesignModel m, Reasons m) => (Attacker m) -> WithReason m (TamperingAbility m)
+tamperingAbilitiesM = liftA2 TamperingAbilities tamperingAbilities
+
+containerSecuredByMethodM :: (ConcreteDesignModel m, Reasons m) => ResourceContainer m -> WithReason m (TamperingAbility m)
+containerSecuredByMethodM = liftA2 ContainerSecuredByMethod  containerSecuredByMethod
 
 {-
 interfacesAllowedToBeUsedBy :: Attacker m -> Set (Interface m)
