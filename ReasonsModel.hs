@@ -30,9 +30,12 @@ instance (Typeable m) => Reasons m where
                   | LocationsAccessibleBy
                   | LinkLocation
                   | ObservableServices
+                  | ExposesPhsicallyAccessiblePayloadTo
+                  | ExposesPhsicallyAccessibleMetaDataTo
                   deriving (Eq,Ord,Show,Typeable)
   data Function m = Sharing
                   | FurtherConnections
                   | Location
+                  | IsEncrypted
                   deriving (Eq,Ord,Show,Typeable)
 

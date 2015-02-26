@@ -103,8 +103,8 @@ data FurtherConnections = Possible
 class (Ord (Location m),
        BasicDesignModel m) => LinkAccessModel m where
   -- linksExposingPayloadWhenPysicalliAccessibleTo
-  exposesPhsicallyAccessiblePayloadTo  :: LinkingResource m -> Attacker m ->  Bool
-  exposesPhsicallyAccessibleMetaDataTo :: LinkingResource m -> Attacker m ->  Bool
+  exposesPhsicallyAccessiblePayloadTo  :: LinkingResource m -> WithReason m (Attacker m)
+  exposesPhsicallyAccessibleMetaDataTo :: LinkingResource m -> WithReason m (Attacker m)
 
 
 class (Ord (Location m), ReasonLike (TamperingAbility m), ReasonLike (Location m),
@@ -143,14 +143,16 @@ instance (ConcreteDesignModel m, LinkAccessModel m, Reasons m) => AbstractDesign
     ] `hence` (Inferred2 ContainerFullyAccessibleBy attacker)
 
  linksPayloadFullyAccessibleBy attacker =
-    [ link | link <- linksPhysicalAccessibleBy attacker,
-             link `exposesPhsicallyAccessiblePayloadTo` attacker
+    [ link | link  <- linksPhysicalAccessibleBy attacker,
+             other <- exposesPhsicallyAccessiblePayloadTo link,
+             attacker == other
     ] `hence` (Inferred2 LinksPayloadFullyAccessibleBy attacker)
 
 
  linksMetaDataFullyAccessibleBy attacker =
-    [ link | link <- linksPhysicalAccessibleBy attacker,
-             link `exposesPhsicallyAccessibleMetaDataTo` attacker
+    [ link | link  <- linksPhysicalAccessibleBy attacker,
+             other <- exposesPhsicallyAccessibleMetaDataTo link,
+             attacker == other
     ] `hence` (Inferred2 LinksMetaDataFullyAccessibleBy attacker)
 
 
