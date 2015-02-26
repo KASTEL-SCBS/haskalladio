@@ -43,7 +43,6 @@ class (BasicDesignModel m) => AnalysisResult m where
 
 instance (AnalysisResult m, Reasons m) => (SecurityProperty m) where
   isInSecureWithRespectTo attacker = [ Insecure | accessed <- dataAccessibleTo attacker,
-                                                         _ <- because [Inferred2 DataAccessibleTo attacker accessed],
                                                          _ <- notDataAllowedToBeAccessedByM attacker accessed
                                      ]
 
@@ -141,19 +140,18 @@ instance (ConcreteDesignModel m, LinkAccessModel m, Reasons m) => AbstractDesign
     [ container | container <- containersPhysicalAccessibleBy attacker,
                   sharing            <- sharingM container,                       sharing == OpenShared,
                   furtherConnections <- furtherConnectionsM container, furtherConnections == Possible
-    ]
+    ] `hence` (Inferred2 ContainerFullyAccessibleBy attacker)
 
  linksPayloadFullyAccessibleBy attacker =
     [ link | link <- linksPhysicalAccessibleBy attacker,
-             link `exposesPhsicallyAccessiblePayloadTo` attacker,
-             _ <- because [Inferred2 LinksPayloadFullyAccessibleBy attacker link]
-    ]
+             link `exposesPhsicallyAccessiblePayloadTo` attacker
+    ] `hence` (Inferred2 LinksPayloadFullyAccessibleBy attacker)
+
 
  linksMetaDataFullyAccessibleBy attacker =
     [ link | link <- linksPhysicalAccessibleBy attacker,
-             link `exposesPhsicallyAccessibleMetaDataTo` attacker,
-             _ <- because [Inferred2 LinksMetaDataFullyAccessibleBy attacker link]
-    ]
+             link `exposesPhsicallyAccessibleMetaDataTo` attacker
+    ] `hence` (Inferred2 LinksMetaDataFullyAccessibleBy attacker)
 
 
 
@@ -162,18 +160,17 @@ linksPhysicalAccessibleBy attacker =
     [ link | link <- lift $ linkingresources,
              location <- linkLocationM link,
              accessible <- locationsAccessibleByM attacker,
-             location == accessible,
-             _ <- because [Inferred2 LinksPhysicallyAccessibleBy attacker link]
-    ]
+             location == accessible
+    ] `hence` (Inferred2 LinksPhysicallyAccessibleBy attacker)
 
 containersPhysicalAccessibleBy :: (ConcreteDesignModel m, Reasons m) => Attacker m -> WithReason m (ResourceContainer m)
 containersPhysicalAccessibleBy attacker =
     [ container | container <- lift $ resourcecontainers,
                   location <- locationM container,
                   accessible <- locationsAccessibleByM attacker,
-                  location == accessible,
-                  _ <- because [Inferred2 ContainerPhysicallyAccessibleBy attacker container]
-    ]
+                  location == accessible
+    ] `hence` (Inferred2 ContainerPhysicallyAccessibleBy attacker)
+
 
 {-
 containersPhysicalAccessibleByM :: (ConcreteDesignModel m, Reasons m) => Attacker m -> WithReason m (ResourceContainer m)

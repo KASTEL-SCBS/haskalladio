@@ -20,15 +20,16 @@ instance (Typeable m) => Reasons m where
                   | InterfacesAllowedToBeUsedBy
                   | ProvidedInterfacesOn
                   | RequiredInterfacesOn
-                  | ContainerFullyAccessible
                   | LinksPayloadFullyAccessibleBy
                   | LinksMetaDataFullyAccessibleBy
                   | LinksPhysicallyAccessibleBy
+                  | ContainerFullyAccessibleBy
                   | ContainerPhysicallyAccessibleBy
                   | ContainerSecuredByMethod
                   | TamperingAbilities
                   | LocationsAccessibleBy
                   | LinkLocation
+                  | ObservableServices
                   deriving (Eq,Ord,Show,Typeable)
   data Function m = Sharing
                   | FurtherConnections

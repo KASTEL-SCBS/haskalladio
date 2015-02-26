@@ -37,8 +37,7 @@ accessibleParameters attacker =
   [ parameter | container <- containersFullyAccessibleBy attacker,
                 interface <- (providedInterfacesOnM container) ⊔ (requiredInterfacesOnM container),
                 service   <- lift $ services interface,
-                parameter <- lift $ (inputParameters service) ∪ (outputParameters service),
-                _ <- because [Inferred2 ContainerFullyAccessible attacker container]
+                parameter <- lift $ (inputParameters service) ∪ (outputParameters service)
   ] ⊔
 
   -- Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
@@ -50,8 +49,7 @@ accessibleParameters attacker =
                 let (ByAssembly right) =  systemAssembledTo left interface,
                 right                  ∈  assembliesOn containerRight,
                 service                <- lift $ services interface,
-                parameter              <- lift $ (inputParameters service) ∪ (outputParameters service),
-                _ <- because [Inferred2 LinksPayloadFullyAccessibleBy attacker link]
+                parameter              <- lift $ (inputParameters service) ∪ (outputParameters service)
   ]
 
 
@@ -65,8 +63,7 @@ observableServices attacker =
   -- Services, deren Aufrufe der Angreifer beobachten kann, weil er einen entsprechenden ResourceContainer angreifen konnte.
   [ service | container <- containersFullyAccessibleBy attacker,
               interface <- (providedInterfacesOnM container) ⊔ (requiredInterfacesOnM container),
-              service   <- lift $ services interface,
-              _ <- because [Inferred2 ContainerFullyAccessible attacker container]
+              service   <- lift $ services interface
   ] ⊔
   -- Services, deren Aufrufe der Angreifer beobachten kann, weil er eine entsprechende LinkResource angreifen konnte.
   [ service   | link                   <- linksMetaDataFullyAccessibleBy attacker,
@@ -76,9 +73,8 @@ observableServices attacker =
                 interface              <- lift $ requires (componentOf left),
                 let (ByAssembly right) = systemAssembledTo left interface,
                 right                  ∈  assembliesOn containerRight,
-                service                <- lift $ services interface,
-                _ <- because [Inferred2 LinksMetaDataFullyAccessibleBy attacker link]
-  ]
+                service                <- lift $ services interface
+  ] `hence` (Inferred2 ObservableServices attacker)
 
 
 
@@ -87,8 +83,12 @@ observableServices attacker =
 {- Denn damit kann man direkt ein Analyserusultat bestimmen: -}
 instance (AbstractDesignModel m, Reasons m) => AnalysisResult m where
   dataAccessibleTo attacker =
-    [ dataSet  | parameter <- accessibleParameters attacker, dataSet <- classificationOfM parameter] ⊔
-    [ dataSet  | service   <- observableServices attacker,   dataSet <- classificationOfCallM service]
+    [ dataSet  | parameter <- accessibleParameters attacker,
+                 dataSet   <- classificationOfM parameter
+    ] ⊔
+    [ dataSet  | service <- observableServices attacker,
+                 dataSet <- classificationOfCallM service
+    ] `hence` (Inferred2 DataAccessibleTo attacker)
 
 
 classificationOfM :: (BasicDesignModel m, Reasons m) => Parameter m -> WithReason m (DataSet m)

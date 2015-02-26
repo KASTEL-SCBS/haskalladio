@@ -75,6 +75,12 @@ type WithReason r a = WriterT [Reason r] Set a
 because :: [Reason r] -> WithReason r ()
 because = tell
 
+hence :: WithReason r a -> (a -> Reason r) -> WithReason r a
+-- hence a r =  (tell r) >> a
+hence a r = do x <- a
+               tell [(r x)]
+               return x
+
 neg :: (Ord a) => Reason r -> WithReason r a -> WithReason r ()
 neg r a = do
   guard $ isEmpty successes
@@ -113,3 +119,4 @@ liftF r f a = do
    because $ [MapsTo r a y]
    return y
   where y = f a
+
