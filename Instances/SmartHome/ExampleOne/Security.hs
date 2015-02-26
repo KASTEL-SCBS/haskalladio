@@ -56,7 +56,7 @@ instance ConcreteDesignModel ExampleOne where
                                    | Unattended -- "Im Keller?!?!?"
                                    | Outdoors
                                    | Public
-                                   deriving (Ord,Show,Eq)
+                                   deriving (Ord,Show,Eq, Typeable)
 
    tamperingAbilities Guest    = fromList []
    tamperingAbilities HandyMan = fromList []

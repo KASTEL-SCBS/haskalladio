@@ -42,7 +42,7 @@ accessibleParameters attacker =
   ] ⊔
 
   -- Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
-  [ parameter | link                   <- linksPayloadFullyAccessibleByM attacker,
+  [ parameter | link                   <- linksPayloadFullyAccessibleBy attacker,
                 let (containerLeft,
                      containerRight)   =  linkBetween link,
                 left                   <- lift $ assembliesOn containerLeft,
@@ -69,7 +69,7 @@ observableServices attacker =
               _ <- because [Inferred2 ContainerFullyAccessible attacker container]
   ] ⊔
   -- Services, deren Aufrufe der Angreifer beobachten kann, weil er eine entsprechende LinkResource angreifen konnte.
-  [ service   | link                   <- linksMetaDataFullyAccessibleByM attacker,
+  [ service   | link                   <- linksMetaDataFullyAccessibleBy attacker,
                 let (containerLeft,
                      containerRight)   =  linkBetween link,
                 left                   <- lift $ assembliesOn containerLeft,
@@ -108,9 +108,11 @@ providedInterfacesOnM = liftI2 ProvidedInterfacesOn providedInterfacesOn
 requiredInterfacesOnM :: (PalladioComponentModel m, Reasons m) => ResourceContainer m -> WithReason m (Interface m)
 requiredInterfacesOnM = liftI2 RequiredInterfacesOn requiredInterfacesOn
 
+{-
 linksMetaDataFullyAccessibleByM :: (AbstractDesignModel m, Reasons m) => Attacker m -> WithReason m (LinkingResource m)
 linksMetaDataFullyAccessibleByM = liftI2 LinksMetaDataFullyAccessibleBy linksMetaDataFullyAccessibleBy
 
 
 linksPayloadFullyAccessibleByM :: (AbstractDesignModel m, Reasons m) => Attacker m -> WithReason m (LinkingResource m)
 linksPayloadFullyAccessibleByM = liftI2 LinksPayloadFullyAccessibleBy linksPayloadFullyAccessibleBy
+-}

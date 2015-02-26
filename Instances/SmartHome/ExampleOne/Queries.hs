@@ -32,11 +32,11 @@ query1 = [(attacker, accessibleParameters attacker) | attacker <- allValues ]
 query2 :: [(Attacker ExampleOne, Set (ResourceContainer ExampleOne,[Reason ExampleOne]))]
 query2 = [(attacker, runWriterT $ containersFullyAccessibleBy attacker) | attacker <- allValues ]
 
-query3 :: [(Attacker ExampleOne, Set (LinkingResource ExampleOne))]
-query3 = [(attacker, linksPayloadFullyAccessibleBy attacker) | attacker <- allValues ]
+query3 :: [(Attacker ExampleOne, Set (LinkingResource ExampleOne, [Reason ExampleOne]))]
+query3 = [(attacker, runWriterT $ linksPayloadFullyAccessibleBy attacker) | attacker <- allValues ]
 
-query4 :: [(Attacker ExampleOne, Set (LinkingResource ExampleOne))]
-query4 = [(attacker, linksMetaDataFullyAccessibleBy attacker) | attacker <- allValues ]
+query4 :: [(Attacker ExampleOne, Set (LinkingResource ExampleOne, [Reason ExampleOne]))]
+query4 = [(attacker, runWriterT $ linksMetaDataFullyAccessibleBy attacker) | attacker <- allValues ]
 
 query5 :: [(Attacker ExampleOne, Set (DataSet ExampleOne, [Reason ExampleOne]))]
 query5 = [(attacker, runWriterT $ dataAccessibleTo attacker) | attacker <- allValues ]

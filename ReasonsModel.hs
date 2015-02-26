@@ -23,11 +23,15 @@ instance (Typeable m) => Reasons m where
                   | ContainerFullyAccessible
                   | LinksPayloadFullyAccessibleBy
                   | LinksMetaDataFullyAccessibleBy
+                  | LinksPhysicallyAccessibleBy
                   | ContainerPhysicallyAccessibleBy
                   | ContainerSecuredByMethod
                   | TamperingAbilities
+                  | LocationsAccessibleBy
+                  | LinkLocation
                   deriving (Eq,Ord,Show,Typeable)
   data Function m = Sharing
                   | FurtherConnections
+                  | Location
                   deriving (Eq,Ord,Show,Typeable)
 

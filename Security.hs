@@ -81,8 +81,8 @@ class (Ord (DataSet m), ReasonLike (DataSet m), ReasonLike (Attacker m),
 -}
 class (BasicDesignModel m) => AbstractDesignModel m where
   containersFullyAccessibleBy  :: Attacker m -> WithReason m (ResourceContainer m)
-  linksMetaDataFullyAccessibleBy       :: Attacker m -> Set (LinkingResource m)
-  linksPayloadFullyAccessibleBy       :: Attacker m -> Set (LinkingResource m)
+  linksMetaDataFullyAccessibleBy     :: Attacker m -> WithReason m (LinkingResource m)
+  linksPayloadFullyAccessibleBy      :: Attacker m -> WithReason m (LinkingResource m)
 
 
 
@@ -108,7 +108,7 @@ class (Ord (Location m),
   exposesPhsicallyAccessibleMetaDataTo :: LinkingResource m -> Attacker m ->  Bool
 
 
-class (Ord (Location m), ReasonLike (TamperingAbility m),
+class (Ord (Location m), ReasonLike (TamperingAbility m), ReasonLike (Location m),
        BasicDesignModel m) => ConcreteDesignModel m where
   data TamperingAbility m
   data Location m
@@ -129,7 +129,7 @@ class (Ord (Location m), ReasonLike (TamperingAbility m),
 {- Damit erhält man ein Analyseergebnis folgendermaßen: -}
 instance (ConcreteDesignModel m, LinkAccessModel m, Reasons m) => AbstractDesignModel m where
  containersFullyAccessibleBy attacker =
-    [ container | container <- containersPhysicalAccessibleByM attacker,
+    [ container | container <- containersPhysicalAccessibleBy attacker,
                   method    <- containerSecuredByMethodM container,
                   ability   <- tamperingAbilitiesM attacker,
                   method == ability
@@ -138,38 +138,47 @@ instance (ConcreteDesignModel m, LinkAccessModel m, Reasons m) => AbstractDesign
                   sharing            <- sharingM container,                       sharing == OpenShared,
                   furtherConnections <- furtherConnectionsM container, furtherConnections == Existing
     ] ⊔
-    [ container | container <- lift $ containersPhysicalAccessibleBy attacker,
+    [ container | container <- containersPhysicalAccessibleBy attacker,
                   sharing            <- sharingM container,                       sharing == OpenShared,
                   furtherConnections <- furtherConnectionsM container, furtherConnections == Possible
     ]
 
  linksPayloadFullyAccessibleBy attacker =
     [ link | link <- linksPhysicalAccessibleBy attacker,
-             link `exposesPhsicallyAccessiblePayloadTo` attacker
+             link `exposesPhsicallyAccessiblePayloadTo` attacker,
+             _ <- because [Inferred2 LinksPayloadFullyAccessibleBy attacker link]
     ]
 
  linksMetaDataFullyAccessibleBy attacker =
     [ link | link <- linksPhysicalAccessibleBy attacker,
-             link `exposesPhsicallyAccessibleMetaDataTo` attacker
+             link `exposesPhsicallyAccessibleMetaDataTo` attacker,
+             _ <- because [Inferred2 LinksMetaDataFullyAccessibleBy attacker link]
     ]
 
 
 
-linksPhysicalAccessibleBy      :: (ConcreteDesignModel m ) => Attacker m -> Set (LinkingResource m)
+linksPhysicalAccessibleBy      :: (ConcreteDesignModel m, Reasons m) => Attacker m -> WithReason m (LinkingResource m)
 linksPhysicalAccessibleBy attacker =
-    [ link | link <- linkingresources,
-             not $ isEmpty (linkLocation link ∩ locationsAccessibleBy attacker)
+    [ link | link <- lift $ linkingresources,
+             location <- linkLocationM link,
+             accessible <- locationsAccessibleByM attacker,
+             location == accessible,
+             _ <- because [Inferred2 LinksPhysicallyAccessibleBy attacker link]
     ]
 
-containersPhysicalAccessibleBy :: (ConcreteDesignModel m ) => Attacker m -> Set (ResourceContainer m)
+containersPhysicalAccessibleBy :: (ConcreteDesignModel m, Reasons m) => Attacker m -> WithReason m (ResourceContainer m)
 containersPhysicalAccessibleBy attacker =
-    [ container | container <- resourcecontainers,
-                  location container ∈ locationsAccessibleBy attacker
+    [ container | container <- lift $ resourcecontainers,
+                  location <- locationM container,
+                  accessible <- locationsAccessibleByM attacker,
+                  location == accessible,
+                  _ <- because [Inferred2 ContainerPhysicallyAccessibleBy attacker container]
     ]
 
-
+{-
 containersPhysicalAccessibleByM :: (ConcreteDesignModel m, Reasons m) => Attacker m -> WithReason m (ResourceContainer m)
 containersPhysicalAccessibleByM = liftI2 ContainerPhysicallyAccessibleBy containersPhysicalAccessibleBy
+-}
 
 sharingM :: (ConcreteDesignModel m, Reasons m) => (ResourceContainer m) -> WithReason m Sharing
 sharingM = liftF Sharing sharing
@@ -183,6 +192,16 @@ tamperingAbilitiesM = liftA2 TamperingAbilities tamperingAbilities
 
 containerSecuredByMethodM :: (ConcreteDesignModel m, Reasons m) => ResourceContainer m -> WithReason m (TamperingAbility m)
 containerSecuredByMethodM = liftA2 ContainerSecuredByMethod  containerSecuredByMethod
+
+linkLocationM :: (ConcreteDesignModel m, Reasons m) => (LinkingResource m) -> WithReason m (Location m)
+linkLocationM = liftA2 LinkLocation linkLocation
+
+locationM :: (ConcreteDesignModel m, Reasons m) => (ResourceContainer m) -> WithReason m (Location m)
+locationM = liftF Location location
+
+
+locationsAccessibleByM ::  (ConcreteDesignModel m, Reasons m) => (Attacker m) -> WithReason m (Location m)
+locationsAccessibleByM = liftA2 LocationsAccessibleBy locationsAccessibleBy
 
 {-
 interfacesAllowedToBeUsedBy :: Attacker m -> Set (Interface m)
