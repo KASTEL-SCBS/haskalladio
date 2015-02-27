@@ -2,42 +2,7 @@
 \usepackage{rules}
 
 \begin{document}
-\textbf{Hilfsbegriffe 5/n} (in \texttt{AbstractAnalysis.hs})\\
-
-
-Relationen:
-\begin{description}
-  \item[$\tobeinferred{dataAccessibleTo(Attackers, DataSets)}$]
-        wo $\tobeinferred{dataAccessibleTo(a, ds)}$ gdw. es Angreifer $a$
-        möglich ist, Informationen über Daten aus der Klasse $ds$ zu lernen.
-
-\[
-   \inferrule{\tobeinferred{accessibleParameters(a, p)} \\
-              \tobespecified{classificationOf(p, ds)} \\
-             }
-             {\tobeinferred{dataAccessibleTo(a, ds)}}
-\]
-
-\[
-   \inferrule{\tobeinferred{observableServices(a, s)} \\
-              \tobespecified{classificationOfCall(s, ds)} \\
-             }
-             {\tobeinferred{dataAccessibleTo(a, ds)}}
-\]
-
-  \item[$\tobeinferred{isInSecureWithRespectTo(Attackers)}$] wo
-       $\tobeinferred{isInSecureWithRespectTo(a)}$ gdw. das Systemmodell für 
-       angenommenen Angreifer $a$ unsicher ist
-
-\[
-   \inferrule{\tobeinferred{dataAccessible(a, ds)} \\
-              \neg \tobespecified{dataAllowedToBeAccessedBy(a, ds)} \\
-             }
-             {\tobeinferred{isInSecureWithRespectTo(a)}}
-\]
-
-
-\end{description}
+\input{contents/analysis5cont.tex}
 
 
 \end{document}

@@ -2,46 +2,5 @@
 \usepackage{rules}
 
 \begin{document}
-\textbf{Hilfsbegriffe 2/n} (\texttt{AbstractDesignModel} in \texttt{Security.hs})\\
-
-
-
-Relationen:
-\begin{description}
-  \item[$\tobeinferred{containersFullyAccessibleBy(Attackers, ResourceContainers)}$]
-        wo $\tobeinferred{containersFullyAccessibleBy(a, rc)}$ gdw. es Angreifer a
-        möglich ist, vollen Zugriff zu gelangen auf alle Informationen die 
-        auf dem RessourceContainer $rc$ zu finden sind:
-
-\[
-   \inferrule{\tobeinferred{containersPhysicalAccessibleBy(a,rc)} \\
-              \tobespecified{containerTamperableByAttackerWithAbilities(c, tamperingAbilities(a))} 
-             }
-             {\tobeinferred{containersFullyAccessibleBy(a, rc)}}
-\]
-
-\[
-   \inferrule{\tobeinferred{containersPhysicalAccessibleBy(a,rc)} \\
-              \tobespecified{sharing(rc)=openShared} \\
-              \tobespecified{furtherConnections(rc)=possible}
-             }
-             {\tobeinferred{containersFullyAccessibleBy(a, rc)}}
-\]
-
-\[
-   \inferrule{\tobespecified{sharing(rc)=openShared} \\
-              \tobespecified{furtherConnections(rc)=existing}
-             }
-             {\tobeinferred{containersFullyAccessibleBy(a, rc)}}
-\]
-\end{description}
-
-
-\discuss{Ist in der zweiten Regel die Bedingung $\tobespecified{sharing(container)=openShared}$
-wirklich gerechtfertigt? Kann $a$ nicht selbst dann durch tampern an die Daten ran, wenn $rc$ $controlledExclusive$ ist? 
-}
-\\[0.5cm]
-\discuss{Letzte Regel ist recht pessimistisch: hier wird \emph{jedem} Angreifer zugetraut,
-dass er irgendwie ein Böses Programm (z.B. ne App) auf $rc$ installiert bekommt.}
-
+\input{contents/analysis2cont.tex}
 \end{document}

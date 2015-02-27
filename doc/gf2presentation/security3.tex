@@ -2,32 +2,7 @@
 \usepackage{rules}
 
 \begin{document}
-\textbf{Erweiterte Sicherheits-Modellierung (2/3)} (\texttt{ConcreteDesignModel} in \texttt{Security.hs})\\
 
-Mengen: $Sharing = \left\{openShared, controlledExclusive\right\}$, \\
-        $FurtherConnections = \left\{possible, existing, complete \right\}$, \\
-
-
-Funktionen:
-\begin{description}
-  \item[$\tobespecified{furtherConnections :: ResourceContainer \rightarrow FurtherConnections}$]
-        wo $\tobespecified{furtherConnections}(c)$ beschreibt, ob neben den modellierten
-        Verbindungen für den Container $c$ 
-        \begin{itemize}
-           \item keine weiteren Verbindungen mehr bestehen ($complete$)
-           \item weitere Verbindungen bestehen ($existing$)
-           \item keine weiteren Verbindunggen mehr bestehen, 
-                 es aber für Angreifer mit Zugang zur Location von $c$ es möglich ist,
-                 weitere Verbindungen \enquote{anzubringen}
-        \end{itemize} (siehe Folie zu \texttt{AbstractDesginModel}).
-  \item[$\tobespecified{sharing :: ResourceContainer \rightarrow Sharing}$]
-        wo $\tobespecified{sharing}(c)$ beschreibt, ob neben den modellierten
-        Komponenten auf dem Container $c$ noch weitere Komponenten
-        \begin{itemize}
-           \item installiert sein könnten  ($openShared$)
-           \item oder nicht ($controlledExclusive$)
-        \end{itemize} (siehe Folie zu \texttt{AbstractDesginModel}).
-\end{description}
-
+\input{contents/security3cont.tex}
 
 \end{document}

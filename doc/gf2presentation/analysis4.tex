@@ -2,68 +2,7 @@
 \usepackage{rules}
 
 \begin{document}
-\textbf{Hilfsbegriffe 4/n} (in \texttt{AbstractAnalysis.hs})\\
 
-
-Relationen:
-\begin{description}
-  \item[$\tobeinferred{accessibleParameters(Attackers, Parameters)}$]
-        wo $\tobeinferred{accessibleParameters(a, p)}$ gdw. es Angreifer $a$
-        möglich ist, Informationen über Daten zu lernen, die als Parameter $p$
-        übergeben werden. 
-
-\[
-   \inferrule{\tobespecified{interfacesAllowedToBeUsedBy(a, i)} \\
-              \tobespecified{systemProvides(i)} \\
-              \tobespecified{services(i,s)} \\
-              \tobespecified{outputParameters(s,p)}
-             }
-             {\tobeinferred{accessibleParameters(a, p)}}
-\]
-
-\[
-   \inferrule{\tobespecified{interfacesAllowedToBeUsedBy(a, i)} \\
-              \tobespecified{systemRequires(i)} \\
-              \tobespecified{services(i,s)} \\
-              \tobespecified{inputParameters(s,p)}
-             }
-             {\tobeinferred{accessibleParameters(a, p)}}
-\]
-
-
-
-\[
-   \inferrule{\tobeinferred{containersFullyAccessibleBy(a, rc)} \\
-              \tobespecified{providedInterfacesOn(rc, i)} \vee 
-              \tobespecified{requiredInterfacesOn(rc, i)}       \\
-              \tobespecified{services(i,s)} \\
-              \tobespecified{outputParameters(s,p)} \vee
-              \tobespecified{inputParameters(s,p)} \\
-             }
-             {\tobeinferred{accessibleParameters(a, p)}}
-\]
-
-
-\[
-   \inferrule{\tobeinferred{linksPayloadFullyAccessibleBy(a, link)} \\
-              \tobespecified{linkBetween(link, rcleft, rcright)} \\
-              \tobespecified{assembliesOn(assemblyleft, rcleft)} \\
-              \tobespecified{assembliesOn(assemblyright, rcright)} \\
-              \tobespecified{requires(i, componentOf assemblyLeft)} \\
-              \tobespecified{systemAssembledTo(assemblyleft,i,assemblyright)} \\
-              \tobespecified{services(i,s)} \\
-              \tobespecified{outputParameters(s,p)} \vee
-              \tobespecified{inputParameters(s,p)} \\
-             }
-             {\tobeinferred{accessibleParameters(a, p)}}
-\]
-
-  \item[$\tobeinferred{observableServices(Attackers, Service)}$] ähnlich
-
-
-\end{description}
-
-\todo{Meta Daten} \\
-\discuss{Was fehlt noch?}
+\input{./contents/analysis4cont.tex}
 
 \end{document}

@@ -1,0 +1,19 @@
+\textbf{Komponenten-Repository} (\texttt{ComponentRepository} in \texttt{Palladio.hs})\\
+
+% \discuss{SG: Max: How does one navigate to the different elements within the model? Assumption: We want to alalyse the security of a concrete System, modelled in Palladio?}
+
+Mengen: $\tobespecified{Component}, \tobespecified{Interfaces}, \tobespecified{Parameters}, \tobespecified{Services}, DataType$ \\
+
+$DataType$: Menge von Palladio Typen \discuss{Vorerst nur Primitive Typen?}\\
+
+Relationen:
+\begin{description}
+  \item[$\tobespecified{services(Interfaces, Services)}$]
+        mit $\tobespecified{services}(i, s)$ gdw. Interface $i$ bietet Service $s$ an
+  \item[$\tobespecified{inputParameters(Service, Parameters)}$]
+        mit $\tobespecified{inputParameters}(s, p)$ gdw. Parameter $p$ ist ein Eingabeparameter vom Service $s$
+  \item[$\tobespecified{outputParameters(Service, Parameters)}$]
+        mit $\tobespecified{outputParameters}(s, p)$ gdw. Parameter $p$ ist ein Ausgabeparameter vom Service $s$ \\
+        (Palladio: maximal 1 solches $p$ für jedes $s$)
+  \item[$\tobespecified{\ldots}$]
+\end{description} 

@@ -1,0 +1,28 @@
+\textbf{Hilfsbegriffe 0/n} (\texttt{LinkAccessModel} in \texttt{Security.hs})\\
+
+In beiden Varianten interessiert uns folgende \tobeinferred{abgeleitete} Begriffe:
+
+Relationen:
+\begin{description}
+  \item[$\tobeinferred{exposesPhsicallyAccessiblePayloadTo(LinkingResources, Attackerss)}$]
+        wo $\tobeinferred{exposesPhsicallyAccessiblePayloadTo(link, a)}$
+        gdw. $a$ kann \enquote{Nutzdaten} auf $link$ lesen, falls er \enquote{physischen} Zugriff
+        auf das Medium erlangt.
+
+  \item[$\tobeinferred{exposesPhsicallyAccessibleMetaDataTo(LinkingResources, Attackerss)}$]
+        wo $\tobeinferred{exposesPhsicallyAccessiblePayloadTo(link, a)}$
+        gdw. $a$ kann \enquote{Meta Daten} auf $link$ lesen, falls er \enquote{physischen} Zugriff
+        auf das Medium erlangt.
+  
+  \item[Für das Simple Modell:]
+\[
+   \inferrule{\neg \tobespecified{isEncrypted(link)} \\
+             }
+             {\tobeinferred{exposesPhsicallyAccessiblePayloadTo(link,a)}}
+\]
+\[
+   \inferrule{\ }
+             {\tobeinferred{exposesPhsicallyAccessibleMetaData(link,a)}}
+\]
+
+\end{description}

@@ -1,0 +1,46 @@
+\textbf{Erweiterte Sicherheits-Modellierung (2/3)} (\texttt{ConcreteDesignModel} in \texttt{Security.hs})\\
+
+Mengen: $Sharing = \left\{openShared, controlledExclusive\right\}$, \\
+        $FurtherConnections = \left\{possible, existing, complete \right\}$, \\
+
+
+\textbf{Deployed components on some hardware}\\
+\underline{Intuition}: To ensure that not all components running on some ressource container have to be specified, it can be specified that there might be other software running.\\
+\underline{Semantics}: Only those components deployed on some ressource container $rc$ are running on the hardware, which are explicitly modeled, if the ressource container has the stereotype $<<controlledExclusive>>$.
+If $rc$ has the stereotype $<<openShared>>$, there might be arbitrary other, possibly unknown, software deployed on the hardware. \\
+\underline{Semantics}: $sharing(rc) = openShared$ iff $hasStereotype(rc, <<openShared>>)$.  $sharing(rc) = controlledExclusive$ iff $hasStereotype(rc, <<controlledExclusive>>)$.
+\discuss{This function is not necesarily well defined.}
+
+\textbf{Connectivity} \\
+\underline{Intuition}: Appart from linking ressources explicitly modelled, a ressource container might have additional possibilities for connectivity.
+These may network connections, USB connections or others.
+Alos, there might be additional connectivity possible, for example, if the ressource container has a USB Port, which could be used, if somebody has physical access to the ressource container.
+This might also be some kind of WiFi switch, which is off, but might be set to on, if some entity has physical access.\\
+\underline{Syntax}: All posiible connectivity of a resource container $rc$ is modelled, if $rc$ is annotated with the stereotype $<<connectivity~complete>>$.
+Connections exist, but are not explicitly modelled, if $<<connectivity~existing>>$.
+No further connections exist, but could be established by some entity having pohysical access, if $<<connectivity~possible>>$.\\
+\underline{Semantics}: $furtherConnections(rc) = complete$ iff $hasStereotype(rc, <<connectivity~complete>>)$.\\
+$furtherConnections(rc) = existing$ iff $hasStereotype(rc, <<connectivity~existing>>)$\\
+$furtherConnections(rc) = possible$ iff $hasStereotype(rc, <<connectivity~possible>>)$\\
+\discuss{This function might not be well defined. Set some default.}
+        
+Funktionen:
+\begin{description}
+  \item[$\tobespecified{furtherConnections :: ResourceContainer \rightarrow FurtherConnections}$]
+        wo $\tobespecified{furtherConnections}(c)$ beschreibt, ob neben den modellierten
+        Verbindungen für den Container $c$ 
+        \begin{itemize}
+           \item keine weiteren Verbindungen mehr bestehen ($complete$)
+           \item weitere Verbindungen bestehen ($existing$)
+           \item keine weiteren Verbindunggen mehr bestehen, 
+                 es aber für Angreifer mit Zugang zur Location von $c$ es möglich ist,
+                 weitere Verbindungen \enquote{anzubringen}
+        \end{itemize} (siehe Folie zu \texttt{AbstractDesginModel}).
+  \item[$\tobespecified{sharing :: ResourceContainer \rightarrow Sharing}$]
+        wo $\tobespecified{sharing}(c)$ beschreibt, ob neben den modellierten
+        Komponenten auf dem Container $c$ noch weitere Komponenten
+        \begin{itemize}
+           \item installiert sein könnten  ($openShared$)
+           \item oder nicht ($controlledExclusive$)
+        \end{itemize} (siehe Folie zu \texttt{AbstractDesginModel}).
+\end{description} 

@@ -1,0 +1,48 @@
+\textbf{Erweiterte Sicherheits-Modellierung (1/3)} (\texttt{ConcreteDesignModel} in \texttt{Security.hs})\\
+
+\textbf{Locations} \\
+\underline{Intuition} Locations are physical areas which somebody might have physical access to.
+They are specific to the set up of a concrete System.
+Mengen: $\tobespecified{Locations}$  \\
+\underline{Syntax} Locations: The set of location labels used in stereotypes applications. Computed and fixed at the beginning of the analysis.\\%A location is a Palladio component with the streotype $<<Location>>$.\\
+\underline{Semantics} $Locations := \{l \mid \exists \, stereotype~application <<x~location~l>>)\}$\\ %\{c \mid hasStereotype(c, <<Location>>)\}$.
+% \discuss{Are there better ways to define Locations than as Components? Maybe as Datatypes, enums, or similar?}
+
+\textbf{Location of Ressource Container}\\
+\underline{Intuition}: A ressouce container as a physical entity has to be places in some location.\\
+\underline{Syntax}: Locations of Containers: A Palladio Ressource Container rc has the location $l$, iff the RessourceContainer is annotatated with the Stereotype $<<Locations~l>>$. \\
+% \underline{Semantics}: $location(RessourceContainer rc) := \{l \mid hasStereotype(rc, <<Location~l>>)\}$
+\underline{Semantics}: $containerLocations(rc, l)$ iff $hasStereotype(rc, <<Locations~l>>)$.
+
+\textbf{Location of Linking Ressources}\\
+\underline{Intuition}: A linking ressource, as a physical entity has to stretch over one or several locations.
+A cable for example might stretch over several locations. \\
+\underline{Syntax}: A Linking Ressource can have several locations.
+A Linking Ressource $lr$ has the location $l$, iff $lr$ is annotated with the stereotype $<<Location~l>>$.\\
+\discuss{This means several stereotypes for several locations. Alternative: One stereotype with several locations}.
+\underline{Semantics}: $linkLocations(lr, l)$ iff $hasStereotype(lr, <<Locations~l>>)$.
+
+\textbf{Adversary access to locations}:\\
+\underline{Intuition}: An Adversary can access one or several locations.
+This is part of the abilities of a specific adversary. \\
+\underline{Syntax}: An adversary can access a Location l, if the adversary is annotated with a Stereotype $<<CanAccess~l>>$.
+\discuss{Again: One stereotype with several locations or several stereotypes for one location?} \\
+\underline{Semantics}: $locationsAccessibleBy(a, l)$ iff $hasStereotype(a, <<CanAccess~l>>)$. \\
+
+Funktionen:
+\begin{description}
+  \item[$\tobespecified{location :: ResourceContainer \rightarrow Location}$]
+        wo $\tobespecified{location}(c)$ die Location ist, in der sich $c$ befindet
+\end{description}
+
+
+Relationen:
+\begin{description}
+  \item[$\tobespecified{linkLocations(LinkingResource, Locations)}$]
+        mit $\tobespecified{linkLocations}(lr, l)$ gdw. Wenn Link $lr$
+        von der Location $l$ aus Zugänglich ist.
+
+  \item[$\tobespecified{locationsAccessibleBy(Attacker, Locations)}$]
+        mit $\tobespecified{locationsAccessibleBy}(a, l)$ gdw. wenn Angreifer $a$
+        Zugang zur Locastion $l$ hat (\enquote{Zugetraut wird, dass er ihn sich beschafft}).
+\end{description} 

@@ -1,0 +1,34 @@
+\textbf{Erweiterte Sicherheits-Modellierung (3/3)} (\texttt{ConcreteDesignModel} in \texttt{Security.hs})\\
+
+Mengen: $\tobespecified{TamperProtection}$ \\
+
+\textbf{Tamper Protection}: \\
+\underline{Intuition}: A tamper protection is some way to prevent entities from physically manipulating hardware.
+For example seals, locks, lockable storage, or plain isolation. \\
+\underline{Syntax}: Tamper Protection: The set of tamper protection labels used in stereotypes applications. Computed and fixed at the beginning of the analysis. % are modelled by a component with the stereotype $<<TamperingMethod>>$:\\
+\underline{Semantics}: $TamperProtections := \{p \mid \exists \, stereotype~application <<x~tamper~protection~p>>\}$\\%\{c | hasStereotype(c, <<TamperingMethod>>)\}$.
+% \discuss{Are there better ways to model this than with components? Datatypes or enums for example?}
+
+\textbf{Securing Ressource Container} \\
+\underline{Intuition}: A Ressource Container is secured against tampering with a set of anti tampering methods.\\
+\underline{Syntax} A ressource container is secured against tampering by $tm$ with the stereotype $<<TamperProtection~tm>>$.\\
+\underline{Semantics}: $containerTamperableByAttackerWithAbilities(c, abilities)$ iff $\exists \, t \in abilities \mid hasStereotype(c, <<TamperProtection~t>>)$. %$\{t \mid hasStereotype(c, <<TamperProtection~t>>)\} \subseteq abilities$.
+% \discuss{Here the attacker has to have all tamper abilities. One is not sufficient. Do we want this?}
+
+\textbf{Tampering Adversaries}\\
+\underline{Intuition} An attacker can break one or several tamper protections.
+This is part of the ability Specification of adversaries.\\
+\underline{Syntax}: An adversary can break the tamper protection $t$, if it has the stereotype $<<CanTamper~t>>$.\\
+\underline{Semantics}: $tamperingAbilites(a,t)$ iff $hasStereotype(a,<<CamTamper~t>>)$.
+
+
+Relationen:
+\begin{description}
+  \item[$\tobespecified{tamperingAbilites(Attacker, TamperingMethods)}$]
+        mit $\tobespecified{tamperingAbilites}(a, ta)$ gdw. Angreifer $a$ die
+        Tampering-Methode $ta$ beherrscht.
+
+  \item[$\tobespecified{containerTamperableByAttackerWithAbilities(ResourceContainer,
+        \mathcal{P}\left(TamperingMethods\right))}$]
+        mit $\tobespecified{containerTamperableByAttackerWithAbilities(c, abilities)}$ gdw. die Fähigkeiten $abilities$ ausreichen, den Container $c$ zu knacken
+\end{description} 

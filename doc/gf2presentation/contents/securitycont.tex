@@ -1,0 +1,56 @@
+\textbf{Elementare Sicherheits-Modellierung} (\texttt{BasicDesignModel} in \texttt{Security.hs})\\
+
+Mengen: $\tobespecified{Attackers}$ \discuss{Eigentlich eher: $Benutzer$ oder $Benutzerrolle$}, \\
+        $\tobespecified{DataSets}$ \\
+        
+\textbf{DataSets}: \\
+Datenklassen, z.B. \enquote{Anwender} oder \enquote{Stromverbrauch} oder \enquote{Öffentlich} \\
+\underline{Intuition}: $DataSets$ are an abstract view on information. 
+Instead of specifying concrete that the information is that a password has value 5, a data set encapsulates all information which is stored in a dataclass.
+\underline{Syntax} $DataSet$: The set of dataset labels used in stereotypes applications. Computed and fixed at the beginning of the analysis. \\ %A Palladio Component annotated with the Stereotype $<< DataSet >>$.\\
+\underline{Semantics}: $DataSet := := \{ds \mid \exists \, stereotype~application <<ds~mayknow~x>>)\}$\\ %\{c \mid c \in Components \wedge hasStereotype(c, <<DataSet>>)\}$\\
+% \discuss{Are there better ways to define datasets than as Components? Maybe as Datatypes?}
+
+\textbf{Mayknow}:\\
+Specifiaction of contained information in Parameters and calls in Palladio Model: \\
+\underline{Intuition}: Using mayknow specification allows to specify what information can be accesssed by using a certain service.
+Everybody who can use a service may know one or several certain datasets.
+Also, if somebody may know a certain data set, he may also know the information stored in specified input parameters.\\
+\underline{Syntax} $<<ds~mayknow~P>>, ds \in DataSets, P \text{ List of Parameters}$ as Stereotype of a Service $s$, where for all $p \in P \implies$ p is a parameter or return value of s or constant $call$.\\
+\underline{Semantics}: $classificationOf(Parameter~p, DataSets~ds)$ iff there exists a stereotype $<<ds~mayknow~P>>$ on service $s$, such that $s \in P$.\\
+$classificationOfCall(Service~s, DataSets~ds)$ iff there exists a stereotype $<<ds~mayknow~P>>$ on service $s$, such that $call \in P$.
+
+\textbf{Attacker}
+An Attacker or adverssary is some entity which might use a system, may have access to some information and has certain abilities.\\
+\underline{Syntax} Attacker: An Attacker is explicitly modelled using an additional model in Palladio \\%a Palladio Component annotated with Stereotype $<<Adversary>>$ \\
+\underline{Semantics} $Attacker := \{ a \mid a~is~a~modelled~attacker\}$ %\{c \mid c \in Components \wedge hasSteretype(c, <<Adversary>>) \}$
+% \discuss{Model Attacker as Component or ressources Container or something else? Does not really matter, but has to be specified.} \\
+
+\textbf{Attacker Knowledge}
+Specification of Information an Attacker may know: \\
+\underline{Syntax} of allowed access for Attacker: Stereotype $<<mayknow~ds>>$ where $ds \in DataSets$.\\
+\underline{Semantics}: $dataAllowedToBeAccessed(a,~ds)$ iff $hasStereotype(a, <<mayknow~ds>>)$
+
+\discuss{$interfacesAllowedToBeUsedBy$ not yet considered, so no spec in model agreed on}
+
+Relationen:
+\begin{description}
+  \item[$\tobespecified{classificationOf(Parameter, DataSets)}$]
+        mit $\tobespecified{classificationOf}(p, ds)$ gdw. Parameter $p$ als $ds$ klassifiziert ist
+  \item[$\tobespecified{classificationOfCall(Service, DataSets)}$]
+        mit $\tobespecified{classificationOf}(s, ds)$ gdw. wenn die Information, dass
+        Service $s$ aufgerufen wurde, als $ds$ klassifiziert ist.
+  \item[$\tobespecified{dataAllowedToBeAccessed(Attacker, DataSets)}$]
+        mit $\tobespecified{dataAllowedToBeAccessed}(a, ds)$ gdw. es dem Angreifer $a$ (\discuss{Benutzer!}, s.o.)
+        erlaubt ist, Informationen der  Klasse $ds$ zu erlernen. \\
+
+  \item[$\tobespecified{interfacesAllowedToBeUsedBy(Attacker, Interface)}$]
+        mit $\tobespecified{interfacesAllowedToBeUsedBy}(a, i)$ gdw. dem Angreifer $a$ (\discuss{Benutzer!}, s.o.) erlaubt ist, Services vom Interface $i$ zu verwenden.\\[0.5cm]
+       \discuss{z.B. kann eine Analyse schon dann meckern,
+       wenn $a$ Zugriff auf $i$ hat, der Rückgabeparameter eines Services
+        $s$ von $i$ aber einer Datenklasse $ds$ zugeordnet ist,
+        über die $a$ nichts lernen darf. \\
+        Andererseits sollte dies aber vielleicht allein über die Locations von $a$ modelliert werden?!?!}
+
+
+\end{description} 

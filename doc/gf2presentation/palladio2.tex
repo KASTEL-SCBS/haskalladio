@@ -3,18 +3,5 @@
 \usepackage{rules}
 
 \begin{document}
-\textbf{Palladio Modell} (\texttt{PalladioComponentModel} in \texttt{Palladio.hs})\\
-
-Mengen: $\tobespecified{AssemblyContext}, \tobespecified{ResourceContainer}, \tobespecified{LinkingResource}$ \\
-
-Relationen:
-\begin{description}
-  \item[$\tobespecified{componentOf(AssemblyContext, Component)}$]
-        mit $\tobespecified{componentOf}(ac, c)$ gdw. im Kontext $ac$ eine Instanz der Komponente
-        $c$ \enquote{deployed} wird.
-  \item[$\tobespecified{runsOn(AssemblyContext, ResourceContainer)}$]
-        mit $\tobespecified{runsOn}(ac, rc)$ gdw. im Kontext $ac$ auf einen Resourcecontainer $rc$
-        \enquote{deployed} wird.
-  \item[$\tobespecified{\ldots}$]
-\end{description}
+\input{contents/palladio2cont.tex}
 \end{document}

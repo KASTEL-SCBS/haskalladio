@@ -2,33 +2,5 @@
 \usepackage{rules}
 
 \begin{document}
-\textbf{Elementare Sicherheits-Modellierung} (\texttt{BasicDesignModel} in \texttt{Security.hs})\\
-
-Mengen: $\tobespecified{Attackers}$ \discuss{Eigentlich eher: $Benutzer$ oder $Benutzerrolle$}, \\
-        $\tobespecified{DataSets}$ \\
-
-$DataSets:$ Datenklassen, z.B. \enquote{Anwender} oder \enquote{Stromverbrauch} oder \enquote{Öffentlich} \\
-
-
-Relationen:
-\begin{description}
-  \item[$\tobespecified{classificationOf(Parameter, DataSets)}$]
-        mit $\tobespecified{classificationOf}(p, ds)$ gdw. Parameter $p$ als $ds$ klassifiziert ist
-  \item[$\tobespecified{classificationOfCall(Service, DataSets)}$]
-        mit $\tobespecified{classificationOf}(s, ds)$ gdw. wenn die Information, dass
-        Service $s$ aufgerufen wurde, als $ds$ klassifiziert ist.
-  \item[$\tobespecified{dataAllowedToBeAccessed(Attacker, DataSets)}$]
-        mit $\tobespecified{dataAllowedToBeAccessed}(a, ds)$ gdw. es dem Angreifer $a$ (\discuss{Benutzer!}, s.o.)
-        erlaubt ist, Informationen der  Klasse $ds$ zu erlernen. \\
-
-  \item[$\tobespecified{interfacesAllowedToBeUsedBy(Attacker, Interface)}$]
-        mit $\tobespecified{interfacesAllowedToBeUsedBy}(a, i)$ gdw. dem Angreifer $a$ (\discuss{Benutzer!}, s.o.) erlaubt ist, Services vom Interface $i$ zu verwenden.\\[0.5cm]
-       \discuss{z.B. kann eine Analyse schon dann meckern,
-       wenn $a$ Zugriff auf $i$ hat, der Rückgabeparameter eines Services
-        $s$ von $i$ aber einer Datenklasse $ds$ zugeordnet ist,
-        über die $a$ nichts lernen darf. \\
-        Andererseits sollte dies aber vielleicht allein über die Locations von $a$ modelliert werden?!?!}
-
-
-\end{description}
+\input{contents/securitycont.tex}
 \end{document}

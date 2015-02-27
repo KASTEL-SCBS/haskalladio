@@ -2,26 +2,5 @@
 \usepackage{rules}
 
 \begin{document}
-\textbf{Erweiterte Sicherheits-Modellierung (1/3)} (\texttt{ConcreteDesignModel} in \texttt{Security.hs})\\
-
-Mengen: $\tobespecified{Locations}$  \\
-
-
-Funktionen:
-\begin{description}
-  \item[$\tobespecified{location :: ResourceContainer \rightarrow Location}$]
-        wo $\tobespecified{location}(c)$ die Location ist, in der sich $c$ befindet
-\end{description}
-
-
-Relationen:
-\begin{description}
-  \item[$\tobespecified{linkLocations(LinkingResource, Locations)}$]
-        mit $\tobespecified{linkLocations}(lr, l)$ gdw. Wenn Link $lr$
-        von der Location $l$ aus Zugänglich ist.
-
-  \item[$\tobespecified{locationsAccessibleBy(Attacker, Locations)}$]
-        mit $\tobespecified{locationsAccessibleBy}(a, l)$ gdw. wenn Angreifer $a$
-        Zugang zur Locastion $l$ hat (\enquote{Zugetraut wird, dass er ihn sich beschafft}).
-\end{description}
+\input{contents/security2cont.tex}
 \end{document}
