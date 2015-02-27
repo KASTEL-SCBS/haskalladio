@@ -54,8 +54,8 @@ instance Reasons Relatives where
   data Relation Relatives = Mothers | Fathers | Parents | Grantparents deriving (Eq,Ord,Show,Typeable)
   data Function Relatives = Age deriving (Eq,Ord,Show,Typeable)
 
-mothersM = liftR2 Mothers mothers
-fathersM = liftR2 Fathers fathers
+mothersM = liftA2 Mothers mothers
+fathersM = liftA2 Fathers fathers
 ageM = liftF Age age
 
 
