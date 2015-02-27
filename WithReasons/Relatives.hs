@@ -51,7 +51,7 @@ grandparents person = [ p'' | p' <- parents person, p'' <- parents p', age p'' >
 data Relatives = Relatives deriving Typeable
 
 instance Reasons Relatives where
-  data Relation Relatives = Mothers | Fathers | Parents | Grantparents deriving (Eq,Ord,Show,Typeable)
+  data Relation Relatives = Mothers | Fathers | Parents | Grandparents deriving (Eq,Ord,Show,Typeable)
   data Function Relatives = Age deriving (Eq,Ord,Show,Typeable)
 
 mothersM = liftA2 Mothers mothers
@@ -67,10 +67,11 @@ ageM = liftF Age age
 parentsM :: Person -> WithReason Relatives Person
 parentsM person = msum [ [ m | m <- mothersM person ],
                          [ f | f <- fathersM person ]
-                       ]
+                       ] `hence` (Inferred2 Parents person )
 
 grandparentsM :: Person -> WithReason Relatives Person
 grandparentsM person = [ p'' | p' <- parentsM person, p'' <- parentsM p', a <- ageM p'', a > 60 ]
+                       `hence` (Inferred2 Grandparents person)
 
 
 youngerthan70 :: Person -> WithReason Relatives ()

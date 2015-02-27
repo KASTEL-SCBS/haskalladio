@@ -18,6 +18,7 @@ import Prelude hiding (map)
 import Control.Monad.Trans.Writer.Lazy
 import Control.Monad(msum, guard)
 import Control.Monad.Trans.Class(lift)
+import Data.Monoid(Monoid)
 
 import Data.Set.Monad
 
@@ -43,7 +44,7 @@ data Reason r  where
     MapsTo :: (Typeable s, Show s, Ord s,
                Typeable t, Show t, Ord t, Reasons r) => Function r -> s -> t -> Reason r
     Inferred2 :: (Typeable s, Show s, Ord s,
-                  Typeable t, Show t, Ord t, Reasons r) => Relation r -> s -> t -> Reason r
+                  Typeable t, Show t, Ord t, Reasons r) => Relation r -> s -> t -> [Reason r] -> Reason r
     Not    :: Reason r -> Reason r
 deriving instance Show (Reason r)
 
@@ -53,10 +54,10 @@ instance Eq (Reason r) where
   _             == _               = False
 
 instance Ord (Reason r) where
-  Axiom1 r x    <= Axiom1 r' x'    = r <  r' || (r == r' && ( Just x <= cast x' ))
-  Axiom2 r x y  <= Axiom2 r' x' y' = r <  r' || (r == r' && ((Just x <= cast x') || (Just x == cast x') && Just y <= cast y'))
-  MapsTo f x y  <= MapsTo f' x' y' = f <  f' || (f == f' && ((Just x <= cast x') || (Just x == cast x') && Just y <= cast y'))
-  Inferred2 r x y  <= Inferred2 r' x' y' = r <  r' || (r == r' && ((Just x <= cast x') || (Just x == cast x') && Just y <= cast y'))
+  Axiom1 r x    <= Axiom1 r' x'    = r <  r' || (r == r' && ( Just x < cast x' ))
+  Axiom2 r x y  <= Axiom2 r' x' y' = r <  r' || (r == r' && ((Just x < cast x') || (Just x == cast x') && Just y <= cast y'))
+  MapsTo f x y  <= MapsTo f' x' y' = f <  f' || (f == f' && ((Just x < cast x') || (Just x == cast x') && Just y <= cast y'))
+  Inferred2 r x y rs  <= Inferred2 r' x' y' rs' = r <  r' || (r == r' && ((Just x < cast x') || (Just x == cast x') && (Just y < cast y' || (Just y == cast y' && rs <= rs'))))
   Not r         <= Not r'          = r <= r'
 
   Axiom1 _ _    <= _               = True
@@ -65,8 +66,8 @@ instance Ord (Reason r) where
   _             <= Axiom2 _ _ _    = False
   MapsTo _ _ _  <= _               = True
   _             <= MapsTo _ _ _    = False
-  Inferred2 _ _ _  <= _               = True
-  _             <= Inferred2 _ _ _    = False
+  Inferred2 _ _ _ _  <= _               = True
+  _                  <= Inferred2 _ _ _ _  = False
   Not _         <= _               = True
   _             <= Not _           = False
 
@@ -75,13 +76,14 @@ type WithReason r a = WriterT [Reason r] Set a
 because :: [Reason r] -> WithReason r ()
 because = tell
 
-hence :: WithReason r a -> (a -> Reason r) -> WithReason r a
--- hence a r =  (tell r) >> a
-hence a r = do x <- a
-               tell [(r x)]
-               return x
+-- thanks to http://stackoverflow.com/questions/21448118/how-do-i-write-this-more-general-version-of-control-monad-writer-censor
+hence :: WithReason r a -> (a -> [Reason r] -> Reason r) -> WithReason r a
+hence w f = censorWithResult (\a rs -> [f a rs] ) w
 
-
+censorWithResult :: (Monad m, Monoid w) =>   (a -> w -> w) -> WriterT w m a -> WriterT w m a
+censorWithResult f m = pass $ do
+    a <- m
+    return (a, f a)
 
 neg :: (Ord a) => Reason r -> WithReason r a -> WithReason r ()
 neg r a = do
@@ -103,7 +105,7 @@ withoutReasons = map fst . runWriterT
 liftI2 :: (Reasons r, ReasonLike a, ReasonLike b) => Relation r -> (a -> Set b) -> (a -> WithReason r b)
 liftI2 r f a = do
    b <- lift $ f a
-   because $ [Inferred2 r a b]
+   because $ [Inferred2 r a b []]
    return b
 
 liftA2 :: (Reasons r, ReasonLike a, ReasonLike b) => Relation r -> (a -> Set b) -> (a -> WithReason r b)
