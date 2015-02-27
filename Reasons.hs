@@ -81,6 +81,8 @@ hence a r = do x <- a
                tell [(r x)]
                return x
 
+
+
 neg :: (Ord a) => Reason r -> WithReason r a -> WithReason r ()
 neg r a = do
   guard $ isEmpty successes

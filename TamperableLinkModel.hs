@@ -17,16 +17,30 @@ import Reasons
 import ReasonsModel
 
 class (Ord (Location m),
-       BasicDesignModel m) => TamperAbilitiesLinkAccessModel m where
-  linkTamperableByAttackerWithAbilities :: LinkingResource m -> Set (TamperingAbility m) -> Bool
+       ConcreteDesignModel m) => TamperAbilitiesLinkAccessModel m where
+  linkPayloadSecuredByMethod  :: LinkingResource m -> Set (TamperingAbility m)
+  linkMetaDataSecuredByMethod :: LinkingResource m -> Set (TamperingAbility m)
 
 instance (TamperAbilitiesLinkAccessModel m, ConcreteDesignModel m, Reasons m) => LinkAccessModel m where
   exposesPhsicallyAccessiblePayloadTo link   =
     [ attacker | attacker <- lift $ attackers,
-                 linkTamperableByAttackerWithAbilities link (tamperingAbilities attacker)
+                 method    <- linkPayloadSecuredByMethodM link,
+                 ability   <- tamperingAbilitiesM attacker,
+                 method == ability
     ] `hence` (Inferred2 ExposesPhsicallyAccessiblePayloadTo link)
 
   exposesPhsicallyAccessibleMetaDataTo link  =
     [ attacker | attacker <- lift $ attackers,
-                 linkTamperableByAttackerWithAbilities link (tamperingAbilities attacker)
+                 method   <- linkMetaDataSecuredByMethodM link,
+                 ability  <- tamperingAbilitiesM attacker,
+                 method == ability
     ] `hence` (Inferred2 ExposesPhsicallyAccessibleMetaDataTo link)
+
+
+linkMetaDataSecuredByMethodM :: (TamperAbilitiesLinkAccessModel m, Reasons m) => LinkingResource m -> WithReason m (TamperingAbility m)
+linkMetaDataSecuredByMethodM = liftA2 LinkMetaDataSecuredByMethod  linkMetaDataSecuredByMethod
+
+linkPayloadSecuredByMethodM :: (TamperAbilitiesLinkAccessModel m, Reasons m) => LinkingResource m -> WithReason m (TamperingAbility m)
+linkPayloadSecuredByMethodM = liftA2 LinkPayloadSecuredByMethod  linkPayloadSecuredByMethod
+
+

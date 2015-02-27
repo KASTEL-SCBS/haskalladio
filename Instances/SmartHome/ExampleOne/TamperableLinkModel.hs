@@ -8,12 +8,16 @@ import Security
 import TamperableLinkModel
 import Palladio
 import Misc
-import Data.Set as Set
+import Data.Set.Monad as Set
 
 
 
 instance TamperAbilitiesLinkAccessModel ExampleOne where
-   linkTamperableByAttackerWithAbilities link abilities
-     | link == linkMeterController  = EthernetSnifferBesitzen ∈ abilities
-     | link == linkControllerTablet = WPA2Knacken ∈ abilities
+   linkPayloadSecuredByMethod link
+     | link == linkMeterController  = fromList [EthernetSnifferBesitzen]
+     | link == linkControllerTablet = fromList [WPA2Knacken]
+
+   linkMetaDataSecuredByMethod link
+     | link == linkMeterController  = fromList []
+     | link == linkControllerTablet = fromList [WPA2Knacken]
 

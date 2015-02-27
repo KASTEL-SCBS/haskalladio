@@ -23,6 +23,8 @@ instance (Typeable m) => Reasons m where
                   | LinksPayloadFullyAccessibleBy
                   | LinksMetaDataFullyAccessibleBy
                   | LinksPhysicallyAccessibleBy
+                  | LinkPayloadSecuredByMethod
+                  | LinkMetaDataSecuredByMethod
                   | ContainerFullyAccessibleBy
                   | ContainerPhysicallyAccessibleBy
                   | ContainerSecuredByMethod
