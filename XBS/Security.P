@@ -1,6 +1,12 @@
 :- import  exposesPhsicallyAccessiblePayloadTo/2,
-           exposesPhsicallyAccessibleMetaDataTo/2 from LinkingModel.
+           exposesPhsicallyAccessibleMetaDataTo/2 from SimpleLinkModel.
+% :- import  exposesPhsicallyAccessiblePayloadTo/2,
+%            exposesPhsicallyAccessibleMetaDataTo/2 from ComplexLinkModel.
+% :- import  exposesPhsicallyAccessiblePayloadTo/2,
+%            exposesPhsicallyAccessibleMetaDataTo/2 from TamperableLinkModel.
+
 :- import  dataAccessibleTo/2 from AbstractAnalysis.
+
 :- import  interfacesAllowedToBeUsedBy/2,
            dataAllowedToBeAccessedBy/2,
            classificationOf/2,
