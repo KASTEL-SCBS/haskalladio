@@ -1,0 +1,72 @@
+:- import  interfacesAllowedToBeUsedBy/2 from linkingmodel.
+:- export  % Predicates
+           accessibleParameters/2,               % accessibleParameters(Attacker,Parameter)
+           observableServices/2.                 % observableServices(Attacker,Parameter)
+           dataAccessibleTo/2,                   % dataAccessibleTo(Attacker,DataSet)
+
+
+accessibleParameters(Attacker,Parameter) :-
+  % Ausgabe-Parameter, auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat
+  interfacesAllowedToBeUsedBy(Attacker,Interface),
+  systemProvides(Interface),
+  services(Interface,Service),
+  outputParameters(Service, Parameter).
+
+accessibleParameters(Attacker,Parameter) :-
+  % Eingabe-Parameter,auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat, weil er vom System Aufgerufen wird.
+  interfacesAllowedToBeUsedBy(Attacker, Interface),
+  systemRequires(Interface),
+  services(Interface,Service),
+  inputParameters(Service, Parameter).
+
+accessibleParameters(Attacker,Parameter) :-
+  % Parameter, auf die der Angreifer Zugriff hat, weil er einen entsprechenden ResourceContainer angreifen konnte.
+  containersFullyAccessibleBy(Attacker, Container),
+  (providedInterfacesOnM(Container,Interface) ; requiredInterfacesOn(Container,Interface)),
+  services(Interface,Service),
+  (inputParameters(Service,Parameter) ; (outputParameters(Service,Parameter))
+
+accessibleParameters(Attacker,Parameter) :-
+  % Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
+  linksPayloadFullyAccessibleBy(Attacker, Link),
+  linkBetween(Link,CcontainerLeft,ContainerRight),
+  assembliesOn(ContainerLeft, Left),
+  componentOf(Left,Component),
+  requires(Component,Interface),
+  systemAssembledTo(Left,Interface,byAssembly(Right)),
+  assembliesOn(ContainerRight, Right),
+  services(Interface, Service),
+  (inputParameters(Service,Parameter) ; (outputParameters(Service,Parameter))
+
+
+observableServices(Attacker, Service) :-
+  % Services, deren Aufrufe der Angreifer als regulärer "Benutzer" des Systems beobachten kann
+  interfacesAllowedToBeUsedBy(Attacker,Interface),
+  systemProvides(Interface),
+  services(Interface, Service).
+
+observableServices(Attacker,Service) :-
+  % Services, deren Aufrufe der Angreifer beobachten kann, weil er einen entsprechenden ResourceContainer angreifen konnte.
+  containersFullyAccessibleBy(Attacker,Container),
+  (providedInterfacesOn(Container,Interface) ; (requiredInterfacesOn(Container,Interface)),
+  services(Interface,Service).
+
+observableServices(Attacker, Service) :-
+  % Services, deren Aufrufe der Angreifer beobachten kann, weil er eine entsprechende LinkResource angreifen konnte.
+  linksMetaDataFullyAccessibleBy(Attacker,Link),
+  linkBetween(Link,ContainerLeft, ContainerRight),
+  assembliesOn(ContainerLeft,Left),
+  componentOf(Left,Component),
+  requires(Component,Interface),
+  systemAssembledTo(Left,Interface,byAssembly(Right)),
+  assembliesOn(ContainerRight, Right),
+  services(Interface,Service).
+
+
+dataAccessibleTo(Attacker,DataSet) :-
+    accessibleParameters(Attacker,Parameter),
+    classificationOf(Parameter,DataSet).
+
+dataAccessibleTo(Attacker,DataSet) :-
+    observableServices(Attacker,Service),
+    classificationOfCall(Service,DataSet).
