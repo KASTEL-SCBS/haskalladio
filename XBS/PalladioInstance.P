@@ -14,7 +14,7 @@
            % Enumerators
            resourcecontainers/1,  % resourcecontainers(ResourceContainer)
            linkingresources/1,    % linkingresources(LinkingResource )
-
+           system/1,              % system(AsssemblyContext)
 
            % Used Functors
            % AssemblyRequirementSatisfaction = asSystemRequirement/0 | byAssembly/1

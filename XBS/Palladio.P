@@ -1,0 +1,39 @@
+:- export  % Predicates
+           providedInterfacesOn/2,
+           requiredInterfacesOn/2,
+
+           % Enumeratos
+           providedInterfaces/1,
+           requiredInterfaces/1.
+
+:- import  system/1,
+           runsOn/2,
+           componentOf/2,
+           from PalladioInstance.
+
+:- import  provides/2,
+           requires/2,
+           from ComponentRepositoryInstance.
+
+providedInterfacesOn(Container,Interface) :-
+        system(AssemblyContext),
+        runsOn(AssemblyContext,Container),
+        componentOf(AssemblyContext,Component),
+        provides(Component,Interface).
+
+requiredInterfacesOn(Container,Interface) :-
+        system(AssemblyContext),
+        runsOn(AssemblyContext,Container),
+        componentOf(AssemblyContext,Component),
+        requires(Component,Interface).
+
+providedInterfaces(Interface) :-
+        system(AssemblyContext),
+        componentOf(AssemblyContext,Component),
+        provides(Component,Interface).
+
+
+requiredInterfaces(Interface) :-
+        system(AssemblyContext),
+        componentOf(AssemblyContext,Component),
+        requires(Component,Interface).
