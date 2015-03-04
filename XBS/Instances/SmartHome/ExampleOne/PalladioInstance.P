@@ -1,0 +1,34 @@
+resourcecontainers(digitalMeterContainer).
+resourcecontainers(controllerContainer).
+resourcecontainers(tabletContainer).
+
+linkingresources(digitalMeterContext).
+linkingresources(controllerContext).
+linkingresources(tabletContext).
+
+system(digitalMeterContext)
+system(controllerContext)
+system(tabletContext).
+
+systemProvides(currentConsumptionDataDisplaying).
+
+systemRequires(_) :- false.
+
+systemAssembledTo(digitalMeterContext,currentMeterDataReceiving,byAssembly(controllerContext)).
+systemAssembledTo(tabletContext,consumptionDataSending,byAssembly(controllerContext)).
+
+systemProvidesAsssembledTo(currentConsumptionDataDisplaying,tabletContext)
+
+
+runsOn(digitalMeterContext,digitalMeterContainer).
+runson(controllerContext,controllerContainer).
+runson(tabletContext,tabletContainer).
+
+componentOf(digitalMeterContext, digitalMeter).
+componentOf(controllerContext,controller).
+componentOf(tabletContext,tablet).
+
+
+linkBetween(linkMeterController,digitalMeterContainer, controllerContainer).
+linkBetween(linkControllerTablet,controllerContainer, tabletContainer).
+

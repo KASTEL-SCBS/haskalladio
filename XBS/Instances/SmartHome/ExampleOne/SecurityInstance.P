@@ -1,0 +1,89 @@
+:- export  % Predicates
+           interfacesAllowedToBeUsedBy/2            % interfacesAllowedToBeUsedBy(Attacker,Interface)
+           dataAllowedToBeAccessedBy/2              % dataAllowedToBeAccessedBy(Attacker,DataSet)
+           classificationOf/2,                      % classificationOf(Parameter,DataSet)
+           classificationOfCall/2                   % classificationOfCall(Service,DataSet m)
+
+           tamperingAbilities/2                     % tamperingAbilities(Attacker,TamperingAbility)
+           locationsAccessibleBy/2                  % locationsAccessibleBy(Attacker,Location)
+           containerSecuredByMethod/2               % containerSecuredByMethod(ResourceContainer,TamperingAbility)
+           furtherConnections/2                     % furtherConnections(ResourceContainer,FurtherConnections)
+           sharing/2                                % sharing(ResourceContainer,Sharing)
+           location/2                               % location(ResourceContainer,Location)
+           linkLocation/2                           % linkLocation(LinkingResource,Location)
+
+           % Enumerators
+           dataset/1,    % dataset(DataSet)
+           attacker/1,   % attacker(Attacker)
+
+
+dataset(inhabitantData).
+dataset(providerData).
+dataset(publicData).
+
+attacker(guest).
+attacker(handyMan).
+attacker(anybody).
+
+
+interfacesAllowedToBeUsedBy(guest,currentConsumptionDataDisplaying).
+
+dataAllowedToBeAccessedBy(guest,publicData).
+dataAllowedToBeAccessedBy(guest,inhabitantData).
+dataAllowedToBeAccessedBy(handyMan,publicData).
+dataAllowedToBeAccessedBy(handyMan,providerData).
+dataAllowedToBeAccessedBy(anybody,publicData).
+dataAllowedToBeAccessedBy(burglar,publicData).
+dataAllowedToBeAccessedBy(blindDeafGuy,publicData).
+
+
+classificationOf(consumption,inhabitantData)
+classificationOf(return(getCurrentConsumptionConsumptionDataSending),inhabitantData).
+classificationOf(return(getCurrentConsumptionCurrentConsumptionDataDisplaying,inhabitantData).
+classificationOf(return(getHistoricConsumption),providerData).
+
+classificationOfCall(AnyParameter,publicData).
+
+
+tamperingAbilities(anybody,plombeEntfernen).
+tamperingAbilities(anybody,gerätÖffnen).
+tamperingAbilities(anybody,wpa2Knacken).
+tamperingAbilities(burglar,plombeEntfernen).
+tamperingAbilities(burglar,gerätÖffnen).
+tamperingAbilities(burglar,wpa2Knacken).
+
+locationsAccessibleBy(guest,outdoors).
+locationsAccessibleBy(guest,public).
+locationsAccessibleBy(guest,attended).
+locationsAccessibleBy(handyMan,outdoors).
+locationsAccessibleBy(handyMan,public).
+locationsAccessibleBy(handyMan,unattended).
+locationsAccessibleBy(anybody,outdoors).
+locationsAccessibleBy(anybody,public).
+locationsAccessibleBy(burglar,outdoors).
+locationsAccessibleBy(burglar,public).
+locationsAccessibleBy(burglar,unattended).
+locationsAccessibleBy(blindDeafGuy,outdoors).
+locationsAccessibleBy(blindDeafGuy,public).
+
+
+containerSecuredByMethod(digitalMeterContainer,plombeEntfernen).
+containerSecuredByMethod(tabletContainer,gerätÖffnen).
+containerSecuredByMethod(controllerContainer,plombeEntfernen).
+
+
+furtherConnections(tabletContainer,possible).
+furtherConnections(controllerContainer,possible).
+furtherConnections(digitalMeterContainer,possible).
+
+sharing(tabletContainer,openShared).
+sharing(controllerContainer,controlledExclusive).
+sharing(digitalMeterContainer,controlledExclusive).
+
+location(tabletContainer,attended).
+location(controllerContainer,unattended).
+location(digitalMeterContainer,unattended).
+
+
+linkLocation(linkMeterController,unattended).
+linkLocation(linkControllerTablet,outdoors).
