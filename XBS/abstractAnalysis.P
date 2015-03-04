@@ -1,18 +1,27 @@
-:- import  interfacesAllowedToBeUsedBy/2,
-           
+:- import  interfacesAllowedToBeUsedBy/2
+           from securityInstance.
 
-           from SecurityInstance.
 
+:- import  requires/2,
+           from componentRepositoryInstance.
 :- import  systemProdives/2,
            systemRequires/2,
            services/2,
            inputParameters/2,
            outputParameters/2,
-           from PalladioInstance.
+           assembliesOn/2,
+           linkBetween/3,
+           componentOf/2
+           from palladioInstance.
+
+:- import  linksMetaDataFullyAccessibleBy/2,
+           linksPayloadFullyAccessibleBy/2
+           from security.
+
 :- export  % Predicates
            accessibleParameters/2,               % accessibleParameters(Attacker,Parameter)
-           observableServices/2.                 % observableServices(Attacker,Parameter)
-           dataAccessibleTo/2,                   % dataAccessibleTo(Attacker,DataSet)
+           observableServices/2,                 % observableServices(Attacker,Parameter)
+           dataAccessibleTo/2.                   % dataAccessibleTo(Attacker,DataSet)
 
 
 accessibleParameters(Attacker,Parameter) :-
@@ -34,19 +43,19 @@ accessibleParameters(Attacker,Parameter) :-
   containersFullyAccessibleBy(Attacker, Container),
   (providedInterfacesOn(Container,Interface) ; requiredInterfacesOn(Container,Interface)),
   services(Interface,Service),
-  (inputParameters(Service,Parameter) ; (outputParameters(Service,Parameter))
+  (inputParameters(Service,Parameter) ; outputParameters(Service,Parameter)).
 
 accessibleParameters(Attacker,Parameter) :-
   % Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
   linksPayloadFullyAccessibleBy(Attacker, Link),
-  linkBetween(Link,CcontainerLeft,ContainerRight),
+  linkBetween(Link,ContainerLeft,ContainerRight),
   assembliesOn(ContainerLeft, Left),
   componentOf(Left,Component),
   requires(Component,Interface),
   systemAssembledTo(Left,Interface,byAssembly(Right)),
   assembliesOn(ContainerRight, Right),
   services(Interface, Service),
-  (inputParameters(Service,Parameter) ; (outputParameters(Service,Parameter))
+  (inputParameters(Service,Parameter) ; outputParameters(Service,Parameter)).
 
 
 observableServices(Attacker, Service) :-
@@ -58,7 +67,7 @@ observableServices(Attacker, Service) :-
 observableServices(Attacker,Service) :-
   % Services, deren Aufrufe der Angreifer beobachten kann, weil er einen entsprechenden ResourceContainer angreifen konnte.
   containersFullyAccessibleBy(Attacker,Container),
-  (providedInterfacesOn(Container,Interface) ; (requiredInterfacesOn(Container,Interface)),
+  (providedInterfacesOn(Container,Interface) ; requiredInterfacesOn(Container,Interface)),
   services(Interface,Service).
 
 observableServices(Attacker, Service) :-
