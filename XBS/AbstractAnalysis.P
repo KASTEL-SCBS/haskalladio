@@ -1,4 +1,14 @@
-:- import  interfacesAllowedToBeUsedBy/2 from linkingmodel.
+:- import  interfacesAllowedToBeUsedBy/2,
+           
+
+           from SecurityInstance.
+
+:- import  systemProdives/2,
+           systemRequires/2,
+           services/2,
+           inputParameters/2,
+           outputParameters/2,
+           from PalladioInstance.
 :- export  % Predicates
            accessibleParameters/2,               % accessibleParameters(Attacker,Parameter)
            observableServices/2.                 % observableServices(Attacker,Parameter)
@@ -22,7 +32,7 @@ accessibleParameters(Attacker,Parameter) :-
 accessibleParameters(Attacker,Parameter) :-
   % Parameter, auf die der Angreifer Zugriff hat, weil er einen entsprechenden ResourceContainer angreifen konnte.
   containersFullyAccessibleBy(Attacker, Container),
-  (providedInterfacesOnM(Container,Interface) ; requiredInterfacesOn(Container,Interface)),
+  (providedInterfacesOn(Container,Interface) ; requiredInterfacesOn(Container,Interface)),
   services(Interface,Service),
   (inputParameters(Service,Parameter) ; (outputParameters(Service,Parameter))
 
