@@ -6,8 +6,8 @@ linkingresources(digitalMeterContext).
 linkingresources(controllerContext).
 linkingresources(tabletContext).
 
-system(digitalMeterContext)
-system(controllerContext)
+system(digitalMeterContext).
+system(controllerContext).
 system(tabletContext).
 
 systemProvides(currentConsumptionDataDisplaying).
@@ -17,12 +17,12 @@ systemRequires(_) :- false.
 systemAssembledTo(digitalMeterContext,currentMeterDataReceiving,byAssembly(controllerContext)).
 systemAssembledTo(tabletContext,consumptionDataSending,byAssembly(controllerContext)).
 
-systemProvidesAsssembledTo(currentConsumptionDataDisplaying,tabletContext)
+systemProvidesAsssembledTo(currentConsumptionDataDisplaying,tabletContext).
 
 
 runsOn(digitalMeterContext,digitalMeterContainer).
-runson(controllerContext,controllerContainer).
-runson(tabletContext,tabletContainer).
+runsOn(controllerContext,controllerContainer).
+runsOn(tabletContext,tabletContainer).
 
 componentOf(digitalMeterContext, digitalMeter).
 componentOf(controllerContext,controller).

@@ -3,20 +3,31 @@
 
 
 :- import  requires/2,
+           services/2
            from componentRepositoryInstance.
 :- import  systemProdives/2,
            systemRequires/2,
-           services/2,
            inputParameters/2,
            outputParameters/2,
            assembliesOn/2,
            linkBetween/3,
-           componentOf/2
+           componentOf/2,
+           systemProvides/1,
+           systemRequires/1,
+           systemAssembledTo/3
            from palladioInstance.
 
+:- import  requiredInterfacesOn/2,
+           providedInterfacesOn/2
+           from palladio.
 :- import  linksMetaDataFullyAccessibleBy/2,
-           linksPayloadFullyAccessibleBy/2
+           linksPayloadFullyAccessibleBy/2,
+           containersFullyAccessibleBy/2
            from security.
+
+:- import  classificationOfCall/2,
+           classificationOf/2
+           from securitInstance.
 
 :- export  % Predicates
            accessibleParameters/2,               % accessibleParameters(Attacker,Parameter)
