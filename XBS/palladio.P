@@ -18,6 +18,11 @@
            from componentRepositoryInstance.
 % END IMPORTS
 
+justify_pred(providedInterfacesOn(_,_)).
+justify_pred(requiredInterfacesOn(_,_)).
+justify_pred(providedInterfaces(_)).
+justify_pred(requiredInterfaces(_)).
+
 providedInterfacesOn(Container,Interface) :-
         system(AssemblyContext),
         runsOn(AssemblyContext,Container),

@@ -6,6 +6,11 @@
 :- export  exposesPhsicallyAccessiblePayloadTo/2,
            exposesPhsicallyAccessibleMetaDataTo/2.
 % END IMPORTS
+
+justify_pred(exposesPhsicallyAccessiblePayloadTo(_,_)).
+justify_pred(exposesPhsicallyAccessibleMetaDataTo(_,_)).
+
+
 exposesPhsicallyAccessiblePayloadTo(Link,Attacker) :-
         not(isEncrypted(Link)),
         attacker(Attacker).

@@ -1,3 +1,11 @@
+justify_pred(services(_,_)).
+justify_pred(inputParameters(_,_)).
+justify_pred(outputParameters(_,_)).
+justify_pred(typeOf(_,_)).
+justify_pred(provides(_,_)).
+justify_pred(requires(_,_)).
+
+
 services(currentMeterDataReceiving,storeCurrentConsumption).
 services(consumptionDataSending,getCurrentConsumptionConsumptionDataSending).
 services(consumptionDataSending,getHistoricConsumption).

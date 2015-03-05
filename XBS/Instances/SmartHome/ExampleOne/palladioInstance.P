@@ -1,3 +1,14 @@
+justify_pred(resourcecontainers(_)).
+justify_pred(linkingresources(_)).
+justify_pred(system(_)).
+justify_pred(systemProvides(_)).
+justify_pred(systemRequires(_)).
+justify_pred(systemAssembledTo(_,_,_)).
+justify_pred(systemProvidesAsssembledTo(_,_)).
+justify_pred(runsOn(_,_)).
+justify_pred(componentOf(_,_)).
+justify_pred(linkBetween(_,_,_)).
+
 resourcecontainers(digitalMeterContainer).
 resourcecontainers(controllerContainer).
 resourcecontainers(tabletContainer).

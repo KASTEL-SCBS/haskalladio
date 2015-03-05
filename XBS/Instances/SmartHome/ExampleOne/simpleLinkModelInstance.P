@@ -1,1 +1,5 @@
+justify_pred(isEncrypted(_)).
+
 isEncrypted(linkControllerTablet).
+
+

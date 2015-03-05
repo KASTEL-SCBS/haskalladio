@@ -1,3 +1,17 @@
+justify_pred(interfacesAllowedToBeUsedBy(_,_)).
+justify_pred(dataAllowedToBeAccessedBy(_,_)).
+justify_pred(classificationOf(_,_)).
+justify_pred(classificationOfCall(_,_)).
+justify_pred(tamperingAbilities(_,_)).
+justify_pred(locationsAccessibleBy(_,_)).
+justify_pred(containerSecuredByMethod(_,_)).
+justify_pred(furtherConnections(_,_)).
+justify_pred(sharing(_,_)).
+justify_pred(location(_,_)).
+justify_pred(linkLocation(_,_)).
+justify_pred(dataset(_)).
+justify_pred(attacker(_)).
+
 dataset(inhabitantData).
 dataset(providerData).
 dataset(publicData).

@@ -33,6 +33,13 @@
            possible/0, existing/0, complete/0.
 % END EXPORTS
 
+justify_pred(isInSecureWithRespectTo(_)).
+justify_pred(containersFullyAccessibleBy(_,_)).
+justify_pred(linksMetaDataFullyAccessibleBy(_,_)).
+justify_pred(linksPayloadFullyAccessibleBy(_,_)).
+justify_pred(linksPhysicalAccessibleBy(_,_)).
+justify_pred(containersPhysicalAccessibleBy(_,_)).
+
 isInSecureWithRespectTo(Attacker) :-
         dataAccessibleTo(Attacker,Accessed),
         not (dataAllowedToBeAccessedBy(Attacker,Accessed)).

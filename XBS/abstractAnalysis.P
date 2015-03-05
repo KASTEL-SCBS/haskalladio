@@ -35,6 +35,10 @@
            dataAccessibleTo/2.                   % dataAccessibleTo(Attacker,DataSet)
 % END EXPORTS
 
+justify_pred(accessibleParameters(_,_)).
+justify_pred(observableServices(_,_)).
+justify_pred(dataAccessibleTo(_,_)).
+
 accessibleParameters(Attacker,Parameter) :-
   % Ausgabe-Parameter, auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat
   interfacesAllowedToBeUsedBy(Attacker,Interface),
