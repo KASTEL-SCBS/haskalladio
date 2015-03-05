@@ -33,7 +33,7 @@ clean: clean-xwam
 	rm -f *_jxm.*
 	rm -f *.result
 	rm -f all.P
-        rm -f all-with-imports.P
+	rm -f all-with-imports.P
 
 clean-xwam:
 	rm -f *.xwam
