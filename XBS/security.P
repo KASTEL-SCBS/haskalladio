@@ -1,3 +1,4 @@
+% BEGIN IMPORTS
 :- import  exposesPhsicallyAccessiblePayloadTo/2,
            exposesPhsicallyAccessibleMetaDataTo/2 from linkModel.
 
@@ -12,11 +13,9 @@
            location/2,
            linkLocation/2
            from securityInstance.
+% END IMPORTS
 
-
-
-
-
+% BEGIN EXPORTS
 :- export  % Predicates
            isInSecureWithRespectTo/1,               % isInSecureWithRespectTo(Attacker)
 
@@ -32,7 +31,7 @@
            openShared/0, controlledExclusive/0,
            % FurtherConnections = Possible | Existing | Complete
            possible/0, existing/0, complete/0.
-
+% END EXPORTS
 
 isInSecureWithRespectTo(Attacker) :-
         dataAccessibleTo(Attacker,Accessed),

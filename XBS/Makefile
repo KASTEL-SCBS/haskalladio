@@ -1,7 +1,8 @@
 XSB=xsb
 XSB_OPTIONS_QUIET=--noprompt --quietload --nobanner --nofeedback
 
-SOURCES=grandparent.P mother.P
+# SOURCES=grandparent.P mother.P
+SOURCES=abstractAnalysis.P componentRepositoryInstance.P  linkModel.P palladioInstance.P queries.P  security.P palladio.P  securityInstance.P  simpleLinkModelInstance.P
 XWAMS=$(SOURCES:.P=.xwam)
 
 .PHONY: all clean clean-xwam
@@ -22,6 +23,9 @@ queries-justifiy.result: all_jxm.xwam all.xwam
 
 all.P : $(SOURCES)
 	cat $^ | awk '/% BEGIN IMPORTS/{ignore=1}/% BEGIN EXPORTS/{ignore=1}{if (ignore==0) print }/% END IMPORTS/{ignore=0}/% END EXPORTS/{ignore=0};' > $@
+
+all-with-imports.P : $(SOURCES)
+	cat $^ > $@
 
 
 

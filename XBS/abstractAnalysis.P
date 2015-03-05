@@ -1,3 +1,4 @@
+% BEGIN IMPORTS
 :- import  interfacesAllowedToBeUsedBy/2
            from securityInstance.
 
@@ -26,12 +27,13 @@
 :- import  classificationOfCall/2,
            classificationOf/2
            from securityInstance.
-
+% END IMPORTS
+% BEGIN EXPORTS
 :- export  % Predicates
            accessibleParameters/2,               % accessibleParameters(Attacker,Parameter)
            observableServices/2,                 % observableServices(Attacker,Parameter)
            dataAccessibleTo/2.                   % dataAccessibleTo(Attacker,DataSet)
-
+% END EXPORTS
 
 accessibleParameters(Attacker,Parameter) :-
   % Ausgabe-Parameter, auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat

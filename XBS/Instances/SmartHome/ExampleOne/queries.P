@@ -1,6 +1,7 @@
+% BEGIN IMPORTS
 :- import attacker/1 from securityInstance.
 :- import isInSecureWithRespectTo/1 from security.
-
+% END IMPORTS
 query6(Attacker) :- attacker(Attacker), isInSecureWithRespectTo(Attacker), write(Attacker).
 
 

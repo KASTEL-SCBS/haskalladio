@@ -1,3 +1,4 @@
+% BEGIN EXPORTS
 :- export  % Predicates
            providedInterfacesOn/2,
            requiredInterfacesOn/2,
@@ -5,7 +6,8 @@
            % Enumerators
            providedInterfaces/1,
            requiredInterfaces/1.
-
+% END EXPORTS
+% BEGIN IMPORTS
 :- import  system/1,
            runsOn/2,
            componentOf/2
@@ -14,6 +16,7 @@
 :- import  provides/2,
            requires/2
            from componentRepositoryInstance.
+% END IMPORTS
 
 providedInterfacesOn(Container,Interface) :-
         system(AssemblyContext),
