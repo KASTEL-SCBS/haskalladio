@@ -3,8 +3,10 @@ dataset(providerData).
 dataset(publicData).
 
 attacker(guest).
+attacker(burglar).
 attacker(handyMan).
 attacker(anybody).
+attacker(blindDeafGuy).
 
 
 interfacesAllowedToBeUsedBy(guest,currentConsumptionDataDisplaying).

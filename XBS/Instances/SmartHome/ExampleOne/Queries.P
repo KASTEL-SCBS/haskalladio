@@ -1,5 +1,5 @@
 :- import attacker/1 from securityInstance.
-:- import isInSecureWithRespectTo/2 from security.
+:- import isInSecureWithRespectTo/1 from security.
 
 query6(Attacker) :- attacker(Attacker), isInSecureWithRespectTo(Attacker).
 
