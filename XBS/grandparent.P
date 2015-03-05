@@ -1,0 +1,15 @@
+% BEGIN IMPORTS
+:- import mother/2,
+          father/2
+  from mother.
+% END IMPORTS
+grandparent(X,Y) :- parent(X,Z),parent(Z,Y).
+
+parent(X,Y) :- mother(X,Y).
+parent(X,Y) :- father(X,Y).
+
+justify_pred(grandparent(_,_)).
+justify_pred(parent(_,_)).
+
+
+justify6 :- write('justify6:'),nl,setof((X,Y,E), just_true(grandparent(X,Y),E),Set),write(Set),nl.

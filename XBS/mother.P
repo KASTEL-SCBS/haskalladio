@@ -1,0 +1,13 @@
+% BEGIN EXPORTS
+:- export mother/2,
+          father/2.
+% END EXPORTS
+mother(inge,emil).
+mother(inge,petra).
+mother(petra,willi).
+
+father(fritz,emil).
+father(emil,kunibert).
+
+justify_pred(mother(_,_)).
+justify_pred(father(_,_)).

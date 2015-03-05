@@ -3,19 +3,14 @@
 
 :- import  dataAccessibleTo/2 from abstractAnalysis.
 
-:- import  interfacesAllowedToBeUsedBy/2,
-           dataAllowedToBeAccessedBy/2,
-           classificationOf/2,
-           classificationOfCall/2,
+:- import  dataAllowedToBeAccessedBy/2,
            tamperingAbilities/2,
            locationsAccessibleBy/2,
            containerSecuredByMethod/2,
            furtherConnections/2,
            sharing/2,
            location/2,
-           linkLocation/2,
-           dataset/1,
-           attacker/1
+           linkLocation/2
            from securityInstance.
 
 

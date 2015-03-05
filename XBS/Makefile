@@ -1,0 +1,30 @@
+XSB=xsb
+XSB_OPTIONS_QUIET=--noprompt --quietload --nobanner --nofeedback
+
+SOURCES=grandparent.P mother.P
+XWAMS=$(SOURCES:.P=.xwam)
+
+.PHONY: all clean clean-xwam
+
+
+%.xwam : %.P
+	$(XSB) $(<:.P=)
+%_jxm.P : %.P
+	$(XSB) $(XSB_OPTIONS_QUIET) -e "[justify],[$(<:.P=)],jxm($(<:.P=)),halt."
+
+
+queries.result: $(XWAMS)
+	$(XSB) $(XSB_OPTIONS_QUIET) -e "[queries],[$(<:.P=)],jxm($(<:.P=)),halt."
+
+
+queries-justifiy.result: all_jxm.xwam all.xwam
+	$(XSB) $(XSB_OPTIONS_QUIET) -e "[all_jxm],[justify],[all],justify6,halt." > $@
+
+all.P : $(SOURCES)
+	cat $^ | awk '/% BEGIN IMPORTS/{ignore=1}/% BEGIN EXPORTS/{ignore=1}{if (ignore==0) print }/% END IMPORTS/{ignore=0}/% END EXPORTS/{ignore=0};' > $@
+
+
+clean-xwam:
+	rm *.xwam
+
+
