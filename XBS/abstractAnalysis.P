@@ -3,15 +3,15 @@
 
 
 :- import  requires/2,
+           inputParameters/2,
+           outputParameters/2,
            services/2
            from componentRepositoryInstance.
 :- import  systemProdives/2,
            systemRequires/2,
-           inputParameters/2,
-           outputParameters/2,
-           assembliesOn/2,
            linkBetween/3,
            componentOf/2,
+           runsOn/2,
            systemProvides/1,
            systemRequires/1,
            systemAssembledTo/3
@@ -27,7 +27,7 @@
 
 :- import  classificationOfCall/2,
            classificationOf/2
-           from securitInstance.
+           from securityInstance.
 
 :- export  % Predicates
            accessibleParameters/2,               % accessibleParameters(Attacker,Parameter)
@@ -60,11 +60,11 @@ accessibleParameters(Attacker,Parameter) :-
   % Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
   linksPayloadFullyAccessibleBy(Attacker, Link),
   linkBetween(Link,ContainerLeft,ContainerRight),
-  assembliesOn(ContainerLeft, Left),
+  runsOn(Left,ContainerLeft),
   componentOf(Left,Component),
   requires(Component,Interface),
   systemAssembledTo(Left,Interface,byAssembly(Right)),
-  assembliesOn(ContainerRight, Right),
+  runsOn(Right,ContainerRight),
   services(Interface, Service),
   (inputParameters(Service,Parameter) ; outputParameters(Service,Parameter)).
 
@@ -85,11 +85,11 @@ observableServices(Attacker, Service) :-
   % Services, deren Aufrufe der Angreifer beobachten kann, weil er eine entsprechende LinkResource angreifen konnte.
   linksMetaDataFullyAccessibleBy(Attacker,Link),
   linkBetween(Link,ContainerLeft, ContainerRight),
-  assembliesOn(ContainerLeft,Left),
+  runsOn(Left,ContainerLeft),
   componentOf(Left,Component),
   requires(Component,Interface),
   systemAssembledTo(Left,Interface,byAssembly(Right)),
-  assembliesOn(ContainerRight, Right),
+  runsOn(Right,ContainerRight),
   services(Interface,Service).
 
 

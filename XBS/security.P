@@ -29,6 +29,9 @@
            linksMetaDataFullyAccessibleBy/2,        % linksMetaDataFullyAccessibleBy(Attacker,LinkingResource)
            linksPayloadFullyAccessibleBy/2,         % linksPayloadFullyAccessibleBy(Attacker,LinkingResource)
 
+           linksPhysicalAccessibleBy/2,             % linksPhysicalAccessibleBy(Attacker,Link)
+           containersPhysicalAccessibleBy/2,        % containersPhysicalAccessibleBy(Attacker,Container)
+
            % Used Functors
            % Sharing = OpenShared | ControlledExclusive
            openShared/0, controlledExclusive/0,
@@ -49,7 +52,7 @@ containersFullyAccessibleBy(_,Container) :-
         sharing(Container,openShared),
         furtherConnections(Container,existing).
 containersFullyAccessibleBy(Attacker,Container) :-
-        containersPhysicalAccessible(Attacker,Container),
+        containersPhysicalAccessibleBy(Attacker,Container),
         sharing(Container,openShared),
         furtherConnections(Container,possible).
 
@@ -62,3 +65,11 @@ linksMetaDataFullyAccessibleBy(Attacker,Link) :-
     linksPhysicalAccessibleBy(Attacker,Link),
     exposesPhsicallyAccessibleMetaDataTo(Link,Attacker).
 
+
+linksPhysicalAccessibleBy(Attacker,Link) :-
+    linkLocation(Link,Location),
+    locationsAccessibleBy(Attacker,Location).
+
+containersPhysicalAccessibleBy(Attacker,Container) :-
+    location(Container,Location),
+    locationsAccessibleBy(Attacker,Location).

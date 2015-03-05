@@ -1,5 +1,5 @@
-:- import  isEncrypted/1 from SimpleLinkModelInstance.
-:- import  attacker/1 from SecurityInstance.
+:- import  isEncrypted/1 from simpleLinkModelInstance.
+:- import  attacker/1 from securityInstance.
 
 :- export  exposesPhsicallyAccessiblePayloadTo/2,
            exposesPhsicallyAccessibleMetaDataTo/2.
@@ -8,5 +8,5 @@ exposesPhsicallyAccessiblePayloadTo(Link,Attacker) :-
         not(isEncrypted(Link)),
         attacker(Attacker).
 
-exposesPhsicallyAccessibleMetaDataTo(Link,Attacker) :-
+exposesPhsicallyAccessibleMetaDataTo(_Link,Attacker) :-
         attacker(Attacker).

@@ -2,3 +2,5 @@
 :- import isInSecureWithRespectTo/2 from security.
 
 query6(Attacker) :- attacker(Attacker), isInSecureWithRespectTo(Attacker).
+
+% security:isInSecureWithRespectTo(Attacker).

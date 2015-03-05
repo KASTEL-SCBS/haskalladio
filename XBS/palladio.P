@@ -8,12 +8,12 @@
 
 :- import  system/1,
            runsOn/2,
-           componentOf/2,
-           from PalladioInstance.
+           componentOf/2
+           from palladioInstance.
 
 :- import  provides/2,
-           requires/2,
-           from ComponentRepositoryInstance.
+           requires/2
+           from componentRepositoryInstance.
 
 providedInterfacesOn(Container,Interface) :-
         system(AssemblyContext),

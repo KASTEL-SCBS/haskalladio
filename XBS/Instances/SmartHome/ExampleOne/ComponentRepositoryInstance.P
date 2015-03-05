@@ -1,20 +1,19 @@
-
 services(currentMeterDataReceiving,storeCurrentConsumption).
 services(consumptionDataSending,getCurrentConsumptionConsumptionDataSending).
 services(consumptionDataSending,getHistoricConsumption).
 services(currentConsumptionDataDisplaying,getCurrentConsumptionCurrentConsumptionDataDisplaying).
 
 
-inputParameters(storeCurrentConsumption,consumption)
+inputParameters(storeCurrentConsumption,consumption).
 
-outputParameters(Service,return(Service)) :- Service\= storeCurrentConsumption.
+outputParameters(Service,return(Service)) :- Service \= storeCurrentConsumption.
 
 typeOf(consumption,timedConsumption).
 typeOf(return(getCurrentConsumptionConsumptionDataSending),timedConsumption).
 typeOf(return(getCurrentConsumptionCurrentConsumptionDataDisplaying),timedConsumption).
-typeOf(return(getHistoricConsumption)),(consumptionHistory).
+typeOf(return(getHistoricConsumption),consumptionHistory).
 
-provides(controller,currentMeterDataReceiving)
+provides(controller,currentMeterDataReceiving).
 provides(controller,consumptionDataSending).
 provides(tablet,currentConsumptionDataDisplaying).
 
