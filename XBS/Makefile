@@ -24,7 +24,12 @@ all.P : $(SOURCES)
 	cat $^ | awk '/% BEGIN IMPORTS/{ignore=1}/% BEGIN EXPORTS/{ignore=1}{if (ignore==0) print }/% END IMPORTS/{ignore=0}/% END EXPORTS/{ignore=0};' > $@
 
 
+
+clean: clean-xwam
+	rm -f *_jxm.*
+	rm -f *.result
+	rm -f all.P
 clean-xwam:
-	rm *.xwam
+	rm -f *.xwam
 
 
