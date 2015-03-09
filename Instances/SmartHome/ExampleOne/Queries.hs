@@ -16,8 +16,8 @@ import AbstractAnalysis
 
 
 import Instances.SmartHome.ExampleOne.Security
--- import Instances.SmartHome.ExampleOne.SimpleLinkModel
-import Instances.SmartHome.ExampleOne.TamperableLinkModel
+import Instances.SmartHome.ExampleOne.SimpleLinkModel
+-- import Instances.SmartHome.ExampleOne.TamperableLinkModel
 -- import Instances.SmartHome.ExampleOne.ComplexLinkModel
 
 

@@ -4,7 +4,7 @@
 % END IMPORTS
 justify_pred(query6(_)).
 
-query6(Attacker) :- attacker(Attacker), isInSecureWithRespectTo(Attacker), write(Attacker).
+query6(Attacker) :- attacker(Attacker), isInSecureWithRespectTo(Attacker).
 
 justify6 :- write('justify6:'),nl,setof((Attacker,E), just_true(query6(Attacker),E),Set),write(Set),nl.
 

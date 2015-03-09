@@ -1,0 +1,42 @@
+foo(a).
+foo(b).
+foo(c).
+
+bar(d).
+bar(e).
+
+lol(X) :- foo(X), not(bar(X)).
+
+justify_pred(foo(_)).
+justify_pred(bar(_)).
+justify_pred(lol(_)).
+
+
+
+attacker(handyMan).
+linksPhysicalAccessibleBy(handyMan,linkMeterController).
+isEncrypted(linkControllerTablet).
+
+exposesPhsicallyAccessiblePayloadTo(Link,Attacker) :-
+        not(isEncrypted(Link)),
+        attacker(Attacker).
+
+
+linksPayloadFullyAccessibleBy(Attacker,Link) :-
+    linksPhysicalAccessibleBy(Attacker,Link),
+    exposesPhsicallyAccessiblePayloadTo(Link,Attacker).
+
+
+
+justify_pred(isEncrypted(_)).
+justify_pred(linksPayloadFullyAccessibleBy(_,_)).
+justify_pred(exposesPhsicallyAccessiblePayloadTo(_,_)).
+justify_pred(linksPhysicalAccessibleBy(_,_)).
+justify_pred(attacker(_)).
+
+
+justify6 :- write('justify6:'),nl,setof((Attacker,Link,E), just_true(linksPayloadFullyAccessibleBy(Attacker,Link),E),Set),write(Set),nl.
+
+% justify6 :- write('justify6:'),nl,setof((Attacker,E), just_true(lol(Attacker),E),Set),write(Set),nl.
+
+

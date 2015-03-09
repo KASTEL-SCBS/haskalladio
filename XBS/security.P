@@ -42,7 +42,7 @@ justify_pred(containersPhysicalAccessibleBy(_,_)).
 
 isInSecureWithRespectTo(Attacker) :-
         dataAccessibleTo(Attacker,Accessed),
-        not (dataAllowedToBeAccessedBy(Attacker,Accessed)).
+        not(dataAllowedToBeAccessedBy(Attacker,Accessed)).
 
 
 containersFullyAccessibleBy(Attacker,Container) :-
