@@ -17,8 +17,11 @@
            from palladioInstance.
 
 :- import  requiredInterfacesOn/2,
-           providedInterfacesOn/2
+           providedInterfacesOn/2,
+           interfacesOn/2,
+           parameters/2
            from palladio.
+
 :- import  linksMetaDataFullyAccessibleBy/2,
            linksPayloadFullyAccessibleBy/2,
            containersFullyAccessibleBy/2
@@ -56,9 +59,9 @@ accessibleParameters(Attacker,Parameter) :-
 accessibleParameters(Attacker,Parameter) :-
   % Parameter, auf die der Angreifer Zugriff hat, weil er einen entsprechenden ResourceContainer angreifen konnte.
   containersFullyAccessibleBy(Attacker, Container),
-  (providedInterfacesOn(Container,Interface) ; requiredInterfacesOn(Container,Interface)),
+  interfacesOn(Container,Interface),
   services(Interface,Service),
-  (inputParameters(Service,Parameter) ; outputParameters(Service,Parameter)).
+  parameters(Service,Parameter).
 
 accessibleParameters(Attacker,Parameter) :-
   % Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
@@ -70,7 +73,7 @@ accessibleParameters(Attacker,Parameter) :-
   systemAssembledTo(Left,Interface,byAssembly(Right)),
   runsOn(Right,ContainerRight),
   services(Interface, Service),
-  (inputParameters(Service,Parameter) ; outputParameters(Service,Parameter)).
+  parameters(Service,Parameter).
 
 
 observableServices(Attacker, Service) :-
@@ -82,7 +85,7 @@ observableServices(Attacker, Service) :-
 observableServices(Attacker,Service) :-
   % Services, deren Aufrufe der Angreifer beobachten kann, weil er einen entsprechenden ResourceContainer angreifen konnte.
   containersFullyAccessibleBy(Attacker,Container),
-  (providedInterfacesOn(Container,Interface) ; requiredInterfacesOn(Container,Interface)),
+  interfacesOn(Container,Interface),
   services(Interface,Service).
 
 observableServices(Attacker, Service) :-

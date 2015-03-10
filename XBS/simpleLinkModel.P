@@ -12,8 +12,8 @@ justify_pred(exposesPhsicallyAccessibleMetaDataTo(_,_)).
 
 
 exposesPhsicallyAccessiblePayloadTo(Link,Attacker) :-
-        not(isEncrypted(Link)),
-        attacker(Attacker).
+        attacker(Attacker),
+        not(isEncrypted(Link)).
 
 exposesPhsicallyAccessibleMetaDataTo(_Link,Attacker) :-
         attacker(Attacker).

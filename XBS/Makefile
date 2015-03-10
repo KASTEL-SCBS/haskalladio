@@ -23,7 +23,7 @@ queries-justifiy.result: all_jxm.xwam all.xwam
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[all_jxm],[justify],[all],justify6,halt." > $@
 
 test-queries-justifiy: all_jxm.xwam all.xwam
-	rlwrap $(XSB) -e "[all_jxm],[justify],[all]."
+	rlwrap $(XSB) -e "[all_jxm],[justify],[all],[lists]."
 
 
 all.P : $(SOURCES)

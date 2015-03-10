@@ -2,6 +2,8 @@
 :- export  % Predicates
            providedInterfacesOn/2,
            requiredInterfacesOn/2,
+           interfacesOn/2,
+           parameters/2,
 
            % Enumerators
            providedInterfaces/1,
@@ -14,12 +16,16 @@
            from palladioInstance.
 
 :- import  provides/2,
-           requires/2
+           requires/2,
+           outputParameters/2,
+           inputParameters/2
            from componentRepositoryInstance.
 % END IMPORTS
 
 justify_pred(providedInterfacesOn(_,_)).
 justify_pred(requiredInterfacesOn(_,_)).
+justify_pred(interfacesOn(_,_)).
+justify_pred(parameters(_,_)).
 justify_pred(providedInterfaces(_)).
 justify_pred(requiredInterfaces(_)).
 
@@ -34,6 +40,18 @@ requiredInterfacesOn(Container,Interface) :-
         runsOn(AssemblyContext,Container),
         componentOf(AssemblyContext,Component),
         requires(Component,Interface).
+
+
+interfacesOn(Container,Interface) :-
+        requiredInterfacesOn(Container,Interface).
+interfacesOn(Container,Interface) :-
+        providedInterfacesOn(Container,Interface).
+
+
+parameters(Service, Parameter) :-
+        inputParameters(Service, Parameter).
+parameters(Service, Parameter) :-
+        outputParameters(Service, Parameter).
 
 providedInterfaces(Interface) :-
         system(AssemblyContext),
