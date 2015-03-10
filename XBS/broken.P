@@ -1,38 +1,33 @@
-foo(a).
-foo(b).
-foo(c).
+% foo(a).
+% foo(b).
+% foo(c).
 
-bar(d).
-bar(e).
+% bar(d).
+% bar(e).
 
-lol(X) :- foo(X), not(bar(X)).
+% lol(X) :- foo(X), not(bar(X)).
 
-justify_pred(foo(_)).
-justify_pred(bar(_)).
-justify_pred(lol(_)).
+% justify_pred(foo(_)).
+% justify_pred(bar(_)).
+% justify_pred(lol(_)).
 
 
+succeed(X).
 
-attacker(handyMan).
-linksPhysicalAccessibleBy(handyMan,linkMeterController).
 isEncrypted(linkControllerTablet).
 
 exposesPhsicallyAccessiblePayloadTo(Link,Attacker) :-
-        not(isEncrypted(Link)),
-        attacker(Attacker).
+        succeed(Attacker),
+        not(isEncrypted(Link)).
+%        attacker(Attacker).
 
-
-linksPayloadFullyAccessibleBy(Attacker,Link) :-
-    linksPhysicalAccessibleBy(Attacker,Link),
-    exposesPhsicallyAccessiblePayloadTo(Link,Attacker).
-
+broken :- exposesPhsicallyAccessiblePayloadTo(linkMeterController,handyMan).
 
 
 justify_pred(isEncrypted(_)).
-justify_pred(linksPayloadFullyAccessibleBy(_,_)).
 justify_pred(exposesPhsicallyAccessiblePayloadTo(_,_)).
-justify_pred(linksPhysicalAccessibleBy(_,_)).
-justify_pred(attacker(_)).
+justify_pred(succeed(_)).
+justify_pred(broken).
 
 
 justify6 :- write('justify6:'),nl,setof((Attacker,Link,E), just_true(linksPayloadFullyAccessibleBy(Attacker,Link),E),Set),write(Set),nl.

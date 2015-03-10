@@ -1,9 +1,9 @@
 XSB=xsb
 XSB_OPTIONS_QUIET=--noprompt --quietload --nobanner --nofeedback
 
-SOURCES=broken.P
+# SOURCES=brokenExample.P
 # SOURCES=grandparent.P mother.P
-# SOURCES=abstractAnalysis.P componentRepositoryInstance.P  linkModel.P palladioInstance.P queries.P  security.P palladio.P  securityInstance.P  simpleLinkModelInstance.P
+SOURCES=abstractAnalysis.P componentRepositoryInstance.P  linkModel.P palladioInstance.P queries.P  security.P palladio.P  securityInstance.P  simpleLinkModelInstance.P
 XWAMS=$(SOURCES:.P=.xwam)
 
 .PHONY: all clean clean-xwam test-queries-justify

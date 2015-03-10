@@ -1,0 +1,73 @@
+succeed(_).
+foo(a).
+
+
+bar(B,Y) :-
+  succeed(Y),
+  not(foo(B)).
+
+working :- bar(b,y).
+
+
+
+baz(B,Y) :-
+  not(foo(B)),
+  succeed(Y).
+
+broken :- baz(b,y).
+
+
+
+justify_pred(succeed(_)).
+justify_pred(foo(_)).
+justify_pred(bar(_,_)).
+justify_pred(baz(_,_)).
+justify_pred(working).
+justify_pred(broken).
+
+
+
+
+/*
+
+Given the program above, and following the instructions from packages/justify/README,
+the justifications for "working" work es expected:
+  
+| ?- working.
+yes
+
+| ?- just_true(working,E).
+E = [(bar(b,y)  ','  [(succeed(y)  ','  []),(not foo(b)  ','  [(not b = a  ','  [])])])];
+no
+
+
+However, changing the order of "not(foo(B))" and "succeed(Y)", results in the following behaviour:
+
+| ?- broken.
+yes
+
+
+| ?- just_true(broken,E).
+no
+
+
+
+
+The Problem appears to be in txm_true_clause from packages/justify/jxm.P:
+
+txm_true_clause((C1,C2), TC, Evid) :- !,
+    txm_true_clause(C1, TC1, EvidC1),
+    txm_true_clause(C2, TC2, EvidC2),
+    % for bar, we have
+    %          EvidC1 = [(succeed(_h1271)  ','  _h1399)]
+    %          EvidC2 = _h1379 is uninstantiated
+    % for baz, of course, EvidC1 and EvidC2 are interchanged
+    %          EvidC1 = _h1379 is uninstantiated
+    %          EvidC2 = [(succeed(_h1271)  ','  _h1399)]
+    %
+
+    append(EvidC1, EvidC2, Evid),
+    % now   for bar,  EvidC2 = _h1379 remains uninstantiated, as it should.
+    % while for baz,  EvidC1 = [] on the first fullfillment of append/3
+    TC = (TC1, TC2).
+*/
