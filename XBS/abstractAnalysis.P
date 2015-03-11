@@ -14,7 +14,7 @@
            systemProvides/1,
            systemRequires/1,
            systemAssembledTo/3,
-           byAssembly/1,
+           byAssembly/1
            from palladioInstance.
 
 :- import  interfacesOn/2,
