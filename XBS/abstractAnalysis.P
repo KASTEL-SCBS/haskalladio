@@ -16,9 +16,7 @@
            systemAssembledTo/3
            from palladioInstance.
 
-:- import  requiredInterfacesOn/2,
-           providedInterfacesOn/2,
-           interfacesOn/2,
+:- import  interfacesOn/2,
            parameters/2
            from palladio.
 

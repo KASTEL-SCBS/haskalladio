@@ -13,18 +13,16 @@ XSB_OPTIONS_QUIET=--noprompt --quietload --nobanner --nofeedback
 SOURCES=abstractAnalysis.P componentRepositoryInstance.P  linkModel.P palladioInstance.P queries.P  security.P palladio.P  securityInstance.P  simpleLinkModelInstance.P
 XWAMS=$(SOURCES:.P=.xwam)
 
-.PHONY: all clean clean-xwam test-queries-justify force
+.PHONY: clean clean-xwam test-queries-justify force queries.result
 
 
 .force :
 
 linkModel.P  : .force
-	rm -f $@
-	ln -s simpleLinkModel.P $@
+	ln -f -s simpleLinkModel.P $@
 
 componentRepositoryInstance.P palladioInstance.P securityInstance.P simpleLinkModelInstance.P : .force
-	rm -f $@
-	ln -s $(INSTANCE)/$@ $@
+	ln -f -s $(INSTANCE)/$@ $@
 
 
 
@@ -35,14 +33,14 @@ componentRepositoryInstance.P palladioInstance.P securityInstance.P simpleLinkMo
 
 
 queries.result: $(XWAMS)
-	$(XSB) $(XSB_OPTIONS_QUIET) -e "[queries],[$(<:.P=)],jxm($(<:.P=)),halt."
+	$(XSB) $(XSB_OPTIONS_QUIET) -e "[queries],nojustify6,halt."
 
 
 queries-justifiy.result: all_jxm.xwam all.xwam
-	$(XSB) $(XSB_OPTIONS_QUIET) -e "[all_jxm],[justify],[all],justify6,halt." > $@
+	$(XSB) $(XSB_OPTIONS_QUIET) -e "[basics],[all_jxm],[justify],[all],justify6,halt."
 
 test-queries-justifiy: all_jxm.xwam all.xwam
-	rlwrap $(XSB) -e "[all_jxm],[justify],[all],[lists]."
+	rlwrap $(XSB) -e "[basics],[all_jxm],[justify],[all]."
 
 
 all.P : $(SOURCES)

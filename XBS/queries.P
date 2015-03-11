@@ -1,11 +1,24 @@
 % BEGIN IMPORTS
 :- import attacker/1 from securityInstance.
 :- import isInSecureWithRespectTo/1 from security.
+:- import length/2 from lists.
 % END IMPORTS
 justify_pred(query6(_)).
 
 query6(Attacker) :- attacker(Attacker), isInSecureWithRespectTo(Attacker).
 
-justify6 :- write('justify6:'),nl,setof((Attacker,E), just_true(query6(Attacker),E),Set),write(Set),nl.
+nojustify6:-
+        write('justify6:'),nl,
+        bagof((Attacker), query6(Attacker), Bag),
+        length(Bag,L),
+        write(Bag),nl,
+        write('length:'), write(L), nl.
+justify6 :-
+        write('justify6:'),nl,
+        bagof((Attacker,E),
+        just_true(query6(Attacker),E),Bag),
+        length(Bag,L),
+        write(Bag),nl,
+        write('length:'), write(L), nl.
 
-% security:isInSecureWithRespectTo(Attacker).
+
