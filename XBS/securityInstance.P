@@ -1,1 +1,1 @@
-CurrentInstance/securityInstance.P
+Instances/SmartHome/ExampleOne/securityInstance.P

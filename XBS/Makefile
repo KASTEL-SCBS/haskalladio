@@ -1,12 +1,31 @@
+
+
+INSTANCE=Instances/SmartHome/ExampleOne
+LINKMODEL=simpleLinkModel.P
+
+
 XSB=xsb
 XSB_OPTIONS_QUIET=--noprompt --quietload --nobanner --nofeedback
 
-# SOURCES=brokenExample.P
-# SOURCES=grandparent.P mother.P
+
+
+
 SOURCES=abstractAnalysis.P componentRepositoryInstance.P  linkModel.P palladioInstance.P queries.P  security.P palladio.P  securityInstance.P  simpleLinkModelInstance.P
 XWAMS=$(SOURCES:.P=.xwam)
 
-.PHONY: all clean clean-xwam test-queries-justify
+.PHONY: all clean clean-xwam test-queries-justify force
+
+
+.force :
+
+linkModel.P  : .force
+	rm -f $@
+	ln -s simpleLinkModel.P $@
+
+componentRepositoryInstance.P palladioInstance.P securityInstance.P simpleLinkModelInstance.P : .force
+	rm -f $@
+	ln -s $(INSTANCE)/$@ $@
+
 
 
 %.xwam : %.P

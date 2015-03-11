@@ -1,1 +1,11 @@
-CurrentInstance/queries.P
+% BEGIN IMPORTS
+:- import attacker/1 from securityInstance.
+:- import isInSecureWithRespectTo/1 from security.
+% END IMPORTS
+justify_pred(query6(_)).
+
+query6(Attacker) :- attacker(Attacker), isInSecureWithRespectTo(Attacker).
+
+justify6 :- write('justify6:'),nl,setof((Attacker,E), just_true(query6(Attacker),E),Set),write(Set),nl.
+
+% security:isInSecureWithRespectTo(Attacker).

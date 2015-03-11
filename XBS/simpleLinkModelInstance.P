@@ -1,1 +1,1 @@
-CurrentInstance/simpleLinkModelInstance.P
+Instances/SmartHome/ExampleOne/simpleLinkModelInstance.P

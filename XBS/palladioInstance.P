@@ -1,1 +1,1 @@
-CurrentInstance/palladioInstance.P
+Instances/SmartHome/ExampleOne/palladioInstance.P

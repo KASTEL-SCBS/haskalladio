@@ -1,1 +1,1 @@
-CurrentInstance/componentRepositoryInstance.P
+Instances/SmartHome/ExampleOne/componentRepositoryInstance.P
