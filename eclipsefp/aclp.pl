@@ -9,19 +9,19 @@ aclp_solve(Goal, InDelta, NewDelta) :-
         solve(Goal, InDelta, NewDelta, []),
 	nl,nl,writeln('Solution = '),
         full_write(NewDelta).
-%        term_variables(NewDelta, DVs), labeling(DVs), 
+%        term_variables(NewDelta, DVs), aclp_labeling(DVs), 
 %        term_string(NewDelta,NewDeltaStr),
 %        nl,write('Solution = '),writeln(NewDeltaStr).
 
 aclp_solve(Goal, InDelta) :-
         solve(Goal, InDelta, NewDelta, []),
-        term_variables(NewDelta, DVs), labeling(DVs), 
+        term_variables(NewDelta, DVs), aclp_labeling(DVs), 
         nl,nl,writeln('Solution = '),
         full_write(NewDelta).
 
 aclp_solve(Goal) :-
         solve(Goal, [], NewDelta, []),
-        term_variables(NewDelta, DVs), labeling(DVs), 
+        term_variables(NewDelta, DVs), aclp_labeling(DVs), 
         nl,nl,writeln('Solution = '),
         full_write(NewDelta).
 
@@ -266,7 +266,7 @@ issoft([_,_],X#>=Y):-
 
 
 propagate(TestVars) :-
-	( \+once(labeling(TestVars)) ->
+	( \+once(aclp_labeling(TestVars)) ->
 		fail
 	  ;	true).
 
@@ -589,12 +589,11 @@ solve_test(A, New_Delta, New_Delta, SearchList) :-
         term_variables(A,VarsInA),
         propagate(VarsInA).
 
-labeling([]) :- !.
-labeling(List) :-
+aclp_labeling([]) :- !.
+aclp_labeling(List) :-
           deleteff(Var, List, Rest),
           indomain(Var),
-          labeling(Rest).
+          aclp_labeling(Rest).
 
 :- set_flag(goal_expansion, off).
-:- set_flag(all_dynamic, on).
 :- dynamic abducible_predicate/1.
