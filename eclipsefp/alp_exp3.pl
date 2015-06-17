@@ -12,7 +12,7 @@
 /* Note also that the second goal (G2) now has two explanations.    */
 /* **************************************************************** */
 
-:- dynamic flies/1,abnormal/1,heavy/1,light/1,bird/1,penguin/1,eagle/1.
+:- dynamic flies/1,abnormal/1,heavy/1,light/1,bird/1,bird_ab/1,slim/1,penguin/1,eagle/1.
 
 
 flies(X) :- bird(X), not(abnormal(X)).
