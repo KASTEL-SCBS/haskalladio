@@ -1,3 +1,54 @@
+:- dynamic tamperingAbilities/2.
+:- dynamic locationsAccessibleBy/2.
+:- dynamic services/2.
+:- dynamic inputParameters/2.
+:- dynamic outputParameters/2.
+:- dynamic typeOf/2.
+:- dynamic provides/2.
+:- dynamic requires/2.
+:- dynamic resourcecontainers/1.
+:- dynamic linkingresources/1.
+:- dynamic systemModel/1.
+:- dynamic systemProvides/2.
+:- dynamic systemRequires/2.
+:- dynamic systemAssembledTo/3.
+:- dynamic systemProvidesAsssembledTo/2.
+:- dynamic runsOn/2.
+:- dynamic componentOf/2.
+:- dynamic linkBetween/3.
+:- dynamic interfacesAllowedToBeUsedBy/2.
+:- dynamic dataAllowedToBeAccessedBy/2.
+:- dynamic classificationOf/2.
+:- dynamic classificationOfCall/2.
+:- dynamic containerSecuredByMethod/2.
+:- dynamic furtherConnections/2.
+:- dynamic sharing/2.
+:- dynamic location/2.
+:- dynamic linkLocation/2.
+:- dynamic dataset/1.
+:- dynamic attacker/1.
+:- dynamic isEncrypted/1.
+:- dynamic exposesPhsicallyAccessiblePayloadTo/2.
+:- dynamic exposesPhsicallyAccessibleMetaDataTo/2.
+:- dynamic accessibleParameters/2.
+:- dynamic observableServices/2.
+:- dynamic dataAccessibleTo/2.
+:- dynamic isInSecureWithRespectTo/1.
+:- dynamic containersFullyAccessibleBy/2.
+:- dynamic linksMetaDataFullyAccessibleBy/2.
+:- dynamic linksPayloadFullyAccessibleBy/2.
+:- dynamic linksPhysicalAccessibleBy/2.
+:- dynamic containersPhysicalAccessibleBy/2.
+:- dynamic providedInterfacesOn/2.
+:- dynamic requiredInterfacesOn/2.
+:- dynamic interfacesOn/2.
+:- dynamic parameters/2.
+:- dynamic providedInterfaces/2.
+:- dynamic requiredInterfaces/2.
+
+:- dynamic ic/0.
+:- dynamic query6/1.
+
 services(currentMeterDataReceiving,storeCurrentConsumption).
 services(consumptionDataSending,getCurrentConsumptionConsumptionDataSending).
 services(consumptionDataSending,getHistoricConsumption).
@@ -84,12 +135,12 @@ classificationOf(return(getHistoricConsumption),providerData).
 classificationOfCall(_AnyParameter,publicData).
 
 
-tamperingAbilities(anybody,plombeEntfernen).
-tamperingAbilities(anybody,geraetOeffnen).
-tamperingAbilities(anybody,wpa2Knacken).
-tamperingAbilities(burglar,plombeEntfernen).
-tamperingAbilities(burglar,geraetOeffnen).
-tamperingAbilities(burglar,wpa2Knacken).
+% tamperingAbilities(anybody,plombeEntfernen).
+% tamperingAbilities(anybody,geraetOeffnen).
+% tamperingAbilities(anybody,wpa2Knacken).
+% tamperingAbilities(burglar,plombeEntfernen).
+% tamperingAbilities(burglar,geraetOeffnen).
+% tamperingAbilities(burglar,wpa2Knacken).
 
 locationsAccessibleBy(guest,outdoors).
 locationsAccessibleBy(guest,public).
@@ -207,24 +258,6 @@ dataAccessibleTo(Attacker,DataSet) :-
     observableServices(Attacker,Service),
     classificationOfCall(Service,DataSet).
 
-query6(Attacker) :- attacker(Attacker), isInSecureWithRespectTo(Attacker).
-
-nojustify6:-
-        write('justify6:'),nl,
-        bagof((Attacker), query6(Attacker), Bag),
-        length(Bag,L),
-        write(Bag),nl,
-        write('length:'), write(L), nl.
-justify6 :-
-        write('justify6:'),nl,
-        bagof((Attacker,E),
-        just_true(query6(Attacker),E),Bag),
-        length(Bag,L),
-        write(Bag),nl,
-        write('length:'), write(L), nl.
-
-
-
 
 
 isInSecureWithRespectTo(Attacker) :-
@@ -301,53 +334,24 @@ requiredInterfaces(Interface) :-
 
 
 
-abducible_predicate(tamperingAbilities).
-abducible_predicate(locationsAccessibleBy).
+abducible_predicate(tamperingAbilities/2).
+% abducible_predicate(locationsAccessibleBy/2).
 
 
-% abducible_predicate(services).
-% abducible_predicate(inputParameters).
-% abducible_predicate(outputParameters).
-% abducible_predicate(typeOf).
-% abducible_predicate(provides).
-% abducible_predicate(requires).
-% abducible_predicate(resourcecontainers).
-% abducible_predicate(linkingresources).
-% abducible_predicate(system).
-% abducible_predicate(systemProvides).
-% abducible_predicate(systemRequires).
-% abducible_predicate(systemAssembledTo).
-% abducible_predicate(systemProvidesAsssembledTo).
-% abducible_predicate(runsOn).
-% abducible_predicate(componentOf).
-% abducible_predicate(linkBetween).
-% abducible_predicate(interfacesAllowedToBeUsedBy).
-% abducible_predicate(dataAllowedToBeAccessedBy).
-% abducible_predicate(classificationOf).
-% abducible_predicate(classificationOfCall).
-% abducible_predicate(containerSecuredByMethod).
-% abducible_predicate(furtherConnections).
-% abducible_predicate(sharing).
-% abducible_predicate(location).
-% abducible_predicate(linkLocation).
-% abducible_predicate(dataset).
-% abducible_predicate(attacker).
-% abducible_predicate(isEncrypted).
-% abducible_predicate(exposesPhsicallyAccessiblePayloadTo).
-% abducible_predicate(exposesPhsicallyAccessibleMetaDataTo).
-% abducible_predicate(accessibleParameters).
-% abducible_predicate(observableServices).
-% abducible_predicate(dataAccessibleTo).
-% abducible_predicate(query6).
-% abducible_predicate(isInSecureWithRespectTo).
-% abducible_predicate(containersFullyAccessibleBy).
-% abducible_predicate(linksMetaDataFullyAccessibleBy).
-% abducible_predicate(linksPayloadFullyAccessibleBy).
-% abducible_predicate(linksPhysicalAccessibleBy).
-% abducible_predicate(containersPhysicalAccessibleBy).
-% abducible_predicate(providedInterfacesOn).
-% abducible_predicate(requiredInterfacesOn).
-% abducible_predicate(interfacesOn).
-% abducible_predicate(parameters).
-% abducible_predicate(providedInterfaces).
-% abducible_predicate(requiredInterfaces).
+ic:- false.
+
+query6(Attacker) :- attacker(Attacker), isInSecureWithRespectTo(Attacker).
+
+nojustify6:-
+        write('justify6:'),nl,
+        bagof((Attacker), query6(Attacker), Bag),
+        length(Bag,L),
+        write(Bag),nl,
+        write('length:'), write(L), nl.
+justify6 :-
+        write('justify6:'),nl,
+        bagof((Attacker,E),
+        just_true(query6(Attacker),E),Bag),
+        length(Bag,L),
+        write(Bag),nl,
+        write('length:'), write(L), nl.
