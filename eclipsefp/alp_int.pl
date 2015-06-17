@@ -25,6 +25,7 @@
 /*              ABDUCTIVE PHASE                                     */
 /* ================================================================ */
 
+:- lib(cprolog).
 
 demo([],Exp,Exp).
 demo(Goals,ExpSoFar,FinalExp) :-
@@ -180,8 +181,8 @@ in(X,[Z|Y]):- in(X,Y).
 concat([],L,L).
 concat([X|L1],L2,[X|L3]) :- concat(L1,L2,L3).
 
-select([X|Y],X,Y).
-select([Z|Y],X,[Z|Rest]) :- select(Y,X,Rest).
+/* select([X|Y],X,Y). */
+/* select([Z|Y],X,[Z|Rest]) :- select(Y,X,Rest). */
 
 select_literal([SelectedLiteral|RestOfLiterals],SelectedLiteral,RestOfLiterals).
 
@@ -194,7 +195,7 @@ get_predicate_name(Atom,PredicateName) :-
                         (Atom)=..[PredicateName|RestOfAtom].
 
 clause_list(Head,[]) :-
-                        prolog:current_predicate(_,Head),!,
+                        current_predicate(_,Head),!,
                         call(Head).
 clause_list(Head,Body) :-
                         clause(Head,Bod),
