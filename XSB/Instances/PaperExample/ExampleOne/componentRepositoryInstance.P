@@ -21,9 +21,9 @@ typeOf(return(getCurrentConsumptionConsumptionDataSending),timedConsumption).
 typeOf(return(getCurrentConsumptionCurrentConsumptionDataDisplaying),timedConsumption).
 typeOf(return(getHistoricConsumption),consumptionHistory).
 
-provides(controller,currentMeterDataReceiving).
-provides(controller,consumptionDataSending).
-provides(tablet,currentConsumptionDataDisplaying).
+provides(database,databaseInterface).
+provides(energyVisualizationC,energyVisualizationI).
+provides(energyMeter,energyMeasurement).
 
 requires(digitalMeter,currentMeterDataReceiving).
 requires(tablet,consumptionDataSending).

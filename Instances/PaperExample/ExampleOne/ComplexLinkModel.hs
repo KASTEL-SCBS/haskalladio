@@ -1,8 +1,8 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-module Instances.SmartHome.ExampleOne.ComplexLinkModel where
-import Instances.SmartHome.ExampleOne.Palladio
-import Instances.SmartHome.ExampleOne.Security
+module Instances.PaperExample.ExampleOne.ComplexLinkModel where
+import Instances.PaperExample.ExampleOne.Palladio
+import Instances.PaperExample.ExampleOne.Security
 
 import Security
 import ComplexLinkModel

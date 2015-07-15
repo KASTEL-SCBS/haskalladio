@@ -51,6 +51,7 @@ instance ConcreteDesignModel ExampleOne where
                                    | WPA2Knacken
                                    | EthernetSnifferBesitzen
                                    | HasWLANPSK
+                                   | None
                                    deriving (Ord,Show,Eq, Typeable)
    data Location ExampleOne        = Attended   -- "In der Wohnung!?!?"
                                    | Unattended -- "Im Keller?!?!?"
@@ -58,11 +59,13 @@ instance ConcreteDesignModel ExampleOne where
                                    | Public
                                    deriving (Ord,Show,Eq, Typeable)
 
-   tamperingAbilities Guest    = fromList []
-   tamperingAbilities HandyMan = fromList []
-   tamperingAbilities Anybody  = fromList [PlombeEntfernen, GerätÖffnen, WPA2Knacken]
-   tamperingAbilities Burglar  = fromList [PlombeEntfernen, GerätÖffnen, WPA2Knacken]
-   tamperingAbilities BlindDeafGuy = fromList []
+   unprotected = None
+   
+   tamperingAbilities Guest    = fromList [None]
+   tamperingAbilities HandyMan = fromList [None]
+   tamperingAbilities Anybody  = fromList [None, PlombeEntfernen, GerätÖffnen, WPA2Knacken]
+   tamperingAbilities Burglar  = fromList [None, PlombeEntfernen, GerätÖffnen, WPA2Knacken]
+   tamperingAbilities BlindDeafGuy = fromList [None]
 
 
    locationsAccessibleBy Guest    = fromList [Outdoors, Public, Attended]

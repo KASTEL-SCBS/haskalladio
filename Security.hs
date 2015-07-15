@@ -7,6 +7,7 @@
 {-# LANGUAGE MonadComprehensions #-}
 {-# LANGUAGE ConstraintKinds #-}
 {-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 
 
 module Security where
@@ -112,6 +113,7 @@ class (Ord (Location m), ReasonLike (TamperingAbility m), ReasonLike (Location m
   data TamperingAbility m
   data Location m
 
+  unprotected           :: TamperingAbility m
   tamperingAbilities    :: Attacker m -> Set (TamperingAbility m)
 
   locationsAccessibleBy :: Attacker m -> Set (Location m)
@@ -124,6 +126,18 @@ class (Ord (Location m), ReasonLike (TamperingAbility m), ReasonLike (Location m
 
   linkLocation       :: LinkingResource m -> Set (Location m)
 
+
+wellformed :: forall m. (ConcreteDesignModel m, Bounded (Attacker m), Enum (Attacker m), Ord (TamperingAbility m), Enum (ResourceContainer m), Bounded (ResourceContainer m)) => (Bool, Attacker m)
+wellformed = (
+      (∀) (\(attacker  :: (Attacker m))          -> interfacesAllowedToBeUsedBy attacker ⊆ systemProvides)
+  &&  (∀) (\(attacker  :: (Attacker m))          -> unprotected ∈ tamperingAbilities attacker)
+  &&  (∀) (\(container :: (ResourceContainer m)) ->
+               (not $ isEmpty $ containerSecuredByMethod container)
+            && (    containerSecuredByMethod container == fromList [unprotected]
+                || (not $ unprotected ∈ containerSecuredByMethod container)
+               )
+          )
+ , undefined)
 
 {- Damit erhält man ein Analyseergebnis folgendermaßen: -}
 instance (ConcreteDesignModel m, LinkAccessModel m, Reasons m) => AbstractDesignModel m where

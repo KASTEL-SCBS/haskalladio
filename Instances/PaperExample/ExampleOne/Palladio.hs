@@ -2,10 +2,10 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE DeriveDataTypeable #-}
-module Instances.SmartHome.ExampleOne.Palladio where
+module Instances.PaperExample.ExampleOne.Palladio where
 
 import qualified Palladio as P -- hiding (componentOf, runsOn, linkBetween)
-import Data.Set.Monad 
+import Data.Set.Monad
 import Misc
 import Data.Typeable
 
@@ -16,51 +16,62 @@ type Id = Integer
 
 
 instance P.ComponentRepository ExampleOne where
-  data Component ExampleOne = DigitalMeter
-                            | Controller
-                            | Tablet
+  data Component ExampleOne = DBMS
+                            | EnergyVisualization
+                            | EnergyMeter
                             deriving (Ord,Eq,Show,Bounded,Enum)
-  data Interface ExampleOne = CurrentMeterDataReceiving
-                            | ConsumptionDataSending
-                            | CurrentConsumptionDataDisplaying
+  data Interface ExampleOne = DatabaseInterface
+                            | EnergyVisualizationI
+                            | EnergyMeasurement
                             deriving (Ord,Eq,Show,Bounded,Enum, Typeable)
-  data Parameter ExampleOne = Consumption
+  data Parameter ExampleOne = Timestamp
+                            | Value
+                            | Start
+                            | End
                             | Return (P.Service ExampleOne)
                             deriving (Ord,Eq,Show,Typeable)
-  data Service ExampleOne    = StoreCurrentConsumption
-                            | GetCurrentConsumptionConsumptionDataSending
-                            | GetHistoricConsumption
-                            | GetCurrentConsumptionCurrentConsumptionDataDisplaying
+  data Service ExampleOne   = GetValues
+                            | StoreValue
+                            | DrawEnergyConsumptionGraph
+                            | GetEnergyValue
                             deriving (Ord,Eq,Show,Bounded,Enum,Typeable)
-  data DataType ExampleOne  = TimedConsumption
-                            | ConsumptionHistory
+  data DataType ExampleOne  = IntT
+                            | ImageT
+                            | IntArrayT
                             deriving (Ord,Eq,Show,Bounded,Enum)
 
 
-  services CurrentMeterDataReceiving        = fromList [StoreCurrentConsumption]
-  services ConsumptionDataSending           = fromList [GetCurrentConsumptionConsumptionDataSending, GetHistoricConsumption]
-  services CurrentConsumptionDataDisplaying = fromList [GetCurrentConsumptionCurrentConsumptionDataDisplaying]
+  services DatabaseInterface                  = fromList [GetValues, StoreValue]
+  services EnergyVisualizationI               = fromList [DrawEnergyConsumptionGraph]
+  services EnergyMeasurement                  = fromList [GetEnergyValue]
   
-  inputParameters StoreCurrentConsumption = fromList [Consumption]
-  inputParameters _                       = fromList []
+  inputParameters StoreValue                  = fromList [Timestamp, Value]
+  inputParameters GetValues                   = fromList [Start, End]
+  inputParameters DrawEnergyConsumptionGraph  = fromList []
+  inputParameters GetEnergyValue              = fromList []
+
+  outputParameters StoreValue                 = fromList []
+  outputParameters service                    = fromList [Return service]
   
-  outputParameters StoreCurrentConsumption = fromList []
-  outputParameters service = fromList [Return service]
-  
-  typeOf Consumption = TimedConsumption
-  typeOf (Return GetCurrentConsumptionConsumptionDataSending)           = TimedConsumption
-  typeOf (Return GetCurrentConsumptionCurrentConsumptionDataDisplaying) = TimedConsumption
-  typeOf (Return GetHistoricConsumption) = ConsumptionHistory
+  typeOf Timestamp = IntT
+  typeOf Value     = IntT
+  typeOf Start     = IntT
+  typeOf End       = IntT
+  typeOf (Return GetValues)                  = IntArrayT
+  typeOf (Return DrawEnergyConsumptionGraph) = ImageT
+  typeOf (Return GetEnergyValue)             = IntT
+  typeOf (Return StoreValue)                 = error "no Type for non-Existing Parameter"
   
   components = fromList allValues
 
-  provides DigitalMeter = fromList []
-  provides Controller = fromList [CurrentMeterDataReceiving, ConsumptionDataSending]
-  provides Tablet = fromList [CurrentConsumptionDataDisplaying]
-  
-  requires DigitalMeter = fromList [CurrentMeterDataReceiving]
-  requires Controller = fromList []
-  requires Tablet     = fromList [ConsumptionDataSending]
+  provides DBMS                = fromList [DatabaseInterface]
+  provides EnergyVisualization = fromList [EnergyVisualizationI]
+  provides EnergyMeter         = fromList [EnergyMeasurement]
+
+  requires DBMS                = fromList []
+  requires EnergyVisualization = fromList [DatabaseInterface, EnergyMeasurement]
+  requires EnergyMeter         = fromList []
+
   
   isProvided _ = False
   isComplete _ = True
@@ -78,21 +89,16 @@ instance P.ComponentRepository ExampleOne where
 
 
 
-
-
-
-digitalMeterContext = Context { contextId = 1, componentOf = DigitalMeter, runsOn = DigitalMeterContainer }
-controllerContext   = Context { contextId = 2, componentOf = Controller,   runsOn = ControllerContainer }
-tabletContext       = Context { contextId = 3, componentOf = Tablet, runsOn = TabletContainer }
---meterReaderrContext = Context { contextId = 4, componentOf = Controller,   runsOn = controllerContainer }
+database                     = Context { contextId = 1, componentOf = DBMS,                runsOn = EnergyVisualizationRC }
+energyMeterAssemblyContext   = Context { contextId = 2, componentOf = EnergyMeter,         runsOn = EnergyMeterRC }
+energyVisualization          = Context { contextId = 3, componentOf = EnergyVisualization, runsOn = EnergyVisualizationRC }
 instance All (P.AssemblyContext ExampleOne) where
-  allValues' = [digitalMeterContext, controllerContext, tabletContext]
+  allValues' = [database, energyMeterAssemblyContext, energyVisualization]
 
 
-linkMeterController  = Link { linkId = 1, linkBetween = (DigitalMeterContainer, ControllerContainer) }
-linkControllerTablet = Link { linkId = 2, linkBetween = (ControllerContainer, TabletContainer) }
+wireless  = Link { linkId = 1, linkBetween = (EnergyVisualizationRC, EnergyMeterRC) }
 instance All (P.LinkingResource ExampleOne) where
-  allValues' = [linkMeterController, linkControllerTablet]
+  allValues' = [wireless]
 
 
 instance  P.PalladioComponentModel ExampleOne where
@@ -101,9 +107,8 @@ instance  P.PalladioComponentModel ExampleOne where
                                         componentOf :: P.Component ExampleOne,
                                         runsOn :: P.ResourceContainer ExampleOne
                                       } deriving (Ord,Eq,Show)
-  data ResourceContainer ExampleOne = DigitalMeterContainer
-                                    | ControllerContainer
-                                    | TabletContainer
+  data ResourceContainer ExampleOne = EnergyVisualizationRC
+                                    | EnergyMeterRC
                                     deriving (Ord,Eq,Show,Bounded,Enum,Typeable)
   data LinkingResource ExampleOne =
                               Link { linkId :: Id,
@@ -114,20 +119,21 @@ instance  P.PalladioComponentModel ExampleOne where
 
 
 
-  system = fromList [ digitalMeterContext, controllerContext, tabletContext ]
+  system = fromList allValues'
 
-  systemProvides = fromList [CurrentConsumptionDataDisplaying]
+  systemProvides = fromList [EnergyVisualizationI, EnergyMeasurement]
   systemRequires = fromList []
 
   systemAssembledTo context interface
-   | context   == digitalMeterContext &&
-     interface == CurrentMeterDataReceiving = P.ByAssembly controllerContext
-   | context   == tabletContext &&
-     interface == ConsumptionDataSending    = P.ByAssembly controllerContext
-   | otherwise                              = undefined
+   | context   == energyVisualization  &&
+     interface == DatabaseInterface = P.ByAssembly database
+   | context   == energyVisualization  &&
+     interface == EnergyMeasurement = P.ByAssembly energyMeterAssemblyContext 
+   | otherwise                         = error $ "unknown Context: " ++ (show context)
 
-  systemProvidesAsssembledTo CurrentConsumptionDataDisplaying = tabletContext
-  systemProvidesAsssembledTo _ = undefined
+  systemProvidesAsssembledTo EnergyVisualizationI = energyVisualization
+  systemProvidesAsssembledTo EnergyMeasurement    = energyMeterAssemblyContext
+  systemProvidesAsssembledTo _                    = undefined
 
   resourcecontainers = fromList allValues
   linkingresources = fromList allValues'

@@ -1,9 +1,9 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE DeriveDataTypeable #-}
-module Instances.SmartHome.ExampleOne.Security where
+module Instances.PaperExample.ExampleOne.Security where
 import Data.Set.Monad as Set
-import Instances.SmartHome.ExampleOne.Palladio
+import Instances.PaperExample.ExampleOne.Palladio
 import Security
 import Palladio
 import Misc
@@ -13,83 +13,62 @@ import Data.Typeable
 
 instance BasicDesignModel ExampleOne where
   data Attacker ExampleOne = Guest
-                           | HandyMan
-                           | Anybody
-                           | Burglar
-                           | BlindDeafGuy
+                           | Inhabitant
+                           | PasserByAdversary
                            deriving (Ord,Show,Eq,Bounded,Enum,Typeable)
-  data DataSet ExampleOne = InhabitantData
-                          | ProviderData
+  data DataSet ExampleOne = ConsumptionData
                           | PublicData
                           deriving (Ord,Show,Eq,Bounded,Enum,Typeable)
 
-  datasets = fromList [InhabitantData, ProviderData, PublicData]
-  attackers = fromList [Guest, HandyMan, Anybody]
+  datasets  = fromList [ConsumptionData, PublicData]
+  attackers = fromList [Guest, Inhabitant, PasserByAdversary]
 
-  interfacesAllowedToBeUsedBy Guest    = fromList [CurrentConsumptionDataDisplaying]
-  interfacesAllowedToBeUsedBy HandyMan = fromList []
-  interfacesAllowedToBeUsedBy Anybody  = fromList []
-  interfacesAllowedToBeUsedBy Burglar  = fromList []
-  interfacesAllowedToBeUsedBy BlindDeafGuy = fromList []
+  interfacesAllowedToBeUsedBy Guest              = fromList []
+  interfacesAllowedToBeUsedBy Inhabitant         = fromList [EnergyVisualizationI]
+  interfacesAllowedToBeUsedBy PasserByAdversary  = fromList []
 
-  dataAllowedToBeAccessedBy Guest    = fromList [PublicData, InhabitantData]
-  dataAllowedToBeAccessedBy HandyMan = fromList [PublicData, ProviderData]
-  dataAllowedToBeAccessedBy Anybody  = fromList [PublicData]
-  dataAllowedToBeAccessedBy Burglar  = fromList [PublicData]
-  dataAllowedToBeAccessedBy BlindDeafGuy = fromList [PublicData]
-  
-  classificationOf Consumption = fromList [InhabitantData]
-  classificationOf (Return GetCurrentConsumptionConsumptionDataSending) = fromList [InhabitantData]
-  classificationOf (Return GetCurrentConsumptionCurrentConsumptionDataDisplaying) = fromList [InhabitantData]
-  classificationOf (Return GetHistoricConsumption) = fromList [ProviderData]
-  
-  classificationOfCall _ = fromList [PublicData]
+  dataAllowedToBeAccessedBy Guest              = fromList [PublicData, ConsumptionData]
+  dataAllowedToBeAccessedBy Inhabitant         = fromList [PublicData, ConsumptionData]
+  dataAllowedToBeAccessedBy PasserByAdversary  = fromList [PublicData]
+
+
+  classificationOf Value                               = fromList [ConsumptionData]
+  classificationOf (Return GetValues)                  = fromList [ConsumptionData]
+  classificationOf (Return DrawEnergyConsumptionGraph) = fromList [ConsumptionData]
+  classificationOf (Return GetEnergyValue)             = fromList [ConsumptionData]
+  classificationOf _                                   = fromList [PublicData]
+
+  classificationOfCall _                               = fromList [PublicData]
 
 instance ConcreteDesignModel ExampleOne where
-   data TamperingAbility ExampleOne = PlombeEntfernen
-                                   | GerätÖffnen
-                                   | WPA2Knacken
-                                   | EthernetSnifferBesitzen
-                                   | HasWLANPSK
+   data TamperingAbility ExampleOne = Sealed
+                                    | None
                                    deriving (Ord,Show,Eq, Typeable)
-   data Location ExampleOne        = Attended   -- "In der Wohnung!?!?"
-                                   | Unattended -- "Im Keller?!?!?"
+   data Location ExampleOne        = UtilityRoom
+                                   | LivingRoom
                                    | Outdoors
-                                   | Public
                                    deriving (Ord,Show,Eq, Typeable)
 
-   tamperingAbilities Guest    = fromList []
-   tamperingAbilities HandyMan = fromList []
-   tamperingAbilities Anybody  = fromList [PlombeEntfernen, GerätÖffnen, WPA2Knacken]
-   tamperingAbilities Burglar  = fromList [PlombeEntfernen, GerätÖffnen, WPA2Knacken]
-   tamperingAbilities BlindDeafGuy = fromList []
+   tamperingAbilities _    = fromList [None]
 
+   unprotected = None
 
-   locationsAccessibleBy Guest    = fromList [Outdoors, Public, Attended]
-   locationsAccessibleBy HandyMan = fromList [Outdoors, Public, Unattended]
-   locationsAccessibleBy Anybody  = fromList [Outdoors, Public]
-   locationsAccessibleBy Burglar  = fromList [Outdoors, Public, Unattended]
-   locationsAccessibleBy BlindDeafGuy = fromList [Outdoors, Public]
+   locationsAccessibleBy Guest              = fromList [UtilityRoom, Outdoors, LivingRoom]
+   locationsAccessibleBy Inhabitant         = fromList [UtilityRoom, Outdoors, LivingRoom]
+   locationsAccessibleBy PasserByAdversary  = fromList [Outdoors]
 
+   containerSecuredByMethod EnergyMeterRC          = fromList [Sealed]
+   containerSecuredByMethod EnergyVisualizationRC  = fromList [None]
 
-   containerSecuredByMethod DigitalMeterContainer = fromList [ PlombeEntfernen ]
-   containerSecuredByMethod TabletContainer       = fromList [ GerätÖffnen ]
-   containerSecuredByMethod ControllerContainer   = fromList [ PlombeEntfernen ]
+   furtherConnections EnergyMeterRC         = Complete
+   furtherConnections EnergyVisualizationRC = Possible
 
+   sharing EnergyMeterRC         = ControlledExclusive
+   sharing EnergyVisualizationRC = OpenShared
 
-   furtherConnections TabletContainer       = Possible
-   furtherConnections ControllerContainer   = Possible
-   furtherConnections DigitalMeterContainer = Possible
-
-   sharing TabletContainer       = OpenShared
-   sharing ControllerContainer   = ControlledExclusive
-   sharing DigitalMeterContainer = ControlledExclusive
-
-   location TabletContainer       = Attended
-   location ControllerContainer   = Unattended
-   location DigitalMeterContainer = Unattended
+   location EnergyMeterRC         = UtilityRoom
+   location EnergyVisualizationRC = LivingRoom
 
    linkLocation link
-     | link == linkMeterController   = Set.fromList [Unattended]
-     | link == linkControllerTablet  = Set.fromList [Outdoors]
+     | link == wireless   = Set.fromList [LivingRoom,UtilityRoom,Outdoors]
 

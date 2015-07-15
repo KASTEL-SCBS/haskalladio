@@ -29,6 +29,8 @@ query1 :: [(Attacker ExampleOne, Set (Parameter ExampleOne))]
 query1 = [(attacker, accessibleParameters attacker) | attacker <- allValues ]
 #endif
 
+wellFormedExampleOne = fst $ (wellformed :: (Bool, Attacker ExampleOne))
+
 query2 :: [(Attacker ExampleOne, Set (ResourceContainer ExampleOne,[Reason ExampleOne]))]
 query2 = [(attacker, runWriterT $ containersFullyAccessibleBy attacker) | attacker <- allValues ]
 

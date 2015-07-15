@@ -1,8 +1,8 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-module Instances.SmartHome.ExampleOne.SimpleLinkModel where
-import Instances.SmartHome.ExampleOne.Palladio
-import Instances.SmartHome.ExampleOne.Security
+module Instances.PaperExample.ExampleOne.SimpleLinkModel where
+import Instances.PaperExample.ExampleOne.Palladio
+import Instances.PaperExample.ExampleOne.Security
 import Security
 import SimpleLinkModel
 import Palladio
@@ -12,7 +12,6 @@ import Data.Set as Set
 
 instance SimpleEncryptionLinkAccessModel ExampleOne where
   isEncrypted link
-     | link == linkMeterController  = False
-     | link == linkControllerTablet = True
-
+     | link == wireless  = False
+     | otherwise         = undefined
 

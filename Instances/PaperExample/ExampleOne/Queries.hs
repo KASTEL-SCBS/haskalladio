@@ -1,8 +1,8 @@
 {-# LANGUAGE CPP #-}
-module Instances.SmartHome.ExampleOne.Queries where
+module Instances.PaperExample.ExampleOne.Queries where
 
 import Palladio
-import Instances.SmartHome.ExampleOne.Palladio
+import Instances.PaperExample.ExampleOne.Palladio
 import Security
 import Reasons
 
@@ -15,10 +15,10 @@ import AbstractAnalysis
 #endif
 
 
-import Instances.SmartHome.ExampleOne.Security
-import Instances.SmartHome.ExampleOne.SimpleLinkModel
--- import Instances.SmartHome.ExampleOne.TamperableLinkModel
--- import Instances.SmartHome.ExampleOne.ComplexLinkModel
+import Instances.PaperExample.ExampleOne.Security
+import Instances.PaperExample.ExampleOne.SimpleLinkModel
+-- import Instances.PaperExample.ExampleOne.TamperableLinkModel
+-- import Instances.PaperExample.ExampleOne.ComplexLinkModel
 
 
 import Misc
@@ -28,6 +28,8 @@ import Data.Set.Monad as Set
 query1 :: [(Attacker ExampleOne, Set (Parameter ExampleOne))]
 query1 = [(attacker, accessibleParameters attacker) | attacker <- allValues ]
 #endif
+
+wellFormedExampleOne = fst $ (wellformed :: (Bool, Attacker ExampleOne))
 
 query2 :: [(Attacker ExampleOne, Set (ResourceContainer ExampleOne,[Reason ExampleOne]))]
 query2 = [(attacker, runWriterT $ containersFullyAccessibleBy attacker) | attacker <- allValues ]

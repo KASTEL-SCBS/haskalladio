@@ -9,13 +9,10 @@ justify_pred(runsOn(_,_)).
 justify_pred(componentOf(_,_)).
 justify_pred(linkBetween(_,_,_)).
 
-resourcecontainers(digitalMeterContainer).
-resourcecontainers(controllerContainer).
-resourcecontainers(tabletContainer).
+resourcecontainers(energyVisualizationRC).
+resourcecontainers(energyMeter).
 
-linkingresources(digitalMeterContext).
-linkingresources(controllerContext).
-linkingresources(tabletContext).
+linkingresources(wirelessLink).
 
 system(digitalMeterContext).
 system(controllerContext).
