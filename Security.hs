@@ -122,7 +122,7 @@ class (Ord (Location m), ReasonLike (TamperingAbility m), ReasonLike (Location m
 
   furtherConnections :: ResourceContainer m -> FurtherConnections
   sharing            :: ResourceContainer m -> Sharing
-  location           :: ResourceContainer m -> Location m
+  location           :: ResourceContainer m -> Set (Location m)
 
   linkLocation       :: LinkingResource m -> Set (Location m)
 
@@ -210,7 +210,7 @@ linkLocationM :: (ConcreteDesignModel m, Reasons m) => (LinkingResource m) -> Wi
 linkLocationM = liftA2 LinkLocation linkLocation
 
 locationM :: (ConcreteDesignModel m, Reasons m) => (ResourceContainer m) -> WithReason m (Location m)
-locationM = liftF Location location
+locationM = liftA2 Location location
 
 
 locationsAccessibleByM ::  (ConcreteDesignModel m, Reasons m) => (Attacker m) -> WithReason m (Location m)

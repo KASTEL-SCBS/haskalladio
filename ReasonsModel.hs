@@ -31,13 +31,13 @@ instance (Typeable m) => Reasons m where
                   | TamperingAbilities
                   | LocationsAccessibleBy
                   | LinkLocation
+                  | Location
                   | ObservableServices
                   | ExposesPhsicallyAccessiblePayloadTo
                   | ExposesPhsicallyAccessibleMetaDataTo
                   deriving (Eq,Ord,Show,Typeable)
   data Function m = Sharing
                   | FurtherConnections
-                  | Location
                   | IsEncrypted
                   deriving (Eq,Ord,Show,Typeable)
 

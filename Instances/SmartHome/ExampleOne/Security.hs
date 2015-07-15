@@ -88,9 +88,9 @@ instance ConcreteDesignModel ExampleOne where
    sharing ControllerContainer   = ControlledExclusive
    sharing DigitalMeterContainer = ControlledExclusive
 
-   location TabletContainer       = Attended
-   location ControllerContainer   = Unattended
-   location DigitalMeterContainer = Unattended
+   location TabletContainer       = fromList [Attended]
+   location ControllerContainer   = fromList [Unattended]
+   location DigitalMeterContainer = fromList [Unattended]
 
    linkLocation link
      | link == linkMeterController   = Set.fromList [Unattended]

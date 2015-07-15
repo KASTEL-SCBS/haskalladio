@@ -66,8 +66,8 @@ instance ConcreteDesignModel ExampleOne where
    sharing EnergyMeterRC         = ControlledExclusive
    sharing EnergyVisualizationRC = OpenShared
 
-   location EnergyMeterRC         = UtilityRoom
-   location EnergyVisualizationRC = LivingRoom
+   location EnergyMeterRC         = fromList [UtilityRoom]
+   location EnergyVisualizationRC = fromList [LivingRoom]
 
    linkLocation link
      | link == wireless   = Set.fromList [LivingRoom,UtilityRoom,Outdoors]
