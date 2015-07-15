@@ -41,7 +41,7 @@ accessibleParameters attacker =
   ] ⊔
 
   -- Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
-  [ parameter | link                   <- linksPayloadFullyAccessibleBy attacker,
+  [ parameter | (link, dataset)        <- linksDataAccessibleBy attacker,
                 let (containerLeft,
                      containerRight)   =  linkBetween link,
                 left                   <- lift $ assembliesOn containerLeft,
@@ -49,7 +49,8 @@ accessibleParameters attacker =
                 let (ByAssembly right) =  systemAssembledTo left interface,
                 right                  ∈  assembliesOn containerRight,
                 service                <- lift $ services interface,
-                parameter              <- lift $ (inputParameters service) ∪ (outputParameters service)
+                parameter              <- lift $ (inputParameters service) ∪ (outputParameters service),
+                dataset                ∈ classificationOf parameter
   ] `hence` (Inferred2 AccessibleParameters attacker)
 
 
@@ -66,14 +67,15 @@ observableServices attacker =
               service   <- lift $ services interface
   ] ⊔
   -- Services, deren Aufrufe der Angreifer beobachten kann, weil er eine entsprechende LinkResource angreifen konnte.
-  [ service   | link                   <- linksMetaDataFullyAccessibleBy attacker,
+  [ service   | (link, dataset)        <- linksDataAccessibleBy attacker,
                 let (containerLeft,
                      containerRight)   =  linkBetween link,
                 left                   <- lift $ assembliesOn containerLeft,
                 interface              <- lift $ requires (componentOf left),
                 let (ByAssembly right) = systemAssembledTo left interface,
                 right                  ∈  assembliesOn containerRight,
-                service                <- lift $ services interface
+                service                <- lift $ services interface,
+                dataset                ∈ classificationOfCall service
   ] `hence` (Inferred2 ObservableServices attacker)
 
 

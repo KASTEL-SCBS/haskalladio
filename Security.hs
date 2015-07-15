@@ -81,13 +81,7 @@ class (Ord (DataSet m), ReasonLike (DataSet m), ReasonLike (Attacker m),
 -}
 class (BasicDesignModel m) => AbstractDesignModel m where
   containersFullyAccessibleBy  :: Attacker m -> WithReason m (ResourceContainer m)
-  linksMetaDataFullyAccessibleBy     :: Attacker m -> WithReason m (LinkingResource m)
-  linksPayloadFullyAccessibleBy      :: Attacker m -> WithReason m (LinkingResource m)
-
-
-
-
-
+  linksDataAccessibleBy        :: Attacker m -> WithReason m (LinkingResource m, DataSet m)
 
 
 {- Eine Variante eines konkreten Sicherheitsmodells -}
@@ -103,8 +97,7 @@ data FurtherConnections = Possible
 
 class (Ord (Location m),
        BasicDesignModel m) => LinkAccessModel m where
-  exposesPhsicallyAccessiblePayloadTo  :: LinkingResource m -> WithReason m (Attacker m)
-  exposesPhsicallyAccessibleMetaDataTo :: LinkingResource m -> WithReason m (Attacker m)
+  exposesPhsicallyAccessibleDataTo     :: LinkingResource m -> WithReason m (Attacker m, DataSet m)
 
 
 class (Ord (Location m), ReasonLike (TamperingAbility m), ReasonLike (Location m),
@@ -155,18 +148,11 @@ instance (ConcreteDesignModel m, LinkAccessModel m, Reasons m) => AbstractDesign
                   furtherConnections <- furtherConnectionsM container, furtherConnections == Possible
     ] `hence` (Inferred2 ContainerFullyAccessibleBy attacker)
 
- linksPayloadFullyAccessibleBy attacker =
-    [ link | link  <- linksPhysicalAccessibleBy attacker,
-             other <- exposesPhsicallyAccessiblePayloadTo link,
-             attacker == other
+ linksDataAccessibleBy attacker =
+    [ (link, dataset) | link  <- linksPhysicalAccessibleBy attacker,
+                        (other, dataset) <- exposesPhsicallyAccessibleDataTo link,
+                        attacker == other
     ] `hence` (Inferred2 LinksPayloadFullyAccessibleBy attacker)
-
-
- linksMetaDataFullyAccessibleBy attacker =
-    [ link | link  <- linksPhysicalAccessibleBy attacker,
-             other <- exposesPhsicallyAccessibleMetaDataTo link,
-             attacker == other
-    ] `hence` (Inferred2 LinksMetaDataFullyAccessibleBy attacker)
 
 
 

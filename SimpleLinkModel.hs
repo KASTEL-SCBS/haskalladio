@@ -21,16 +21,12 @@ class (Ord (Location m),
   isEncrypted :: LinkingResource m -> Bool
 
 instance (SimpleEncryptionLinkAccessModel m, Reasons m) => LinkAccessModel m where
-  exposesPhsicallyAccessiblePayloadTo link   =
-    [ attacker | encrypted <- isEncryptedM link,
-                 not encrypted,
-                 attacker <- lift $ attackers
-    ] `hence` (Inferred2 ExposesPhsicallyAccessiblePayloadTo link)
-
-  exposesPhsicallyAccessibleMetaDataTo link  =
-    [ attacker | attacker <- lift $ attackers
-    ] `hence` (Inferred2 ExposesPhsicallyAccessibleMetaDataTo link)
-
+  exposesPhsicallyAccessibleDataTo link =
+    [ (attacker, dataset) | encrypted <- isEncryptedM link,
+                            not encrypted,
+                            attacker <- lift $ attackers,
+                            dataset  <- lift $ datasets
+    ] `hence` (Inferred2 ExposesPhsicallyAccessibleDataTo link)
 
 isEncryptedM :: (SimpleEncryptionLinkAccessModel m, Reasons m) => (LinkingResource m) -> WithReason m Bool
 isEncryptedM = liftF IsEncrypted isEncrypted
