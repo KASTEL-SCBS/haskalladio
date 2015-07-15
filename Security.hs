@@ -103,7 +103,6 @@ data FurtherConnections = Possible
 
 class (Ord (Location m),
        BasicDesignModel m) => LinkAccessModel m where
-  -- linksExposingPayloadWhenPysicalliAccessibleTo
   exposesPhsicallyAccessiblePayloadTo  :: LinkingResource m -> WithReason m (Attacker m)
   exposesPhsicallyAccessibleMetaDataTo :: LinkingResource m -> WithReason m (Attacker m)
 

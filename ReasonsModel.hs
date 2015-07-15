@@ -33,6 +33,7 @@ instance (Typeable m) => Reasons m where
                   | LinkLocation
                   | Location
                   | ObservableServices
+                  | AccessibleParameters
                   | ExposesPhsicallyAccessiblePayloadTo
                   | ExposesPhsicallyAccessibleMetaDataTo
                   deriving (Eq,Ord,Show,Typeable)

@@ -50,7 +50,7 @@ accessibleParameters attacker =
                 right                  ∈  assembliesOn containerRight,
                 service                <- lift $ services interface,
                 parameter              <- lift $ (inputParameters service) ∪ (outputParameters service)
-  ]
+  ] `hence` (Inferred2 AccessibleParameters attacker)
 
 
 observableServices :: (AbstractDesignModel m, Reasons m) => (Attacker m) -> WithReason m (Service m)
