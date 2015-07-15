@@ -35,6 +35,7 @@ instance (Typeable m) => Reasons m where
                   | ObservableServices
                   | AccessibleParameters
                   | ExposesPhsicallyAccessibleDataTo
+                  | EncryptedBut
                   deriving (Eq,Ord,Show,Typeable)
   data Function m = Sharing
                   | FurtherConnections

@@ -16,7 +16,8 @@ import AbstractAnalysis
 
 
 import Instances.PaperExample.ExampleOne.Security
-import Instances.PaperExample.ExampleOne.SimpleLinkModel
+-- import Instances.PaperExample.ExampleOne.SimpleLinkModel
+import Instances.PaperExample.ExampleOne.SimpleLinkModelWithExceptions
 -- import Instances.PaperExample.ExampleOne.TamperableLinkModel
 -- import Instances.PaperExample.ExampleOne.ComplexLinkModel
 
