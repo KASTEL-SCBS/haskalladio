@@ -26,12 +26,6 @@ instance BasicDesignModel ExampleOne where
   datasets = fromList [InhabitantData, ProviderData, PublicData]
   attackers = fromList [Guest, HandyMan, Anybody]
 
-  interfacesAllowedToBeUsedBy Guest    = fromList [CurrentConsumptionDataDisplaying]
-  interfacesAllowedToBeUsedBy HandyMan = fromList []
-  interfacesAllowedToBeUsedBy Anybody  = fromList []
-  interfacesAllowedToBeUsedBy Burglar  = fromList []
-  interfacesAllowedToBeUsedBy BlindDeafGuy = fromList []
-
   dataAllowedToBeAccessedBy Guest    = fromList [PublicData, InhabitantData]
   dataAllowedToBeAccessedBy HandyMan = fromList [PublicData, ProviderData]
   dataAllowedToBeAccessedBy Anybody  = fromList [PublicData]

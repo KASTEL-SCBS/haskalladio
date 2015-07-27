@@ -56,6 +56,13 @@ dataAllowedToBeAccessedByM = liftA2 DataAllowedToBeAccessedBy dataAllowedToBeAcc
 notDataAllowedToBeAccessedByM :: (AnalysisResult m, Reasons m) => Attacker m -> DataSet m ->  WithReason m ()
 notDataAllowedToBeAccessedByM = liftNot2 DataAllowedToBeAccessedBy dataAllowedToBeAccessedBy
 
+
+class (BasicDesignModel m) => InterfaceUsage m where
+  providedInterfacesDirectlyAccessibleTo :: Attacker m -> WithReason m (Interface m)
+  requiredInterfacesDirectlyAccessibleTo :: Attacker m -> WithReason m (Interface m)
+
+
+
 {- Egal wie genau nun ein Sicherheitsmodell aussieht (sharing,locations etc pp),
    es muss mindestens folgende Dinge spezifizieren:
 -}
@@ -66,7 +73,6 @@ class (Ord (DataSet m), ReasonLike (DataSet m), ReasonLike (Attacker m),
   datasets  :: Set (DataSet m)
   attackers :: Set (Attacker m)
 
-  interfacesAllowedToBeUsedBy :: Attacker m -> Set (Interface m)
   dataAllowedToBeAccessedBy   :: Attacker m -> Set (DataSet m)
 
   classificationOf  :: (Parameter m) -> Set (DataSet m)
@@ -119,10 +125,9 @@ class (Ord (Location m), ReasonLike (TamperingAbility m), ReasonLike (Location m
   linkLocation       :: LinkingResource m -> Set (Location m)
 
 
-wellformed :: forall m. (ConcreteDesignModel m, Bounded (Attacker m), Enum (Attacker m), Ord (TamperingAbility m), Enum (ResourceContainer m), Bounded (ResourceContainer m)) => (Bool, Attacker m)
+wellformed :: forall m. (ConcreteDesignModel m, InterfaceUsage m, Bounded (Attacker m), Enum (Attacker m), Ord (TamperingAbility m), Enum (ResourceContainer m), Bounded (ResourceContainer m)) => (Bool, Attacker m)
 wellformed = (
-      (∀) (\(attacker  :: (Attacker m))          -> interfacesAllowedToBeUsedBy attacker ⊆ systemProvides)
-  &&  (∀) (\(attacker  :: (Attacker m))          -> unprotected ∈ tamperingAbilities attacker)
+      (∀) (\(attacker  :: (Attacker m))          -> unprotected ∈ tamperingAbilities attacker)
   &&  (∀) (\(container :: (ResourceContainer m)) ->
                (not $ isEmpty $ containerSecuredByMethod container)
             && (    containerSecuredByMethod container == fromList [unprotected]

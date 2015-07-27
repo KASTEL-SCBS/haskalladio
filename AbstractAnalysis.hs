@@ -17,18 +17,16 @@ import Control.Monad.Trans.Class(lift)
 
 
 {- ... unter Verwendung folgender "Hilfsbegriffe" ... -}
-accessibleParameters :: (AbstractDesignModel m, Reasons m) => (Attacker m) -> WithReason m (Parameter m)
+accessibleParameters :: (AbstractDesignModel m, InterfaceUsage m, Reasons m) => (Attacker m) -> WithReason m (Parameter m)
 accessibleParameters attacker =
   -- Ausgabe-Parameter, auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat
-  [ parameter | interface <- interfacesAllowedToBeUsedByM attacker,
-                interface ∈  systemProvides,
+  [ parameter | interface  <- providedInterfacesDirectlyAccessibleTo attacker,
                 service   <- lift $ services interface,
                 parameter <- lift $ outputParameters service
   ] ⊔
 
   -- Eingabe-Parameter,auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat, weil er vom System Aufgerufen wird.
-  [ parameter | interface <- interfacesAllowedToBeUsedByM attacker,
-                interface ∈  systemRequires,
+  [ parameter | interface  <- requiredInterfacesDirectlyAccessibleTo attacker,
                 service   <- lift $ services interface,
                 parameter <- lift $ inputParameters service
   ] ⊔
@@ -54,11 +52,10 @@ accessibleParameters attacker =
   ] `hence` (Inferred2 AccessibleParameters attacker)
 
 
-observableServices :: (AbstractDesignModel m, Reasons m) => (Attacker m) -> WithReason m (Service m)
+observableServices :: (AbstractDesignModel m, InterfaceUsage m, Reasons m) => (Attacker m) -> WithReason m (Service m)
 observableServices attacker =
   -- Services, deren Aufrufe der Angreifer als regulärer "Benutzer" des Systems beobachten kann
-  [ service | interface <- interfacesAllowedToBeUsedByM attacker,
-              interface ∈  systemProvides,
+  [ service | interface <- requiredInterfacesDirectlyAccessibleTo attacker,
               service   <- lift $ services interface
   ] ⊔
   -- Services, deren Aufrufe der Angreifer beobachten kann, weil er einen entsprechenden ResourceContainer angreifen konnte.
@@ -83,7 +80,7 @@ observableServices attacker =
 
 
 {- Denn damit kann man direkt ein Analyserusultat bestimmen: -}
-instance (AbstractDesignModel m, Reasons m) => AnalysisResult m where
+instance (AbstractDesignModel m, InterfaceUsage m, Reasons m) => AnalysisResult m where
   dataAccessibleTo attacker =
     [ dataSet  | parameter <- accessibleParameters attacker,
                  dataSet   <- classificationOfM parameter
@@ -98,9 +95,6 @@ classificationOfM = liftA2 ClassificationOf classificationOf
 
 classificationOfCallM :: (BasicDesignModel m, Reasons m) => Service m -> WithReason m (DataSet m)
 classificationOfCallM = liftA2 ClassificationOfCall classificationOfCall
-
-interfacesAllowedToBeUsedByM :: (BasicDesignModel m, Reasons m) => Attacker m -> WithReason m (Interface m)
-interfacesAllowedToBeUsedByM = liftA2 InterfacesAllowedToBeUsedBy interfacesAllowedToBeUsedBy
 
 
 providedInterfacesOnM :: (PalladioComponentModel m, Reasons m) => ResourceContainer m -> WithReason m (Interface m)

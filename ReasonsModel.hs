@@ -18,6 +18,7 @@ instance (Typeable m) => Reasons m where
                   | ClassificationOfCall
                   | ClassificationOf
                   | InterfacesAllowedToBeUsedBy
+                  | InterfacesDirectlyAccessibleTo
                   | ProvidedInterfacesOn
                   | RequiredInterfacesOn
                   | LinksPayloadFullyAccessibleBy
@@ -36,9 +37,12 @@ instance (Typeable m) => Reasons m where
                   | AccessibleParameters
                   | ExposesPhsicallyAccessibleDataTo
                   | EncryptedBut
+                  | IsMemberOfGroups
+                  | HasAccessToDomains
                   deriving (Eq,Ord,Show,Typeable)
   data Function m = Sharing
                   | FurtherConnections
                   | IsEncrypted
+                  | IsInDomain
                   deriving (Eq,Ord,Show,Typeable)
 

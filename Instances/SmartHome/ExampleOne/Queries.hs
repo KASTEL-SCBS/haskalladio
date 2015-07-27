@@ -20,6 +20,9 @@ import Instances.SmartHome.ExampleOne.SimpleLinkModel
 -- import Instances.SmartHome.ExampleOne.TamperableLinkModel
 -- import Instances.SmartHome.ExampleOne.ComplexLinkModel
 
+-- import Instances.SmartHome.ExampleOne.InterfaceUsageExplicit
+-- import InterfaceUsageImplicitByLocation
+import Instances.SmartHome.ExampleOne.InterfaceUsageByGroup
 
 import Misc
 import Data.Set.Monad as Set

@@ -17,15 +17,13 @@ instance BasicDesignModel ExampleOne where
                            | PasserByAdversary
                            deriving (Ord,Show,Eq,Bounded,Enum,Typeable)
   data DataSet ExampleOne = ConsumptionData
+                          | BillingData
                           | PublicData
                           deriving (Ord,Show,Eq,Bounded,Enum,Typeable)
 
-  datasets  = fromList [ConsumptionData, PublicData]
-  attackers = fromList [Guest, Inhabitant, PasserByAdversary]
+  datasets  = fromList allValues
+  attackers = fromList allValues
 
-  interfacesAllowedToBeUsedBy Guest              = fromList []
-  interfacesAllowedToBeUsedBy Inhabitant         = fromList [EnergyVisualizationI]
-  interfacesAllowedToBeUsedBy PasserByAdversary  = fromList []
 
   dataAllowedToBeAccessedBy Guest              = fromList [PublicData, ConsumptionData]
   dataAllowedToBeAccessedBy Inhabitant         = fromList [PublicData, ConsumptionData]
