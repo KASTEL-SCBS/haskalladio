@@ -26,7 +26,7 @@ instance BasicDesignModel ExampleOne where
 
 
   dataAllowedToBeAccessedBy Guest              = fromList [PublicData, ConsumptionData]
-  dataAllowedToBeAccessedBy Inhabitant         = fromList [PublicData, ConsumptionData]
+  dataAllowedToBeAccessedBy Inhabitant         = fromList [PublicData, ConsumptionData, BillingData]
   dataAllowedToBeAccessedBy PasserByAdversary  = fromList [PublicData]
 
 
@@ -34,6 +34,7 @@ instance BasicDesignModel ExampleOne where
   classificationOf (Return GetValues)                  = fromList [ConsumptionData]
   classificationOf (Return DrawEnergyConsumptionGraph) = fromList [ConsumptionData]
   classificationOf (Return GetEnergyValue)             = fromList [ConsumptionData]
+  classificationOf (Return GetBillingData)             = fromList [BillingData]
   classificationOf _                                   = fromList [PublicData]
 
   classificationOfCall _                               = fromList [PublicData]
@@ -51,7 +52,7 @@ instance ConcreteDesignModel ExampleOne where
 
    unprotected = None
 
-   locationsAccessibleBy Guest              = fromList [UtilityRoom, Outdoors, LivingRoom]
+   locationsAccessibleBy Guest              = fromList [Outdoors, LivingRoom]
    locationsAccessibleBy Inhabitant         = fromList [UtilityRoom, Outdoors, LivingRoom]
    locationsAccessibleBy PasserByAdversary  = fromList [Outdoors]
 

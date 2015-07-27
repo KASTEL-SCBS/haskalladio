@@ -22,10 +22,14 @@ class (Ord (Location m),
 
 instance (SimpleEncryptionWithExceptionsLinkAccessModel m, Reasons m) => LinkAccessModel m where
   exposesPhsicallyAccessibleDataTo link =
-    [ (attacker, dataset) | dataset  <- lift $ datasets,
-                            _        <- notEncryptedButForM link dataset,
+    [ (attacker, dataset) | dataset   <- lift $ datasets,
+                            dataset'  <- encryptedButForM link,
+                            dataset == dataset',
                             attacker <- lift $ attackers
     ] `hence` (Inferred2 ExposesPhsicallyAccessibleDataTo link)
 
 notEncryptedButForM :: (SimpleEncryptionWithExceptionsLinkAccessModel m, Reasons m) => LinkingResource m -> DataSet m ->  WithReason m ()
 notEncryptedButForM = liftNot2 EncryptedBut isEncryptedButFor
+
+encryptedButForM :: (SimpleEncryptionWithExceptionsLinkAccessModel m, Reasons m) => LinkingResource m ->  WithReason m (DataSet m)
+encryptedButForM = liftA2 EncryptedBut isEncryptedButFor

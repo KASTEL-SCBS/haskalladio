@@ -22,8 +22,8 @@ import Instances.PaperExample.ExampleOne.SimpleLinkModelWithExceptions
 -- import Instances.PaperExample.ExampleOne.ComplexLinkModel
 
 --import Instances.PaperExample.ExampleOne.InterfaceUsageExplicit
---import InterfaceUsageImplicitByLocation
-import Instances.PaperExample.ExampleOne.InterfaceUsageByGroup
+import InterfaceUsageImplicitByLocation
+--import Instances.PaperExample.ExampleOne.InterfaceUsageByGroup
 
 import Misc
 import Data.Set.Monad as Set
