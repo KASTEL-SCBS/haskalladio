@@ -46,9 +46,9 @@ instance ConcreteDesignModel ExampleOne where
    data Location ExampleOne        = UtilityRoom
                                    | LivingRoom
                                    | Outdoors
-                                   deriving (Ord,Show,Eq, Typeable)
+                                   deriving (Ord,Show,Eq, Typeable, Enum, Bounded)
 
-   tamperingAbilities _    = fromList [None]
+   tamperingAbilities _    = fromList [(location, None) | location <- allValues]
 
    unprotected = None
 
@@ -56,8 +56,8 @@ instance ConcreteDesignModel ExampleOne where
    locationsAccessibleBy Inhabitant         = fromList [UtilityRoom, Outdoors, LivingRoom]
    locationsAccessibleBy PasserByAdversary  = fromList [Outdoors]
 
-   containerSecuredByMethod EnergyMeterRC          = fromList [Sealed]
-   containerSecuredByMethod EnergyVisualizationRC  = fromList [None]
+   containerSecuredByMethod EnergyMeterRC          = fromList [(location, Sealed) | location <- allValues]
+   containerSecuredByMethod EnergyVisualizationRC  = fromList [(location, Sealed) | location <- allValues]
 
    furtherConnections EnergyMeterRC         = Complete
    furtherConnections EnergyVisualizationRC = Possible

@@ -20,13 +20,13 @@ import ReasonsModel
 
 instance (ConcreteDesignModel m, Reasons m) => InterfaceUsage m where
     providedInterfacesDirectlyAccessibleTo attacker =
-      [ interface | container <- containersPhysicalAccessibleBy attacker,
+      [ interface | (container,_) <- containersPhysicalAccessibleBy attacker,
                     interface <- providedInterfacesOnM container
 
       ] `hence` (Inferred2 InterfacesDirectlyAccessibleTo attacker)
 
     requiredInterfacesDirectlyAccessibleTo attacker =
-      [ interface | container <- containersPhysicalAccessibleBy attacker,
+      [ interface | (container,_) <- containersPhysicalAccessibleBy attacker,
                     interface <- requiredInterfacesOnM container
 
       ] `hence` (Inferred2 InterfacesDirectlyAccessibleTo attacker)
