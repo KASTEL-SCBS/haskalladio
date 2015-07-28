@@ -1,4 +1,5 @@
 {-# LANGUAGE CPP #-}
+-- {-# LANGUAGE DataKinds #-}
 module Instances.PaperExample.ExampleOne.Queries where
 
 import Palladio
@@ -6,7 +7,10 @@ import Instances.PaperExample.ExampleOne.Palladio
 import Security
 import Reasons
 
+import Data.Tree(drawTree)
+
 import Control.Monad.Trans.Writer.Lazy
+import Control.Monad(forM_, sequence_)
 
 
 #define ASTRACT_ANALYSIS
@@ -58,3 +62,23 @@ woReasons = fmap (\(a,s) -> (a, fmap fst s))
 
 pretty :: Show t => [t] -> IO ()
 pretty list  = putStrLn $ showByLine $ list
+
+prettyReasons :: Show a => [(a, Set (b,[Reason ExampleOne]))] -> IO ()
+prettyReasons list = putStrLn $ showByLine $ fmap pretty list
+  where pretty (a, reasons) = (a, fmap ((fmap (drawTree . toTree)) . snd) reasons)
+
+
+prettyReasonsM :: (Show b, Ord b, Show a) => [(a, Set (b,[Reason ExampleOne]))] -> IO ()
+prettyReasonsM list =
+    forM_ (fmap pretty list)
+      (\(a,pairs) -> do putStr ("(" ++ (show a) ++ ", ")
+                        forM_ pairs (\(b,reasons) ->
+                           do putStr ("(" ++ (show b) ++ ", ")
+                              forM_ reasons putStrLn
+                              putStrLn ")"
+                         )
+                        putStrLn ")"
+                      )
+ where pretty (a, pairs) = (a, toList $ fmap (\(b, reasons) ->
+                                               (b, fmap (drawTree . toTree) reasons))
+                                        pairs)

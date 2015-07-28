@@ -21,6 +21,7 @@ import Control.Monad.Trans.Class(lift)
 import Data.Monoid(Monoid)
 
 import Data.Set.Monad
+import Data.Tree
 
 import Test.QuickCheck
 import Data.Typeable
@@ -47,6 +48,18 @@ data Reason r  where
                   Typeable t, Show t, Ord t, Reasons r) => Relation r -> s -> t -> [Reason r] -> Reason r
     Not    :: Reason r -> Reason r
 deriving instance Show (Reason r)
+
+toTree :: Reason r -> Tree String
+toTree reason@(Axiom1 r x)   = Node (show reason) []
+toTree reason@(Axiom2 r x y) = Node (show reason) []
+toTree reason@(MapsTo f x y) = Node ((show f) ++ "(" ++ (show x) ++ ") = " ++ (show y)) []
+toTree reason@(Not reason')  = Node ("¬(" ++ s ++ ")") trees'
+  where (Node s trees') = toTree reason'
+toTree reason@(Inferred2 r x y rs) = Node ("Inferred " ++ show r ++ show x ++ show y) (fmap toTree rs)
+
+
+
+
 
 instance Eq (Reason r) where
   Axiom1 r x    == Axiom1 r' x'    = r == r' && Just x == cast x'
@@ -123,4 +136,6 @@ liftF r f a = do
    because $ [MapsTo r a y]
    return y
   where y = f a
+
+
 
