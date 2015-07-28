@@ -12,6 +12,6 @@ import Data.Set.Monad as Set
 
 instance SimpleEncryptionWithExceptionsLinkAccessModel ExampleOne where
   isEncryptedButFor link
-     | link == wireless  = fromList [PublicData]
+     | link == wireless  = fromList allValues -- [PublicData]
      | otherwise         = undefined
 
