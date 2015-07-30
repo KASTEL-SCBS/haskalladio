@@ -24,8 +24,7 @@ instance (Typeable m) => Reasons m where
                   | LinksPayloadFullyAccessibleBy
                   | LinksMetaDataFullyAccessibleBy
                   | LinksPhysicallyAccessibleBy
-                  | LinkPayloadSecuredByMethod
-                  | LinkMetaDataSecuredByMethod
+                  | LinksDataAccessibleBy
                   | ContainerFullyAccessibleBy
                   | ContainerPhysicallyAccessibleBy
                   | ContainerSecuredByMethod

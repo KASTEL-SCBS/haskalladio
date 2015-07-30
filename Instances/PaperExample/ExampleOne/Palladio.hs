@@ -23,6 +23,7 @@ instance P.ComponentRepository ExampleOne where
   data Interface ExampleOne = DatabaseInterface
                             | EnergyVisualizationI
                             | EnergyMeasurement
+--                            | Billing
                             deriving (Ord,Eq,Show,Bounded,Enum, Typeable)
   data Parameter ExampleOne = Timestamp
                             | Value
@@ -34,7 +35,7 @@ instance P.ComponentRepository ExampleOne where
                             | StoreValue
                             | DrawEnergyConsumptionGraph
                             | GetEnergyValue
-                            | GetBillingData
+                            | GetCustomerCredentials
                             deriving (Ord,Eq,Show,Bounded,Enum,Typeable)
   data DataType ExampleOne  = IntT
                             | ImageT
@@ -44,13 +45,14 @@ instance P.ComponentRepository ExampleOne where
 
   services DatabaseInterface                  = fromList [GetValues, StoreValue]
   services EnergyVisualizationI               = fromList [DrawEnergyConsumptionGraph]
-  services EnergyMeasurement                  = fromList [GetEnergyValue, GetBillingData]
+  services EnergyMeasurement                  = fromList [GetEnergyValue, GetCustomerCredentials]
+--  services Billing                            = fromList [GetCustomerCredentials]
   
   inputParameters StoreValue                  = fromList [Timestamp, Value]
   inputParameters GetValues                   = fromList [Start, End]
   inputParameters DrawEnergyConsumptionGraph  = fromList []
   inputParameters GetEnergyValue              = fromList []
-  inputParameters GetBillingData              = fromList []
+  inputParameters GetCustomerCredentials      = fromList []
 
   outputParameters StoreValue                 = fromList []
   outputParameters service                    = fromList [Return service]
@@ -62,7 +64,7 @@ instance P.ComponentRepository ExampleOne where
   typeOf (Return GetValues)                  = IntArrayT
   typeOf (Return DrawEnergyConsumptionGraph) = ImageT
   typeOf (Return GetEnergyValue)             = IntT
-  typeOf (Return GetBillingData)             = IntT
+  typeOf (Return GetCustomerCredentials)     = IntT
   typeOf (Return StoreValue)                 = error "no Type for non-Existing Parameter"
   
   components = fromList allValues

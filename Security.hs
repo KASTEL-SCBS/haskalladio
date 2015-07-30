@@ -128,12 +128,14 @@ class (Ord (Location m), ReasonLike (TamperingAbility m), ReasonLike (Location m
 wellformed :: forall m. (ConcreteDesignModel m, InterfaceUsage m, Bounded (Attacker m), Enum (Attacker m), Bounded (Location m), Enum (Location m), Ord (TamperingAbility m), Enum (ResourceContainer m), Bounded (ResourceContainer m)) => (Bool, Attacker m)
 wellformed = (
       (∀) (\(attacker  :: (Attacker m))          -> (∀) (\(location  :: (Location m))  ->  (location,unprotected) ∈ tamperingAbilities attacker))
-  &&  (∀) (\(container :: (ResourceContainer m)) -> (∀) (\(location  :: (Location m))  -> 
-               (not $ isEmpty $ [method | (location', method)  <- containerSecuredByMethod container, location == location'])
-            && (      [method | (location', method)  <- containerSecuredByMethod container, location == location'] == fromList [unprotected]
-                || (not $ unprotected ∈ [method | (location', method)  <- containerSecuredByMethod container, location == location'] )
+  &&  (∀) (\(container :: (ResourceContainer m)) -> [location | (location, _)  <- containerSecuredByMethod container] ⊆ location container)
+  &&  (∀) (\(container :: (ResourceContainer m)) -> (∀) (\(loc  :: (Location m))       -> (loc ∈ location container) → (
+
+               (not $ isEmpty $ [method | (loc', method)  <- containerSecuredByMethod container, loc == loc'])
+            && (      [method | (loc', method)  <- containerSecuredByMethod container, loc == loc'] == fromList [unprotected]
+                || (not $ unprotected ∈ [method | (loc', method)  <- containerSecuredByMethod container, loc == loc'] )
                )
-          ))
+          )))
  , undefined)
 
 {- Damit erhält man ein Analyseergebnis folgendermaßen: -}
@@ -158,7 +160,7 @@ instance (ConcreteDesignModel m, LinkAccessModel m, Reasons m) => AbstractDesign
     [ (link, dataset) | link  <- linksPhysicalAccessibleBy attacker,
                         (other, dataset) <- exposesPhsicallyAccessibleDataTo link,
                         attacker == other
-    ] `hence` (Inferred2 LinksPayloadFullyAccessibleBy attacker)
+    ] `hence` (Inferred2 LinksDataAccessibleBy attacker)
 
 
 

@@ -34,7 +34,7 @@ instance BasicDesignModel ExampleOne where
   classificationOf (Return GetValues)                  = fromList [ConsumptionData]
   classificationOf (Return DrawEnergyConsumptionGraph) = fromList [ConsumptionData]
   classificationOf (Return GetEnergyValue)             = fromList [ConsumptionData]
-  classificationOf (Return GetBillingData)             = fromList [BillingData]
+  classificationOf (Return GetCustomerCredentials)     = fromList [BillingData]
   classificationOf _                                   = fromList [PublicData]
 
   classificationOfCall _                               = fromList [PublicData]
@@ -56,8 +56,8 @@ instance ConcreteDesignModel ExampleOne where
    locationsAccessibleBy Inhabitant         = fromList [UtilityRoom, Outdoors, LivingRoom]
    locationsAccessibleBy PasserByAdversary  = fromList [Outdoors]
 
-   containerSecuredByMethod EnergyMeterRC          = fromList [(location, Sealed) | location <- allValues]
-   containerSecuredByMethod EnergyVisualizationRC  = fromList [(location, Sealed) | location <- allValues]
+   containerSecuredByMethod EnergyMeterRC          = fromList [(UtilityRoom, Sealed)]
+   containerSecuredByMethod EnergyVisualizationRC  = fromList [(LivingRoom, None)]
 
    furtherConnections EnergyMeterRC         = Complete
    furtherConnections EnergyVisualizationRC = Possible
