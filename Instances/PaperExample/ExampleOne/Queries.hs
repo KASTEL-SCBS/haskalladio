@@ -26,7 +26,8 @@ import Instances.PaperExample.ExampleOne.SimpleLinkModelWithExceptions
 import InterfaceUsageImplicitByLocation
 --import Instances.PaperExample.ExampleOne.InterfaceUsageByGroup
 
-import Instances.PaperExample.ExampleOne.LocationAccessModelExplicit
+-- import Instances.PaperExample.ExampleOne.LocationAccessModelExplicit
+import Instances.PaperExample.ExampleOne.LocationAccessModelAttackTree
 
 import Misc
 import Data.Set.Monad as Set
