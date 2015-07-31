@@ -52,10 +52,6 @@ instance ConcreteDesignModel ExampleOne where
 
    unprotected = None
 
-   locationsAccessibleBy Guest              = fromList [Outdoors, LivingRoom]
-   locationsAccessibleBy Inhabitant         = fromList [UtilityRoom, Outdoors, LivingRoom]
-   locationsAccessibleBy PasserByAdversary  = fromList [Outdoors]
-
    containerSecuredByMethod EnergyMeterRC          = fromList [(UtilityRoom, Sealed)]
    containerSecuredByMethod EnergyVisualizationRC  = fromList [(LivingRoom, None)]
 

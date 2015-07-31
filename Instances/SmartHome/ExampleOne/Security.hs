@@ -51,27 +51,22 @@ instance ConcreteDesignModel ExampleOne where
                                    | Unattended -- "Im Keller?!?!?"
                                    | Outdoors
                                    | Public
-                                   deriving (Ord,Show,Eq, Typeable)
+                                   deriving (Ord,Show,Eq, Typeable, Enum, Bounded)
 
    unprotected = None
    
-   tamperingAbilities Guest    = fromList [None]
-   tamperingAbilities HandyMan = fromList [None]
-   tamperingAbilities Anybody  = fromList [None, PlombeEntfernen, GerätÖffnen, WPA2Knacken]
-   tamperingAbilities Burglar  = fromList [None, PlombeEntfernen, GerätÖffnen, WPA2Knacken]
-   tamperingAbilities BlindDeafGuy = fromList [None]
+   tamperingAbilities Guest    = fromList [(location, None) | location <- allValues]
+   tamperingAbilities HandyMan = fromList [(location, None) | location <- allValues]
+   tamperingAbilities Anybody  = fromList [(location, ability) | location <- allValues,
+                                                                 ability  <- [None, PlombeEntfernen, GerätÖffnen, WPA2Knacken]]
+   tamperingAbilities Burglar  = fromList [(location, ability) | location <- allValues,
+                                                                 ability  <- [None, PlombeEntfernen, GerätÖffnen, WPA2Knacken]]
+   tamperingAbilities BlindDeafGuy = fromList [(location, None) | location <- allValues]
 
 
-   locationsAccessibleBy Guest    = fromList [Outdoors, Public, Attended]
-   locationsAccessibleBy HandyMan = fromList [Outdoors, Public, Unattended]
-   locationsAccessibleBy Anybody  = fromList [Outdoors, Public]
-   locationsAccessibleBy Burglar  = fromList [Outdoors, Public, Unattended]
-   locationsAccessibleBy BlindDeafGuy = fromList [Outdoors, Public]
-
-
-   containerSecuredByMethod DigitalMeterContainer = fromList [ PlombeEntfernen ]
-   containerSecuredByMethod TabletContainer       = fromList [ GerätÖffnen ]
-   containerSecuredByMethod ControllerContainer   = fromList [ PlombeEntfernen ]
+   containerSecuredByMethod DigitalMeterContainer = fromList [ (Unattended, PlombeEntfernen) ]
+   containerSecuredByMethod TabletContainer       = fromList [ (Attended, GerätÖffnen) ]
+   containerSecuredByMethod ControllerContainer   = fromList [ (Unattended, PlombeEntfernen) ]
 
 
    furtherConnections TabletContainer       = Possible

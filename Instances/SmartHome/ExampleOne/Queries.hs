@@ -5,6 +5,7 @@ import Palladio
 import Instances.SmartHome.ExampleOne.Palladio
 import Security
 import Reasons
+import Queries
 
 import Control.Monad.Trans.Writer.Lazy
 
@@ -23,6 +24,8 @@ import Instances.SmartHome.ExampleOne.SimpleLinkModel
 -- import Instances.SmartHome.ExampleOne.InterfaceUsageExplicit
 -- import InterfaceUsageImplicitByLocation
 import Instances.SmartHome.ExampleOne.InterfaceUsageByGroup
+
+import Instances.SmartHome.ExampleOne.LocationAccessModelExplicit
 
 import Misc
 import Data.Set.Monad as Set
@@ -51,9 +54,3 @@ query6 = [(attacker, runWriterT $ isInSecureWithRespectTo attacker) | attacker <
 
 query7 :: [(Attacker ExampleOne, Set (DataSet ExampleOne))]
 query7 = [(attacker, dataAllowedToBeAccessedBy attacker) | attacker <- allValues ]
-
-woReasons :: [(a, Set (b,[Reason ExampleOne]))] -> [(a, Set b)]
-woReasons = fmap (\(a,s) -> (a, fmap fst s))
-
-pretty :: Show t => [t] -> IO ()
-pretty list  = putStrLn $ showByLine $ list

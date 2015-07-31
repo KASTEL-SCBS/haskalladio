@@ -18,7 +18,7 @@ import Reasons
 import ReasonsModel
 
 
-instance (ConcreteDesignModel m, Reasons m) => InterfaceUsage m where
+instance (ConcreteDesignModel m, Reasons m, LocationAccessModel m) => InterfaceUsage m where
     providedInterfacesDirectlyAccessibleTo attacker =
       [ interface | (container,_) <- containersPhysicalAccessibleBy attacker,
                     interface <- providedInterfacesOnM container

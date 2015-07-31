@@ -31,9 +31,9 @@ class (ReasonLike (AccessControlDomain m),
 
 
 
-instance (ConcreteDesignModel m, InterfaceUsageByGroup m, Reasons m) => InterfaceUsage m where
+instance (ConcreteDesignModel m, InterfaceUsageByGroup m, LocationAccessModel m, Reasons m) => InterfaceUsage m where
     providedInterfacesDirectlyAccessibleTo attacker =
-      [ interface | container <- containersPhysicalAccessibleBy attacker,
+      [ interface | (container,location) <- containersPhysicalAccessibleBy attacker,
                     interface <- providedInterfacesOnM container,
                     domain <- isInDomainM interface,
                     group <- isMemberOfGroupsM attacker,
@@ -42,7 +42,7 @@ instance (ConcreteDesignModel m, InterfaceUsageByGroup m, Reasons m) => Interfac
       ] `hence` (Inferred2 InterfacesDirectlyAccessibleTo attacker)
 
     requiredInterfacesDirectlyAccessibleTo attacker =
-      [ interface | container <- containersPhysicalAccessibleBy attacker,
+      [ interface | (container,location) <- containersPhysicalAccessibleBy attacker,
                     interface <- requiredInterfacesOnM container,
                     domain <- isInDomainM interface,
                     group <- isMemberOfGroupsM attacker,

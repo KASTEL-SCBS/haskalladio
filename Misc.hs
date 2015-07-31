@@ -66,10 +66,6 @@ smallest = smallestContaining Set.empty
 (∃∈) :: [a] -> (a -> Bool) -> Bool
 (∃∈) = flip any
 
-
-showByLine :: Show t => [t] -> String
-showByLine set = Prelude.foldr (\x lines -> (show x) ++ "\n" ++ lines) [] set
-
 class All a where
   allValues' :: [a]
 
