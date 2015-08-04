@@ -29,7 +29,7 @@ instance (SimpleEncryptionWithExceptionsLinkAccessModel m, Reasons m) => LinkAcc
     ] `hence` (Inferred2 ExposesPhsicallyAccessibleDataTo link)
 
 notEncryptedButForM :: (SimpleEncryptionWithExceptionsLinkAccessModel m, Reasons m) => LinkingResource m -> DataSet m ->  WithReason m ()
-notEncryptedButForM = liftNot2 EncryptedBut isEncryptedButFor
+notEncryptedButForM = liftNot2 EncryptsExcept isEncryptedButFor
 
 encryptedButForM :: (SimpleEncryptionWithExceptionsLinkAccessModel m, Reasons m) => LinkingResource m ->  WithReason m (DataSet m)
-encryptedButForM = liftA2 EncryptedBut isEncryptedButFor
+encryptedButForM = liftA2 EncryptsExcept isEncryptedButFor

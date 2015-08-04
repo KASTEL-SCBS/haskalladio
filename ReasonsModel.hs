@@ -32,10 +32,11 @@ instance (Typeable m) => Reasons m where
                   | LocationsAccessibleBy
                   | LinkLocation
                   | Location
+                  | LinkBetween  
                   | ObservableServices
                   | AccessibleParameters
                   | ExposesPhsicallyAccessibleDataTo
-                  | EncryptedBut
+                  | EncryptsExcept
                   | IsMemberOfGroups
                   | HasAccessToDomains
                   | UiInterfaceOn

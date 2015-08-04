@@ -40,8 +40,8 @@ accessibleParameters attacker =
 
   -- Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
   [ parameter | (link, dataset)        <- linksDataAccessibleBy attacker,
-                let (containerLeft,
-                     containerRight)   =  linkBetween link,
+                (containerLeft,
+                 containerRight)       <-  linkBetweenM link,
                 left                   <- lift $ assembliesOn containerLeft,
                 interface              <- lift $ requires (componentOf left),
                 let (ByAssembly right) =  systemAssembledTo left interface,
@@ -65,8 +65,8 @@ observableServices attacker =
   ] ⊔
   -- Services, deren Aufrufe der Angreifer beobachten kann, weil er eine entsprechende LinkResource angreifen konnte.
   [ service   | (link, dataset)        <- linksDataAccessibleBy attacker,
-                let (containerLeft,
-                     containerRight)   =  linkBetween link,
+                (containerLeft,
+                 containerRight)       <- linkBetweenM link,
                 left                   <- lift $ assembliesOn containerLeft,
                 interface              <- lift $ requires (componentOf left),
                 let (ByAssembly right) = systemAssembledTo left interface,
@@ -103,6 +103,10 @@ providedInterfacesOnM = liftI2 ProvidedInterfacesOn providedInterfacesOn
 
 requiredInterfacesOnM :: (PalladioComponentModel m, Reasons m) => ResourceContainer m -> WithReason m (Interface m)
 requiredInterfacesOnM = liftI2 RequiredInterfacesOn requiredInterfacesOn
+
+
+linkBetweenM :: (PalladioComponentModel m, Reasons m) => LinkingResource m -> WithReason m (ResourceContainer m, ResourceContainer m)
+linkBetweenM = liftA2 LinkBetween (\l -> fromList [linkBetween l])
 
 {-
 linksMetaDataFullyAccessibleByM :: (AbstractDesignModel m, Reasons m) => Attacker m -> WithReason m (LinkingResource m)
