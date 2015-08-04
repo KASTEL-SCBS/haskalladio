@@ -169,7 +169,7 @@ bar = Procedure {
 rofl = Procedure { input = fromList [Input A,Input B,Input C],
                    output = fromList [Output X,Output Y,Output Z],
                    includes  = (M.!) $ M.fromList [(Input A,fromList [Customer,Appliance]),
-                                                     (Input B,fromList []),
+                                                     (Input B,fromList [Customer]),
                                                      (Input C,fromList [Customer,Appliance]),
                                                      (Output X,fromList [Customer,Provider]),
                                                      (Output Y,fromList [Customer,Appliance]),
@@ -200,7 +200,7 @@ datasets (Procedure { input, output, includes, influences}) = fromList [ d | p <
 
 greiner :: (Ord d, Ord p) => Procedure p d -> [(p -> LowHigh, OrderedSet LowHigh)]
 greiner pr@(Procedure { input, output, includes, influences}) =
-    [ ((\p -> if (d ∈ includes p) then High else Low), lowhigh) | d <- toList $ datasets pr]
+    [ ((\p -> if (d ∈ includes p) then Low else High), lowhigh) | d <- toList $ datasets pr]
 
 
 hecker :: (Ord d, Ord p) => Procedure p d -> (p -> Set d, OrderedSet (Set d))
@@ -221,5 +221,11 @@ heckerIsGreiner :: (Ord d, Ord p) => Procedure p d -> Bool
 heckerIsGreiner p = 
        and [ secure p classifiedAsGreiner latticeGreiner | (classifiedAsGreiner, latticeGreiner) <- greiner p]
     == secure p classifiedAsHecker latticeHecker where     (classifiedAsHecker,  latticeHecker)   = hecker p
+
+
+heckerOf  :: (Ord d, Ord p) => Procedure p d -> Bool
+greinerOf :: (Ord d, Ord p) => Procedure p d -> Bool
+heckerOf  p = secure p classifiedAsHecker latticeHecker where     (classifiedAsHecker,  latticeHecker)   = hecker p
+greinerOf p = and [ secure p classifiedAsGreiner latticeGreiner | (classifiedAsGreiner, latticeGreiner) <- greiner p]
 
 
