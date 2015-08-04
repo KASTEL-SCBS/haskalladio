@@ -41,8 +41,8 @@ powerset = S.fromList . fmap S.fromList . listPowerset . S.toList
 listPowerset :: [a] -> [[a]]
 listPowerset = filterM (const [True, False])
 
-powersetorder :: Ord a => Set a -> OrderedSet (Set a)
-powersetorder a = (powerset a, (⊆))
+-- powersetorder :: Ord a => Set a -> OrderedSet (Set a)
+-- powersetorder a = (powerset a, (⊆))
 
 allValues :: (Bounded a, Enum a) => [a]
 allValues = [minBound..maxBound]
@@ -172,7 +172,7 @@ rofl = Procedure { input = fromList [Input A,Input B,Input C],
                                                      (Input B,fromList [Customer]),
                                                      (Input C,fromList [Customer,Appliance]),
                                                      (Output X,fromList [Customer,Provider]),
-                                                     (Output Y,fromList [Customer,Appliance]),
+                                                     (Output Y,fromList [Customer]),
                                                      (Output Z,fromList [Customer,Provider,Appliance])],
                   influences = (M.!) $ M.fromList [(Input A,fromList [Output Y]),
                                                       (Input B,fromList [Output Y,Output Z]),
@@ -200,13 +200,23 @@ datasets (Procedure { input, output, includes, influences}) = fromList [ d | p <
 
 greiner :: (Ord d, Ord p) => Procedure p d -> [(p -> LowHigh, OrderedSet LowHigh)]
 greiner pr@(Procedure { input, output, includes, influences}) =
+    [ ((\p -> if (d ∈ includes p) then High else Low), lowhigh) | d <- toList $ datasets pr]
+
+
+greiner2 :: (Ord d, Ord p) => Procedure p d -> [(p -> LowHigh, OrderedSet LowHigh)]
+greiner2 pr@(Procedure { input, output, includes, influences}) =
     [ ((\p -> if (d ∈ includes p) then Low else High), lowhigh) | d <- toList $ datasets pr]
 
 
 hecker :: (Ord d, Ord p) => Procedure p d -> (p -> Set d, OrderedSet (Set d))
-hecker pr@(Procedure { input, output, includes, influences}) = (includes, powersetorder $ datasets pr)
+hecker pr@(Procedure { input, output, includes, influences}) = (includes,  (powerset (datasets pr), (⊆)) )
 
+                                                                                                    
+hecker2 :: (Ord d, Ord p) => Procedure p d -> (p -> Set d, OrderedSet (Set d))
+hecker2 pr@(Procedure { input, output, includes, influences}) = (includes,  (powerset (datasets pr), (⊇)) )
+                                                                                                    
 
+  
 secure :: (Ord p) => Procedure p d -> (p -> l) -> OrderedSet l -> Bool
 secure (Procedure { input, output, includes, influences}) classifiedAs (l,(⊑)) =
     (∀) input (\(i :: p) ->   (∀) output (\(o :: p) ->
@@ -222,10 +232,22 @@ heckerIsGreiner p =
        and [ secure p classifiedAsGreiner latticeGreiner | (classifiedAsGreiner, latticeGreiner) <- greiner p]
     == secure p classifiedAsHecker latticeHecker where     (classifiedAsHecker,  latticeHecker)   = hecker p
 
-
-heckerOf  :: (Ord d, Ord p) => Procedure p d -> Bool
-greinerOf :: (Ord d, Ord p) => Procedure p d -> Bool
+heckerOf  :: Procedure Parameter Datasets -> Bool
 heckerOf  p = secure p classifiedAsHecker latticeHecker where     (classifiedAsHecker,  latticeHecker)   = hecker p
+
+greinerOf :: (Ord d, Ord p) => Procedure p d -> Bool
 greinerOf p = and [ secure p classifiedAsGreiner latticeGreiner | (classifiedAsGreiner, latticeGreiner) <- greiner p]
 
+h2IsG2 :: Procedure Parameter Datasets -> Bool
+h2IsG2 = hecker2IsGreiner2
 
+hecker2IsGreiner2 :: (Ord d, Ord p) => Procedure p d -> Bool
+hecker2IsGreiner2 p = 
+       and [ secure p classifiedAsGreiner2 latticeGreiner2 | (classifiedAsGreiner2, latticeGreiner2) <- greiner2 p]
+    == secure p classifiedAsHecker2 latticeHecker2 where     (classifiedAsHecker2,  latticeHecker2)   = hecker2 p
+
+hecker2Of  :: Procedure Parameter Datasets -> Bool
+hecker2Of  p = secure p classifiedAsHecker2 latticeHecker2 where     (classifiedAsHecker2,  latticeHecker2)   = hecker2 p
+
+greiner2Of :: (Ord d, Ord p) => Procedure p d -> Bool
+greiner2Of p = and [ secure p classifiedAsGreiner2 latticeGreiner2 | (classifiedAsGreiner2, latticeGreiner2) <- greiner2 p]
