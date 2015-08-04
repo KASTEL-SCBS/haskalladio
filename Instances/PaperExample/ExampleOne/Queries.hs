@@ -23,11 +23,12 @@ import Instances.PaperExample.ExampleOne.SimpleLinkModelWithExceptions
 -- import Instances.PaperExample.ExampleOne.ComplexLinkModel
 
 --import Instances.PaperExample.ExampleOne.InterfaceUsageExplicit
-import InterfaceUsageImplicitByLocation
+--import InterfaceUsageImplicitByLocation
+import Instances.PaperExample.ExampleOne.InterfaceUsageByUI
 --import Instances.PaperExample.ExampleOne.InterfaceUsageByGroup
 
--- import Instances.PaperExample.ExampleOne.LocationAccessModelExplicit
-import Instances.PaperExample.ExampleOne.LocationAccessModelAttackTree
+import Instances.PaperExample.ExampleOne.LocationAccessModelExplicit
+-- import Instances.PaperExample.ExampleOne.LocationAccessModelAttackTree
 
 import Misc
 import Data.Set.Monad as Set

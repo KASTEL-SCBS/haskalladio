@@ -38,6 +38,7 @@ instance (Typeable m) => Reasons m where
                   | EncryptedBut
                   | IsMemberOfGroups
                   | HasAccessToDomains
+                  | UiInterfaceOn
                   deriving (Eq,Ord,Show,Typeable)
   data Function m = Sharing
                   | FurtherConnections

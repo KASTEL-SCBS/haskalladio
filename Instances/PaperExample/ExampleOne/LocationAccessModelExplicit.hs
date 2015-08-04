@@ -10,6 +10,6 @@ import Data.Set.Monad as Set
 
 
 instance LocationAccessModelExplicit ExampleOne where
-   locationsAccessibleByExplicit Guest              = fromList [Outdoors, LivingRoom]
+   locationsAccessibleByExplicit Guest              = fromList [UtilityRoom, Outdoors, LivingRoom]
    locationsAccessibleByExplicit Inhabitant         = fromList [UtilityRoom, Outdoors, LivingRoom]
    locationsAccessibleByExplicit PasserByAdversary  = fromList [Outdoors]
