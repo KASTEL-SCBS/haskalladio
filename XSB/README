@@ -1,0 +1,18 @@
+Prototypical Prolog-Implementation of the access analysis presented in the paper
+  "Model-Driven Specification and Analysis of Confidentiality in Component-Based Systems"
+submitted to the 1st IEEE European Symposium on Security and Privacy, 2016.
+
+Requirements:
+   XSB Logic Programming and Deductive Database system for Unix and Windows,
+   available from http://xsb.sourceforge.net/
+   Our implementation was tested with version the XSB release 3.5.
+
+
+Running:  On a Linux system with XSB installed, run "make" to create a text file
+"queries-justify.result" containing all vulnerabilities in the
+sample architectural and confidentiality model defined in the *.P files from
+directory "Instances/PaperExample/ExampleOne/"
+
+
+
+

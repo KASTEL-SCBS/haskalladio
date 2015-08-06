@@ -15,9 +15,11 @@ LINKMODEL_SYMLINK=linkModel.P
 SOURCES=$(INSTANCE_SYMLINKS) $(LINKMODEL_SYMLINK) abstractAnalysis.P  queries.P  security.P palladio.P
 XWAMS=$(SOURCES:.P=.xwam)
 
-.PHONY: clean clean-xwam test-queries-justify force queries.result default
+.PHONY: clean clean-xwam test-queries-justify force queries.result default dist
 
 default: queries-justify.result
+
+dist: accessanalysis-prolog.zip
 
 .force :
 
@@ -60,3 +62,6 @@ clean-xwam:
 	rm -f *.xwam
 
 
+accessanalysis-prolog.zip: abstractAnalysis.P  queries.P  security.P palladio.P $(LINKMODEL) $(wildcard $(INSTANCE)/*.P)  Makefile README
+	rm -f $@
+	zip $@ $^
