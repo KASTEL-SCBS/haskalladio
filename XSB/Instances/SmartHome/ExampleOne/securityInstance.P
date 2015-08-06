@@ -1,16 +1,26 @@
-justify_pred(interfacesAllowedToBeUsedBy(_,_)).
+% BEGIN IMPORTS
+:- import  none/0
+           from security.
+% END IMPORTS
+
 justify_pred(dataAllowedToBeAccessedBy(_,_)).
 justify_pred(classificationOf(_,_)).
 justify_pred(classificationOfCall(_,_)).
-justify_pred(tamperingAbilities(_,_)).
+justify_pred(tamperingAbilities(_,_,_)).
 justify_pred(locationsAccessibleBy(_,_)).
-justify_pred(containerSecuredByMethod(_,_)).
 justify_pred(furtherConnections(_,_)).
 justify_pred(sharing(_,_)).
-justify_pred(location(_,_)).
-justify_pred(linkLocation(_,_)).
+justify_pred(location(_,_,_)).
+justify_pred(linkLocation(_,_,_)).
 justify_pred(dataset(_)).
 justify_pred(attacker(_)).
+
+
+isLocation(outdoors).
+isLocation(public).
+isLocation(attended).
+
+uiInterfaceOn(tabletContainer,currentConsumptionDataDisplaying).
 
 dataset(inhabitantData).
 dataset(providerData).
@@ -21,9 +31,6 @@ attacker(burglar).
 attacker(handyMan).
 attacker(anybody).
 attacker(blindDeafGuy).
-
-
-interfacesAllowedToBeUsedBy(guest,currentConsumptionDataDisplaying).
 
 dataAllowedToBeAccessedBy(guest,publicData).
 dataAllowedToBeAccessedBy(guest,inhabitantData).
@@ -42,12 +49,16 @@ classificationOf(return(getHistoricConsumption),providerData).
 classificationOfCall(_AnyParameter,publicData).
 
 
-tamperingAbilities(anybody,plombeEntfernen).
-tamperingAbilities(anybody,gerätÖffnen).
-tamperingAbilities(anybody,wpa2Knacken).
-tamperingAbilities(burglar,plombeEntfernen).
-tamperingAbilities(burglar,gerätÖffnen).
-tamperingAbilities(burglar,wpa2Knacken).
+tamperingAbilities(anybody,plombeEntfernen, Location) :- isLocation(Location).
+tamperingAbilities(anybody,gerätÖffnen, Location) :- isLocation(Location).
+tamperingAbilities(anybody,wpa2Knacken, Location) :- isLocation(Location).
+tamperingAbilities(anybody,none, Location) :- isLocation(Location).
+tamperingAbilities(burglar,plombeEntfernen, Location) :- isLocation(Location).
+tamperingAbilities(burglar,gerätÖffnen, Location) :- isLocation(Location).
+tamperingAbilities(burglar,wpa2Knacken, Location) :- isLocation(Location).
+tamperingAbilities(handyman,none, Location) :- isLocation(Location).
+tamperingAbilities(guest,none, Location) :- isLocation(Location).
+tamperingAbilities(blindDeafGuy,none, Location) :- isLocation(Location).
 
 locationsAccessibleBy(guest,outdoors).
 locationsAccessibleBy(guest,public).
@@ -77,10 +88,10 @@ sharing(tabletContainer,openShared).
 sharing(controllerContainer,controlledExclusive).
 sharing(digitalMeterContainer,controlledExclusive).
 
-location(tabletContainer,attended).
-location(controllerContainer,unattended).
-location(digitalMeterContainer,unattended).
+location(tabletContainer,attended,none).
+location(controllerContainer,unattended,none).
+location(digitalMeterContainer,unattended,none).
 
 
-linkLocation(linkMeterController,unattended).
-linkLocation(linkControllerTablet,outdoors).
+linkLocation(linkMeterController,unattended,none).
+linkLocation(linkControllerTablet,outdoors,none).

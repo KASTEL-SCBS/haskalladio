@@ -9,6 +9,7 @@
            furtherConnections/2,
            sharing/2,
            location/3,
+           uiInterfaceOn/2,
            linkLocation/3
            from securityInstance.
 
@@ -22,13 +23,13 @@
            isInSecureWithRespectTo/1,               % isInSecureWithRespectTo(Attacker)
 
            containersFullyAccessibleBy/2,           % containersFullyAccessibleBy(Attacker,ResourceContainer)
-           linksDataAccessibleBy/3,                 % linksDataAccessibleBy(Attacker,LinkingResource, DataSet)
+           linksDataAccessibleBy/3,                 % linksDataAccessibleBy(Attacker,LinkingResource, Dataset)
 
            linksPhysicalAccessibleBy/2,             % linksPhysicalAccessibleBy(Attacker,Link)
            containersPhysicalAccessibleBy/3,        % containersPhysicalAccessibleBy(Attacker,Container,Location)
 
-           providedInterfacesAccessibleTo/2,        % providedInterfacesAccessibleTo(Attacer, Interface)
-           requiredInterfacesAccessibleTo/2,        % requiredInterfacesAccessibleTo(Attacer, Interface)
+           providedInterfacesAccessibleTo/2,        % providedInterfacesAccessibleTo(Attacker, Interface)
+           requiredInterfacesAccessibleTo/2,        % requiredInterfacesAccessibleTo(Attacker, Interface)
 
            % Used Functors
            % Sharing = OpenShared | ControlledExclusive
@@ -54,7 +55,7 @@ isInSecureWithRespectTo(Attacker) :-
 
 containersFullyAccessibleBy(Attacker,Container) :-
         containersPhysicalAccessibleBy(Attacker,Container,Location),
-        containerSecuredByMethod(Container,Method),
+        location(Container,Location,Method),
         tamperingAbilities(Attacker,Location,Method).
 containersFullyAccessibleBy(_,Container) :-
         sharing(Container,openShared),
@@ -65,7 +66,7 @@ containersFullyAccessibleBy(Attacker,Container) :-
         furtherConnections(Container,possible).
 
 
-linksDataAccessibleBy(Attacker,Link,DataSet) :-
+linksDataAccessibleBy(Attacker,Link,Dataset) :-
     linksPhysicalAccessibleBy(Attacker,Link,Location),
     linkLocation(Link,Location,Method),
     tamperingAbilities(Attacker,Location,Method),
@@ -80,12 +81,12 @@ containersPhysicalAccessibleBy(Attacker,Container,Location) :-
     location(Container,Location,_),
     locationsAccessibleBy(Attacker,Location).
 
-providedInterfacesAccessibleTo(Attacer, Interface) :-
+providedInterfacesAccessibleTo(Attacker, Interface) :-
     containersPhysicalAccessibleBy(Attacker,Container,_),
     providedInterfacesOn(Container, Interface),
     uiInterfaceOn(Container, Interface).
 
-requiredInterfacesAccessibleTo(Attacer, Interface) :-
+requiredInterfacesAccessibleTo(Attacker, Interface) :-
     containersPhysicalAccessibleBy(Attacker,Container,_),
     requiredInterfacesOn(Container, Interface),
     uiInterfaceOn(Container, Interface).

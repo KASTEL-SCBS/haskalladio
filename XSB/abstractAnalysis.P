@@ -20,7 +20,7 @@
 :- import  linksDataAccessibleBy/3,
            containersFullyAccessibleBy/2,
            providedInterfacesAccessibleTo/2,
-           requiredInterfacesAccessibleTo/2,
+           requiredInterfacesAccessibleTo/2
            from security.
 
 :- import  classificationOfCall/2,
@@ -40,13 +40,13 @@ justify_pred(dataAccessibleTo(_,_)).
 
 accessibleParameters(Attacker,Parameter) :-
   % Ausgabe-Parameter, auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat
-  providedInterfacesDirectlyAccessibleTo(Attacker,Interface),
+  providedInterfacesAccessibleTo(Attacker,Interface),
   services(Interface,Service),
   outputParameters(Service, Parameter).
 
 accessibleParameters(Attacker,Parameter) :-
   % Eingabe-Parameter,auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat, weil er vom System Aufgerufen wird.
-  requiredInterfacesDirectlyAccessibleTo(Attacker,Interface),
+  requiredInterfacesAccessibleTo(Attacker,Interface),
   services(Interface,Service),
   inputParameters(Service, Parameter).
 
@@ -73,7 +73,7 @@ accessibleParameters(Attacker,Parameter) :-
 
 observableServices(Attacker, Service) :-
   % Services, deren Aufrufe der Angreifer als regulärer "Benutzer" des Systems beobachten kann
-  requiredInterfacesDirectlyAccessibleTo(Attacker,Interface),
+  requiredInterfacesAccessibleTo(Attacker,Interface),
   services(Interface, Service).
 
 observableServices(Attacker,Service) :-
