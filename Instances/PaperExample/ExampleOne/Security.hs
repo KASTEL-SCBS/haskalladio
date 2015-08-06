@@ -55,6 +55,11 @@ instance ConcreteDesignModel ExampleOne where
    containerSecuredByMethod EnergyMeterRC          = fromList [(UtilityRoom, Sealed)]
    containerSecuredByMethod EnergyVisualizationRC  = fromList [(LivingRoom, None)]
 
+   linkSecuredByMethod link
+     | link == wireless = fromList [(LivingRoom, None),
+                                    (UtilityRoom, None),
+                                    (Outdoors, None)]
+
    furtherConnections EnergyMeterRC         = Complete
    furtherConnections EnergyVisualizationRC = Possible
 

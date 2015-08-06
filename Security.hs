@@ -118,6 +118,7 @@ class (Ord (Location m), ReasonLike (TamperingAbility m), ReasonLike (Location m
   tamperingAbilities    :: Attacker m ->  Set (Location m, TamperingAbility m)
 
   containerSecuredByMethod :: ResourceContainer m -> Set (Location m , TamperingAbility m)
+  linkSecuredByMethod      :: LinkingResource   m -> Set (Location m , TamperingAbility m)
 
   furtherConnections :: ResourceContainer m -> FurtherConnections
   sharing            :: ResourceContainer m -> Sharing
@@ -126,7 +127,7 @@ class (Ord (Location m), ReasonLike (TamperingAbility m), ReasonLike (Location m
   linkLocation       :: LinkingResource m -> Set (Location m)
 
 
-wellformed :: forall m. (ConcreteDesignModel m, InterfaceUsage m, Bounded (Attacker m), Enum (Attacker m), Bounded (Location m), Enum (Location m), Ord (TamperingAbility m), Enum (ResourceContainer m), Bounded (ResourceContainer m)) => (Bool, Attacker m)
+wellformed :: forall m. (ConcreteDesignModel m, InterfaceUsage m, Bounded (Attacker m), Enum (Attacker m), Bounded (Location m), Enum (Location m), Ord (TamperingAbility m), Enum (ResourceContainer m), Bounded (ResourceContainer m), All (LinkingResource m)) => (Bool, Attacker m)
 wellformed = (
       (∀) (\(attacker  :: (Attacker m))          -> (∀) (\(location  :: (Location m))  ->  (location,unprotected) ∈ tamperingAbilities attacker))
   &&  (∀) (\(container :: (ResourceContainer m)) -> [location | (location, _)  <- containerSecuredByMethod container] ⊆ location container)
@@ -137,16 +138,24 @@ wellformed = (
                 || (not $ unprotected ∈ [method | (loc', method)  <- containerSecuredByMethod container, loc == loc'] )
                )
           )))
+                                                      &&  (∀) (\(container :: (ResourceContainer m)) -> [location | (location, _)  <- containerSecuredByMethod container] ⊆ location container)
+  &&  (∀∈) allValues' (\(link :: (LinkingResource m)) -> (∀) (\(loc  :: (Location m))       -> (loc ∈ linkLocation link) → (
+               (not $ isEmpty $ [method | (loc', method)  <- linkSecuredByMethod link, loc == loc'])
+            && (      [method | (loc', method)  <- linkSecuredByMethod link, loc == loc'] == fromList [unprotected]
+                || (not $ unprotected ∈ [method | (loc', method)  <- linkSecuredByMethod link, loc == loc'] )
+               )
+          )))
  , undefined)
 
 {- Damit erhält man ein Analyseergebnis folgendermaßen: -}
 instance (ConcreteDesignModel m, LinkAccessModel m, Reasons m, LocationAccessModel m) => AbstractDesignModel m where
  containersFullyAccessibleBy attacker =
     [ container | (container, location) <- containersPhysicalAccessibleBy attacker,
-                  (location,  method)  <- containerSecuredByMethodM container,
-                  (location', ability) <- tamperingAbilitiesM attacker,
+                  (location',   method) <- containerSecuredByMethodM container,
+                  (location'', ability) <- tamperingAbilitiesM attacker,
                   method == ability,
-                  location == location'
+                  location == location',
+                  location' == location''
     ] ⊔
     [ container | container <- lift $ resourcecontainers,
                   sharing            <- sharingM container,                       sharing == OpenShared,
@@ -158,16 +167,21 @@ instance (ConcreteDesignModel m, LinkAccessModel m, Reasons m, LocationAccessMod
     ] `hence` (Inferred2 ContainerFullyAccessibleBy attacker)
 
  linksDataAccessibleBy attacker =
-    [ (link, dataset) | link  <- linksPhysicalAccessibleBy attacker,
+    [ (link, dataset) | (link, location)      <- linksPhysicalAccessibleBy attacker,
+                        (location',  method)  <- linkSecuredByMethodM link,
+                        (location'', ability) <- tamperingAbilitiesM attacker,
+                        method == ability,
+                        location == location',
+                        location' == location'',
                         (other, dataset) <- exposesPhsicallyAccessibleDataTo link,
                         attacker == other
     ] `hence` (Inferred2 LinksDataAccessibleBy attacker)
 
 
 
-linksPhysicalAccessibleBy      :: (ConcreteDesignModel m, Reasons m, LocationAccessModel m) => Attacker m -> WithReason m (LinkingResource m)
+linksPhysicalAccessibleBy      :: (ConcreteDesignModel m, Reasons m, LocationAccessModel m) => Attacker m -> WithReason m (LinkingResource m, Location m)
 linksPhysicalAccessibleBy attacker =
-    [ link | link <- lift $ linkingresources,
+    [ (link, location) | link <- lift $ linkingresources,
              location <- linkLocationM link,
              accessible <- locationsAccessibleBy attacker,
              location == accessible
@@ -199,6 +213,10 @@ tamperingAbilitiesM = liftA2 TamperingAbilities tamperingAbilities
 
 containerSecuredByMethodM :: (ConcreteDesignModel m, Reasons m) => ResourceContainer m -> WithReason m (Location m, TamperingAbility m)
 containerSecuredByMethodM = liftA2 ContainerSecuredByMethod  containerSecuredByMethod
+
+linkSecuredByMethodM :: (ConcreteDesignModel m, Reasons m) => LinkingResource m -> WithReason m (Location m, TamperingAbility m)
+linkSecuredByMethodM = liftA2 LinkSecuredByMethod  linkSecuredByMethod
+
 
 linkLocationM :: (ConcreteDesignModel m, Reasons m) => (LinkingResource m) -> WithReason m (Location m)
 linkLocationM = liftA2 LinkLocation linkLocation

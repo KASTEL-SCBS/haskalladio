@@ -31,6 +31,7 @@ instance (Typeable m) => Reasons m where
                   | TamperingAbilities
                   | LocationsAccessibleBy
                   | LinkLocation
+                  | LinkSecuredByMethod
                   | Location
                   | LinkBetween  
                   | ObservableServices

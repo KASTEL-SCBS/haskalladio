@@ -36,6 +36,7 @@ instance P.ComponentRepository ExampleOne where
                             | DrawEnergyConsumptionGraph
                             | GetEnergyValue
                             | GetCustomerCredentials
+                            | GetHighestValue
                             deriving (Ord,Eq,Show,Bounded,Enum,Typeable)
   data DataType ExampleOne  = IntT
                             | ImageT
