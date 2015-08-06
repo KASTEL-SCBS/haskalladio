@@ -1,19 +1,13 @@
 % BEGIN IMPORTS
-:- import  isEncrypted/1 from simpleLinkModelInstance.
+:- import  isEncryptedButFor/2 from simpleLinkModelInstance.
 :- import  attacker/1 from securityInstance.
 % END IMPORTS
 % BEGIN EXPORTS
-:- export  exposesPhsicallyAccessiblePayloadTo/2,
-           exposesPhsicallyAccessibleMetaDataTo/2.
+:- export  exposesPhsicallyAccessibleDataTo/3.
 % END IMPORTS
 
-justify_pred(exposesPhsicallyAccessiblePayloadTo(_,_)).
-justify_pred(exposesPhsicallyAccessibleMetaDataTo(_,_)).
+justify_pred(exposesPhsicallyAccessibleDataTo(_,_,_)).
 
-
-exposesPhsicallyAccessiblePayloadTo(Link,Attacker) :-
+exposesPhsicallyAccessibleDataTo(Link,Attacker,DataSet) :-
         attacker(Attacker),
-        not(isEncrypted(Link)).
-
-exposesPhsicallyAccessibleMetaDataTo(_Link,Attacker) :-
-        attacker(Attacker).
+        encryptsExcept(Link, Ds).

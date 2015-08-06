@@ -1,18 +1,20 @@
 % BEGIN IMPORTS
-:- import  exposesPhsicallyAccessiblePayloadTo/2,
-           exposesPhsicallyAccessibleMetaDataTo/2 from linkModel.
+:- import  exposesPhsicallyAccessibleDataTo/3 from linkModel.
 
 :- import  dataAccessibleTo/2 from abstractAnalysis.
 
 :- import  dataAllowedToBeAccessedBy/2,
-           tamperingAbilities/2,
+           tamperingAbilities/3,
            locationsAccessibleBy/2,
-           containerSecuredByMethod/2,
            furtherConnections/2,
            sharing/2,
-           location/2,
-           linkLocation/2
+           location/3,
+           linkLocation/3
            from securityInstance.
+
+:- import  providedInterfacesOn/2,
+           requiredInterfacesOn/2
+           from palladio.
 % END IMPORTS
 
 % BEGIN EXPORTS
@@ -20,25 +22,30 @@
            isInSecureWithRespectTo/1,               % isInSecureWithRespectTo(Attacker)
 
            containersFullyAccessibleBy/2,           % containersFullyAccessibleBy(Attacker,ResourceContainer)
-           linksMetaDataFullyAccessibleBy/2,        % linksMetaDataFullyAccessibleBy(Attacker,LinkingResource)
-           linksPayloadFullyAccessibleBy/2,         % linksPayloadFullyAccessibleBy(Attacker,LinkingResource)
+           linksDataAccessibleBy/3,                 % linksDataAccessibleBy(Attacker,LinkingResource, DataSet)
 
            linksPhysicalAccessibleBy/2,             % linksPhysicalAccessibleBy(Attacker,Link)
-           containersPhysicalAccessibleBy/2,        % containersPhysicalAccessibleBy(Attacker,Container)
+           containersPhysicalAccessibleBy/3,        % containersPhysicalAccessibleBy(Attacker,Container,Location)
+
+           providedInterfacesAccessibleTo/2,        % providedInterfacesAccessibleTo(Attacer, Interface)
+           requiredInterfacesAccessibleTo/2,        % requiredInterfacesAccessibleTo(Attacer, Interface)
 
            % Used Functors
            % Sharing = OpenShared | ControlledExclusive
            openShared/0, controlledExclusive/0,
            % FurtherConnections = Possible | Existing | Complete
-           possible/0, existing/0, complete/0.
+           possible/0, existing/0, complete/0,
+           % Default tampering Abiility
+           none/0.
 % END EXPORTS
 
 justify_pred(isInSecureWithRespectTo(_)).
 justify_pred(containersFullyAccessibleBy(_,_)).
-justify_pred(linksMetaDataFullyAccessibleBy(_,_)).
-justify_pred(linksPayloadFullyAccessibleBy(_,_)).
+justify_pred(linksDataAccessibleBy(_,_,_)).
 justify_pred(linksPhysicalAccessibleBy(_,_)).
-justify_pred(containersPhysicalAccessibleBy(_,_)).
+justify_pred(containersPhysicalAccessibleBy(_,_,_)).
+justify_pred(providedInterfacesAccessibleTo(_,_)).
+justify_pred(requiredInterfacesAccessibleTo(_,_)).
 
 isInSecureWithRespectTo(Attacker) :-
         dataAccessibleTo(Attacker,Accessed),
@@ -46,31 +53,39 @@ isInSecureWithRespectTo(Attacker) :-
 
 
 containersFullyAccessibleBy(Attacker,Container) :-
-        containersPhysicalAccessibleBy(Attacker,Container),
+        containersPhysicalAccessibleBy(Attacker,Container,Location),
         containerSecuredByMethod(Container,Method),
-        tamperingAbilities(Attacker,Method).
+        tamperingAbilities(Attacker,Location,Method).
 containersFullyAccessibleBy(_,Container) :-
         sharing(Container,openShared),
         furtherConnections(Container,existing).
 containersFullyAccessibleBy(Attacker,Container) :-
-        containersPhysicalAccessibleBy(Attacker,Container),
+        containersPhysicalAccessibleBy(Attacker,Container,_),
         sharing(Container,openShared),
         furtherConnections(Container,possible).
 
 
-linksPayloadFullyAccessibleBy(Attacker,Link) :-
-    linksPhysicalAccessibleBy(Attacker,Link),
-    exposesPhsicallyAccessiblePayloadTo(Link,Attacker).
-
-linksMetaDataFullyAccessibleBy(Attacker,Link) :-
-    linksPhysicalAccessibleBy(Attacker,Link),
-    exposesPhsicallyAccessibleMetaDataTo(Link,Attacker).
+linksDataAccessibleBy(Attacker,Link,DataSet) :-
+    linksPhysicalAccessibleBy(Attacker,Link,Location),
+    linkLocation(Link,Location,Method),
+    tamperingAbilities(Attacker,Location,Method),
+    exposesPhsicallyAccessibleMetaDataTo(Link,Attacker,Dataset).
 
 
-linksPhysicalAccessibleBy(Attacker,Link) :-
-    linkLocation(Link,Location),
+linksPhysicalAccessibleBy(Attacker,Link,Location) :-
+    linkLocation(Link,Location,_),
     locationsAccessibleBy(Attacker,Location).
 
-containersPhysicalAccessibleBy(Attacker,Container) :-
-    location(Container,Location),
+containersPhysicalAccessibleBy(Attacker,Container,Location) :-
+    location(Container,Location,_),
     locationsAccessibleBy(Attacker,Location).
+
+providedInterfacesAccessibleTo(Attacer, Interface) :-
+    containersPhysicalAccessibleBy(Attacker,Container,_),
+    providedInterfacesOn(Container, Interface),
+    uiInterfaceOn(Container, Interface).
+
+requiredInterfacesAccessibleTo(Attacer, Interface) :-
+    containersPhysicalAccessibleBy(Attacker,Container,_),
+    requiredInterfacesOn(Container, Interface),
+    uiInterfaceOn(Container, Interface).

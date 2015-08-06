@@ -1,8 +1,4 @@
 % BEGIN IMPORTS
-:- import  interfacesAllowedToBeUsedBy/2
-           from securityInstance.
-
-
 :- import  requires/2,
            inputParameters/2,
            outputParameters/2,
@@ -21,9 +17,10 @@
            parameters/2
            from palladio.
 
-:- import  linksMetaDataFullyAccessibleBy/2,
-           linksPayloadFullyAccessibleBy/2,
-           containersFullyAccessibleBy/2
+:- import  linksDataAccessibleBy/3,
+           containersFullyAccessibleBy/2,
+           providedInterfacesAccessibleTo/2,
+           requiredInterfacesAccessibleTo/2,
            from security.
 
 :- import  classificationOfCall/2,
@@ -43,15 +40,13 @@ justify_pred(dataAccessibleTo(_,_)).
 
 accessibleParameters(Attacker,Parameter) :-
   % Ausgabe-Parameter, auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat
-  interfacesAllowedToBeUsedBy(Attacker,Interface),
-  systemProvides(Interface),
+  providedInterfacesDirectlyAccessibleTo(Attacker,Interface),
   services(Interface,Service),
   outputParameters(Service, Parameter).
 
 accessibleParameters(Attacker,Parameter) :-
   % Eingabe-Parameter,auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat, weil er vom System Aufgerufen wird.
-  interfacesAllowedToBeUsedBy(Attacker, Interface),
-  systemRequires(Interface),
+  requiredInterfacesDirectlyAccessibleTo(Attacker,Interface),
   services(Interface,Service),
   inputParameters(Service, Parameter).
 
@@ -64,7 +59,7 @@ accessibleParameters(Attacker,Parameter) :-
 
 accessibleParameters(Attacker,Parameter) :-
   % Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
-  linksPayloadFullyAccessibleBy(Attacker, Link),
+  linksDataAccessibleBy(Attacker, Link, DataSet),
   linkBetween(Link,ContainerLeft,ContainerRight),
   runsOn(Left,ContainerLeft),
   componentOf(Left,Component),
@@ -72,13 +67,13 @@ accessibleParameters(Attacker,Parameter) :-
   systemAssembledTo(Left,Interface,byAssembly(Right)),
   runsOn(Right,ContainerRight),
   services(Interface, Service),
-  parameters(Service,Parameter).
+  parameters(Service,Parameter),
+  classificationOf(Parameter,DataSet).
 
 
 observableServices(Attacker, Service) :-
   % Services, deren Aufrufe der Angreifer als regulärer "Benutzer" des Systems beobachten kann
-  interfacesAllowedToBeUsedBy(Attacker,Interface),
-  systemProvides(Interface),
+  requiredInterfacesDirectlyAccessibleTo(Attacker,Interface),
   services(Interface, Service).
 
 observableServices(Attacker,Service) :-
@@ -89,14 +84,15 @@ observableServices(Attacker,Service) :-
 
 observableServices(Attacker, Service) :-
   % Services, deren Aufrufe der Angreifer beobachten kann, weil er eine entsprechende LinkResource angreifen konnte.
-  linksMetaDataFullyAccessibleBy(Attacker,Link),
+  linksDataAccessibleBy(Attacker, Link, DataSet),
   linkBetween(Link,ContainerLeft, ContainerRight),
   runsOn(Left,ContainerLeft),
   componentOf(Left,Component),
   requires(Component,Interface),
   systemAssembledTo(Left,Interface,byAssembly(Right)),
   runsOn(Right,ContainerRight),
-  services(Interface,Service).
+  services(Interface,Service),
+  classificationOfCall(Service,DataSet).
 
 
 dataAccessibleTo(Attacker,DataSet) :-

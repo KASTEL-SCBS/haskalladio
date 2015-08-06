@@ -3,7 +3,7 @@
 INSTANCE=Instances/SmartHome/ExampleOne
 LINKMODEL=simpleLinkModel.P
 
-# name of the xsb binary, see http://xsb.sourceforge.net/
+# path to the xsb binary, see http://xsb.sourceforge.net/
 XSB=xsb
 XSB_OPTIONS_QUIET=--noprompt --quietload --nobanner --nofeedback
 
@@ -53,6 +53,7 @@ clean: clean-xwam
 	rm -f *.result
 	rm -f all.P
 	rm -f all-with-imports.P
+	find . -name '*~' -delete
 
 clean-xwam:
 	rm -f *.xwam

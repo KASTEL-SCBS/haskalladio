@@ -251,3 +251,17 @@ hecker2Of  p = secure p classifiedAsHecker2 latticeHecker2 where     (classified
 
 greiner2Of :: (Ord d, Ord p) => Procedure p d -> Bool
 greiner2Of p = and [ secure p classifiedAsGreiner2 latticeGreiner2 | (classifiedAsGreiner2, latticeGreiner2) <- greiner2 p]
+
+
+-- isRelabeling :: (d -> d') -> Bool
+-- isRelabeling f = (∀) ds (\d -> 
+--   where ds = fromList allValues
+
+
+-- isRelabelingTestSub :: (d -> d') -> [d] -> [d'] -> Bool
+-- isRelabelingTestSub ds 
+        
+-- relabel :: (Ord d, Ord d') => (d -> d') -> Procedure p d -> Procedure p d'
+-- relabel f pr = pr {
+--     includes = \p -> S.map f (includes pr p)
+--   }

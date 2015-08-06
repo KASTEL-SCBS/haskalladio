@@ -1,16 +1,15 @@
 :- export  % Predicates
-           interfacesAllowedToBeUsedBy/2,           % interfacesAllowedToBeUsedBy(Attacker,Interface)
+           uiInterfaceOn/2,                         % uiInterfaceOn(ResourceContainer,Interface)
            dataAllowedToBeAccessedBy/2,             % dataAllowedToBeAccessedBy(Attacker,DataSet)
            classificationOf/2,                      % classificationOf(Parameter,DataSet)
            classificationOfCall/2,                  % classificationOfCall(Service,DataSet m)
 
-           tamperingAbilities/2,                    % tamperingAbilities(Attacker,TamperingAbility)
+           tamperingAbilities/3,                    % tamperingAbilities(Attacker,Location,TamperingAbility)
            locationsAccessibleBy/2,                 % locationsAccessibleBy(Attacker,Location)
-           containerSecuredByMethod/2,              % containerSecuredByMethod(ResourceContainer,TamperingAbility)
            furtherConnections/2,                    % furtherConnections(ResourceContainer,FurtherConnections)
            sharing/2,                               % sharing(ResourceContainer,Sharing)
-           location/2,                              % location(ResourceContainer,Location)
-           linkLocation/2,                          % linkLocation(LinkingResource,Location)
+           location/3,                              % location(ResourceContainer,Location,TamperingAbility)
+           linkLocation/3,                          % linkLocation(LinkingResource,Location,TamperingAbility)
 
            % Enumerators
            dataset/1,    % dataset(DataSet)
