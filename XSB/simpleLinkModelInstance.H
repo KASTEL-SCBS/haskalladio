@@ -1,1 +1,1 @@
-:- export  isEncrypted/1.
+:- export encryptsExcept/2.

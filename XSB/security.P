@@ -1,5 +1,5 @@
 % BEGIN IMPORTS
-:- import  exposesPhsicallyAccessibleDataTo/3 from linkModel.
+:- import  exposesPhysicallyAccessibleDataTo/3 from linkModel.
 
 :- import  dataAccessibleTo/2 from abstractAnalysis.
 
@@ -70,7 +70,7 @@ linksDataAccessibleBy(Attacker,Link,Dataset) :-
     linksPhysicalAccessibleBy(Attacker,Link,Location),
     linkLocation(Link,Location,Method),
     tamperingAbilities(Attacker,Location,Method),
-    exposesPhsicallyAccessibleMetaDataTo(Link,Attacker,Dataset).
+    exposesPhysicallyAccessibleDataTo(Link,Attacker,Dataset).
 
 
 linksPhysicalAccessibleBy(Attacker,Link,Location) :-

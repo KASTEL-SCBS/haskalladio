@@ -52,9 +52,9 @@ classificationOf(return(getCustomerCredentials)     ,billingData).
 classificationOfCall(_AnyParameter,publicData).
 
 
-tamperingAbilities(guest,             none, Location) :- isLocation(Location).
-tamperingAbilities(inhabitant,        none, Location) :- isLocation(Location).
-tamperingAbilities(passerByAdversary, none, Location) :- isLocation(Location).
+tamperingAbilities(guest,             Location,none) :- isLocation(Location).
+tamperingAbilities(inhabitant,        Location,none) :- isLocation(Location).
+tamperingAbilities(passerByAdversary, Location,none) :- isLocation(Location).
 
 locationsAccessibleBy(guest,Location) :- isLocation(Location).
 locationsAccessibleBy(inhabitant,Location) :- isLocation(Location).

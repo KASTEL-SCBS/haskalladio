@@ -1,13 +1,13 @@
 % BEGIN IMPORTS
-:- import  isEncryptedButFor/2 from simpleLinkModelInstance.
+:- import  isEncryptedExcept/2 from simpleLinkModelInstance.
 :- import  attacker/1 from securityInstance.
 % END IMPORTS
 % BEGIN EXPORTS
-:- export  exposesPhsicallyAccessibleDataTo/3.
+:- export  exposesPhysicallyAccessibleDataTo/3.
 % END IMPORTS
 
-justify_pred(exposesPhsicallyAccessibleDataTo(_,_,_)).
+justify_pred(exposesPhysicallyAccessibleDataTo(_,_,_)).
 
-exposesPhsicallyAccessibleDataTo(Link,Attacker,Dataset) :-
+exposesPhysicallyAccessibleDataTo(Link,Attacker,Dataset) :-
         attacker(Attacker),
         encryptsExcept(Link, Dataset).

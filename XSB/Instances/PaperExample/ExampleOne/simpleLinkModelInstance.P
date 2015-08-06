@@ -1,5 +1,15 @@
-justify_pred(isEncrypted(_)).
+% BEGIN IMPORTS
+:- import  dataset/1,
+           consumptionData/0,
+           billingData/0,
+           publicData/0,
+           from securityInstance.
+% END IMPORTS
 
-isEncrypted(linkControllerTablet).
+justify_pred(isEncryptedExcept(_,_)).
+
+encryptsExcept(wireless,Dataset) :- dataset(Dataset).
+
+
 
 
