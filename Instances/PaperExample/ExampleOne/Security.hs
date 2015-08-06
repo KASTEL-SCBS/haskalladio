@@ -31,6 +31,9 @@ instance BasicDesignModel ExampleOne where
 
 
   classificationOf Value                               = fromList [ConsumptionData]
+  classificationOf Timestamp                           = fromList [ConsumptionData]
+  classificationOf Start                               = fromList [ConsumptionData]
+  classificationOf End                                 = fromList [ConsumptionData]
   classificationOf (Return GetValues)                  = fromList [ConsumptionData]
   classificationOf (Return DrawEnergyConsumptionGraph) = fromList [ConsumptionData]
   classificationOf (Return GetEnergyValue)             = fromList [ConsumptionData]
