@@ -10,33 +10,32 @@ justify_pred(componentOf(_,_)).
 justify_pred(linkBetween(_,_,_)).
 
 resourcecontainers(energyVisualizationRC).
-resourcecontainers(energyMeter).
+resourcecontainers(energyMeterRC).
 
-linkingresources(wirelessLink).
+linkingresources(wireless).
 
-system(digitalMeterContext).
-system(controllerContext).
-system(tabletContext).
+system(databaseContext).
+system(energyMeterAssemblyContext).
+system(energyVisualizationContext).
 
-systemProvides(currentConsumptionDataDisplaying).
+systemProvides(energyVisualizationI).
 
 systemRequires(_) :- false.
 
-systemAssembledTo(digitalMeterContext,currentMeterDataReceiving,byAssembly(controllerContext)).
-systemAssembledTo(tabletContext,consumptionDataSending,byAssembly(controllerContext)).
+systemAssembledTo(energyVisualizationContext,databaseInterface,byAssembly(databaseContext)).
+systemAssembledTo(energyVisualizationContext,energyMeasurement,byAssembly(energyMeterAssemblyContext)).
 
-systemProvidesAsssembledTo(currentConsumptionDataDisplaying,tabletContext).
-
-
-runsOn(digitalMeterContext,digitalMeterContainer).
-runsOn(controllerContext,controllerContainer).
-runsOn(tabletContext,tabletContainer).
-
-componentOf(digitalMeterContext, digitalMeter).
-componentOf(controllerContext,controller).
-componentOf(tabletContext,tablet).
+systemProvidesAsssembledTo(energyVisualizationI, energyVisualizationContext).
 
 
-linkBetween(linkMeterController,digitalMeterContainer, controllerContainer).
-linkBetween(linkControllerTablet,controllerContainer, tabletContainer).
+runsOn(databaseContext, energyVisualizationRC).
+runsOn(energyMeterAssemblyContext, energyMeterRC).
+runsOn(energyVisualizationContext, energyVisualizationRC).
+
+componentOf(databaseContext, dbms).
+componentOf(energyMeterAssemblyContext,energyMeter).
+componentOf(energyVisualizationContext,energyVisualization).
+
+
+linkBetween(wireless,energyVisualizationRC, energyMeterRC).
 

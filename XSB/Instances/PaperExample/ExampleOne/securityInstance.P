@@ -1,86 +1,71 @@
-justify_pred(interfacesAllowedToBeUsedBy(_,_)).
+% BEGIN IMPORTS
+:- import  none/0
+           from security.
+% END IMPORTS
+
 justify_pred(dataAllowedToBeAccessedBy(_,_)).
 justify_pred(classificationOf(_,_)).
 justify_pred(classificationOfCall(_,_)).
-justify_pred(tamperingAbilities(_,_)).
+justify_pred(tamperingAbilities(_,_,_)).
 justify_pred(locationsAccessibleBy(_,_)).
-justify_pred(containerSecuredByMethod(_,_)).
 justify_pred(furtherConnections(_,_)).
 justify_pred(sharing(_,_)).
-justify_pred(location(_,_)).
-justify_pred(linkLocation(_,_)).
+justify_pred(location(_,_,_)).
+justify_pred(linkLocation(_,_,_)).
 justify_pred(dataset(_)).
 justify_pred(attacker(_)).
 
-dataset(inhabitantData).
-dataset(providerData).
+
+isLocation(utilityRoom).
+isLocation(livingRoom).
+isLocation(outdoors).
+
+uiInterfaceOn(energyVisualizationRC,energyVisualizationI).
+
+
+dataset(consumptionData).
+dataset(billingData).
 dataset(publicData).
 
 attacker(guest).
-attacker(burglar).
-attacker(handyMan).
-attacker(anybody).
-attacker(blindDeafGuy).
+attacker(inhabitant).
+attacker(passerByAdversary).
 
+dataAllowedToBeAccessedBy(guest            , publicData).
+dataAllowedToBeAccessedBy(guest            , consumptionData).
+dataAllowedToBeAccessedBy(inhabitant       , publicData).
+dataAllowedToBeAccessedBy(inhabitant       , consumptionData).
+dataAllowedToBeAccessedBy(inhabitant       , billingData).
+dataAllowedToBeAccessedBy(passerByAdversary, publicData).
 
-interfacesAllowedToBeUsedBy(guest,currentConsumptionDataDisplaying).
-
-dataAllowedToBeAccessedBy(guest,publicData).
-dataAllowedToBeAccessedBy(guest,inhabitantData).
-dataAllowedToBeAccessedBy(handyMan,publicData).
-dataAllowedToBeAccessedBy(handyMan,providerData).
-dataAllowedToBeAccessedBy(anybody,publicData).
-dataAllowedToBeAccessedBy(burglar,publicData).
-dataAllowedToBeAccessedBy(blindDeafGuy,publicData).
-
-
-classificationOf(consumption,inhabitantData).
-classificationOf(return(getCurrentConsumptionConsumptionDataSending),inhabitantData).
-classificationOf(return(getCurrentConsumptionCurrentConsumptionDataDisplaying),inhabitantData).
-classificationOf(return(getHistoricConsumption),providerData).
+classificationOf(value                              ,consumptionData).
+classificationOf(timestamp                          ,consumptionData).
+classificationOf(start                              ,consumptionData).
+classificationOf(end                                ,consumptionData).
+classificationOf(return(getValues)                  ,consumptionData).
+classificationOf(return(drawEnergyConsumptionGraph) ,consumptionData).
+classificationOf(return(getEnergyValue)             ,consumptionData)
+classificationOf(return(getCustomerCredentials)     ,billingData).
 
 classificationOfCall(_AnyParameter,publicData).
 
 
-tamperingAbilities(anybody,plombeEntfernen).
-tamperingAbilities(anybody,gerätÖffnen).
-tamperingAbilities(anybody,wpa2Knacken).
-tamperingAbilities(burglar,plombeEntfernen).
-tamperingAbilities(burglar,gerätÖffnen).
-tamperingAbilities(burglar,wpa2Knacken).
+tamperingAbilities(guest,             none, Location) :- isLocation(Location).
+tamperingAbilities(inhabitant,        none, Location) :- isLocation(Location).
+tamperingAbilities(passerByAdversary, none, Location) :- isLocation(Location).
 
-locationsAccessibleBy(guest,outdoors).
-locationsAccessibleBy(guest,public).
-locationsAccessibleBy(guest,attended).
-locationsAccessibleBy(handyMan,outdoors).
-locationsAccessibleBy(handyMan,public).
-locationsAccessibleBy(handyMan,unattended).
-locationsAccessibleBy(anybody,outdoors).
-locationsAccessibleBy(anybody,public).
-locationsAccessibleBy(burglar,outdoors).
-locationsAccessibleBy(burglar,public).
-locationsAccessibleBy(burglar,unattended).
-locationsAccessibleBy(blindDeafGuy,outdoors).
-locationsAccessibleBy(blindDeafGuy,public).
+locationsAccessibleBy(guest,Location) :- isLocation(Location).
+locationsAccessibleBy(inhabitant,Location) :- isLocation(Location).
+locationsAccessibleBy(passerByAdversary,outdoors).
 
 
-containerSecuredByMethod(digitalMeterContainer,plombeEntfernen).
-containerSecuredByMethod(tabletContainer,gerätÖffnen).
-containerSecuredByMethod(controllerContainer,plombeEntfernen).
+furtherConnections(energyMeterRC,complete).
+furtherConnections(energyVisualizationRC,possible).
 
+sharing(energyMeterRC,controlledExclusive).
+sharing(energyVisualizationRC,openShared).
 
-furtherConnections(tabletContainer,possible).
-furtherConnections(controllerContainer,possible).
-furtherConnections(digitalMeterContainer,possible).
+location(energyMeterRC,utilityRoom,sealed).
+location(energyVisualizationRC,livingRoom,none).
 
-sharing(tabletContainer,openShared).
-sharing(controllerContainer,controlledExclusive).
-sharing(digitalMeterContainer,controlledExclusive).
-
-location(tabletContainer,attended).
-location(controllerContainer,unattended).
-location(digitalMeterContainer,unattended).
-
-
-linkLocation(linkMeterController,unattended).
-linkLocation(linkControllerTablet,outdoors).
+linkLocation(wireless,Location,none) :- isLocation(Location).

@@ -1,6 +1,6 @@
 # modify this to run queries on different model instances,
 # or with a different linkModel.
-INSTANCE=Instances/SmartHome/ExampleOne
+INSTANCE=Instances/PaperExample/ExampleOne
 LINKMODEL=simpleLinkModel.P
 
 # path to the xsb binary, see http://xsb.sourceforge.net/

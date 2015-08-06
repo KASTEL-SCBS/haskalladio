@@ -6,24 +6,35 @@ justify_pred(provides(_,_)).
 justify_pred(requires(_,_)).
 
 
-services(currentMeterDataReceiving,storeCurrentConsumption).
-services(consumptionDataSending,getCurrentConsumptionConsumptionDataSending).
-services(consumptionDataSending,getHistoricConsumption).
-services(currentConsumptionDataDisplaying,getCurrentConsumptionCurrentConsumptionDataDisplaying).
+services(databaseInterface, GetValues)
+services(databaseInterface, StoreValue)
+services(energyVisualizationI, drawEnergyConsumptionGraph).
+services(energyMeasurement, getEnergyValue)
+services(energyMeasurement, getCustomerCredentials)
 
 
-inputParameters(storeCurrentConsumption,consumption).
+inputParameters(storeValue,timestamp).
+inputParameters(storeValue,value).
+inputParameters(getValues,start).
+inputParameters(getValues,end).
 
-outputParameters(Service,return(Service)) :- Service \= storeCurrentConsumption.
+outputParameters(Service,return(Service)) :- Service \= storeValue.
 
-typeOf(consumption,timedConsumption).
-typeOf(return(getCurrentConsumptionConsumptionDataSending),timedConsumption).
-typeOf(return(getCurrentConsumptionCurrentConsumptionDataDisplaying),timedConsumption).
-typeOf(return(getHistoricConsumption),consumptionHistory).
 
-provides(database,databaseInterface).
-provides(energyVisualizationC,energyVisualizationI).
-provides(energyMeter,energyMeasurement).
 
-requires(digitalMeter,currentMeterDataReceiving).
-requires(tablet,consumptionDataSending).
+typeOf(timestamp,int)
+typeOf(value,int)  
+typeOf(start,int)
+typeOf(end,int)
+typeOf(return(getValues),intArray)
+typeOf(return(drawEnergyConsumptionGraph),image)
+typeOf(return(getEnergyValue), int)
+typeOf(return(getCustomerCredentials), int)
+
+
+provides(dbms               , databaseInterface)
+provides(energyVisualization, energyVisualizationI)
+provides(energyMeter        , energyMeasurement)
+
+requires(energyVisualization, databaseInterface)
+requires(energyVisualization, energyMeasurement)
