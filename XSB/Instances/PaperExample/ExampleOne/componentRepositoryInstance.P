@@ -6,11 +6,11 @@ justify_pred(provides(_,_)).
 justify_pred(requires(_,_)).
 
 
-services(databaseInterface, GetValues)
-services(databaseInterface, StoreValue)
+services(databaseInterface, getValues).
+services(databaseInterface, storeValue).
 services(energyVisualizationI, drawEnergyConsumptionGraph).
-services(energyMeasurement, getEnergyValue)
-services(energyMeasurement, getCustomerCredentials)
+services(energyMeasurement, getEnergyValue).
+services(energyMeasurement, getCustomerCredentials).
 
 
 inputParameters(storeValue,timestamp).
@@ -22,19 +22,19 @@ outputParameters(Service,return(Service)) :- Service \= storeValue.
 
 
 
-typeOf(timestamp,int)
-typeOf(value,int)  
-typeOf(start,int)
-typeOf(end,int)
-typeOf(return(getValues),intArray)
-typeOf(return(drawEnergyConsumptionGraph),image)
-typeOf(return(getEnergyValue), int)
-typeOf(return(getCustomerCredentials), int)
+typeOf(timestamp,int).
+typeOf(value,int).
+typeOf(start,int).
+typeOf(end,int).
+typeOf(return(getValues),intArray).
+typeOf(return(drawEnergyConsumptionGraph),image).
+typeOf(return(getEnergyValue), int).
+typeOf(return(getCustomerCredentials), int).
 
 
-provides(dbms               , databaseInterface)
-provides(energyVisualization, energyVisualizationI)
-provides(energyMeter        , energyMeasurement)
+provides(dbms               , databaseInterface).
+provides(energyVisualization, energyVisualizationI).
+provides(energyMeter        , energyMeasurement).
 
-requires(energyVisualization, databaseInterface)
-requires(energyVisualization, energyMeasurement)
+requires(energyVisualization, databaseInterface).
+requires(energyVisualization, energyMeasurement).

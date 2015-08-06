@@ -8,6 +8,6 @@
 
 justify_pred(exposesPhsicallyAccessibleDataTo(_,_,_)).
 
-exposesPhsicallyAccessibleDataTo(Link,Attacker,DataSet) :-
+exposesPhsicallyAccessibleDataTo(Link,Attacker,Dataset) :-
         attacker(Attacker),
-        encryptsExcept(Link, Ds).
+        encryptsExcept(Link, Dataset).

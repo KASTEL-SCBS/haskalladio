@@ -1,5 +1,7 @@
 % BEGIN IMPORTS
-:- import  none/0
+:- import  openShared/0, controlledExclusive/0,
+           possible/0, existing/0, complete/0,
+           none/0
            from security.
 % END IMPORTS
 
@@ -44,7 +46,7 @@ classificationOf(start                              ,consumptionData).
 classificationOf(end                                ,consumptionData).
 classificationOf(return(getValues)                  ,consumptionData).
 classificationOf(return(drawEnergyConsumptionGraph) ,consumptionData).
-classificationOf(return(getEnergyValue)             ,consumptionData)
+classificationOf(return(getEnergyValue)             ,consumptionData).
 classificationOf(return(getCustomerCredentials)     ,billingData).
 
 classificationOfCall(_AnyParameter,publicData).
