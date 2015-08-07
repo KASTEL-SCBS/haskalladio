@@ -7,6 +7,10 @@ LINKMODEL=simpleLinkModel.P
 XSB=xsb
 XSB_OPTIONS_QUIET=--noprompt --quietload --nobanner --nofeedback
 
+# path to runghc, required for pretty-printed proofs
+RUNGHC=runghc
+
+
 
 
 # These shouldn't need to be changed
@@ -37,6 +41,9 @@ $(INSTANCE_SYMLINKS) : .force
 
 queries.result: $(XWAMS)
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[queries],nojustify6,halt." > $@
+
+queries-justify.result.pretty: queries-justify.result
+	$(RUNGHC) $^ > $@
 
 queries-justify.result: all_jxm.xwam all.xwam
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[basics],[all_jxm],[all],justify6,halt." > $@
