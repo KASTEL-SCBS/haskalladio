@@ -42,7 +42,7 @@ $(INSTANCE_SYMLINKS) : .force
 queries.result: $(XWAMS)
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[queries],nojustify6,halt." > $@
 
-queries-justify.result.pretty: queries-justify.result
+queries-justify.result.pretty: Prettyprint.hs queries-justify.result
 	$(RUNGHC) $^ > $@
 
 queries-justify.result: all_jxm.xwam all.xwam
