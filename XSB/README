@@ -8,11 +8,15 @@ Requirements:
    Our implementation was tested with version the XSB release 3.5.
 
 
-Running:  On a Linux system with XSB installed, run "make" to create a text file
-"queries-justify.result" containing all vulnerabilities in the
-sample architectural and confidentiality model defined in the *.P files from
-directory "Instances/PaperExample/ExampleOne/"
+Running:  On a Linux system with XSB installed, run
+  "make"
+to create a text file "queries-justify.result"
+containing all vulnerabilities in the sample architectural and confidentiality model
+defined in the *.P files from directory "Instances/PaperExample/ExampleOne/"
 
+If a suitable ghc distribution is available, you can run
+  "make queries-justify.result.pretty"
+to create a text file "queries-justify.result.pretty" with more readable formatting
 
 
 

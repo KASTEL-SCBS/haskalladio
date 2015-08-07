@@ -69,6 +69,6 @@ clean-xwam:
 	rm -f *.xwam
 
 
-accessanalysis-prolog.zip: abstractAnalysis.P  queries.P  security.P palladio.P $(LINKMODEL) $(wildcard $(INSTANCE)/*.P)  Makefile README
+accessanalysis-prolog.zip: abstractAnalysis.P  queries.P  security.P palladio.P $(LINKMODEL) $(wildcard $(INSTANCE)/*.P)  Makefile README Prettyprint.hs
 	rm -f $@
 	zip $@ $^

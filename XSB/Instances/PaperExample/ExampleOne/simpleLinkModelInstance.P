@@ -6,7 +6,7 @@
            from securityInstance.
 % END IMPORTS
 
-justify_pred(isEncryptedExcept(_,_)).
+justify_pred(encryptsExcept(_,_)).
 
 encryptsExcept(wireless,Dataset) :- dataset(Dataset).
 
