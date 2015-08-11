@@ -36,6 +36,7 @@ instance BasicDesignModel ExampleOne where
   classificationOf End                                 = fromList [ConsumptionData]
   classificationOf (Return GetValues)                  = fromList [ConsumptionData]
   classificationOf (Return DrawEnergyConsumptionGraph) = fromList [ConsumptionData]
+  classificationOf (Return GetHighestValue)            = fromList [ConsumptionData]
   classificationOf (Return GetEnergyValue)             = fromList [ConsumptionData]
   classificationOf (Return GetCustomerCredentials)     = fromList [BillingData]
   classificationOf _                                   = fromList [PublicData]

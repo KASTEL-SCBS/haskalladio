@@ -11,9 +11,11 @@ import Prelude as P
 
 import Algebra.Lattice
 import Unicode
+-- import Misc
 
 import Data.Set as S
 import Data.Set.Unicode
+import Data.Maybe (fromJust)
 
 import qualified Data.Map as M
 
@@ -26,6 +28,9 @@ type OrderedSet p = (Set p, p -> p -> Bool)
 
 sublistOf :: [a] -> Gen [a]
 sublistOf xs = filterM (\_ -> choose (False, True)) xs
+
+allValues :: (Bounded a, Enum a) => [a]
+allValues = [minBound..]
 
 data Procedure p d = Procedure {
     input :: Set p,
@@ -43,9 +48,6 @@ listPowerset = filterM (const [True, False])
 
 -- powersetorder :: Ord a => Set a -> OrderedSet (Set a)
 -- powersetorder a = (powerset a, (⊆))
-
-allValues :: (Bounded a, Enum a) => [a]
-allValues = [minBound..maxBound]
 
 data Input  = A
             | B
@@ -66,6 +68,7 @@ instance Enum Parameter where
     | otherwise = Output $ toEnum (- i -1)
   fromEnum (Input x)  = fromEnum x
   fromEnum (Output x) = (- fromEnum x) - 1
+  enumFrom x = enumFromTo x maxBound
 
 instance Bounded Parameter where
   minBound = Output (maxBound)
@@ -166,7 +169,7 @@ bar = Procedure {
 
 
 
-rofl = Procedure { input = fromList [Input A,Input B,Input C],
+example = Procedure { input = fromList [Input A,Input B,Input C],
                    output = fromList [Output X,Output Y,Output Z],
                    includes  = (M.!) $ M.fromList [(Input A,fromList [Customer,Appliance]),
                                                      (Input B,fromList [Customer]),
@@ -232,10 +235,10 @@ heckerIsGreiner p =
        and [ secure p classifiedAsGreiner latticeGreiner | (classifiedAsGreiner, latticeGreiner) <- greiner p]
     == secure p classifiedAsHecker latticeHecker where     (classifiedAsHecker,  latticeHecker)   = hecker p
 
-heckerOf  :: Procedure Parameter Datasets -> Bool
+-- heckerOf  :: Procedure Parameter Datasets -> Bool
 heckerOf  p = secure p classifiedAsHecker latticeHecker where     (classifiedAsHecker,  latticeHecker)   = hecker p
 
-greinerOf :: (Ord d, Ord p) => Procedure p d -> Bool
+-- greinerOf :: (Ord d, Ord p) => Procedure p d -> Bool
 greinerOf p = and [ secure p classifiedAsGreiner latticeGreiner | (classifiedAsGreiner, latticeGreiner) <- greiner p]
 
 h2IsG2 :: Procedure Parameter Datasets -> Bool
@@ -253,15 +256,38 @@ greiner2Of :: (Ord d, Ord p) => Procedure p d -> Bool
 greiner2Of p = and [ secure p classifiedAsGreiner2 latticeGreiner2 | (classifiedAsGreiner2, latticeGreiner2) <- greiner2 p]
 
 
--- isRelabeling :: (d -> d') -> Bool
--- isRelabeling f = (∀) ds (\d -> 
---   where ds = fromList allValues
+
+mostPreciseIsSecure :: (Ord p) => Procedure p d -> Bool
+mostPreciseIsSecure p = heckerOf (mostPreciseLabeling p)
+
+mostPreciseLabeling :: (Ord p) => Procedure p d -> Procedure p p
+mostPreciseLabeling pr@(Procedure { input, output, influences}) = pr {
+      includes = includes
+    }
+  where includes p
+          | p ∈ input  = S.fromList [p]
+          | p ∈ output = S.fromList [i | i <- toList input, p ∈ influences i]
 
 
--- isRelabelingTestSub :: (d -> d') -> [d] -> [d'] -> Bool
--- isRelabelingTestSub ds 
-        
--- relabel :: (Ord d, Ord d') => (d -> d') -> Procedure p d -> Procedure p d'
--- relabel f pr = pr {
---     includes = \p -> S.map f (includes pr p)
---   }
+weakenings :: (Ord d, Ord p, Enum d, Bounded d) => Procedure p d -> [Procedure p d]
+weakenings pr@(Procedure { input, output, includes, influences}) =
+   [ pr { includes = \p -> fromJust $ lookup p choice } | choice <- choices ]
+  where choices = chooseOneEach $    [(i, [d | d <- toList $ powerset $ fromList allValues, d ⊆ includes i]) | i <- toList $  input]
+                                  ++ [(o, [d | d <- toList $ powerset $ fromList allValues, d ⊇ includes o]) | o <- toList $ output]
+
+        chooseOneEach :: [(a,[b])] -> [[(a,b)]]
+        chooseOneEach choices = fmap (zip as) $ sequence bss
+          where as  = fmap fst choices
+                bss = fmap snd choices
+
+weakeningsAreWeaker :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Bool
+weakeningsAreWeaker pr = and [
+        and [ includes pr' p ⊆ includes pr p | p <- toList $ input pr]
+    &&  and [ includes pr' p ⊇ includes pr p | p <- toList $ output pr]
+    | pr' <- weakenings pr
+  ]
+
+weakeningsAreSafe :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Gen Prop
+weakeningsAreSafe pr = heckerOf pr ==>
+  and [ heckerOf pr' |  pr' <- weakenings pr ]
+

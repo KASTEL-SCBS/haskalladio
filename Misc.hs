@@ -72,7 +72,3 @@ class All a where
 allValues :: (Bounded a, Enum a) => [a]
 allValues = [minBound..]
 
-data Lol = A | B deriving (Bounded, Enum, Ord, Eq)
-rofl = (∃) tt
-  where tt :: Lol -> Bool
-        tt x = True

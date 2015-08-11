@@ -64,6 +64,7 @@ instance P.ComponentRepository ExampleOne where
   typeOf End       = IntT
   typeOf (Return GetValues)                  = IntArrayT
   typeOf (Return DrawEnergyConsumptionGraph) = ImageT
+  typeOf (Return GetHighestValue)            = IntT
   typeOf (Return GetEnergyValue)             = IntT
   typeOf (Return GetCustomerCredentials)     = IntT
   typeOf (Return StoreValue)                 = error "no Type for non-Existing Parameter"
