@@ -26,9 +26,6 @@ import Test.QuickCheck hiding (output)
 
 type OrderedSet p = (Set p, p -> p -> Bool)
 
-sublistOf :: [a] -> Gen [a]
-sublistOf xs = filterM (\_ -> choose (False, True)) xs
-
 allValues :: (Bounded a, Enum a) => [a]
 allValues = [minBound..]
 
@@ -103,14 +100,13 @@ foo = Procedure {
 
     influences _         = S.empty
 
-
-
 showMapFun f = show $ fromList $ [(x, f x) | x <- allValues]
 
 
 instance Show (Procedure Parameter Datasets) where
   show (Procedure { input, output, includes, influences}) =
     "Procedure { input = " ++ (show input) ++ ", output = " ++ (show output) ++ ", includes = " ++ (showMapFun includes) ++ ", influences = " ++ (showMapFun influences) ++ " }"
+
 instance Arbitrary (Procedure Parameter Datasets) where
   arbitrary = do
       as <- sublistOf allValues
@@ -280,14 +276,15 @@ weakenings pr@(Procedure { input, output, includes, influences}) =
           where as  = fmap fst choices
                 bss = fmap snd choices
 
-weakeningsAreWeaker :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Bool
-weakeningsAreWeaker pr = and [
-        and [ includes pr' p ⊆ includes pr p | p <- toList $ input pr]
-    &&  and [ includes pr' p ⊇ includes pr p | p <- toList $ output pr]
-    | pr' <- weakenings pr
-  ]
+isWeakerThan ::  (Ord d) => Procedure p d ->  Procedure p d -> Bool
+pr' `isWeakerThan` pr  =
+      and [ includes pr' p ⊆ includes pr p | p <- toList $ input pr]
+  &&  and [ includes pr' p ⊇ includes pr p | p <- toList $ output pr]
 
-weakeningsAreSafe :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Gen Prop
+weakeningsAreWeaker :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Bool
+weakeningsAreWeaker pr = and [ pr' `isWeakerThan` pr | pr' <- weakenings pr ]
+
+weakeningsAreSafe :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Property 
 weakeningsAreSafe pr = heckerOf pr ==>
   and [ heckerOf pr' |  pr' <- weakenings pr ]
 
