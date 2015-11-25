@@ -26,9 +26,17 @@ import Test.QuickCheck hiding (output)
 
 type OrderedSet p = (Set p, p -> p -> Bool)
 
+class Enumerable a where
+  allValues' :: [a]
+
 allValues :: (Bounded a, Enum a) => [a]
 allValues = [minBound..]
 
+-- A Procedure is described by
+-- * influences p: the set of output-parameters p may influence
+-- * includes p: its parameter classifcation, as set of datasets
+--
+-- "includes" hence implicitly specifies an ifc requirement, which may or may not be fullfilled by "influences".
 data Procedure p d = Procedure {
     input :: Set p,
     output :: Set p,
@@ -100,10 +108,10 @@ foo = Procedure {
 
     influences _         = S.empty
 
-showMapFun f = show $ fromList $ [(x, f x) | x <- allValues]
+showMapFun f = show $ fromList $ [(x, f x) | x <- allValues']
 
 
-instance Show (Procedure Parameter Datasets) where
+instance (Show p, Show d, Ord p, Ord d, Enumerable p) =>  Show (Procedure p d) where
   show (Procedure { input, output, includes, influences}) =
     "Procedure { input = " ++ (show input) ++ ", output = " ++ (show output) ++ ", includes = " ++ (showMapFun includes) ++ ", influences = " ++ (showMapFun influences) ++ " }"
 
@@ -265,6 +273,13 @@ mostPreciseLabeling pr@(Procedure { input, output, influences}) = pr {
           | p ∈ output = S.fromList [i | i <- toList input, p ∈ influences i]
 
 
+
+
+
+
+-- "weakings pr" enumerates all weakenings of pr, i.e. all procedures pr' such that
+--      pr' `isWeakerThan` pr
+-- as defined below
 weakenings :: (Ord d, Ord p, Enum d, Bounded d) => Procedure p d -> [Procedure p d]
 weakenings pr@(Procedure { input, output, includes, influences}) =
    [ pr { includes = \p -> fromJust $ lookup p choice } | choice <- choices ]
@@ -276,15 +291,26 @@ weakenings pr@(Procedure { input, output, includes, influences}) =
           where as  = fmap fst choices
                 bss = fmap snd choices
 
+-- given two procedures pr, pr' such that
+--   * input  pr == input  pr'
+--   * output pr == output pr'
+-- , the ifc requirement of pr' is called "weaker" than that of pr iff
+--      pr' `isWeakerThan` pr
+-- as defined here.
 isWeakerThan ::  (Ord d) => Procedure p d ->  Procedure p d -> Bool
 pr' `isWeakerThan` pr  =
       and [ includes pr' p ⊆ includes pr p | p <- toList $ input pr]
   &&  and [ includes pr' p ⊇ includes pr p | p <- toList $ output pr]
 
+
+
+-- Some QuickCheck predicates concerning weakenings
+--
+-- 1) weakenings do indeed weaken the ifc requirement
 weakeningsAreWeaker :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Bool
 weakeningsAreWeaker pr = and [ pr' `isWeakerThan` pr | pr' <- weakenings pr ]
 
-weakeningsAreSafe :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Property 
+-- 2) if pr fullfills its ifc requirement, then also all weakenings of pr do
+weakeningsAreSafe :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Property
 weakeningsAreSafe pr = heckerOf pr ==>
   and [ heckerOf pr' |  pr' <- weakenings pr ]
-

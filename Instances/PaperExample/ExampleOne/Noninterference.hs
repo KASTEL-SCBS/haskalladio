@@ -1,4 +1,6 @@
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE FlexibleInstances #-}
+
 module Instances.PaperExample.ExampleOne.Noninterference where
 
 -- import Misc
@@ -13,6 +15,10 @@ import Instances.PaperExample.ExampleOne.Security
 
 import Data.Set as S
 import Data.Set.Unicode
+
+instance Enumerable (P.Parameter ExampleOne) where
+  allValues' =     [Timestamp, Value, Start, End ]
+               ++  [ Return s | s <- allValues, s /= StoreValue ]
 
 data DatasetDatabase = Time
                      | Data
@@ -55,7 +61,6 @@ getHighestValue = Procedure {
     includes Value     = S.fromList $ [Data]
     includes Start     = S.fromList $ [Time]
     includes End       = S.fromList $ [Time]
---    includes (Output (Return GetValues)) = S.fromList $ [Time,Data]
     includes (Return GetHighestValue) = S.fromList $ [Data]
 
     influences Timestamp = S.fromList []
