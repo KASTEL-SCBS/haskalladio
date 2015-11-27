@@ -1,0 +1,52 @@
+justify_pred(linkBetween(_,_,_)).
+
+% % resourceContainer/2 and linkingResources/2 are appearantly redundant,
+% % hence we do not use the following 2 rules, but the 2 simpler rules thereafter
+% resourcecontainers(RC) :- resourceContainer(_Environment, Containers), member(RC, Containers).
+% linkingresources(LR) :- linkingResources(_Environment, Links), member(LR, Links).
+
+linkingresources(LR) :- linkingResource(LR).
+resourcecontainers(RC) :- resourceContainer(RC).
+
+system(Context) :- assemblyContext(Context).
+
+systemProvides(Interface) :- systemProvidesAssembledTo(Interface,_).
+
+systemRequires(Interface) :- systemRequiredAssembledTo(Interface,_).
+
+% TODO: confirm that a palladio AssemblyConnector *really* is meant to
+% connect all matching interfaces between two contexts.
+systemAssembledTo(RequiringContext, Interface, byAssembly(ProvidingContext)) :-
+        assemblyConnector(Connector),
+        requiringAssemblyContext(Connector, RequiringContext),
+        providingAssemblyContext(Connector, ProvidingContext),
+        componentOf(RequiringContext, RequiringComponent),
+        componentOf(ProvidingContext, ProvidingComponent),
+        requires(RequiringComponent, Interface),
+        provides(ProvidingContext, Interface).
+
+
+systemProvidesAsssembledTo(Interface, Context) :-
+        providedDelegationConnector(Connector),
+        assemblyContext(Connector,Context).
+
+        innerProvidedRole(Connector,InnerProvidedRole),
+        operationProvidedRole(InnerProvidedRole), % TODO: redundant?
+        providedInterface(InnerProvidedRole,Interface),
+
+        % TODO: redundant?
+        outerProvidedRole(Connector,OuterProvidedRole),
+        operationProvidedRole(OuterProvidedRole), % TODO: reduntant?
+        providedInterface(OuterProvidedRole,Interface).
+
+
+runsOn(AssemblyContext, ResourceContainer) :-
+        allocationContext(AllocationContext), % TODO: likely reduntant
+        resourceContainer(AllocationContext,ResourceContainer),
+        assemblyContext(AllocationContext,AssemblyContext).
+
+componentOf(AssemblyContext, Component) :-
+        assemblyContext(AssemblyContext), % TODO: likely redundant
+        encapsulatedComponent(AssemblyContext,Component).
+
+linkBetween(Link,RCLeft,RCRight) :- connectedResourceContainers(Link,[RCLeft,RCRight]).

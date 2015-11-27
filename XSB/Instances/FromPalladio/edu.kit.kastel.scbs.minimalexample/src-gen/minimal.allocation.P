@@ -1,0 +1,20 @@
+
+/** BEGIN allocation, ID: '1', NAME: 'defaultAllocation' */
+allocation(1).
+allocationContexts(1,[2,3]).
+
+/** BEGIN allocationContext, ID: '2', NAME: 'Allocation_Assembly_bc1 <bc1> <bc1>' */
+allocationContext(2).
+resourceContainer(2,4).
+assemblyContext(2,5).
+/** END allocationContext, ID: '2', NAME: 'Allocation_Assembly_bc1 <bc1> <bc1>' */
+
+
+/** BEGIN allocationContext, ID: '3', NAME: 'Allocation_Assembly_bc2 <bc2> <bc2>' */
+allocationContext(3).
+resourceContainer(3,6).
+assemblyContext(3,7).
+/** END allocationContext, ID: '3', NAME: 'Allocation_Assembly_bc2 <bc2> <bc2>' */
+
+/** END allocation, ID: '1', NAME: 'defaultAllocation' */
+

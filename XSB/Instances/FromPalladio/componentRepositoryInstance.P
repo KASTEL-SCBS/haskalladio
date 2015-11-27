@@ -1,0 +1,34 @@
+justify_pred(inputParameters(_,_)).
+justify_pred(outputParameters(_,_)).
+justify_pred(provides(_,_)).
+justify_pred(requires(_,_)).
+
+
+
+services(Interface, Service) :-
+        signatures(Interface,Services),
+        member(Interface, Services).
+
+inputParameters(Service,Parameter) :-
+        % operationSignature(Service),
+        parameters(Service, Parameters),
+        member(Parameter, Parameters)
+
+outputParameters(Service,return(Service)) :-
+        % operationSignature(Service),
+        returnType(Service,Type).
+
+typeOf(Parameter,Type) :-
+        dataType(Parameter,Type).
+typeOf(return(Service),Type) :-
+        returnType(Service,Type).
+
+provides(Component, Interface) :-
+        basicComponent(Component),
+        providedRoles(Component,Roles), member(Role,Roles),
+        providedInterface(Role,Interface).
+
+requires(Component, Interface) :-
+        basicComponent(Component),
+        requiredRoles(Component,Roles), member(Role,Roles),
+        requiredInterface(Role,Interface).
