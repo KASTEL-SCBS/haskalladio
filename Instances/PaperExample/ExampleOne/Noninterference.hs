@@ -1,5 +1,6 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE OverlappingInstances #-}
 
 module Instances.PaperExample.ExampleOne.Noninterference where
 
@@ -17,8 +18,8 @@ import Data.Set as S
 import Data.Set.Unicode
 
 instance Enumerable (P.Parameter ExampleOne) where
-  allValues' =     [Timestamp, Value, Start, End ]
-               ++  [ Return s | s <- allValues, s /= StoreValue ]
+  allValues =     [Timestamp, Value, Start, End ]
+              ++  [ Return s | s <- allValues, s /= StoreValue ]
 
 data DatasetDatabase = Time
                      | Data
@@ -28,25 +29,6 @@ data DatasetDatabase = Time
 relabeling :: DataSet ExampleOne -> Set DatasetDatabase
 relabeling ConsumptionData = fromList [Time,Data]
 relabeling _ = fromList []
-
-
-isConsistentRelabelingFor :: forall d d' p. Ord d => (d' -> Set d) -> Procedure p d -> Procedure p d' -> Bool
-isConsistentRelabelingFor g0 pr pr' =  pr'Relabeled `isWeakerThan` pr
-  where g :: Set d' -> Set d
-        g = gFrom g0
-        pr'Relabeled :: Procedure p d
-        pr'Relabeled = pr' { includes = \p -> g (includes pr' p) }
-
-intersections :: (Ord a, Enum a, Bounded a) => [Set a] -> Set a
-intersections = Prelude.foldl S.intersection (fromList allValues)
-
-lowerAdjoint :: (Bounded d', Enum d', Ord d', Ord d) => (Set d' -> Set d) -> (Set d -> Set d')
-lowerAdjoint g ds = intersections [ ds' | ds' <- toList $ powerset (fromList allValues), ds ⊆ g ds' ]
-
-upperAdjoint :: (Bounded d, Enum d, Ord d', Ord d) => (Set d -> Set d') -> (Set d' -> Set d)
-upperAdjoint f ds' = unions [ ds | ds <- toList $ powerset (fromList allValues), f ds ⊆ ds' ]
-
-gFrom g0 ds' = unions [ g0 d' | d' <- toList ds']
 
 
 getHighestValue :: Procedure (P.Parameter ExampleOne) DatasetDatabase
@@ -62,13 +44,12 @@ getHighestValue = Procedure {
     includes Start     = S.fromList $ [Time]
     includes End       = S.fromList $ [Time]
     includes (Return GetHighestValue) = S.fromList $ [Data]
+    includes _ = S.empty
 
     influences Timestamp = S.fromList []
     influences Value     = S.fromList [Return GetHighestValue]
     influences Start     = S.fromList []
     influences End       = S.fromList []
-
-
     influences _         = S.empty
 
 getHighestValue' :: Procedure (P.Parameter ExampleOne) (DataSet ExampleOne)
@@ -81,6 +62,7 @@ getHighestValue' = getHighestValue {
     includes Start     = S.fromList $ [ConsumptionData]
     includes End       = S.fromList $ [ConsumptionData]
     includes (Return GetHighestValue) = S.fromList $ [ConsumptionData]
+    includes _         = S.empty
 
 
 getValue :: Procedure (P.Parameter ExampleOne) DatasetDatabase
@@ -96,12 +78,12 @@ getValue = Procedure {
     includes Start     = S.fromList $ [Time]
     includes End       = S.fromList $ [Time]
     includes (Return GetValues) = S.fromList $ [Time,Data]
+    includes _         = S.empty
 
     influences Timestamp = S.fromList [Return GetValues]
     influences Value     = S.fromList [Return GetValues]
     influences Start     = S.fromList [Return GetValues]
     influences End       = S.fromList [Return GetValues]
-
     influences _         = S.empty
 
 getValue' :: Procedure (P.Parameter ExampleOne) (DataSet ExampleOne)
@@ -114,4 +96,6 @@ getValue' = getValue {
     includes Start     = S.fromList $ [ConsumptionData]
     includes End       = S.fromList $ [ConsumptionData]
     includes (Return GetValues) = S.fromList $ [ConsumptionData]
+    includes _         = S.empty
+
 

@@ -1,6 +1,8 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE UndecidableInstances #-}
+
 
 module Noninterference where
 
@@ -27,10 +29,12 @@ import Test.QuickCheck hiding (output)
 type OrderedSet p = (Set p, p -> p -> Bool)
 
 class Enumerable a where
-  allValues' :: [a]
+  allValues :: [a]
 
-allValues :: (Bounded a, Enum a) => [a]
-allValues = [minBound..]
+instance (Bounded a, Enum a) => Enumerable a where
+  allValues = [minBound..]
+
+
 
 -- A Procedure is described by
 -- * influences p: the set of output-parameters p may influence
@@ -108,7 +112,8 @@ foo = Procedure {
 
     influences _         = S.empty
 
-showMapFun f = show $ fromList $ [(x, f x) | x <- allValues']
+showMapFun :: (Show a, Show b, Enumerable a, Ord a, Ord b) => (a -> b) -> String
+showMapFun f = show $ fromList $ [(x, f x) | x <- allValues]
 
 
 instance (Show p, Show d, Ord p, Ord d, Enumerable p) =>  Show (Procedure p d) where
@@ -271,6 +276,7 @@ mostPreciseLabeling pr@(Procedure { input, output, influences}) = pr {
   where includes p
           | p ∈ input  = S.fromList [p]
           | p ∈ output = S.fromList [i | i <- toList input, p ∈ influences i]
+          | otherwise = S.fromList [] -- TODO: require some wellformedness for procedures
 
 
 
@@ -314,3 +320,42 @@ weakeningsAreWeaker pr = and [ pr' `isWeakerThan` pr | pr' <- weakenings pr ]
 weakeningsAreSafe :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Property
 weakeningsAreSafe pr = heckerOf pr ==>
   and [ heckerOf pr' |  pr' <- weakenings pr ]
+
+
+
+
+
+
+
+
+isConsistentRelabelingFor :: forall d d' p. Ord d => (d' -> Set d) -> Procedure p d -> Procedure p d' -> Bool
+isConsistentRelabelingFor g0 pr pr' =  pr'Relabeled `isWeakerThan` pr
+  where g :: Set d' -> Set d
+        g = gFrom g0
+        pr'Relabeled :: Procedure p d
+        pr'Relabeled = pr' { includes = \p -> g (includes pr' p) }
+
+intersections :: (Ord a, Enum a, Bounded a) => [Set a] -> Set a
+intersections = P.foldl S.intersection (fromList allValues)
+
+lowerAdjoint :: (Bounded d', Enum d', Ord d', Ord d) => (Set d' -> Set d) -> (Set d -> Set d')
+lowerAdjoint g ds = intersections [ ds' | ds' <- toList $ powerset (fromList allValues), ds ⊆ g ds' ]
+
+upperAdjoint :: (Bounded d, Enum d, Ord d', Ord d) => (Set d -> Set d') -> (Set d' -> Set d)
+upperAdjoint f ds' = unions [ ds | ds <- toList $ powerset (fromList allValues), f ds ⊆ ds' ]
+
+gFrom g0 ds' = unions [ g0 d' | d' <- toList ds']
+
+
+mostPreciseIffSecure  :: forall d p. (Ord d, Ord p) => Procedure p d -> Bool
+mostPreciseIffSecure procedure@(Procedure { input, output, includes, influences}) =
+       procedure { includes = \p -> g (includes p) } `isWeakerThan` (mostPreciseLabeling procedure)
+    == secure procedure classifiedAsHecker latticeHecker
+  where (classifiedAsHecker,  latticeHecker) = hecker procedure
+        relabeling :: d -> Set p
+        relabeling ds = fromList [ p | p <- toList $ {- input ∪ -} output , ds ∈ (includes p) ]
+
+        g :: Set d -> Set p
+        g = gFrom relabeling
+        -- p'Relabeled :: Procedure p p
+        -- p'Relabeled = p { includes = \p -> g (includes pr' p) }
