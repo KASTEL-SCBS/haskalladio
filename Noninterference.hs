@@ -118,7 +118,7 @@ showMapFun f = show $ fromList $ [(x, f x) | x <- allValues]
 
 instance (Show p, Show d, Ord p, Ord d, Enumerable p) =>  Show (Procedure p d) where
   show (Procedure { input, output, includes, influences}) =
-    "Procedure { input = " ++ (show input) ++ ", output = " ++ (show output) ++ ", includes = " ++ (showMapFun includes) ++ ", influences = " ++ (showMapFun influences) ++ " }"
+    "Procedure { input = " ++ (show input) ++ ", output = " ++ (show output) ++ ", includes = (M.!) $ M." ++ (showMapFun includes) ++ ", influences = (M.!) $ M." ++ (showMapFun influences) ++ " }"
 
 instance Arbitrary (Procedure Parameter Datasets) where
   arbitrary = do
@@ -284,7 +284,7 @@ mostPreciseLabeling pr@(Procedure { input, output, influences}) = pr {
 
 
 -- "weakings pr" enumerates all weakenings of pr, i.e. all procedures pr' such that
---      pr' `isWeakerThan` pr
+--      pr `isStrongerThan` pr'
 -- as defined below
 weakenings :: (Ord d, Ord p, Enum d, Bounded d) => Procedure p d -> [Procedure p d]
 weakenings pr@(Procedure { input, output, includes, influences}) =
@@ -300,11 +300,11 @@ weakenings pr@(Procedure { input, output, includes, influences}) =
 -- given two procedures pr, pr' such that
 --   * input  pr == input  pr'
 --   * output pr == output pr'
--- , the ifc requirement of pr' is called "weaker" than that of pr iff
---      pr' `isWeakerThan` pr
+-- , the ifc requirement of pr is called "stronger" than that of pr' iff
+--      pr `isStrongerThan` pr'
 -- as defined here.
-isWeakerThan ::  (Ord d) => Procedure p d ->  Procedure p d -> Bool
-pr' `isWeakerThan` pr  =
+isStrongerThan ::  (Ord d) => Procedure p d ->  Procedure p d -> Bool
+pr `isStrongerThan` pr'  =
       and [ includes pr' p ⊆ includes pr p | p <- toList $ input pr]
   &&  and [ includes pr' p ⊇ includes pr p | p <- toList $ output pr]
 
@@ -314,7 +314,7 @@ pr' `isWeakerThan` pr  =
 --
 -- 1) weakenings do indeed weaken the ifc requirement
 weakeningsAreWeaker :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Bool
-weakeningsAreWeaker pr = and [ pr' `isWeakerThan` pr | pr' <- weakenings pr ]
+weakeningsAreWeaker pr = and [ pr `isStrongerThan` pr' | pr' <- weakenings pr ]
 
 -- 2) if pr fullfills its ifc requirement, then also all weakenings of pr do
 weakeningsAreSafe :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Property
@@ -329,7 +329,7 @@ weakeningsAreSafe pr = heckerOf pr ==>
 
 
 isConsistentRelabelingFor :: forall d d' p. Ord d => (d' -> Set d) -> Procedure p d -> Procedure p d' -> Bool
-isConsistentRelabelingFor g0 pr pr' =  pr'Relabeled `isWeakerThan` pr
+isConsistentRelabelingFor g0 pr pr' =  pr `isStrongerThan` pr'Relabeled
   where g :: Set d' -> Set d
         g = gFrom g0
         pr'Relabeled :: Procedure p d
@@ -347,9 +347,15 @@ upperAdjoint f ds' = unions [ ds | ds <- toList $ powerset (fromList allValues),
 gFrom g0 ds' = unions [ g0 d' | d' <- toList ds']
 
 
+hasFewerFlowsThan ::  (Ord p) => Procedure p d ->  Procedure p d' -> Bool
+pr `hasFewerFlowsThan` pr'  =
+      and [ influences pr p ⊆ influences pr' p | p <- toList $ input pr]
+
+
+
 mostPreciseIffSecure  :: forall d p. (Ord d, Ord p) => Procedure p d -> Bool
 mostPreciseIffSecure procedure@(Procedure { input, output, includes, influences}) =
-       procedure { includes = \p -> g (includes p) } `isWeakerThan` (mostPreciseLabeling procedure)
+       (mostPreciseLabeling procedure) `isStrongerThan` procedure { includes = \p -> g (includes p) }
     == secure procedure classifiedAsHecker latticeHecker
   where (classifiedAsHecker,  latticeHecker) = hecker procedure
         relabeling :: d -> Set p
@@ -359,3 +365,20 @@ mostPreciseIffSecure procedure@(Procedure { input, output, includes, influences}
         g = gFrom relabeling
         -- p'Relabeled :: Procedure p p
         -- p'Relabeled = p { includes = \p -> g (includes pr' p) }
+
+
+fewerFlowsIffSecure  :: forall d p. (Ord d, Ord p) => Procedure p d -> Bool
+fewerFlowsIffSecure procedure@(Procedure { input, output, includes, influences}) =
+       secure procedure classifiedAsHecker latticeHecker
+   ==  procedure `hasFewerFlowsThan` (γ procedure)
+-- ==  procedure { influences = \p -> output ∖ fromList [ p' | p' <- toList output, ds <- toList $ includes p,
+--                                                                                  not $ ds ∈ includes p' ] }
+  where (classifiedAsHecker,  latticeHecker) = hecker procedure
+
+
+γ :: (Ord d, Ord p) => Procedure p d -> Procedure p d
+γ procedure@(Procedure { input, output, includes }) =
+  procedure { influences = \p ->
+                if (p ∈ input) then fromList [ p' | p' <- toList output, includes p ⊆ includes p' ]
+                               else fromList []
+            }
