@@ -42,3 +42,7 @@ infixl 7 ⊓
 (→) :: Bool -> Bool -> Bool
 (→) = implies
   where implies a b = (not a) || b
+
+infix 4 ↔
+(↔) :: Bool -> Bool -> Bool
+(↔) = (==)
