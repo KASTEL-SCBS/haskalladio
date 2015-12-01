@@ -33,7 +33,7 @@
 
            % Used Functors
            % Sharing = OpenShared | ControlledExclusive
-           openShared/0, controlledExclusive/0,
+           shared/0, exclusive/0,
            % FurtherConnections = Possible | Existing | Complete
            possible/0, existing/0, complete/0,
            % Default tampering Abiility

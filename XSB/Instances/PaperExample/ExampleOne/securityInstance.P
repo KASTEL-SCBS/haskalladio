@@ -1,5 +1,5 @@
 % BEGIN IMPORTS
-:- import  openShared/0, controlledExclusive/0,
+:- import  shared/0, exclusive/0,
            possible/0, existing/0, complete/0,
            none/0
            from security.
@@ -64,8 +64,8 @@ locationsAccessibleBy(passerByAdversary,outdoors).
 furtherConnections(energyMeterRC,complete).
 furtherConnections(energyVisualizationRC,possible).
 
-sharing(energyMeterRC,controlledExclusive).
-sharing(energyVisualizationRC,openShared).
+sharing(energyMeterRC,exclusive).
+sharing(energyVisualizationRC,shared).
 
 location(energyMeterRC,utilityRoom,sealed).
 location(energyVisualizationRC,livingRoom,none).

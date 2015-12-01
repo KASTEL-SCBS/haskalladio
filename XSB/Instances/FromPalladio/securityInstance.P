@@ -1,0 +1,89 @@
+% BEGIN IMPORTS
+:- import  none/0
+           shared/0, exclusive/0,
+           possible/0, existing/0, complete/0
+           from security.
+:- import  distinct/2
+           from util.
+% END IMPORTS
+
+justify_pred(dataAllowedToBeAccessedBy(_,_)).
+justify_pred(classificationOf(_,_)).
+justify_pred(classificationOfCall(_,_)).
+justify_pred(tamperingAbilities(_,_,_)).
+justify_pred(locationsAccessibleBy(_,_)).
+justify_pred(furtherConnections(_,_)).
+justify_pred(sharing(_,_)).
+justify_pred(location(_,_,_)).
+justify_pred(linkLocation(_,_,_)).
+justify_pred(dataset(_)).
+justify_pred(attacker(_)).
+
+% TODO: maybe we want to change the palladio model such that
+% a enumeration predicate is generated from that automatically?
+isLocation(Location) :-
+        findall(X,locSomewhere(X),Locations),
+        distinct(Locations,DistinctLocations)
+        member(Location,DistinctLocations).
+locSomewhere(Location) :-
+        locations(_Pair,Locations),
+        member(Location,Locations).
+locSomewhere(Location) :-
+        locations(Adversary,Locations),
+        member(Location,Locations).
+
+
+% TODO: there currently appears to be no palladio stereotype corresponding to uiInterfaceOn
+% It should probably be some stereotype that can be attached to an interface instance in an assembly context
+uiInterfaceOn(_Container,_Interface).
+
+
+
+% TODO: maybe we want to change the palladio model such that
+% a enumeration predicate is generated from that automatically?
+dataset(Dataset) :-
+        findall(X,dsSomewhere(X),Datasets),
+        distinct(Datasets,DistinctDatasets)
+        member(Dataset,DistinctDatasets).
+dsSomewhere(Dataset) :-
+        mayKnowDatasets(_Adversary,Datasets),
+        member(Dataset,Datasets).
+dsSomewhere(Dataset) :-
+        dataSetTargets(_WhatIsThis,DataSets) % TODO: i'm curious: what is the first argument meant to represent?
+        member(Dataset,Datasets).
+%TODO: are there other places where datasets may occur?
+
+
+attacker(Attacker) :- adversary(Attacker).
+
+dataAllowedToBeAccessedBy(Attacker,Dataset) :-
+        mayKnowDatasets(Attacker, Datasets),
+        member(Attacker, Datasets).
+
+% TODO: there currently appears to be no palladio stereotype corresponding to classiFicationOf.
+% Or rather: i don't understand the generated signatures/2,parameterSources/2 predicates.
+classificationOf(Parameter, Dataset) :- false.
+classificationOfCall(Parameter, Dataset) :- false.
+
+% TODO: fix bugs in Palladio predicate generation
+tamperingAbilities(Attacker,TamperProptection, Location) :- false.
+
+
+% TODO: fix bugs in Palladio predicate generation
+% Or whas this meant to be fixed by some "default" tamper protection ability?!?!
+locationsAccessibleBy(Attacker, Location) :- false.
+
+furtherConnections(Container,Mode) :- connectionType(Container,Mode).
+
+% sharing(Container,Mode) is directly used from the palladio export.
+
+
+% TODO: fix bugs in Palladio predicate generation
+location(Container,Location,none).
+location(Container,Location,Ability) :- false.
+
+
+% TODO: find out how i can add locationsandtemperprotectionpairs in palladio.
+% Then possibly: fix bugs in Palladio predicate generation.
+linkLocation(Container,LinkLocation,none).
+linkLocation(Container,LinkLocation,Ability) :- false.

@@ -84,9 +84,9 @@ furtherConnections(tabletContainer,possible).
 furtherConnections(controllerContainer,possible).
 furtherConnections(digitalMeterContainer,possible).
 
-sharing(tabletContainer,openShared).
-sharing(controllerContainer,controlledExclusive).
-sharing(digitalMeterContainer,controlledExclusive).
+sharing(tabletContainer,shared).
+sharing(controllerContainer,exclusive).
+sharing(digitalMeterContainer,exclusive).
 
 location(tabletContainer,attended,none).
 location(controllerContainer,unattended,none).
