@@ -423,3 +423,18 @@ isStrongerThanIsBetterThanIsNaivelyStrongerThan ::  (Ord p, Ord d) => Specificat
 isStrongerThanIsBetterThanIsNaivelyStrongerThan (SpecificationPair pr pr') =
        pr  `isNaivelyStrongerThan` pr'
   ==>  pr  `isStrongerThan`        pr'
+
+
+
+-- Ultimately, we're interested in the following property.
+-- paranoids will want to check with:
+-- quickCheckWith  stdArgs { maxDiscardRatio = 400 } (isStrongerThanIsJustified :: SpecificationPair Parameter Datasets Datasets -> Property)
+isStrongerThanIsJustified ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
+isStrongerThanIsJustified (SpecificationPair pr pr') =
+       (
+            (secure pr  classifiedAsHecker  latticeHecker )
+        &&  (pr  `isStrongerThan`        pr')
+       )
+   ==>      (secure pr' classifiedAsHecker' latticeHecker')
+  where (classifiedAsHecker ,  latticeHecker ) = hecker pr
+        (classifiedAsHecker',  latticeHecker') = hecker pr'
