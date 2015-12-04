@@ -7,7 +7,11 @@
 
            % Enumerators
            providedInterfaces/1,
-           requiredInterfaces/1.
+           requiredInterfaces/1,
+
+           % Functors
+           return/1.
+
 % END EXPORTS
 % BEGIN IMPORTS
 :- import  system/1,

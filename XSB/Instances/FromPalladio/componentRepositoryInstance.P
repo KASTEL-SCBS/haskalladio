@@ -1,3 +1,8 @@
+% BEGIN IMPORTS
+:- import  return/1
+           from palladio.
+% END IMPORTS
+
 justify_pred(inputParameters(_,_)).
 justify_pred(outputParameters(_,_)).
 justify_pred(provides(_,_)).

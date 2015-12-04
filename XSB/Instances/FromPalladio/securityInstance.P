@@ -1,8 +1,10 @@
 % BEGIN IMPORTS
-:- import  none/0
+:- import  none/0,
            shared/0, exclusive/0,
            possible/0, existing/0, complete/0
            from security.
+:- import  return/1
+           from palladio.
 :- import  distinct/2
            from util.
 % END IMPORTS
@@ -19,40 +21,13 @@ justify_pred(linkLocation(_,_,_)).
 justify_pred(dataset(_)).
 justify_pred(attacker(_)).
 
-% TODO: maybe we want to change the palladio model such that
-% a enumeration predicate is generated from that automatically?
-isLocation(Location) :-
-        findall(X,locSomewhere(X),Locations),
-        distinct(Locations,DistinctLocations)
-        member(Location,DistinctLocations).
-locSomewhere(Location) :-
-        locations(_Pair,Locations),
-        member(Location,Locations).
-locSomewhere(Location) :-
-        locations(Adversary,Locations),
-        member(Location,Locations).
-
+isLocation(Location) :- location(Location).
 
 % TODO: there currently appears to be no palladio stereotype corresponding to uiInterfaceOn
 % It should probably be some stereotype that can be attached to an interface instance in an assembly context
 uiInterfaceOn(_Container,_Interface).
 
-
-
-% TODO: maybe we want to change the palladio model such that
-% a enumeration predicate is generated from that automatically?
-dataset(Dataset) :-
-        findall(X,dsSomewhere(X),Datasets),
-        distinct(Datasets,DistinctDatasets)
-        member(Dataset,DistinctDatasets).
-dsSomewhere(Dataset) :-
-        mayKnowDatasets(_Adversary,Datasets),
-        member(Dataset,Datasets).
-dsSomewhere(Dataset) :-
-        dataSetTargets(_WhatIsThis,DataSets) % TODO: i'm curious: what is the first argument meant to represent?
-        member(Dataset,Datasets).
-%TODO: are there other places where datasets may occur?
-
+dataset(Dataset) :- dataSet(Dataset).
 
 attacker(Attacker) :- adversary(Attacker).
 
@@ -60,30 +35,72 @@ dataAllowedToBeAccessedBy(Attacker,Dataset) :-
         mayKnowDatasets(Attacker, Datasets),
         member(Attacker, Datasets).
 
-% TODO: there currently appears to be no palladio stereotype corresponding to classiFicationOf.
-% Or rather: i don't understand the generated signatures/2,parameterSources/2 predicates.
-classificationOf(Parameter, Dataset) :- false.
+classificationOf(InputParameter, Dataset) :-
+        inputParameters(InputParameter, _Service),
+        dataSetTargets(InputParameter, Datasets),
+        member(Dataset, Datasets).
+classificationOf(return(Service), Dataset) :-
+        outputParameters(return(Service), Service), % TODO: this is most likely redundant
+        dataSetTargets(Service,Datasets).
+        member(Dataset, Datasets).
+
+% TODO: currently there is no way in palladio to specify what information is contained in the presence of calls
 classificationOfCall(Parameter, Dataset) :- false.
 
-% TODO: fix bugs in Palladio predicate generation
-tamperingAbilities(Attacker,TamperProptection, Location) :- false.
 
+% TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
+tamperingAbilities(Attacker,TamperProtection, Location) :-
+        adversary(Attacker),
+        locationsAndTamperProtectionsPairs(Attacker,Pairs),
+        member(Pair,Pairs),
+        locations(Pair,Locations),
+        member(Location,Locations),
+        tamperProtections(Pair, TamperProtections),
+        member(TamperProtection, TamperProtections).
+tamperingAbilities(Attacker,none, Location) :-
+        adversary(Attacker),
+        locationsAndTamperProtectionsPairs(Attacker,Pairs),
+        member(Pair,Pairs),
+        locations(Pair,Locations).
 
-% TODO: fix bugs in Palladio predicate generation
-% Or whas this meant to be fixed by some "default" tamper protection ability?!?!
-locationsAccessibleBy(Attacker, Location) :- false.
+% TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
+locationsAccessibleBy(Attacker, Location) :- tamperingAbilities(Attacker, _TamperProtection, Location).
+
 
 furtherConnections(Container,Mode) :- connectionType(Container,Mode).
 
 % sharing(Container,Mode) is directly used from the palladio export.
 
 
-% TODO: fix bugs in Palladio predicate generation
-location(Container,Location,none).
-location(Container,Location,Ability) :- false.
+% TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
+location(Container,Location, TamperProtection) :-
+        resourceContainer(Container),
+        locationsAndTamperProtectionsPairs(Container,Pairs),
+        member(Pair,Pairs),
+        locations(Pair,Locations),
+        member(Location,Locations),
+        tamperProtections(Pair, TamperProptections),
+        member(TamperProptection, TamperProptections).
+location(Container,Location, none) :-
+        resourceContainer(Container),
+        locationsAndTamperProtectionsPairs(Container,Pairs),
+        member(Pair,Pairs),
+        locations(Pair,Locations).
+        member(Location,Locations),
 
 
-% TODO: find out how i can add locationsandtemperprotectionpairs in palladio.
-% Then possibly: fix bugs in Palladio predicate generation.
-linkLocation(Container,LinkLocation,none).
-linkLocation(Container,LinkLocation,Ability) :- false.
+% TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
+linkLocation(LinkingResource,LinkLocation, TamperProtection) :-
+        linkingResource(LinkingResource),
+        locationsAndTamperProtectionsPairs(LinkingResource,Pairs),
+        member(Pair,Pairs),
+        locations(Pair,Locations),
+        member(Location,Locations),
+        tamperProtections(Pair, TamperProptections),
+        member(TamperProptection, TamperProptections).
+linkLocation(LinkingResource,LinkLocation, none) :-
+        linkingResource(LinkingResource),
+        locationsAndTamperProtectionsPairs(LinkingResource,Pairs),
+        member(Pair,Pairs),
+        locations(Pair,Locations),
+        member(Location,Locations),
