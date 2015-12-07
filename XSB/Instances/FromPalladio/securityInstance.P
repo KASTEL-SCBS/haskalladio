@@ -23,9 +23,23 @@ justify_pred(attacker(_)).
 
 isLocation(Location) :- location(Location).
 
-% TODO: there currently appears to be no palladio stereotype corresponding to uiInterfaceOn
-% It should probably be some stereotype that can be attached to an interface instance in an assembly context
-uiInterfaceOn(_Container,_Interface).
+% TODO: there currently appears to be no palladio stereotype corresponding to uiInterfaceOn, as was required in the paper submission.
+% Instead, i consider every interface provides by the system as an uiInterface. Isn't this what we want?
+uiInterfaceOn(Container,Interface) :-
+        system(System),                                      % TODO: wellformedness-condition that ther is only one system? This is somehwat redundant!!
+        outerProvidedRole(Connector,ProvidedRole),
+        assemblyContext(Connector,        AssemblyContext),  % TODO: well, this ...
+        assemblyContext(AllocationContext,AssemblyContext),  %       .. is awkward
+        resourceContainer(AllocationContext,Container),
+        providedInterface(ProvidedRole,Interface).
+uiInterfaceOn(Container,Interface) :-
+        system(System),
+        outerRequiredRole(Connector,ProvidedRole),
+        assemblyContext(Connector,        AssemblyContext),
+        assemblyContext(AllocationContext,AssemblyContext),
+        resourceContainer(AllocationContext,Container),
+        requiredInterface(ProvidedRole,Interface).
+
 
 dataset(Dataset) :- dataSet(Dataset).
 
