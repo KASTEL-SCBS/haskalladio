@@ -14,16 +14,18 @@ services(Interface, Service) :-
         signatures(Interface,Services),
         member(Interface, Services).
 
-inputParameters(Service,Parameter) :-
+inputParameters(Service,parm(Service,ParameterName)) :-
         % operationSignature(Service),
         parameters(Service, Parameters),
-        member(Parameter, Parameters)
+        member(ParameterName, Parameters)
 
 outputParameters(Service,return(Service)) :-
         % operationSignature(Service),
         returnType(Service,Type).
 
-typeOf(Parameter,Type) :-
+% TODO: this just cannot work with the current palladio fact export: if there are two different signatures with a common parameter name X,
+% *two* facts dataType(X,Type) are generated.
+typeOf(parm(Service,ParameterName),Type) :-
         dataType(Parameter,Type).
 typeOf(return(Service),Type) :-
         returnType(Service,Type).
