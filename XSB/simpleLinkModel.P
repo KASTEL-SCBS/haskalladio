@@ -1,5 +1,5 @@
 % BEGIN IMPORTS
-:- import  isEncryptedExcept/2 from simpleLinkModelInstance.
+:- import  encryptsExcept/2 from simpleLinkModelInstance.
 :- import  attacker/1 from securityInstance.
 % END IMPORTS
 % BEGIN EXPORTS

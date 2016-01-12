@@ -2,7 +2,7 @@
 :- import  dataset/1,
            consumptionData/0,
            billingData/0,
-           publicData/0,
+           publicData/0
            from securityInstance.
 % END IMPORTS
 
