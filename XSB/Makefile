@@ -3,6 +3,12 @@
 INSTANCE=Instances/PaperExample/ExampleOne
 LINKMODEL=simpleLinkModel.P
 
+# if INSTANCE==Instances/FromPalladio, specify the location of fromPalladio.P
+# otherwise, use FROMPALLADIO=Instances/FromPalladio/empty.P
+# FROMPALLADIO=Instances/FromPalladio/edu.kit.kastel.scbs.minimalexample/src-gen/fromPalladio.P
+FROMPALLADIO=Instances/FromPalladio/empty.P
+
+
 # path to the xsb binary, see http://xsb.sourceforge.net/
 XSB=xsb
 XSB_OPTIONS_QUIET=--noprompt --quietload --nobanner --nofeedback
@@ -16,7 +22,8 @@ RUNGHC=runghc
 # These shouldn't need to be changed
 INSTANCE_SYMLINKS=componentRepositoryInstance.P palladioInstance.P securityInstance.P simpleLinkModelInstance.P
 LINKMODEL_SYMLINK=linkModel.P
-SOURCES=$(INSTANCE_SYMLINKS) $(LINKMODEL_SYMLINK) abstractAnalysis.P  queries.P  security.P palladio.P
+FROMPALLADIO_SYMLINK=fromPalladio.P
+SOURCES=$(INSTANCE_SYMLINKS) $(LINKMODEL_SYMLINK) $(FROMPALLADIO_SYMLINK) abstractAnalysis.P  queries.P  security.P palladio.P
 XWAMS=$(SOURCES:.P=.xwam)
 
 .PHONY: clean clean-xwam test-queries-justify force queries.result default dist
@@ -29,6 +36,9 @@ dist: accessanalysis-prolog.zip
 
 $(LINKMODEL_SYMLINK)  : .force
 	ln -f -s $(LINKMODEL) $@
+
+$(FROMPALLADIO_SYMLINK)  : .force
+	ln -f -s $(FROMPALLADIO) $@
 
 $(INSTANCE_SYMLINKS) : .force
 	ln -f -s $(INSTANCE)/$@ $@
