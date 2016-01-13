@@ -1,0 +1,118 @@
+adversary(_) :- fail.
+
+parametersAndDataSetsPair(_) :- fail.
+
+providedDelegationConnector(_) :- fail.
+
+unencryptedDataSets(_,_) :- fail.
+
+allocation(_) :- fail.
+
+tamperProtection(_) :- fail.
+
+requiringAssemblyContext(_,_) :- fail.
+
+locations(_,_) :- fail.
+
+providingAssemblyContext(_,_) :- fail.
+
+operationInterface(_) :- fail.
+
+operationRequiredRole(_) :- fail.
+
+location(_) :- fail.
+
+resourceContainer(_,_) :- fail.
+
+parametersAndDataSetsPairs(_,_) :- fail.
+
+encapsulatedComponent(_,_) :- fail.
+
+dataSetTargets(_,_) :- fail.
+
+basicComponent(_) :- fail.
+basicComponent(_) :- fail.
+
+interfaces(_,_) :- fail.
+
+linkingResources(_,_) :- fail.
+
+repository(_) :- fail.
+
+requiredInterface(_,_) :- fail.
+
+signatures(_,_) :- fail.
+
+parameter(_) :- fail.
+
+adversaries(_) :- fail.
+
+components(_,_) :- fail.
+
+connectionType(_,_) :- fail.
+
+innerProvidedRole(_,_) :- fail.
+
+assemblyContext(_,_) :- fail.
+
+assemblyContexts(_,[_,_]) :- fail.
+
+confidentialitySpecification(_) :- fail.
+
+dataSets(_,_) :- fail.
+
+system(_) :- fail.
+
+mayKnowDataSets(_,_) :- fail.
+
+providedRoles(_,_) :- fail.
+
+requiredRoles(_,[_]) :- fail.
+
+adversaries(_,[_,_]) :- fail.
+
+connectors(_,[_,_]) :- fail.
+
+locationsAndTamperProtectionsPairs(_,_) :- fail.
+
+sharing(_,exclusive) :- fail.
+
+resourceEnvironment(_) :- fail.
+
+communicationLinkResourceSpecifications(_,_) :- fail.
+
+operationProvidedRole(_) :- fail.
+
+returnType(_,_) :- fail.
+
+parameters(_,_) :- fail.
+
+parameterSources(_,_) :- fail.
+
+dataType(_,_) :- fail.
+
+allocationContext(_) :- fail.
+
+resourceContainer(_) :- fail.
+
+assemblyConnector(_) :- fail.
+
+allocationContexts(_,_) :- fail.
+
+connectedResourceContainers(_,_) :- fail.
+
+operationSignature(_) :- fail.
+
+dataSet(_) :- fail.
+
+providedInterface(_,_) :- fail.
+
+linkingResource(_) :- fail.
+
+locationsAndTamperProtectionsPair(_) :- fail.
+
+tamperProtections(_,_) :- fail.
+
+assemblyContext(_) :- fail.
+
+outerProvidedRole(_,_) :- fail.

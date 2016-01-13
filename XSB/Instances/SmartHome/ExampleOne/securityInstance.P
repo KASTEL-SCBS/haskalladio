@@ -9,7 +9,7 @@ justify_pred(classificationOfCall(_,_)).
 justify_pred(tamperingAbilities(_,_,_)).
 justify_pred(locationsAccessibleBy(_,_)).
 justify_pred(furtherConnections(_,_)).
-justify_pred(sharing(_,_)).
+justify_pred(sharingOf(_,_)).
 justify_pred(location(_,_,_)).
 justify_pred(linkLocation(_,_,_)).
 justify_pred(dataset(_)).
@@ -84,9 +84,9 @@ furtherConnections(tabletContainer,possible).
 furtherConnections(controllerContainer,possible).
 furtherConnections(digitalMeterContainer,possible).
 
-sharing(tabletContainer,shared).
-sharing(controllerContainer,exclusive).
-sharing(digitalMeterContainer,exclusive).
+sharingOf(tabletContainer,shared).
+sharingOf(controllerContainer,exclusive).
+sharingOf(digitalMeterContainer,exclusive).
 
 location(tabletContainer,attended,none).
 location(controllerContainer,unattended,none).

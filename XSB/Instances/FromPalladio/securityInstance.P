@@ -24,6 +24,7 @@
            providedInterface/2,
            outerProvidedRole/2,
            linkingResource/1,
+           sharing/2,
            dataSet/1
            from fromPalladio.
 
@@ -40,7 +41,7 @@ justify_pred(classificationOfCall(_,_)).
 justify_pred(tamperingAbilities(_,_,_)).
 justify_pred(locationsAccessibleBy(_,_)).
 justify_pred(furtherConnections(_,_)).
-justify_pred(sharing(_,_)).
+justify_pred(sharingOf(_,_)).
 justify_pred(location(_,_,_)).
 justify_pred(linkLocation(_,_,_)).
 justify_pred(dataset(_)).
@@ -118,7 +119,7 @@ locationsAccessibleBy(Attacker, Location) :- tamperingAbilities(Attacker, _Tampe
 
 furtherConnections(Container,Mode) :- connectionType(Container,Mode).
 
-% sharing(Container,Mode) is directly used from the palladio export.
+sharingOf(Container,Mode) :- sharing(Container,Mode).
 
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.

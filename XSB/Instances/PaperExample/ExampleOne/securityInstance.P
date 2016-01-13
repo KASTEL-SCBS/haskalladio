@@ -11,7 +11,7 @@ justify_pred(classificationOfCall(_,_)).
 justify_pred(tamperingAbilities(_,_,_)).
 justify_pred(locationsAccessibleBy(_,_)).
 justify_pred(furtherConnections(_,_)).
-justify_pred(sharing(_,_)).
+justify_pred(sharingOf(_,_)).
 justify_pred(location(_,_,_)).
 justify_pred(linkLocation(_,_,_)).
 % justify_pred(dataset(_)).
@@ -64,8 +64,8 @@ locationsAccessibleBy(passerByAdversary,outdoors).
 furtherConnections(energyMeterRC,complete).
 furtherConnections(energyVisualizationRC,possible).
 
-sharing(energyMeterRC,exclusive).
-sharing(energyVisualizationRC,shared).
+sharingOf(energyMeterRC,exclusive).
+sharingOf(energyVisualizationRC,shared).
 
 location(energyMeterRC,utilityRoom,sealed).
 location(energyVisualizationRC,livingRoom,none).

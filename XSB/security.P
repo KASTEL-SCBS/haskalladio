@@ -7,7 +7,7 @@
            tamperingAbilities/3,
            locationsAccessibleBy/2,
            furtherConnections/2,
-           sharing/2,
+           sharingOf/2,
            location/3,
            uiInterfaceOn/2,
            linkLocation/3
@@ -58,11 +58,11 @@ containersFullyAccessibleBy(Attacker,Container) :-
         location(Container,Location,Method),
         tamperingAbilities(Attacker,Location,Method).
 containersFullyAccessibleBy(_,Container) :-
-        sharing(Container,openShared),
+        sharingOf(Container,openShared),
         furtherConnections(Container,existing).
 containersFullyAccessibleBy(Attacker,Container) :-
         containersPhysicalAccessibleBy(Attacker,Container,_),
-        sharing(Container,openShared),
+        sharingOf(Container,openShared),
         furtherConnections(Container,possible).
 
 
