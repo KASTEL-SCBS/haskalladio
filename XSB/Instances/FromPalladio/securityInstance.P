@@ -6,7 +6,7 @@
 :- import  member/2
            from lists.
 
-:- import  mayKnowDatasets/2,
+:- import  mayKnowDataSets/2,
            location/1,
            locations/2,
            locationsAndTamperProtectionsPairs/2,
@@ -17,8 +17,6 @@
            dataSetTargets/2,
            parameterSources/2,
            parametersAndDataSetsPairs/2,
-           outputParameters/2,
-           inputParameters/2,
            requiredInterface/2,
            resourceContainer/2,
            assemblyContext/2,
@@ -29,6 +27,10 @@
            linkingResource/1,
            dataSet/1
            from fromPalladio.
+
+:- import  outputParameters/2,
+           inputParameters/2
+           from componentRepositoryInstance.
 % END IMPORTS
 
 justify_pred(dataAllowedToBeAccessedBy(_,_)).
@@ -68,7 +70,7 @@ dataset(Dataset) :- dataSet(Dataset).
 attacker(Attacker) :- adversary(Attacker).
 
 dataAllowedToBeAccessedBy(Attacker,Dataset) :-
-        mayKnowDatasets(Attacker, Datasets),
+        mayKnowDataSets(Attacker, Datasets),
         member(Dataset, Datasets).
 
 classificationOf(parm(Service,ParameterName), Dataset) :-

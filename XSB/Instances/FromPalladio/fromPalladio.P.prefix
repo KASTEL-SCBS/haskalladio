@@ -4,3 +4,8 @@
            none/0
            from security.
 % END IMPORTS
+
+% apparantly, xsb prolog does not balk at ungrouped facts, after all,
+% so here we can list failing rules for predicates for which the palladio export
+% may not always generate any facts at all.
+outerRequiredRole(_,_) :- fail.
