@@ -40,7 +40,7 @@ $(LINKMODEL_SYMLINK)  : .force
 	ln -f -s $(LINKMODEL) $@
 
 $(FROMPALLADIO) : .force  $(FROMPALLADIO_PREFIX) $(FROMPALLADIO_FACTS)
-	cat $^ > $@
+	cat $(filter-out $<,$^) > $@
 
 $(INSTANCE_SYMLINKS) : .force
 	ln -f -s $(INSTANCE)/$@ $@
