@@ -9,3 +9,31 @@
 % so here we can list failing rules for predicates for which the palladio export
 % may not always generate any facts at all.
 outerRequiredRole(_,_) :- fail.
+
+% Suppress warnings wrt unused predicates:
+fake_usage :-
+        adversaries(_),
+        adversaries(_,_),
+        allocation(_),
+        allocationContexts(_,_),
+        assemblyContexts(_,_),
+        communicationLinkResourceSpecifications(_,_),
+        components(_,_),
+        connectors(_,_),
+        dataSets(_,_),
+        interfaces(_,_),
+        linkingResources(_,_),
+        locationsAndTamperProtectionsPair(_),
+        confidentialitySpecification(_),
+        operationInterface(_),
+        operationRequiredRole(_),
+        operationSignature(_),
+        parameter(_),
+        parametersAndDataSetsPair(_),
+        repository(_),
+        system(_),
+        resourceEnvironment(_),
+        tamperProtection(_),
+        shared = shared, exclusive = exclusive,
+        possible = possible, existing = existing, complete = complete,
+        none = none.

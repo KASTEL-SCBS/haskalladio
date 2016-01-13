@@ -7,8 +7,6 @@
 :- import  linkBetween/3,
            componentOf/2,
            runsOn/2,
-           systemProvides/1,
-           systemRequires/1,
            systemAssembledTo/3,
            byAssembly/1
            from palladioInstance.

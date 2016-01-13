@@ -38,17 +38,22 @@
         sharing/2,                                  % sharing(Container,Mode) % TODO: fix the situation where a predicate sharing/2 is also defined elsewhere
         signatures/2,                               % signatures(Interface,Services)
         parametersAndDataSetsPairs/2,               % parametersAndDataSetsPairs(Service, Pairs)
-        tamperProtections/2.                        % tamperProtections(Pair, TamperProtections)
+        tamperProtections/2,                        % tamperProtections(Pair, TamperProtections)
+
+        fake_usage/0.
 
 
 
 % Currently unused:
 :- local
         adversaries/1,
+        adversaries/2,
         allocation/1,
+        allocationContexts/2,
         assemblyContexts/2,
         communicationLinkResourceSpecifications/2,
         components/2,
+        connectors/2,
         dataSets/2,
         interfaces/2,
         linkingResources/2,
@@ -60,5 +65,6 @@
         parameter/1,
         parametersAndDataSetsPair/1,
         repository/1,
-        repository/1,  % In fact, we shouldn't  export this, since there already is a predicate system/1 elsewhere
+        resourceEnvironment/1,
+        system/1,  % In fact, we shouldn't  export this, since there already is a predicate system/1 elsewhere
         tamperProtection/1.

@@ -21,13 +21,14 @@
            resourceContainer/2,
            assemblyContext/2,
            outerRequiredRole/2,
-           system/1,
            providedInterface/2,
            outerProvidedRole/2,
            linkingResource/1,
            dataSet/1
            from fromPalladio.
 
+:- import  system/1
+           from palladioInstance.
 :- import  outputParameters/2,
            inputParameters/2
            from componentRepositoryInstance.
