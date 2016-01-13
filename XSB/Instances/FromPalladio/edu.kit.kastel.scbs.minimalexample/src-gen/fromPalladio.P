@@ -114,8 +114,8 @@ operationProvidedRole(33).
 operationProvidedRole(34).
 operationProvidedRole(46).
 
-returnType(36,INT).
-returnType(38,DOUBLE).
+returnType(36,"INT").
+returnType(38,"DOUBLE").
 
 parameters(36,[37]).
 parameters(38,[19,20]).
@@ -123,9 +123,9 @@ parameters(38,[19,20]).
 parameterSources(16,[19,20]).
 parameterSources(17,[\return]).
 
-dataType(37,STRING).
-dataType(19,INT).
-dataType(20,INT).
+dataType(37,"STRING").
+dataType(19,"INT").
+dataType(20,"INT").
 
 allocationContext(22).
 allocationContext(23).
