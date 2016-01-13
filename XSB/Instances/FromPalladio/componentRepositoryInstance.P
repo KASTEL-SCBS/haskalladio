@@ -1,6 +1,18 @@
 % BEGIN IMPORTS
 :- import  return/1
            from palladio.
+:- import  returnType/2,
+           providedInterface/2,
+           providedRoles/2,
+           basicComponent/1,
+           dataType/2,
+           parameters/2,
+           signatures/2,
+           requiredInterface/2,
+           requiredRoles/2
+           from fromPalladio.
+:- import  member/2
+           from lists.
 % END IMPORTS
 
 justify_pred(inputParameters(_,_)).
@@ -12,21 +24,22 @@ justify_pred(requires(_,_)).
 
 services(Interface, Service) :-
         signatures(Interface,Services),
-        member(Interface, Services).
+        member(Service, Services).
 
 inputParameters(Service,parm(Service,ParameterName)) :-
         % operationSignature(Service),
         parameters(Service, Parameters),
-        member(ParameterName, Parameters)
+        member(ParameterName, Parameters).
 
 outputParameters(Service,return(Service)) :-
         % operationSignature(Service),
-        returnType(Service,Type).
+        returnType(Service,_Type).
 
 % TODO: this just cannot work with the current palladio fact export: if there are two different signatures with a common parameter name X,
 % *two* facts dataType(X,Type) are generated.
 typeOf(parm(Service,ParameterName),Type) :-
-        dataType(Parameter,Type).
+        inputParameters(Service, parm(Service,ParameterName)), % make this work as a generator
+        dataType(ParameterName,Type).
 typeOf(return(Service),Type) :-
         returnType(Service,Type).
 

@@ -8,6 +8,7 @@
            locationsAccessibleBy/2,                 % locationsAccessibleBy(Attacker,Location)
            furtherConnections/2,                    % furtherConnections(ResourceContainer,FurtherConnections)
            sharing/2,                               % sharing(ResourceContainer,Sharing)
+           isLocation/1,                            % isLocation(Location)
            location/3,                              % location(ResourceContainer,Location,TamperingAbility)
            linkLocation/3,                          % linkLocation(LinkingResource,Location,TamperingAbility)
 

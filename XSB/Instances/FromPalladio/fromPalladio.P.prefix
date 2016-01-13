@@ -1,0 +1,6 @@
+% BEGIN IMPORTS
+:- import  shared/0, exclusive/0,
+           possible/0, existing/0, complete/0,
+           none/0
+           from security.
+% END IMPORTS

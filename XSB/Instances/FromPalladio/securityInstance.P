@@ -1,12 +1,34 @@
 % BEGIN IMPORTS
-:- import  none/0,
-           shared/0, exclusive/0,
-           possible/0, existing/0, complete/0
+:- import  none/0
            from security.
 :- import  return/1
            from palladio.
-:- import  distinct/2
-           from util.
+:- import  member/2
+           from lists.
+
+:- import  mayKnowDatasets/2,
+           location/1,
+           locations/2,
+           locationsAndTamperProtectionsPairs/2,
+           adversary/1,
+           tamperProtections/2,
+           connectionType/2,
+           resourceContainer/1,
+           dataSetTargets/2,
+           parameterSources/2,
+           parametersAndDataSetsPairs/2,
+           outputParameters/2,
+           inputParameters/2,
+           requiredInterface/2,
+           resourceContainer/2,
+           assemblyContext/2,
+           outerRequiredRole/2,
+           system/1,
+           providedInterface/2,
+           outerProvidedRole/2,
+           linkingResource/1,
+           dataSet/1
+           from fromPalladio.
 % END IMPORTS
 
 justify_pred(dataAllowedToBeAccessedBy(_,_)).
@@ -26,14 +48,14 @@ isLocation(Location) :- location(Location).
 % TODO: there currently appears to be no palladio stereotype corresponding to uiInterfaceOn, as was required in the paper submission.
 % Instead, i consider every interface provides by the system as an uiInterface. Isn't this what we want?
 uiInterfaceOn(Container,Interface) :-
-        system(System),                                      % TODO: wellformedness-condition that ther is only one system? This is somehwat redundant!!
+        system(_System),                                      % TODO: wellformedness-condition that ther is only one system? This is somehwat redundant!!
         outerProvidedRole(Connector,ProvidedRole),
         assemblyContext(Connector,        AssemblyContext),  % TODO: well, this ...
         assemblyContext(AllocationContext,AssemblyContext),  %       .. is awkward
         resourceContainer(AllocationContext,Container),
         providedInterface(ProvidedRole,Interface).
 uiInterfaceOn(Container,Interface) :-
-        system(System),
+        system(_System),
         outerRequiredRole(Connector,ProvidedRole),
         assemblyContext(Connector,        AssemblyContext),
         assemblyContext(AllocationContext,AssemblyContext),
@@ -47,7 +69,7 @@ attacker(Attacker) :- adversary(Attacker).
 
 dataAllowedToBeAccessedBy(Attacker,Dataset) :-
         mayKnowDatasets(Attacker, Datasets),
-        member(Attacker, Datasets).
+        member(Dataset, Datasets).
 
 classificationOf(parm(Service,ParameterName), Dataset) :-
         inputParameters(Service, parm(Service,ParameterName)),
@@ -68,7 +90,7 @@ classificationOf(return(Service), Dataset) :-
         member(Dataset, Datasets).
 
 % TODO: currently there is no way in palladio to specify what information is contained in the presence of calls
-classificationOfCall(Service, Dataset) :- false.
+classificationOfCall(_Service, _Dataset) :- false.
 
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
@@ -84,7 +106,8 @@ tamperingAbilities(Attacker,none, Location) :-
         adversary(Attacker),
         locationsAndTamperProtectionsPairs(Attacker,Pairs),
         member(Pair,Pairs),
-        locations(Pair,Locations).
+        locations(Pair,Locations),
+        member(Location, Locations).
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
 locationsAccessibleBy(Attacker, Location) :- tamperingAbilities(Attacker, _TamperProtection, Location).
@@ -103,27 +126,27 @@ location(Container,Location, TamperProtection) :-
         locations(Pair,Locations),
         member(Location,Locations),
         tamperProtections(Pair, TamperProptections),
-        member(TamperProptection, TamperProptections).
+        member(TamperProtection, TamperProptections).
 location(Container,Location, none) :-
         resourceContainer(Container),
         locationsAndTamperProtectionsPairs(Container,Pairs),
         member(Pair,Pairs),
-        locations(Pair,Locations).
-        member(Location,Locations),
+        locations(Pair,Locations),
+        member(Location,Locations).
 
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
-linkLocation(LinkingResource,LinkLocation, TamperProtection) :-
+linkLocation(LinkingResource,Location, TamperProtection) :-
         linkingResource(LinkingResource),
         locationsAndTamperProtectionsPairs(LinkingResource,Pairs),
         member(Pair,Pairs),
         locations(Pair,Locations),
         member(Location,Locations),
         tamperProtections(Pair, TamperProptections),
-        member(TamperProptection, TamperProptections).
-linkLocation(LinkingResource,LinkLocation, none) :-
+        member(TamperProtection, TamperProptections).
+linkLocation(LinkingResource,Location, none) :-
         linkingResource(LinkingResource),
         locationsAndTamperProtectionsPairs(LinkingResource,Pairs),
         member(Pair,Pairs),
         locations(Pair,Locations),
-        member(Location,Locations),
+        member(Location,Locations).

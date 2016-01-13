@@ -1,3 +1,26 @@
+% BEGIN IMPORTS
+:- import  encapsulatedComponent/2,
+           assemblyContext/1,
+           provides/2,
+           requires/2,
+           providingAssemblyContext/2,
+           requiringAssemblyContext/2,
+           assemblyConnector/1,
+           connectedResourceContainers/2,
+           linkingResource/1,
+           providedInterface/2,
+           operationProvidedRole/1,
+           outerProvidedRole/2,
+           innerProvidedRole/2,
+           assemblyContext/2,
+           providedDelegationConnector/1,
+           resourceContainer/1,
+           systemProvidesAssembledTo/2,
+           resourceContainer/2,
+           allocationContext/1,
+           systemRequiredAssembledTo/2
+           from fromPalladio.
+% END IMPORTS
 justify_pred(linkBetween(_,_,_)).
 
 % % resourceContainer/2 and linkingResources/2 are appearantly redundant,
@@ -21,14 +44,14 @@ systemAssembledTo(RequiringContext, Interface, byAssembly(ProvidingContext)) :-
         requiringAssemblyContext(Connector, RequiringContext),
         providingAssemblyContext(Connector, ProvidingContext),
         componentOf(RequiringContext, RequiringComponent),
-        componentOf(ProvidingContext, ProvidingComponent),
+        componentOf(ProvidingContext, _ProvidingComponent),
         requires(RequiringComponent, Interface),
         provides(ProvidingContext, Interface).
 
 
 systemProvidesAsssembledTo(Interface, Context) :-
         providedDelegationConnector(Connector),
-        assemblyContext(Connector,Context).
+        assemblyContext(Connector,Context),
 
         innerProvidedRole(Connector,InnerProvidedRole),
         operationProvidedRole(InnerProvidedRole), % TODO: redundant?
