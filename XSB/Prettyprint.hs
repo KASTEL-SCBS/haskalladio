@@ -101,7 +101,7 @@ notSimple = do
   reserved "not"
   t <- term
   reservedOp "','"
-  subproofs <- brackets $ notComplex `sepBy` comma
+  subproofs <- brackets $ (try notComplex <|> assertion) `sepBy` comma
   return $ Node (Not $ Assertion t) []
 
 notComplex :: Parser Proof
@@ -115,14 +115,18 @@ notComplex = parens $ do
   return $ Node (NotEq [] []) []
 
 assertion :: Parser Proof
-assertion =  parens $ simple <|> notSimple
+assertion =  parens $ try simple <|> notSimple
 
 
 term :: Parser Term
-term = do
-  f   <- identifier
-  xs  <- option [] $ parens $ term `sepBy` comma
-  return $ Node f xs
+term = try normal <|> list
+  where normal = do
+                   f   <- identifier <|> (liftM show integer)
+                   xs  <- option [] $ parens $ term `sepBy` comma
+                   return $ Node f xs
+        list   = do
+                   terms <- brackets $ term `sepBy` comma
+                   return $ Node "list" terms
 
 parseString :: String -> AnalysisResult
 parseString str =
