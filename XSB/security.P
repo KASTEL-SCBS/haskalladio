@@ -25,7 +25,7 @@
            containersFullyAccessibleBy/2,           % containersFullyAccessibleBy(Attacker,ResourceContainer)
            linksDataAccessibleBy/3,                 % linksDataAccessibleBy(Attacker,LinkingResource, Dataset)
 
-           linksPhysicalAccessibleBy/2,             % linksPhysicalAccessibleBy(Attacker,Link)
+           linksPhysicalAccessibleBy/3,             % linksPhysicalAccessibleBy(Attacker,Link,Location)
            containersPhysicalAccessibleBy/3,        % containersPhysicalAccessibleBy(Attacker,Container,Location)
 
            providedInterfacesAccessibleTo/2,        % providedInterfacesAccessibleTo(Attacker, Interface)
@@ -43,7 +43,7 @@
 justify_pred(isInSecureWithRespectTo(_)).
 justify_pred(containersFullyAccessibleBy(_,_)).
 justify_pred(linksDataAccessibleBy(_,_,_)).
-justify_pred(linksPhysicalAccessibleBy(_,_)).
+justify_pred(linksPhysicalAccessibleBy(_,_,_)).
 justify_pred(containersPhysicalAccessibleBy(_,_,_)).
 justify_pred(providedInterfacesAccessibleTo(_,_)).
 justify_pred(requiredInterfacesAccessibleTo(_,_)).

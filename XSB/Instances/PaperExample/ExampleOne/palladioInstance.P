@@ -38,4 +38,5 @@ componentOf(energyVisualizationContext,energyVisualization).
 
 
 linkBetween(wireless,energyVisualizationRC, energyMeterRC).
+linkBetween(wireless,energyMeterRC, energyVisualizationRC).
 
