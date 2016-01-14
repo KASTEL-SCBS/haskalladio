@@ -1,8 +1,6 @@
 % BEGIN IMPORTS
 :- import  encapsulatedComponent/2,
            assemblyContext/1,
-           provides/2,
-           requires/2,
            providingAssemblyContext/2,
            requiringAssemblyContext/2,
            assemblyConnector/1,
@@ -20,6 +18,10 @@
            allocationContext/1,
            systemRequiredAssembledTo/2
            from fromPalladio.
+
+:- import  provides/2,
+           requires/2
+           from componentRepositoryInstance.
 % END IMPORTS
 justify_pred(linkBetween(_,_,_)).
 
@@ -44,9 +46,9 @@ systemAssembledTo(RequiringContext, Interface, byAssembly(ProvidingContext)) :-
         requiringAssemblyContext(Connector, RequiringContext),
         providingAssemblyContext(Connector, ProvidingContext),
         componentOf(RequiringContext, RequiringComponent),
-        componentOf(ProvidingContext, _ProvidingComponent),
+        componentOf(ProvidingContext, ProvidingComponent),
         requires(RequiringComponent, Interface),
-        provides(ProvidingContext, Interface).
+        provides(ProvidingComponent, Interface).
 
 
 systemProvidesAsssembledTo(Interface, Context) :-
@@ -73,3 +75,4 @@ componentOf(AssemblyContext, Component) :-
         encapsulatedComponent(AssemblyContext,Component).
 
 linkBetween(Link,RCLeft,RCRight) :- connectedResourceContainers(Link,[RCLeft,RCRight]).
+linkBetween(Link,RCLeft,RCRight) :- connectedResourceContainers(Link,[RCRight,RCLeft]).

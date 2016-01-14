@@ -6,7 +6,8 @@ LINKMODEL=simpleLinkModel.P
 
 # if INSTANCE==Instances/FromPalladio, specify the location of fromPalladio.P
 # otherwise, use FROMPALLADIO=Instances/FromPalladio/empty.P
-FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.minimalexample/src-gen/fromPalladio.P
+# FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.minimalexample/src-gen/fromPalladio.P
+FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.paperexample/src-gen/fromPalladio.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/empty.P
 
 

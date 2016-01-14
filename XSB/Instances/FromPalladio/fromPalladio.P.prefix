@@ -9,6 +9,9 @@
 % so here we can list failing rules for predicates for which the palladio export
 % may not always generate any facts at all.
 outerRequiredRole(_,_) :- fail.
+basicComponent(_) :- fail.
+unencryptedDataSets(_,_) :- fail.
+
 
 % Suppress warnings wrt unused predicates:
 fake_usage :-

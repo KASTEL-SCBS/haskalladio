@@ -98,7 +98,7 @@ classificationOfCall(_Service, _Dataset) :- false.
 
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
-tamperingAbilities(Attacker,TamperProtection, Location) :-
+tamperingAbilities(Attacker, Location, TamperProtection) :-
         adversary(Attacker),
         locationsAndTamperProtectionsPairs(Attacker,Pairs),
         member(Pair,Pairs),
@@ -106,7 +106,7 @@ tamperingAbilities(Attacker,TamperProtection, Location) :-
         member(Location,Locations),
         tamperProtections(Pair, TamperProtections),
         member(TamperProtection, TamperProtections).
-tamperingAbilities(Attacker,none, Location) :-
+tamperingAbilities(Attacker, Location, none) :-
         adversary(Attacker),
         locationsAndTamperProtectionsPairs(Attacker,Pairs),
         member(Pair,Pairs),
@@ -114,7 +114,7 @@ tamperingAbilities(Attacker,none, Location) :-
         member(Location, Locations).
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
-locationsAccessibleBy(Attacker, Location) :- tamperingAbilities(Attacker, _TamperProtection, Location).
+locationsAccessibleBy(Attacker, Location) :- tamperingAbilities(Attacker, Location, _TamperProtection).
 
 
 furtherConnections(Container,Mode) :- connectionType(Container,Mode).

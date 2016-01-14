@@ -1,11 +1,18 @@
 % BEGIN IMPORTS
-:- import  unencryptedDataSets/2
+:- import  unencryptedDataSets/2,
+           dataSet/1
            from fromPalladio.
 :- import  member/2
            from lists.
 % END IMPORTS
 
 justify_pred(encryptsExcept(_,_)).
+
+% channes for which no encryption specification is given will be assumed not to encrypt anything
+% TODO: discuss wheter it is really this rule that should implement that, or wheter palladio should export corresponding facts.
+encryptsExcept(Link,Dataset) :-
+        not(unencryptedDataSets(Link, _)),
+        dataSet(Dataset).
 
 encryptsExcept(Link,Dataset) :-
         unencryptedDataSets(Link, Datasets),
