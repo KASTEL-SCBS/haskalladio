@@ -3,7 +3,7 @@
            providedInterfacesOn/2,
            requiredInterfacesOn/2,
            interfacesOn/2,
-           parameters/2,
+           parametersOf/2,
 
            % Enumerators
            providedInterfaces/1,
@@ -29,7 +29,7 @@
 justify_pred(providedInterfacesOn(_,_)).
 justify_pred(requiredInterfacesOn(_,_)).
 justify_pred(interfacesOn(_,_)).
-justify_pred(parameters(_,_)).
+justify_pred(parametersOf(_,_)).
 justify_pred(providedInterfaces(_)).
 justify_pred(requiredInterfaces(_)).
 
@@ -52,9 +52,9 @@ interfacesOn(Container,Interface) :-
         providedInterfacesOn(Container,Interface).
 
 
-parameters(Service, Parameter) :-
+parametersOf(Service, Parameter) :-
         inputParameters(Service, Parameter).
-parameters(Service, Parameter) :-
+parametersOf(Service, Parameter) :-
         outputParameters(Service, Parameter).
 
 providedInterfaces(Interface) :-
