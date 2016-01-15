@@ -123,34 +123,40 @@ sharingOf(Container,Mode) :- sharing(Container,Mode).
 
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
-location(Container,Location, TamperProtection) :-
+locationWithOrWithoutSpecifiedTamperProtection(Container,Location,Pair) :-
         resourceContainer(Container),
         locationsAndTamperProtectionsPairs(Container,Pairs),
         member(Pair,Pairs),
         locations(Pair,Locations),
-        member(Location,Locations),
+        member(Location,Locations).
+location(Container,Location, TamperProtection) :-
+        locationWithOrWithoutSpecifiedTamperProtection(Container,Location,Pair),
         tamperProtections(Pair, TamperProptections),
         member(TamperProtection, TamperProptections).
 location(Container,Location, none) :-
-        resourceContainer(Container),
-        locationsAndTamperProtectionsPairs(Container,Pairs),
-        member(Pair,Pairs),
-        locations(Pair,Locations),
-        member(Location,Locations).
+        locationWithOrWithoutSpecifiedTamperProtection(Container,Location,Pair),
+        not((
+          tamperProtections(Pair, TamperProptections),
+          member(TamperProtection, TamperProptections)
+        )).
 
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
-linkLocation(LinkingResource,Location, TamperProtection) :-
-        linkingResource(LinkingResource),
-        locationsAndTamperProtectionsPairs(LinkingResource,Pairs),
-        member(Pair,Pairs),
-        locations(Pair,Locations),
-        member(Location,Locations),
-        tamperProtections(Pair, TamperProptections),
-        member(TamperProtection, TamperProptections).
-linkLocation(LinkingResource,Location, none) :-
+linkLocationWithOrWithoutSpecifiedTamperProtection(LinkingResource,Location, Pair) :-
         linkingResource(LinkingResource),
         locationsAndTamperProtectionsPairs(LinkingResource,Pairs),
         member(Pair,Pairs),
         locations(Pair,Locations),
         member(Location,Locations).
+
+linkLocation(LinkingResource,Location, TamperProtection) :-
+        linkLocationWithOrWithoutSpecifiedTamperProtection(LinkingResource,Location, Pair),
+        tamperProtections(Pair, TamperProptections),
+        member(TamperProtection, TamperProptections).
+linkLocation(LinkingResource,Location, none) :-
+        linkLocationWithOrWithoutSpecifiedTamperProtection(LinkingResource,Location, Pair),
+        not((
+          tamperProtections(Pair, TamperProptections),
+          member(TamperProtection, TamperProptections)
+        )).
+
