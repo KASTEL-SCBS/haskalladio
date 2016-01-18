@@ -8,8 +8,9 @@
 
 justify_pred(encryptsExcept(_,_)).
 
-% channes for which no encryption specification is given will be assumed not to encrypt anything
-% TODO: discuss wheter it is really this rule that should implement that, or wheter palladio should export corresponding facts.
+% Channels for which no encryption specification is given will be assumed not to encrypt anything
+% TODO: discuss wheter it is really this rule that should implement that, or whether palladio should export corresponding facts,
+% which it currently does not.
 encryptsExcept(Link,Dataset) :-
         dataSet(Dataset),
         not(unencryptedDataSets(Link, _)). % the two subgoals need to be ordered like this in order to please "justify".
