@@ -305,17 +305,17 @@ isStrongerThanIsBetterThanIsNaivelyStrongerThan (SpecificationPair pr pr') =
           | p ∈ output = S.fromList [i | i <- toList input, p ∈ influences i]
           | otherwise = S.fromList [] -- TODO: require some wellformedness for procedures
 
--- Every "implementation" pr does indeed fullfill the ifc-specification α(pr):
+-- Lemma 6. Every "implementation" pr does indeed fullfill the ifc-specification α(pr):
 mostPreciseIsSecure :: (Ord p) => Procedure p d -> Bool
 mostPreciseIsSecure p = secure hecker (α p)
 
--- Every "implementation" pr is equal to the the most-leaking implementation of it's most-precise ifc-specification
+-- Lemma 7. Every "implementation" pr is equal to the the most-leaking implementation of it's most-precise ifc-specification
 γMostPreciseIsMostPrecuse :: (Ord d, Ord p) => Procedure p d -> Bool
 γMostPreciseIsMostPrecuse pr = pr `eqImpl` γ (α pr)
   where pr `eqImpl` pr' = and [ influences pr p == influences pr' p | p <- toList $ input pr ]
 
 
--- An auxilarry properties, that demonstrate that the definitions above are all natural:
+-- Lemma 8. An auxilarry properties, that demonstrate that the definitions above are all natural:
 fewerFlowsIffSecure  :: forall d p. (Ord d, Ord p) => Procedure p d -> Bool
 fewerFlowsIffSecure procedure@(Procedure { input, output, includes, influences}) =
        (secure hecker procedure)

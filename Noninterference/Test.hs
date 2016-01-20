@@ -10,12 +10,14 @@ checkAllProperties = do
   quickCheck (heckerIsGreiner                                 :: Procedure Parameter Datasets -> Bool)
   quickCheck (weakeningsAreWeaker                             :: Procedure Parameter Datasets -> Bool)
   quickCheck (weakeningsAreSafe                               :: Procedure Parameter Datasets -> Property)
---  quickCheckWith stdArgs { maxDiscardRatio = 400 }
---             (isStrongerThanIsJustified :: SpecificationPair Parameter Datasets Datasets -> Property)
+  quickCheckWith stdArgs { maxDiscardRatio = 400 }
+             (isStrongerThanIsJustified                       :: SpecificationPair Parameter Datasets Datasets -> Property)
   quickCheck (isStrongerThanIsHasFewerFlowsThan               :: SpecificationPair Parameter Datasets Datasets -> Bool)
---  quickCheckWith  stdArgs { maxDiscardRatio = 200 }
---             (isStrongerThanIsBetterThanIsNaivelyStrongerThan :: SpecificationPair Parameter Datasets Datasets -> Property)
-
+  quickCheckWith  stdArgs { maxDiscardRatio = 200 }
+             (isStrongerThanIsBetterThanIsNaivelyStrongerThan :: SpecificationPair Parameter Datasets Datasets -> Property)
+  quickCheck (mostPreciseIsSecure                             :: Procedure Parameter Datasets -> Bool)
+  quickCheck (γMostPreciseIsMostPrecuse                       :: Procedure Parameter Datasets -> Bool)
+  quickCheck (fewerFlowsIffSecure                             :: Procedure Parameter Datasets -> Bool)
 
 
 
