@@ -9,6 +9,8 @@ module Instances.PaperExample.ExampleOne.Noninterference where
 import qualified Palladio as P
 import Security
 import Noninterference
+import Noninterference.Util
+import Noninterference.Procedure
 
 import Instances.PaperExample.ExampleOne.Palladio
 import Instances.PaperExample.ExampleOne.Security
@@ -16,6 +18,8 @@ import Instances.PaperExample.ExampleOne.Security
 
 import Data.Set as S
 import Data.Set.Unicode
+
+import qualified Data.Map as M
 
 instance Enumerable (P.Parameter ExampleOne) where
   allValues =     [Timestamp, Value, Start, End ]
@@ -25,10 +29,27 @@ data DatasetDatabase = Time
                      | Data
                      deriving (Show, Eq, Ord, Enum, Bounded)
 
-
+-- the "natural" relabeling
 relabeling :: DataSet ExampleOne -> Set DatasetDatabase
 relabeling ConsumptionData = fromList [Time,Data]
 relabeling _ = fromList []
+
+-- All possible relabelings
+relabelings :: [ DataSet ExampleOne -> Set DatasetDatabase ]
+relabelings = fmap ((M.!) . (M.fromList)) [
+      [ (ConsumptionData, S.fromList ds1), (PublicData, S.fromList ds2), (BillingData, S.fromList ds3) ]
+   | ds1 <- subsets, ds2 <- subsets, ds3 <- subsets
+  ]
+ where subsets = listPowerset [Time,Data]
+
+-- unfortunately, there is no consisten relabeling
+noConsistentRelabelingGetValue =         and [ not $ isConsistentRelabelingFor g0 getValue        getValue'        | g0 <- relabelings]
+noConsistentRelabelingGetHighestValue =  and [ not $ isConsistentRelabelingFor g0 getHighestValue getHighestValue' | g0 <- relabelings]
+
+-- however, getValue        `isStrongerThan` getValue'
+-- and      getHighestValue `isStrongerThan` getHighestValue'
+isStrongerThanCriterionHolds = getValue        `isStrongerThan` getValue'         &&
+                               getHighestValue `isStrongerThan` getHighestValue'
 
 
 getHighestValue :: Procedure (P.Parameter ExampleOne) DatasetDatabase

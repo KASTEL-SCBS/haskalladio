@@ -6,14 +6,14 @@
 
 module Noninterference where
 
-
-
+import Noninterference.Util
+import Noninterference.Procedure
+import Noninterference.Testgen
 
 import Prelude as P
 
 import Algebra.Lattice
 import Unicode
--- import Misc
 
 import Data.Set as S
 import Data.Set.Unicode
@@ -28,277 +28,90 @@ import Test.QuickCheck hiding (output)
 
 type OrderedSet p = (Set p, p -> p -> Bool)
 
-class Enumerable a where
-  allValues :: [a]
-
-instance (Bounded a, Enum a) => Enumerable a where
-  allValues = [minBound..]
-
-
-
--- A Procedure is described by
--- * influences p: the set of output-parameters p may influence
--- * includes p: its parameter classifcation, as set of datasets
---
--- "includes" hence implicitly specifies an ifc requirement, which may or may not be fullfilled by "influences".
-data Procedure p d = Procedure {
-    input :: Set p,
-    output :: Set p,
-    includes :: p -> (Set d),
-    influences :: p ->  (Set p)
-  }
-
-
-powerset :: Ord a => Set a -> Set (Set a)
-powerset = S.fromList . fmap S.fromList . listPowerset . S.toList
-
-listPowerset :: [a] -> [[a]]
-listPowerset = filterM (const [True, False])
-
--- powersetorder :: Ord a => Set a -> OrderedSet (Set a)
--- powersetorder a = (powerset a, (⊆))
-
-data Input  = A
-            | B
-            | C
-            deriving (Show, Eq, Ord, Enum, Bounded)
-data Output = X
-            | Y
-            | Z
-            deriving (Show, Eq, Ord, Enum, Bounded)
-
-data Parameter = Input Input
-               | Output Output
-              deriving (Show, Eq, Ord)
-
-instance Enum Parameter where
-  toEnum i
-    | i >= 0    = Input  $ toEnum i
-    | otherwise = Output $ toEnum (- i -1)
-  fromEnum (Input x)  = fromEnum x
-  fromEnum (Output x) = (- fromEnum x) - 1
-  enumFrom x = enumFromTo x maxBound
-
-instance Bounded Parameter where
-  minBound = Output (maxBound)
-  maxBound = Input (maxBound)
-
-
-data Datasets = Customer
-              | Provider
-              | Appliance
-              deriving (Show, Eq, Ord, Enum, Bounded)
-
-data CompletelyDifferentDatasets = SomeData
-                                 | OtherData
-              deriving (Show, Eq, Ord, Enum, Bounded)
-
-
-foo :: Procedure Parameter Datasets
-foo = Procedure {
-      input  = S.map Input  $ S.fromList allValues,
-      output = S.map Output $ S.fromList allValues,
-      includes = includes,
-      influences = influences
-    }
-  where
-    includes (Input A) = S.fromList $ []
-    includes (Input B) = S.fromList $ [Customer, Provider]
-    includes (Input C) = S.fromList $ [Appliance]
-
-    includes (Output X) = S.fromList $ [Customer]
-    includes (Output Y) = S.fromList $ [Customer, Appliance]
-    includes (Output Z) = S.fromList $ []
-
-    influences (Input A) = S.fromList $ fmap Output [X]
-    influences (Input B) = S.fromList $ fmap Output [Y,Z]
-    influences (Input C) = S.fromList $ fmap Output [Y]
-
-    influences _         = S.empty
-
-showMapFun :: (Show a, Show b, Enumerable a, Ord a, Ord b) => (a -> b) -> String
-showMapFun f = show $ fromList $ [(x, f x) | x <- allValues]
-
-
-instance (Show p, Show d, Ord p, Ord d, Enumerable p) =>  Show (Procedure p d) where
-  show (Procedure { input, output, includes, influences}) =
-    "Procedure { input = " ++ (show input) ++ ", output = " ++ (show output) ++ ", includes = (M.!) $ M." ++ (showMapFun includes) ++ ", influences = (M.!) $ M." ++ (showMapFun influences) ++ " }"
-
-instance (Enumerable d, Ord d) => Arbitrary (Procedure Parameter d) where
-  arbitrary = do
-      as <- sublistOf allValues
-      bs <- sublistOf allValues
-      cs <- sublistOf allValues
-      xs <- sublistOf allValues
-      ys <- sublistOf allValues
-      zs <- sublistOf allValues
-      let includes = includesFrom as bs cs xs ys zs
-      as <- sublistOf allValues
-      bs <- sublistOf allValues
-      cs <- sublistOf allValues
-      let influences = influencesFrom as bs cs
-      return $ Procedure {
-         input  = S.map Input  $ S.fromList allValues,
-         output = S.map Output $ S.fromList allValues,
-         includes = includes,
-         influences = influences
-       }
-   where
-    includesFrom as bs cs xs ys zs = includes
-      where includes (Input A) = S.fromList $ as
-            includes (Input B) = S.fromList $ bs
-            includes (Input C) = S.fromList $ cs
-            includes (Output X) = S.fromList $ xs
-            includes (Output Y) = S.fromList $ ys
-            includes (Output Z) = S.fromList $ zs
-    influencesFrom as bs cs = influences
-      where influences (Input A) = S.fromList $ fmap Output as
-            influences (Input B) = S.fromList $ fmap Output bs
-            influences (Input C) = S.fromList $ fmap Output cs
-            influences _         = S.empty
-
-
-data SpecificationPair p d d' = SpecificationPair (Procedure p d) (Procedure p d') deriving Show
-instance (Enumerable d, Ord d, Enumerable d', Ord d') => Arbitrary (SpecificationPair Parameter d d') where
-  arbitrary = do
-      pr  <- arbitrary
-      pr' <- arbitrary
-      return $ SpecificationPair pr (pr { includes = includes pr' })
-
-
-bar :: Procedure Parameter Datasets
-bar = Procedure {
-      input  = S.map Input  $ S.fromList allValues,
-      output = S.map Output $ S.fromList allValues,
-      includes = includes,
-      influences = influences
-    }
-  where
-    includes (Input A) = S.fromList $ []
-    includes (Input B) = S.fromList $ [Customer, Provider]
-    includes (Input C) = S.fromList $ [Appliance]
-
-    includes (Output X) = S.fromList $ [Customer]
-    includes (Output Y) = S.fromList $ [Customer, Appliance, Provider]
-    includes (Output Z) = S.fromList $ []
-
-    influences (Input A) = S.fromList $ fmap Output [X]
-    influences (Input B) = S.fromList $ fmap Output [Y,Z]
-    influences (Input C) = S.fromList $ fmap Output [Y]
-
-    influences _         = S.empty    
-
-
-
-
-example = Procedure { input = fromList [Input A,Input B,Input C],
-                   output = fromList [Output X,Output Y,Output Z],
-                   includes  = (M.!) $ M.fromList [(Input A,fromList [Customer,Appliance]),
-                                                     (Input B,fromList [Customer]),
-                                                     (Input C,fromList [Customer,Appliance]),
-                                                     (Output X,fromList [Customer,Provider]),
-                                                     (Output Y,fromList [Customer]),
-                                                     (Output Z,fromList [Customer,Provider,Appliance])],
-                  influences = (M.!) $ M.fromList [(Input A,fromList [Output Y]),
-                                                      (Input B,fromList [Output Y,Output Z]),
-                                                      (Input C,fromList [Output Y,Output Z]),
-                                                      (Output X,fromList []),
-                                                      (Output Y,fromList []),
-                                                      (Output Z,fromList [])]
-                 }
-
-
+-- The standard low/high lattice
 data LowHigh = Low
              | High
              deriving (Show, Eq, Ord, Enum, Bounded)
 
-
+lowhigh :: OrderedSet LowHigh
 lowhigh = (S.fromList [Low, High], (⊑))
   where Low  ⊑ Low  = True
         Low  ⊑ High = True
         High ⊑ High = True
         High ⊑ Low  = False
 
-datasets :: (Ord d, Ord p) => Procedure p d -> Set d
-datasets (Procedure { input, output, includes, influences}) = fromList [ d | p <- toList $ output ∪ input, d <- toList $ includes p]
 
 
-greiner :: (Ord d, Ord p) => Procedure p d -> [(p -> LowHigh, OrderedSet LowHigh)]
+-- An verification condition (derived from a ifc specification) is
+-- a "classical" non-interference condition, and hence consists of
+-- * a lattice structure on on the set l of security levels
+-- * a mapping from parameters to their security level in l
+type VerificationCondition p l = (OrderedSet l, p -> l)
+
+-- A SpecificationInterpretation gives a ifc specification meaning by
+-- deriving a number of verification conditions that all have to hold
+-- for the ifc specification to hold.
+type SpecificationInterpretation p d l = Procedure p d -> [VerificationCondition p l]
+
+
+-- Simon's approach for KeY is to translate the ifc-specification into several non-interference verification
+-- condition, each for the LowHigh lattice.
+greiner :: (Ord d, Ord p) => SpecificationInterpretation p d LowHigh
 greiner pr@(Procedure { input, output, includes, influences}) =
-    [ ((\p -> if (d ∈ includes p) then High else Low), lowhigh) | d <- toList $ datasets pr]
+    [ (lowhigh, (\p -> if (d ∈ includes p) then High else Low)) | d <- toList $ datasets pr]
 
+-- Martin's Approach for JOANA generates just one JOANA-Specification, using the powerset-lattice of d.
+hecker :: (Ord d, Ord p) => SpecificationInterpretation p d (Set d)
+hecker pr@(Procedure { input, output, includes, influences}) = [((powerset (datasets pr), (⊆)), includes )]
 
-greiner2 :: (Ord d, Ord p) => Procedure p d -> [(p -> LowHigh, OrderedSet LowHigh)]
-greiner2 pr@(Procedure { input, output, includes, influences}) =
-    [ ((\p -> if (d ∈ includes p) then Low else High), lowhigh) | d <- toList $ datasets pr]
-
-
-hecker :: (Ord d, Ord p) => Procedure p d -> (p -> Set d, OrderedSet (Set d))
-hecker pr@(Procedure { input, output, includes, influences}) = (includes,  (powerset (datasets pr), (⊆)) )
-
-                                                                                                    
-hecker2 :: (Ord d, Ord p) => Procedure p d -> (p -> Set d, OrderedSet (Set d))
-hecker2 pr@(Procedure { input, output, includes, influences}) = (includes,  (powerset (datasets pr), (⊇)) )
-                                                                                                    
-
-  
-secure :: (Ord p) => Procedure p d -> (p -> l) -> OrderedSet l -> Bool
-secure (Procedure { input, output, includes, influences}) classifiedAs (l,(⊑)) =
+-- In this simplified model, a procedures implementation is abstractly defined by it's  information-flow
+-- between input and output variables, as defined by the function "influences".
+-- Hence, a verification condition holds if this flow does not exceed that allowed by the flow lattice:
+holds :: (Ord p) => Procedure p d -> VerificationCondition p l -> Bool
+holds (Procedure { input, output, includes, influences}) ((l,(⊑)), classifiedAs) =
     (∀) input (\(i :: p) ->   (∀) output (\(o :: p) ->
           (o ∈ (influences i)) → (classifiedAs i ⊑ classifiedAs o)
     ))
 
+-- Given an ifc-specification interpretation (e.g. "hecker" or "greiner"),
+-- a procedure pr is secure iff all its verification conditions hold.
+secure interpretation pr = and [ holds pr condition | condition <- interpretation pr ]
 
-hIsG :: Procedure Parameter Datasets -> Bool
-hIsG = heckerIsGreiner
-
+-- Lemma 1.: Hecker and Greiner are equivalent! Otherwise, we couldn't use KeY and JOANA interchangably!!
 heckerIsGreiner :: (Ord d, Ord p) => Procedure p d -> Bool
-heckerIsGreiner p = 
-       and [ secure p classifiedAsGreiner latticeGreiner | (classifiedAsGreiner, latticeGreiner) <- greiner p]
-    == secure p classifiedAsHecker latticeHecker where     (classifiedAsHecker,  latticeHecker)   = hecker p
-
--- heckerOf  :: Procedure Parameter Datasets -> Bool
-heckerOf  p = secure p classifiedAsHecker latticeHecker where     (classifiedAsHecker,  latticeHecker)   = hecker p
-
--- greinerOf :: (Ord d, Ord p) => Procedure p d -> Bool
-greinerOf p = and [ secure p classifiedAsGreiner latticeGreiner | (classifiedAsGreiner, latticeGreiner) <- greiner p]
-
-h2IsG2 :: Procedure Parameter Datasets -> Bool
-h2IsG2 = hecker2IsGreiner2
-
-hecker2IsGreiner2 :: (Ord d, Ord p) => Procedure p d -> Bool
-hecker2IsGreiner2 p = 
-       and [ secure p classifiedAsGreiner2 latticeGreiner2 | (classifiedAsGreiner2, latticeGreiner2) <- greiner2 p]
-    == secure p classifiedAsHecker2 latticeHecker2 where     (classifiedAsHecker2,  latticeHecker2)   = hecker2 p
-
-hecker2Of  :: Procedure Parameter Datasets -> Bool
-hecker2Of  p = secure p classifiedAsHecker2 latticeHecker2 where     (classifiedAsHecker2,  latticeHecker2)   = hecker2 p
-
-greiner2Of :: (Ord d, Ord p) => Procedure p d -> Bool
-greiner2Of p = and [ secure p classifiedAsGreiner2 latticeGreiner2 | (classifiedAsGreiner2, latticeGreiner2) <- greiner2 p]
+heckerIsGreiner pr = secure hecker pr ↔ secure greiner pr
 
 
+-- Before we can we define a criterion which allows us to re-use existing non-interference proofs by employing *relabelings*,
+-- we introduce the concept of "weak / strong" ifc-specifications:
 
-mostPreciseIsSecure :: (Ord p) => Procedure p d -> Bool
-mostPreciseIsSecure p = heckerOf (mostPreciseLabeling p)
-
-mostPreciseLabeling :: (Ord p) => Procedure p d -> Procedure p p
-mostPreciseLabeling pr@(Procedure { input, output, influences}) = pr {
-      includes = includes
-    }
-  where includes p
-          | p ∈ input  = S.fromList [p]
-          | p ∈ output = S.fromList [i | i <- toList input, p ∈ influences i]
-          | otherwise = S.fromList [] -- TODO: require some wellformedness for procedures
-
-
-
+-- given two different ifc requirements for the same procedure using the same datasets,
+-- i.e.: given procedures pr, pr' such that
+--   * input  pr == input  pr'
+--   * output pr == output pr'
+--   * influences pr == influences pr'
+-- , the ifc requirement of pr is called "naively stronger" than that of pr' iff
+--      pr `isNaivelyStrongerThan` pr'
+-- as defined here:
+isNaivelyStrongerThan ::  (Ord d) => Procedure p d ->  Procedure p d -> Bool
+pr `isNaivelyStrongerThan` pr'  =
+      and [ includes pr' p ⊆ includes pr p | p <- toList $ input pr]
+  &&  and [ includes pr' p ⊇ includes pr p | p <- toList $ output pr]
 
 
+-- Some properties concerning weakenings:
+--
+-- Lemma 2.: weakenings of secure ifc-specifications are secure.
+secureWeakeningsAreSecure :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Procedure p d -> Property
+secureWeakeningsAreSecure pr pr' =
+  (secure hecker pr) && (pr `isNaivelyStrongerThan` pr')
+  ==>
+  (secure hecker pr')
+-- unfortunately, naively checking this using QuickCheck is inefficient.
 
+-- Instead, we define the enumeration of all "weakenings" of a given ifc specification:
 -- "weakings pr" enumerates all weakenings of pr, i.e. all procedures pr' such that
 --      pr `isNaivelyStrongerThan` pr'
--- as defined below
 weakenings :: (Ord d, Ord p, Enum d, Bounded d) => Procedure p d -> [Procedure p d]
 weakenings pr@(Procedure { input, output, includes, influences}) =
    [ pr { includes = \p -> fromJust $ lookup p choice } | choice <- choices ]
@@ -310,35 +123,36 @@ weakenings pr@(Procedure { input, output, includes, influences}) =
           where as  = fmap fst choices
                 bss = fmap snd choices
 
--- given two different ifc requirements for the same procedure,
--- i.e.: given procedures pr, pr' such that
---   * input  pr == input  pr'
---   * output pr == output pr'
---   * influences pr == influences pr'
--- , the ifc requirement of pr is called "naively stronger" than that of pr' iff
---      pr `isNaivelyStrongerThan` pr'
--- as defined here.
-isNaivelyStrongerThan ::  (Ord d) => Procedure p d ->  Procedure p d -> Bool
-pr `isNaivelyStrongerThan` pr'  =
-      and [ includes pr' p ⊆ includes pr p | p <- toList $ input pr]
-  &&  and [ includes pr' p ⊇ includes pr p | p <- toList $ output pr]
 
-
-
--- Some QuickCheck predicates concerning weakenings
---
--- 1) weakenings do indeed weaken the ifc requirement
+-- Then, we check the following two properties, which is sufficient under the
+-- assumption that "weakenings" does indeed enumerate *all* weakenings:
+-- Lemma 2a: weakenings do indeed "naively weaken" the ifc requirement
 weakeningsAreWeaker :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Bool
 weakeningsAreWeaker pr = and [ pr `isNaivelyStrongerThan` pr' | pr' <- weakenings pr ]
 
--- 2) if pr fullfills its ifc requirement, then also all weakenings of pr do
+-- Lemma 2b.: if pr fullfills its ifc requirement, then also all weakenings of pr do
 weakeningsAreSafe :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Property
-weakeningsAreSafe pr = heckerOf pr ==>
-  and [ heckerOf pr' |  pr' <- weakenings pr ]
+weakeningsAreSafe pr = secure hecker pr ==>
+  and [ secure hecker pr' |  pr' <- weakenings pr ]
 
 
 
 
+-- Now we can define a criterion which allows us to re-use existing non-interference proofs by employing *relabelings*.
+-- Assume that we have
+-- * an existing ifc specification (named: pr)  in terms of a set d  (of datasets)
+-- * proven pr secure, by establishing all verification conditions derived by the interpretation hecker
+--  (or interpretation greiner  which, by property heckerIsGreiner, is equivalent)
+-- Assume moreover, that  we have
+-- * a  new      ifc specification (named: pr') in terms of a set d' (of datasets)
+-- * a relabeling g0, which interprets datasets ds' ∈ d' in terms of sets of datasets ds ⊆ d
+--
+-- We are looking for a criterion "isConsistentRelabelingFor" such that when (isConsistentRelabelingFor g0 pr pr'),
+-- it is guaranteed that also pr is secure.
+-- The following Definition does so by checking that after restating pr' in terms of datasets d (by appling relabeling g0),
+-- the resulting ifc specification pr'Relabeled is "naively weaker" than pr.
+  -- By "secureWeakeningsAreSecure" (Lemma 2), we conclude that this definition is adequate.
+--
 isConsistentRelabelingFor :: forall d d' p. Ord d => (d' -> Set d) -> Procedure p d -> Procedure p d' -> Bool
 isConsistentRelabelingFor g0 pr pr' =  pr `isNaivelyStrongerThan` pr'Relabeled
   where g :: Set d' -> Set d
@@ -346,54 +160,54 @@ isConsistentRelabelingFor g0 pr pr' =  pr `isNaivelyStrongerThan` pr'Relabeled
         pr'Relabeled :: Procedure p d
         pr'Relabeled = pr' { includes = \p -> g (includes pr' p) }
 
-intersections :: (Ord a, Enum a, Bounded a) => [Set a] -> Set a
-intersections = P.foldl S.intersection (fromList allValues)
-
-lowerAdjoint :: (Bounded d', Enum d', Ord d', Ord d) => (Set d' -> Set d) -> (Set d -> Set d')
-lowerAdjoint g ds = intersections [ ds' | ds' <- toList $ powerset (fromList allValues), ds ⊆ g ds' ]
-
-upperAdjoint :: (Bounded d, Enum d, Ord d', Ord d) => (Set d -> Set d') -> (Set d' -> Set d)
-upperAdjoint f ds' = unions [ ds | ds <- toList $ powerset (fromList allValues), f ds ⊆ ds' ]
-
-gFrom g0 ds' = unions [ g0 d' | d' <- toList ds']
 
 
-hasFewerFlowsThan ::  (Ord p) => Procedure p d ->  Procedure p d' -> Bool
-pr `hasFewerFlowsThan` pr'  =
-      and [ influences pr p ⊆ influences pr' p | p <- toList $ input pr]
+
+-- Unfortunately, using at least this version of "relabeling", we cannot provide for the database component
+-- a generic ifc-specification in terms of datasets "Time" and "Data" from which we can infer that the ifc specification
+-- in the paper is correct, since there is no consistent relabeling between those!
+-- See noConsistentRelabelingGetValue from module Instances.PaperExample.ExampleOne.Noninterference
+
+-- There may be several ways to fix this.
+-- a) Take the meaning of "relabeling" as it is, but find a better Definition of isConsistentRelabelingFor.
+-- b) Change the meaning of  "relabeling".
+--    Maybe things work out if we take a relabeling to be a function ::
+--    (d  -> Set d') instead of
+--    (d' -> Set d) ?!?
+--    What would the definition of isConsistentRelabelingFor be then?
+-- c) abandon the concept of "relabeling"
+
+-- In the following, i will develop option c)
+-- Given two ifc specifications pr and pr', i propose to define the notion
+--   pr `isStrongerThan` pr'          which, unlike
+--   pr `isNaivelyStrongerThan` pr'
+-- is defined even if pr is stated in terms of a set d (of datasets) *different* from d', in which pr' is stated.
+-- We will then have the property (Theorem 3.):
+isStrongerThanIsJustifiedUntestable ::  (Ord p, Ord d, Ord d') => Procedure p d ->  Procedure p d' -> Property
+isStrongerThanIsJustifiedUntestable pr pr' =
+       (
+            (secure hecker pr)
+        &&  (input  pr) == (input  pr')
+        &&  (output pr) == (output pr')
+        &&  (pr  `isStrongerThan` pr')
+        &&  (∀) (input pr) (\p -> influences pr p == influences pr' p)
+       )
+   ==>      (secure hecker pr')
+
+-- It is impracticable to directly check this property with QuickCheck, since the technical preconditions will almost never
+-- be fullfilled. Hence we will use a generator that always produces two specifications for the "same" procedure (Theorem 3'.):
+isStrongerThanIsJustified ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
+isStrongerThanIsJustified (SpecificationPair pr pr') =
+       (
+            (secure hecker pr)
+        &&  (pr  `isStrongerThan` pr')
+       )
+   ==>      (secure hecker pr')
 
 
-fewerFlowsIffSecure  :: forall d p. (Ord d, Ord p) => Procedure p d -> Bool
-fewerFlowsIffSecure procedure@(Procedure { input, output, includes, influences}) =
-       (secure procedure classifiedAsHecker latticeHecker)
-   ==  (procedure `hasFewerFlowsThan` (γ procedure))
-  where (classifiedAsHecker,  latticeHecker) = hecker procedure
 
-
-γ :: (Ord d, Ord p) => Procedure p d -> Procedure p d
-γ procedure@(Procedure { input, output, includes }) =
-  procedure { influences = \p ->
-                if (p ∈ input) then fromList [ p' | p' <- toList output, includes p ⊆ includes p' ]
-                               else fromList []
-            }
-
--- .. or equivalently:
-γ' :: (Ord d, Ord p) => Procedure p d -> Procedure p d
-γ' procedure@(Procedure { input, output, includes }) =
-  procedure { influences = \p ->
-                if (p ∈ input) then output ∖ fromList [ p' | p' <- toList output, ds <- toList $ includes p,
-                                                                                  not $ ds ∈ includes p' ]
-                               else fromList []
-            }
-γIsγ' :: (Show d, Show p, Enum p, Bounded p, Ord d, Ord p) => Procedure p d -> Bool
-γIsγ' pr = (show $ γ pr) == (show $ γ' pr) -- TODO: dont use hacky string-comparison
-
-
-γMostPreciseIsMostPrecuse :: (Ord d, Ord p) => Procedure p d -> Bool
-γMostPreciseIsMostPrecuse pr = and [ influences pr p == influences pr' p | p <- toList $ input pr ]
-  where pr' = γ (mostPreciseLabeling pr)
-
--- given two different ifc requirements for the same procedure,
+-- Now the definition of `isStrongerThan`:
+-- Given two different ifc requirements for the same procedure,
 -- i.e.: given procedures pr, pr' such that
 --   * input  pr == input  pr'
 --   * output pr == output pr'
@@ -408,7 +222,42 @@ pr@(Procedure { input = input, output = output, includes = includes }) `isStrong
         fromList [ p' | p' <- toList output, includes' p ⊆ includes' p' ]
       | p <- toList $ input]
 
--- .. which is simply the expansion of:    (γ pr) `hasFewerFlowsThan` (γ pr'):
+
+
+
+-- The defintion can be derived from a few concept.
+-- We will assume a fixed set of input and output parameters. I.e.: any
+--   pr :: Procedure p d
+-- we consider in this section will have the same set (input pr) of input-,
+-- and the same set (output pr) of output-parameters.
+-- Also, given pr :: Procedure p d, we will consider (influences pr) to be an  "implementation" of a function between these parameters.
+-- Likewise, we will consider (includes pr) to be the ifc specification.
+
+-- Concept I.:     One "implementation" of a procedure may have fewer flows than another:
+hasFewerFlowsThan ::  (Ord p) => Procedure p d ->  Procedure p d' -> Bool
+pr `hasFewerFlowsThan` pr'  =
+      and [ influences pr p ⊆ influences pr' p | p <- toList $ input pr]
+
+
+-- Concept II.:  The ifc specification part of a given procedure
+-- pr :: Procedure p d
+-- can be understood as an abstraction of all "implementations" that satisfy the specification.
+-- Among all such "implementations", there is one that is "most-leaking" (one with the most flows),
+-- i.e.: there is one implementation γ(pr) that is the least
+-- upper bound (by the partial order `hasFewerFlowsThan`), given by:
+γ :: (Ord d, Ord p) => Procedure p d -> Procedure p d
+γ procedure@(Procedure { input, output, includes }) =
+  procedure { influences = \p ->
+                if (p ∈ input) then fromList [ p' | p' <- toList output, includes p ⊆ includes p' ]
+                               else fromList []
+            }
+
+-- We then say that a specification pr is stronger than a specification pr' if the most-leaking implementation of pr
+-- has fewer flows than the most-leaking implementation of pr':
+--   pr `isStrongerThan` pr' ↔ (γ pr) `hasFewerFlowsThan` (γ pr')
+-- Indeed, this is equivalent to the definition of isStrongerThan given above,
+-- which is easily shown by unfolding the definition of γ.
+-- Lemma 4.:
 isStrongerThanIsHasFewerFlowsThan ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Bool
 isStrongerThanIsHasFewerFlowsThan (SpecificationPair pr pr') =
       (γ pr) `hasFewerFlowsThan` (γ pr')
@@ -416,25 +265,75 @@ isStrongerThanIsHasFewerFlowsThan (SpecificationPair pr pr') =
 
 
 
--- .. and more applicable than `isStrongerThan`:
--- paranoids will want to check with:
---    quickCheckWith  stdArgs { maxDiscardRatio = 200 } (isStrongerThanIsBetterThanIsNaivelyStrongerThan :: SpecificationPair Parameter Datasets Datasets -> Property)
+
+-- Property isStrongerThanIsJustified says that `isStrongerThan` is a "sound" criterion for re-use of specifications.
+-- But is it better than `isConsistentRelabelingFor` ?!?!
+-- At the minimum, it is not worse (Lemma 5.)
 isStrongerThanIsBetterThanIsNaivelyStrongerThan ::  (Ord p, Ord d) => SpecificationPair p d d -> Property
 isStrongerThanIsBetterThanIsNaivelyStrongerThan (SpecificationPair pr pr') =
        pr  `isNaivelyStrongerThan` pr'
   ==>  pr  `isStrongerThan`        pr'
 
 
+-- To see that it is better,
+-- see isStrongerThanCriterionHolds from module Instances.PaperExample.ExampleOne.Noninterference
 
--- Ultimately, we're interested in the following property.
--- paranoids will want to check with:
--- quickCheckWith  stdArgs { maxDiscardRatio = 400 } (isStrongerThanIsJustified :: SpecificationPair Parameter Datasets Datasets -> Property)
-isStrongerThanIsJustified ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
-isStrongerThanIsJustified (SpecificationPair pr pr') =
-       (
-            (secure pr  classifiedAsHecker  latticeHecker )
-        &&  (pr  `isStrongerThan`        pr')
-       )
-   ==>      (secure pr' classifiedAsHecker' latticeHecker')
-  where (classifiedAsHecker ,  latticeHecker ) = hecker pr
-        (classifiedAsHecker',  latticeHecker') = hecker pr'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- It follows a section with some non-essential considerations.
+
+-- Given an "implementation" pr, we can derive, in some sense, it's most-precise ifc specification α(pr).
+-- This is "the" [1] strongest ifc specification that pr fullfills:
+α :: (Ord p) => Procedure p d -> Procedure p p
+α pr@(Procedure { input, output, influences}) = pr {
+      includes = includes
+    }
+  where includes p
+          | p ∈ input  = S.fromList [p]
+          | p ∈ output = S.fromList [i | i <- toList input, p ∈ influences i]
+          | otherwise = S.fromList [] -- TODO: require some wellformedness for procedures
+
+-- Every "implementation" pr does indeed fullfill the ifc-specification α(pr):
+mostPreciseIsSecure :: (Ord p) => Procedure p d -> Bool
+mostPreciseIsSecure p = secure hecker (α p)
+
+-- Every "implementation" pr is equal to the the most-leaking implementation of it's most-precise ifc-specification
+γMostPreciseIsMostPrecuse :: (Ord d, Ord p) => Procedure p d -> Bool
+γMostPreciseIsMostPrecuse pr = pr `eqImpl` γ (α pr)
+  where pr `eqImpl` pr' = and [ influences pr p == influences pr' p | p <- toList $ input pr ]
+
+
+-- An auxilarry properties, that demonstrate that the definitions above are all natural:
+fewerFlowsIffSecure  :: forall d p. (Ord d, Ord p) => Procedure p d -> Bool
+fewerFlowsIffSecure procedure@(Procedure { input, output, includes, influences}) =
+       (secure hecker procedure)
+   ↔  (procedure `hasFewerFlowsThan` (γ procedure))
+
+-- An alternative definition of γ
+γ' :: (Ord d, Ord p) => Procedure p d -> Procedure p d
+γ' procedure@(Procedure { input, output, includes }) =
+  procedure { influences = \p ->
+                if (p ∈ input) then output ∖ fromList [ p' | p' <- toList output, ds <- toList $ includes p,
+                                                                                  not $ ds ∈ includes p' ]
+                               else fromList []
+            }
+γIsγ' :: (Show d, Show p, Enum p, Bounded p, Ord d, Ord p) => Procedure p d -> Bool
+γIsγ' pr = (show $ γ pr) == (show $ γ' pr) -- TODO: dont use hacky string-comparison
+
+
+
+
+
+
