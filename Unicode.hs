@@ -1,7 +1,12 @@
 module Unicode where
 
+import Prelude hiding (elem)
 import Algebra.Lattice
-import Data.Set as S
+import Data.Foldable
+import Data.List (filter)
+import qualified Data.Set as S
+import Data.Set.Unicode hiding ((∈))
+import Data.Bool.Unicode as Bool
 
 
 infixl 6 ⊔
@@ -25,6 +30,8 @@ infixl 7 ⊓
 (∏) :: (BoundedJoinSemiLattice a) => [a] -> a
 (∏) = joins
 
+(⋃) :: (Ord a) => [S.Set a] -> S.Set a
+(⋃) = S.unions
 
 𝝁 :: (Eq a, BoundedJoinSemiLattice a) => (a -> a) -> a
 𝝁 = lfp
@@ -35,8 +42,8 @@ infixl 7 ⊓
 (㎲⊒) :: (Eq a, BoundedJoinSemiLattice a) => a -> (a -> a) -> a
 (㎲⊒) = lfpFrom
 
-(∀) :: (Eq a, Ord a) => Set a -> (a -> Bool) -> Bool
-(∀) a pred = S.null $ S.filter (not.pred) a
+(∀) :: (Foldable t) => t a -> (a -> Bool) -> Bool
+(∀) a pred = null $ filter (not.pred) $ toList a
 
 
 (→) :: Bool -> Bool -> Bool

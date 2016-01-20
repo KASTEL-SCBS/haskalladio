@@ -18,6 +18,7 @@ checkAllProperties = do
   quickCheck (mostPreciseIsSecure                             :: Procedure Parameter Datasets -> Bool)
   quickCheck (γMostPreciseIsMostPrecuse                       :: Procedure Parameter Datasets -> Bool)
   quickCheck (fewerFlowsIffSecure                             :: Procedure Parameter Datasets -> Bool)
+  quickCheck (γIsγ'                                           :: Procedure Parameter Datasets -> Bool)
 
 
 

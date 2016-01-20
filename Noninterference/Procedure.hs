@@ -7,11 +7,13 @@ import Data.Set as S
 import Data.Set.Unicode
 
 
--- A Procedure is described by
--- * influences p: the set of output-parameters p may influence
--- * includes p: its parameter classifcation, as set of datasets
+-- A Procedure pr :: Procedure p d  is described by
+-- * input  pr: the set of input  parameters (of type p)
+-- * output pr: the set of output parameters (of type p)
+-- * influences pr: the set of output-parameters p may influence, which is our simplified idea of the procedures implementation
+-- * includes pr: its parameter classifcation, as set of datasets (of type d)
 --
--- "includes" hence implicitly specifies an ifc requirement, which may or may not be fullfilled by "influences".
+-- "includes" hence implicitly specifies an ifc specification, which may or may not be fullfilled by "influences".
 data Procedure p d = Procedure {
     input :: Set p,
     output :: Set p,

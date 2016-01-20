@@ -75,7 +75,8 @@ holds (Procedure { input, output, includes, influences}) ((l,(⊑)), classifiedA
 
 -- Given an ifc-specification interpretation (e.g. "hecker" or "greiner"),
 -- a procedure pr is secure iff all its verification conditions hold.
-secure interpretation pr = and [ holds pr condition | condition <- interpretation pr ]
+secure :: (Ord p) => SpecificationInterpretation p d l -> Procedure p d -> Bool
+secure interpretation pr = (∀) (interpretation pr) (\condition -> holds pr condition)
 
 -- Lemma 1.: Hecker and Greiner are equivalent! Otherwise, we couldn't use KeY and JOANA interchangably!!
 heckerIsGreiner :: (Ord d, Ord p) => Procedure p d -> Bool
@@ -128,12 +129,12 @@ weakenings pr@(Procedure { input, output, includes, influences}) =
 -- assumption that "weakenings" does indeed enumerate *all* weakenings:
 -- Lemma 2a: weakenings do indeed "naively weaken" the ifc requirement
 weakeningsAreWeaker :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Bool
-weakeningsAreWeaker pr = and [ pr `isNaivelyStrongerThan` pr' | pr' <- weakenings pr ]
+weakeningsAreWeaker pr = (∀) (weakenings pr) (\pr' -> pr `isNaivelyStrongerThan` pr')
 
 -- Lemma 2b.: if pr fullfills its ifc requirement, then also all weakenings of pr do
 weakeningsAreSafe :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Property
 weakeningsAreSafe pr = secure hecker pr ==>
-  and [ secure hecker pr' |  pr' <- weakenings pr ]
+  (∀) (weakenings pr) (\pr' -> secure hecker pr')
 
 
 
@@ -156,7 +157,8 @@ weakeningsAreSafe pr = secure hecker pr ==>
 isConsistentRelabelingFor :: forall d d' p. Ord d => (d' -> Set d) -> Procedure p d -> Procedure p d' -> Bool
 isConsistentRelabelingFor g0 pr pr' =  pr `isNaivelyStrongerThan` pr'Relabeled
   where g :: Set d' -> Set d
-        g = gFrom g0
+        g ds' = (⋃) [ g0 d' | d' <- toList ds']
+
         pr'Relabeled :: Procedure p d
         pr'Relabeled = pr' { includes = \p -> g (includes pr' p) }
 
@@ -217,10 +219,11 @@ isStrongerThanIsJustified (SpecificationPair pr pr') =
 -- as defined here.
 isStrongerThan ::  (Ord p, Ord d, Ord d') => Procedure p d ->  Procedure p d' -> Bool
 pr@(Procedure { input = input, output = output, includes = includes }) `isStrongerThan` pr'@(Procedure { includes = includes' })  =
-  and [ fromList [ p' | p' <- toList output, includes  p ⊆ includes  p' ]
+  (∀) input  (\p -> 
+        fromList [ p' | p' <- toList output, includes  p ⊆ includes  p' ]
         ⊆
         fromList [ p' | p' <- toList output, includes' p ⊆ includes' p' ]
-      | p <- toList $ input]
+  )
 
 
 
@@ -236,7 +239,7 @@ pr@(Procedure { input = input, output = output, includes = includes }) `isStrong
 -- Concept I.:     One "implementation" of a procedure may have fewer flows than another:
 hasFewerFlowsThan ::  (Ord p) => Procedure p d ->  Procedure p d' -> Bool
 pr `hasFewerFlowsThan` pr'  =
-      and [ influences pr p ⊆ influences pr' p | p <- toList $ input pr]
+      (∀) (input pr) (\p -> influences pr p ⊆ influences pr' p )
 
 
 -- Concept II.:  The ifc specification part of a given procedure
@@ -301,9 +304,9 @@ isStrongerThanIsBetterThanIsNaivelyStrongerThan (SpecificationPair pr pr') =
       includes = includes
     }
   where includes p
-          | p ∈ input  = S.fromList [p]
-          | p ∈ output = S.fromList [i | i <- toList input, p ∈ influences i]
-          | otherwise = S.fromList [] -- TODO: require some wellformedness for procedures
+          | p ∈ input  = fromList [p]
+          | p ∈ output = fromList [i | i <- toList input, p ∈ influences i]
+          | otherwise  = fromList [] -- TODO: require some wellformedness for procedures
 
 -- Lemma 6. Every "implementation" pr does indeed fullfill the ifc-specification α(pr):
 mostPreciseIsSecure :: (Ord p) => Procedure p d -> Bool
@@ -312,7 +315,7 @@ mostPreciseIsSecure p = secure hecker (α p)
 -- Lemma 7. Every "implementation" pr is equal to the the most-leaking implementation of it's most-precise ifc-specification
 γMostPreciseIsMostPrecuse :: (Ord d, Ord p) => Procedure p d -> Bool
 γMostPreciseIsMostPrecuse pr = pr `eqImpl` γ (α pr)
-  where pr `eqImpl` pr' = and [ influences pr p == influences pr' p | p <- toList $ input pr ]
+  where pr `eqImpl` pr' = (∀) (input pr) (\p -> influences pr p == influences pr' p)
 
 
 -- Lemma 8. An auxilarry properties, that demonstrate that the definitions above are all natural:
