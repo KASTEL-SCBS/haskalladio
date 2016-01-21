@@ -53,3 +53,8 @@ infixl 7 ⊓
 infix 4 ↔
 (↔) :: Bool -> Bool -> Bool
 (↔) = (==)
+
+
+infix 4 ⇔
+(⇔) :: Bool -> Bool -> Bool
+(⇔) = (==)

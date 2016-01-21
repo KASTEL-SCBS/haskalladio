@@ -1,9 +1,9 @@
+%if False
 \begin{code}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE UndecidableInstances #-}
-
 
 module Noninterference where
 
@@ -15,6 +15,7 @@ import Prelude as P
 
 import Algebra.Lattice
 import Unicode
+import Data.Bool.Unicode
 
 import Data.Set as S
 import Data.Set.Unicode
@@ -26,11 +27,16 @@ import Control.Monad.Writer
 import Control.Monad
 
 import Test.QuickCheck hiding (output)
+\end{code}
+%endif
 
+Preliminaries
+=============
 
-
+\begin{code}
 type OrderedSet p = (Set p, p -> p -> Bool)
 \end{code}
+
 The standard low/high lattice
 \begin{code}
 data LowHigh = Low
@@ -46,10 +52,15 @@ lowhigh = (S.fromList [Low, High], (⊑))
 \end{code}
 
 
+Verification of IFC Specifications
+==================================
+
 An verification condition (derived from a ifc specification) is
 a "classical" non-interference condition, and hence consists of
-* a lattice structure on on the set l of security levels
-* a mapping from parameters to their security level in l
+
+* a lattice structure on on the set `l` of security levels
+* a mapping from parameters to their security level in `l`
+
 \begin{code}
 type VerificationCondition p l = (OrderedSet l, p -> l)
 \end{code}
@@ -62,21 +73,21 @@ type SpecificationInterpretation p d l = Procedure p d -> [VerificationCondition
 \end{code}
 
 Simon's approach for KeY is to translate the ifc-specification into several non-interference verification
-condition, each for the LowHigh lattice.
+condition, each for the `LowHigh` lattice.
 \begin{code}
 greiner :: (Ord d, Ord p) => SpecificationInterpretation p d LowHigh
 greiner pr@(Procedure { input, output, includes, influences}) =
     [ (lowhigh, (\p -> if (d ∈ includes p) then High else Low)) | d <- toList $ datasets pr]
 \end{code}
 
-Martin's Approach for JOANA generates just one JOANA-Specification, using the powerset-lattice of d.
+Martin's Approach for JOANA generates just one JOANA-Specification, using the powerset-lattice of `d`.
 \begin{code}
 hecker :: (Ord d, Ord p) => SpecificationInterpretation p d (Set d)
 hecker pr@(Procedure { input, output, includes, influences}) = [((powerset (datasets pr), (⊆)), includes )]
 \end{code}
 
-In this simplified model, a procedures implementation is abstractly defined by it's  information-flow
-between input and output variables, as defined by the function "influences".
+In this simplified model, a procedures implementation is abstractly defined by its  information-flow
+between input and output variables, as defined by the function `influences`.
 Hence, a verification condition holds if this flow does not exceed that allowed by the flow lattice:
 \begin{code}
 holds :: (Ord p) => Procedure p d -> VerificationCondition p l -> Bool
@@ -86,30 +97,40 @@ holds (Procedure { input, output, includes, influences}) ((l,(⊑)), classifiedA
     ))
 \end{code}
 
-Given an ifc-specification interpretation (e.g. "hecker" or "greiner"),
+Given an ifc-specification interpretation (e.g. `hecker` or `greiner`),
 a procedure pr is secure iff all its verification conditions hold.
 \begin{code}
 secure :: (Ord p) => SpecificationInterpretation p d l -> Procedure p d -> Bool
 secure interpretation pr = (∀) (interpretation pr) (\condition -> holds pr condition)
 \end{code}
 
-Lemma 1.: Hecker and Greiner are equivalent! Otherwise, we couldn't use KeY and JOANA interchangably!!
+Lemma 1.: `hecker` and `greiner` are equivalent! Otherwise, we couldn't use KeY and JOANA interchangably!!
 \begin{code}
 heckerIsGreiner :: (Ord d, Ord p) => Procedure p d -> Bool
-heckerIsGreiner pr = secure hecker pr ↔ secure greiner pr
+heckerIsGreiner pr = secure hecker pr ⇔ secure greiner pr
 \end{code}
 
 
-Before we can we define a criterion which allows us to re-use existing non-interference proofs by employing *relabelings*,
-we introduce the concept of "weak / strong" ifc-specifications:
+Criteria for Re-use of existing Non-inteference Proofs
+=======================================================
 
-given two different ifc requirements for the same procedure using the same datasets,
+Before we can we define a criterion which allows us to re-use existing non-interference proofs by employing *relabelings*,
+we introduce the naive concept of "weak / strong" ifc-specifications:
+
+"weak / strong" IFC-Specifications  (naively)
+--------------------------------------------
+
+Given two different ifc specifications for the same procedure using the same datasets,
 i.e.: given procedures pr, pr' such that
-  * input  pr == input  pr'
-  * output pr == output pr'
-  * influences pr == influences pr'
-, the ifc requirement of pr is called "naively stronger" than that of pr' iff
-     pr `isNaivelyStrongerThan` pr'
+
+  * `input  pr == input  pr'`
+  * `output pr == output pr'`
+  * `influences pr == influences pr'`
+
+the ifc specification of pr is called "naively stronger" than that of pr' iff
+
+    pr isNaivelyStrongerThan pr'
+
 as defined here:
 \begin{code}
 isNaivelyStrongerThan ::  (Ord d) => Procedure p d ->  Procedure p d -> Bool
@@ -128,6 +149,8 @@ secureWeakeningsAreSecure pr pr' =
   ==>
   (secure hecker pr')
 \end{code}
+
+%if False
 unfortunately, naively checking this using QuickCheck is inefficient.
 
 Instead, we define the enumeration of all "weakenings" of a given ifc specification:
@@ -136,7 +159,6 @@ Instead, we define the enumeration of all "weakenings" of a given ifc specificat
 \begin{code}
 weakenings :: (Ord d, Ord p, Enum d, Bounded d) => Procedure p d -> [Procedure p d]
 \end{code}
-%if False
 \begin{code}
 weakenings pr@(Procedure { input, output, includes, influences}) =
    [ pr { includes = \p -> fromJust $ lookup p choice } | choice <- choices ]
@@ -148,7 +170,6 @@ weakenings pr@(Procedure { input, output, includes, influences}) =
           where as  = fmap fst choices
                 bss = fmap snd choices
 \end{code}
-%endif
 
 Then, we check the following two properties, which is sufficient under the
 assumption that "weakenings" does indeed enumerate *all* weakenings:
@@ -164,26 +185,41 @@ weakeningsAreSafe :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Prope
 weakeningsAreSafe pr = secure hecker pr ==>
   (∀) (weakenings pr) (\pr' -> secure hecker pr')
 \end{code}
+%endif
 
 
-
+A Criterion using Relabelings
+-----------------------------
 
 Now we can define a criterion which allows us to re-use existing non-interference proofs by employing *relabelings*.
 Assume that we have
-* an existing ifc specification (named: pr)  in terms of a set d  (of datasets)
-* proven pr secure, by establishing all verification conditions derived by the interpretation hecker
- (or interpretation greiner  which, by property heckerIsGreiner, is equivalent)
+
+* an existing ifc specification `pr`  in terms of a set `d`  (of datasets)
+* proven `pr` secure, by establishing all verification conditions derived by the interpretation `hecker`
+ (or interpretation `greiner`  which, by property `heckerIsGreiner`, is equivalent)
+
 Assume moreover, that  we have
-* a  new      ifc specification (named: pr') in terms of a set d' (of datasets)
-* a relabeling g0, which interprets datasets ds' ∈ d' in terms of sets of datasets ds ⊆ d
-(of course, simpler relabelings that
-                         interprets datasets ds' ∈ d' to terms of         datasets ds ∈ d
- are a special case of the used notion of "relabeling").
-We are looking for a criterion "isConsistentRelabelingFor" such that when (isConsistentRelabelingFor g0 pr pr'),
-it is guaranteed that also pr is secure.
-The following Definition does so by checking that after restating pr' in terms of datasets d (by appling relabeling g0),
-the resulting ifc specification pr'Relabeled is "naively weaker" than pr.
-  By "secureWeakeningsAreSecure" (Lemma 2), we conclude that this definition is adequate.
+
+  * a  new      ifc specification `pr'` in terms of a set d' (of datasets)
+  * a relabeling `g0`, which interprets datasets
+
+        ds' ∈ d' in terms of sets of datasets ds ⊆ d
+
+Of course, simpler relabelings that interprets datasets
+
+  *
+
+        ds' ∈ d' in terms of         datasets ds ∈ d
+
+are a special case of the used notion of "relabeling".
+
+We are looking for a criterion `isConsistentRelabelingFor` such that when  `isConsistentRelabelingFor g0 pr pr'`,
+it is guaranteed that also `pr` is secure.
+
+The following Definition does so by checking that after restating `pr'` in terms of datasets `d` (by appling relabeling `g0`),
+the resulting ifc specification `pr'Relabeled` is "naively weaker" than `pr`.
+
+By `secureWeakeningsAreSecure` (Lemma 2), we then conclude that `pr'Relabeled` is also secure
 \begin{code}
 isConsistentRelabelingFor :: forall d d' p. Ord d => (d' -> Set d) -> Procedure p d -> Procedure p d' -> Bool
 isConsistentRelabelingFor g0 pr pr' =  pr `isNaivelyStrongerThan` pr'Relabeled
@@ -199,35 +235,49 @@ isConsistentRelabelingFor g0 pr pr' =  pr `isNaivelyStrongerThan` pr'Relabeled
 Unfortunately, using at least this version of "relabeling", we cannot provide for the database component
 a generic ifc-specification in terms of datasets "Time" and "Data" from which we can infer that the ifc specification
 in the paper is correct, since there is no consistent relabeling between those!
-See noConsistentRelabelingGetValue from module Instances.PaperExample.ExampleOne.Noninterference
+
+See `noConsistentRelabelingGetValue` from module `Instances.PaperExample.ExampleOne.Noninterference`
 
 There may be several ways to fix this.
-a) Take the meaning of "relabeling" as it is, but find a better Definition of isConsistentRelabelingFor.
-b) Change the meaning of  "relabeling".
-   Maybe things work out if we take a relabeling to be a function ::
-   (d  -> Set d') instead of
-   (d' -> Set d) ?!?
-   What would the definition of isConsistentRelabelingFor be then?
-c) abandon the concept of "relabeling"
 
-In the following, i will develop option c)
-Given two ifc specifications pr and pr', i propose to define the notion
-  pr `isStrongerThan` pr'          which, unlike
-  pr `isNaivelyStrongerThan` pr'
-is defined even if pr is stated in terms of a set d (of datasets) *different* from d', in which pr' is stated.
+ 1. Take the meaning of "relabeling" as it is, but find a better Definition of `isConsistentRelabelingFor`.
+ 2. Change the meaning of  "relabeling".
+    Maybe things work out if we take a relabeling to be a function
+
+    `(d  -> Set d')` instead of
+
+    `(d' -> Set d)` ?!?
+
+    What would the definition of isConsistentRelabelingFor be then?
+ 3. abandon the concept of "relabeling"
+
+In the following, i will develop option 3.
+
+A Criterion without relabelings
+-------------------------------
+
+Given two ifc specifications `pr` and `pr'`, i propose to define the notion
+
+| `pr isStrongerThan        pr'`           which, unlike
+| `pr isNaivelyStrongerThan pr'`
+
+is defined even if `pr` is stated in terms of a set `d` (of datasets) *different* from `d'` (the set of dataterms in which `pr'` is stated).
+
 We will then have the property (Theorem 3.):
 \begin{code}
 isStrongerThanIsJustifiedUntestable ::  (Ord p, Ord d, Ord d') => Procedure p d ->  Procedure p d' -> Property
 isStrongerThanIsJustifiedUntestable pr pr' =
        (
-            (secure hecker pr)
-        &&  (input  pr) == (input  pr')
-        &&  (output pr) == (output pr')
-        &&  (pr  `isStrongerThan` pr')
-        &&  (∀) (input pr) (\p -> influences pr p == influences pr' p)
+          (secure hecker pr)
+        ∧ (input  pr) == (input  pr')
+        ∧ (output pr) == (output pr')
+        ∧ (pr  `isStrongerThan` pr')
+        ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
        )
    ==>      (secure hecker pr')
 \end{code}
+
+%if False
 It is impracticable to directly check this property with QuickCheck, since the technical preconditions will almost never
 be fullfilled. Hence we will use a generator that always produces two specifications for the "same" procedure (Theorem 3'.):
 \begin{code}
@@ -240,16 +290,22 @@ isStrongerThanIsJustified (SpecificationPair pr pr') =
    ==>      (secure hecker pr')
 \end{code}
 
-
 Now the definition of `isStrongerThan`:
+
+%endif
+
 Given two different ifc requirements for the same procedure,
-i.e.: given procedures pr, pr' such that
-  * input  pr == input  pr'
-  * output pr == output pr'
-  * influences pr == influences pr'
-, the ifc requirement of pr is called "stronger" than that of pr' iff
-     pr `isStrongerThan` pr'
-as defined here.
+i.e.: given procedures `pr`, `pr'` such that
+
+  * `input  pr == input  pr'`
+  * `output pr == output pr'`
+  * `influences pr == influences pr'`
+
+the ifc specification of `pr` is called "stronger" than that of `pr'` iff
+
+    pr `isStrongerThan` pr'
+
+as defined here:
 \begin{code}
 isStrongerThan ::  (Ord p, Ord d, Ord d') => Procedure p d ->  Procedure p d' -> Bool
 pr@(Procedure { input = input, output = output, includes = includes }) `isStrongerThan` pr'@(Procedure { includes = includes' })  =
@@ -260,15 +316,19 @@ pr@(Procedure { input = input, output = output, includes = includes }) `isStrong
   )
 \end{code}
 
+Deriviation of this Criterion
+-----------------------------
 
+This Criterion can be derived from a few concept. Doing this,
+we will assume a fixed set of input and output parameters. I.e.: any
 
-The defintion can be derived from a few concept.
-We will assume a fixed set of input and output parameters. I.e.: any
-  pr :: Procedure p d
-we consider in this section will have the same set (input pr) of input-,
-and the same set (output pr) of output-parameters.
-Also, given pr :: Procedure p d, we will consider (influences pr) to be an  "implementation" of a function between these parameters.
-Likewise, we will consider (includes pr) to be the ifc specification.
+    pr :: Procedure p d
+
+we consider in this section will have the same set `(input pr)` of input-,
+and the same set `(output pr)` of output-parameters.
+
+Also, given `pr :: Procedure p d`, we will consider `(influences pr)` to be an "implementation" of a function between these parameters.
+Likewise, we will consider `(includes pr)` to be the ifc specification.
 
 Concept I.:     One "implementation" of a procedure may have fewer flows than another:
 \begin{code}
@@ -277,12 +337,18 @@ pr `hasFewerFlowsThan` pr'  =
       (∀) (input pr) (\p -> influences pr p ⊆ influences pr' p )
 \end{code}
 
+
+
 Concept II.:  The ifc specification part of a given procedure
+
 pr :: Procedure p d
+
 can be understood as an abstraction of all "implementations" that satisfy the specification.
 Among all such "implementations", there is one that is "most-leaking" (one with the most flows),
-i.e.: there is one implementation γ(pr) that is the least
-upper bound (by the partial order `hasFewerFlowsThan`), given by:
+i.e.: there is one implementation `γ(pr)` that is the least
+upper bound (by the partial order `hasFewerFlowsThan`) of all such implementations.
+
+It is given by:
 \begin{code}
 γ :: (Ord d, Ord p) => Procedure p d -> Procedure p d
 γ procedure@(Procedure { input, output, includes }) =
@@ -292,24 +358,27 @@ upper bound (by the partial order `hasFewerFlowsThan`), given by:
             }
 \end{code}
 
-We then say that a specification pr is stronger than a specification pr' if the most-leaking implementation of pr
-has fewer flows than the most-leaking implementation of pr':
-  pr `isStrongerThan` pr' ↔ (γ pr) `hasFewerFlowsThan` (γ pr')
-Indeed, this is equivalent to the definition of isStrongerThan given above,
-which is easily shown by unfolding the definition of γ.
+We then say that a specification `pr` is stronger than a specification `pr'` if the most-leaking implementation of `pr`
+has fewer flows than the most-leaking implementation of `pr'`:
+
+    pr `isStrongerThan` pr' ⇔ (γ pr) `hasFewerFlowsThan` (γ pr')
+
+Indeed, this is equivalent to the definition of `isStrongerThan` given above,
+which is easily shown by unfolding the definition of `γ`.
+
 Lemma 4.:
 \begin{code}
 isStrongerThanIsHasFewerFlowsThan ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Bool
 isStrongerThanIsHasFewerFlowsThan (SpecificationPair pr pr') =
       (γ pr) `hasFewerFlowsThan` (γ pr')
-  ↔     pr  `isStrongerThan`       pr'
+  ⇔     pr  `isStrongerThan`       pr'
 \end{code}
 
 
 
-Property isStrongerThanIsJustified says that `isStrongerThan` is a "sound" criterion for re-use of specifications.
-But is it better than `isConsistentRelabelingFor` ?!?!
-At the minimum, it is not worse (Lemma 5.)
+Property `isStrongerThanIsJustified` says that `isStrongerThan` is a "sound" criterion for re-use of specifications.
+But is it better than its relabeling counter-part `isConsistentRelabelingFor` ?!?!
+At the minimum, it is not worse (Lemma 5.), in the following sense:
 \begin{code}
 isStrongerThanIsBetterThanIsNaivelyStrongerThan ::  (Ord p, Ord d) => SpecificationPair p d d -> Property
 isStrongerThanIsBetterThanIsNaivelyStrongerThan (SpecificationPair pr pr') =
@@ -317,27 +386,23 @@ isStrongerThanIsBetterThanIsNaivelyStrongerThan (SpecificationPair pr pr') =
   ==>  pr  `isStrongerThan`        pr'
 \end{code}
 
-To see that it is better,
-see isStrongerThanCriterionHolds from module Instances.PaperExample.ExampleOne.Noninterference
+To see that it is better note that in the paper example, the generic ifc-specification in terms of datasets "Time" and "Data" *is*
+stronger than the ifc-specification in terms of "Consumptiondata", and hence we can re-use it!
+See `isStrongerThanCriterionHolds` from module `Instances.PaperExample.ExampleOne.Noninterference`.
 
 
 
 
 
 
-
-
-
-
-
-
-
-
+Appendix
+========
 
 It follows a section with some non-essential considerations.
 
-Given an "implementation" pr, we can derive, in some sense, it's most-precise ifc specification α(pr).
-This is "the" [1] strongest ifc specification that pr fullfills:
+Given an "implementation" `pr`, we can derive, in some sense, it's most-precise ifc specification `α(pr)`.
+This is in some sense "the" strongest ifc specification that `pr` fullfills, and it's derived by simply labeling
+all output parameter by the set of input parameters that influence it.
 \begin{code}
 α :: (Ord p) => Procedure p d -> Procedure p p
 α pr@(Procedure { input, output, influences}) = pr {
@@ -349,28 +414,29 @@ This is "the" [1] strongest ifc specification that pr fullfills:
           | otherwise  = fromList [] -- TODO: require some wellformedness for procedures
 \end{code}
 
- Lemma 6. Every "implementation" pr does indeed fullfill the ifc-specification α(pr):
+
+Lemma 6. Every "implementation" `pr` does indeed fullfill the ifc-specification `α(pr)`:
 \begin{code}
 mostPreciseIsSecure :: (Ord p) => Procedure p d -> Bool
 mostPreciseIsSecure p = secure hecker (α p)
 \end{code}
 
-Lemma 7. Every "implementation" pr is equal to the the most-leaking implementation of it's most-precise ifc-specification
+Lemma 7. Every "implementation" `pr` is equal to the the most-leaking implementation of it's most-precise ifc-specification
 \begin{code}
 γMostPreciseIsMostPrecuse :: (Ord d, Ord p) => Procedure p d -> Bool
 γMostPreciseIsMostPrecuse pr = pr `eqImpl` γ (α pr)
   where pr `eqImpl` pr' = (∀) (input pr) (\p -> influences pr p == influences pr' p)
 \end{code}
 
-Lemma 8. An auxilarry properties, that demonstrate that the definitions above are all natural:
+Lemma 8. An auxilarry properties that demonstrate that the definitions above are all natural:
 \begin{code}
 fewerFlowsIffSecure  :: forall d p. (Ord d, Ord p) => Procedure p d -> Bool
 fewerFlowsIffSecure procedure@(Procedure { input, output, includes, influences}) =
        (secure hecker procedure)
-   ↔  (procedure `hasFewerFlowsThan` (γ procedure))
+   ⇔  (procedure `hasFewerFlowsThan` (γ procedure))
 \end{code}
 
- An alternative definition of γ
+An alternative definition of γ
 \begin{code}
 γ' :: (Ord d, Ord p) => Procedure p d -> Procedure p d
 γ' procedure@(Procedure { input, output, includes }) =
