@@ -69,7 +69,7 @@ hecker pr@(Procedure { input, output, includes, influences}) = [((powerset (data
 -- Hence, a verification condition holds if this flow does not exceed that allowed by the flow lattice:
 holds :: (Ord p) => Procedure p d -> VerificationCondition p l -> Bool
 holds (Procedure { input, output, includes, influences}) ((l,(⊑)), classifiedAs) =
-    (∀) input (\(i :: p) ->   (∀) output (\(o :: p) ->
+    (∀) input (\i ->  (∀) output (\o ->
           (o ∈ (influences i)) → (classifiedAs i ⊑ classifiedAs o)
     ))
 
@@ -147,7 +147,9 @@ weakeningsAreSafe pr = secure hecker pr ==>
 -- Assume moreover, that  we have
 -- * a  new      ifc specification (named: pr') in terms of a set d' (of datasets)
 -- * a relabeling g0, which interprets datasets ds' ∈ d' in terms of sets of datasets ds ⊆ d
---
+-- (of course, simpler relabelings that
+--                          interprets datasets ds' ∈ d' to terms of         datasets ds ∈ d
+--  are a special case of the used notion of "relabeling").
 -- We are looking for a criterion "isConsistentRelabelingFor" such that when (isConsistentRelabelingFor g0 pr pr'),
 -- it is guaranteed that also pr is secure.
 -- The following Definition does so by checking that after restating pr' in terms of datasets d (by appling relabeling g0),
