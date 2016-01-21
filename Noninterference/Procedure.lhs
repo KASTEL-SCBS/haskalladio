@@ -27,9 +27,11 @@ data Procedure p d = Procedure {
   }
 \end{code}
 %if False
+\begin{code}
 instance (Show p, Show d, Ord p, Ord d, Enumerable p) =>  Show (Procedure p d) where
   show (Procedure { input, output, includes, influences}) =
     "Procedure { input = " ++ (show input) ++ ", output = " ++ (show output) ++ ", includes = (M.!) $ M." ++ (showMapFun includes) ++ ", influences = (M.!) $ M." ++ (showMapFun influences) ++ " }"
+\end{code}
 
 %endif
 
