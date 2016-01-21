@@ -388,7 +388,7 @@ isStrongerThanIsBetterThanIsNaivelyStrongerThan (SpecificationPair pr pr') =
 
 To see that it is better note that in the paper example, the generic ifc-specification in terms of datasets "Time" and "Data" *is*
 stronger than the ifc-specification in terms of "Consumptiondata", and hence we can re-use it!
-See `isStrongerThanCriterionHolds` from module `Instances.PaperExample.ExampleOne.Noninterference`.
+See `isStrongerThanCriterionHoldsGetValue` from module `Instances.PaperExample.ExampleOne.Noninterference`.
 
 
 
