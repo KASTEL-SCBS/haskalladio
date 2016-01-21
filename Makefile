@@ -1,6 +1,6 @@
 .SUFFIXES: .lhs .mkd .html .tex .pdf
 
-PANDOC := pandoc  -sS
+PANDOC := pandoc  -sS --include-in-header=hscolour.css
 HSCOLOUR := hscolour -lit
 
 SED_REMOVE_HIDDEN := sed '/%if False/,/%endif/d'
