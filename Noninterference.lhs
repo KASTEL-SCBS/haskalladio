@@ -120,14 +120,14 @@ we introduce the naive concept of "weak / strong" ifc-specifications:
 "weak / strong" IFC-Specifications  (naively)
 --------------------------------------------
 
-Given two different ifc specifications for the same procedure using the same datasets,
-i.e.: given procedures pr, pr' such that
+Given two different ifc specifications for the same procedure using the *same* datasets `d`,
+i.e.: given procedures `pr`, `pr'` of type `Procedure p d` such that
 
   * `input  pr == input  pr'`
   * `output pr == output pr'`
   * `influences pr == influences pr'`
 
-the ifc specification of pr is called "naively stronger" than that of pr' iff
+the ifc specification of `pr` is called "naively stronger" than that of `pr'` iff
 
     pr isNaivelyStrongerThan pr'
 
@@ -567,25 +567,30 @@ consistentRelabelingRevForBetterThanIsStrongerThanTestable (SpecificationPair pr
 
 Now the definition of `isStrongerThan`:
 
+Given two different ifc specifications for the same procedure using possibly different datasets `d` and `d'`, i.e.: 
 Given two different ifc requirements for the same procedure,
-i.e.: given procedures `pr`, `pr'` such that
+i.e.: given procedure `pr` of type `Procedure p d` and procedure `pr'` of type `Procedure p d'`  such that
 
   * `input  pr == input  pr'`
   * `output pr == output pr'`
   * `influences pr == influences pr'`
 
 the ifc specification of `pr` is called "stronger" than that of `pr'` iff
+for all input parameters `i`, the set of output parameters `o` that
 
-    pr `isStrongerThan` pr'
+  * by specification `pr` include at least those datasets included in `i`
 
-as defined here:
+is included in the set of of output parameters `o` that
+
+  * by specification *`pr'`* include at least those datasets included in `i`
+
 \begin{code}
 isStrongerThan ::  (Ord p, Ord d, Ord d') => Procedure p d ->  Procedure p d' -> Bool
 pr@(Procedure { input = input, output = output, includes = includes }) `isStrongerThan` pr'@(Procedure { includes = includes' })  =
-  (∀) input  (\p -> 
-        fromList [ p' | p' <- toList output, includes  p ⊆ includes  p' ]
+  (∀) input  (\i ->
+        fromList [ o | o <- toList output, includes  i ⊆ includes  o ]
         ⊆
-        fromList [ p' | p' <- toList output, includes' p ⊆ includes' p' ]
+        fromList [ o | o <- toList output, includes' i ⊆ includes' o ]
   )
 \end{code}
 
