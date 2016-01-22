@@ -567,9 +567,8 @@ consistentRelabelingRevForBetterThanIsStrongerThanTestable (SpecificationPair pr
 
 Now the definition of `isStrongerThan`:
 
-Given two different ifc specifications for the same procedure using possibly different datasets `d` and `d'`, i.e.: 
-Given two different ifc requirements for the same procedure,
-i.e.: given procedure `pr` of type `Procedure p d` and procedure `pr'` of type `Procedure p d'`  such that
+Given two different ifc specifications for the same procedure using possibly different datasets `d` and `d'`, i.e.:
+given procedure `pr` of type `Procedure p d` and procedure `pr'` of type `Procedure p d'`  such that
 
   * `input  pr == input  pr'`
   * `output pr == output pr'`
