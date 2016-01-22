@@ -45,6 +45,8 @@ infixl 7 ⊓
 (∀) :: (Foldable t) => t a -> (a -> Bool) -> Bool
 (∀) a pred = null $ filter (not.pred) $ toList a
 
+(∃) :: (Foldable t) => t a -> (a -> Bool) -> Bool
+(∃) a pred = (not.null) $ filter pred $ toList a
 
 (→) :: Bool -> Bool -> Bool
 (→) = implies

@@ -104,7 +104,7 @@ secure :: (Ord p) => SpecificationInterpretation p d l -> Procedure p d -> Bool
 secure interpretation pr = (∀) (interpretation pr) (\condition -> holds pr condition)
 \end{code}
 
-Lemma 1.: `hecker` and `greiner` are equivalent! Otherwise, we couldn't use KeY and JOANA interchangably!!
+`hecker` and `greiner` are equivalent! Otherwise, we couldn't use KeY and JOANA interchangably!!
 \begin{code}
 heckerIsGreiner :: (Ord d, Ord p) => Procedure p d -> Bool
 heckerIsGreiner pr = secure hecker pr ⇔ secure greiner pr
@@ -135,17 +135,15 @@ as defined here:
 \begin{code}
 isNaivelyStrongerThan ::  (Ord d) => Procedure p d ->  Procedure p d -> Bool
 pr `isNaivelyStrongerThan` pr'  =
-      and [ includes pr' p ⊆ includes pr p | p <- toList $ input pr]
-  &&  and [ includes pr' p ⊇ includes pr p | p <- toList $ output pr]
+      (∀) (input pr)  (\i -> includes pr' i ⊆ includes pr i)
+  ∧   (∀) (output pr) (\o -> includes pr' o ⊇ includes pr o)
 \end{code}
 
-Some properties concerning weakenings:
-
-Lemma 2.: weakenings of secure ifc-specifications are secure.
+Weakenings of secure ifc-specifications are secure:
 \begin{code}
 secureWeakeningsAreSecure :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Procedure p d -> Property
 secureWeakeningsAreSecure pr pr' =
-  (secure hecker pr) && (pr `isNaivelyStrongerThan` pr')
+  (secure hecker pr ) ∧ (pr `isNaivelyStrongerThan` pr')
   ==>
   (secure hecker pr')
 \end{code}
@@ -173,13 +171,13 @@ weakenings pr@(Procedure { input, output, includes, influences}) =
 
 Then, we check the following two properties, which is sufficient under the
 assumption that "weakenings" does indeed enumerate *all* weakenings:
-Lemma 2a: weakenings do indeed "naively weaken" the ifc requirement
+Weakenings do indeed "naively weaken" the ifc requirement
 \begin{code}
 weakeningsAreWeaker :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Bool
 weakeningsAreWeaker pr = (∀) (weakenings pr) (\pr' -> pr `isNaivelyStrongerThan` pr')
 \end{code}
 
-Lemma 2b.: if pr fullfills its ifc requirement, then also all weakenings of pr do
+If pr fullfills its ifc requirement, then also all weakenings of pr do
 \begin{code}
 weakeningsAreSafe :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Property
 weakeningsAreSafe pr = secure hecker pr ==>
@@ -188,10 +186,10 @@ weakeningsAreSafe pr = secure hecker pr ==>
 %endif
 
 
-A Criterion using Relabelings
------------------------------
+Criteria using Relabelings
+---------------------------
 
-Now we can define a criterion which allows us to re-use existing non-interference proofs by employing *relabelings*.
+Now we try define a criterion which allows us to re-use existing non-interference proofs by employing *relabelings*.
 Assume that we have
 
 * an existing ifc specification `pr`  in terms of a set `d`  (of datasets)
@@ -200,26 +198,29 @@ Assume that we have
 
 Assume moreover, that  we have
 
-  * a  new      ifc specification `pr'` in terms of a set d' (of datasets)
-  * a relabeling `g0`, which interprets datasets
+  * a  new    ifc specification `pr'` in terms of a set `d'` (of datasets)
+  * a  "relabeling"
 
-        ds' ∈ d' in terms of sets of datasets ds ⊆ d
+We are looking for a criterion `isConsistentRelabelingFor` such that when  `isConsistentRelabelingFor r pr pr'`
+for some relabeling `r`, then it is guaranteed that also `pr` is secure.
+
+
+Relabelings - a wrong Definition
+---------------------------------
+
+In a first attempt, let us define a relabeling to be a function `g0` which interprets datasets
+
+     ds' ∈ d' in terms of sets of datasets ds ⊆ d
 
 Of course, simpler relabelings that interprets datasets
 
-  *
+     ds' ∈ d' in terms of         datasets ds ∈ d
 
-        ds' ∈ d' in terms of         datasets ds ∈ d
+are a special case of this notion of "relabeling".
 
-are a special case of the used notion of "relabeling".
-
-We are looking for a criterion `isConsistentRelabelingFor` such that when  `isConsistentRelabelingFor g0 pr pr'`,
-it is guaranteed that also `pr` is secure.
-
-The following Definition does so by checking that after restating `pr'` in terms of datasets `d` (by appling relabeling `g0`),
+The following definition of `isConsistentRelabelingFor` checks that after restating `pr'` in terms of datasets `d` (by appling relabeling `g0`),
 the resulting ifc specification `pr'Relabeled` is "naively weaker" than `pr`.
 
-By `secureWeakeningsAreSecure` (Lemma 2), we then conclude that `pr'Relabeled` is also secure
 \begin{code}
 isConsistentRelabelingFor :: forall d d' p. Ord d => (d' -> Set d) -> Procedure p d -> Procedure p d' -> Bool
 isConsistentRelabelingFor g0 pr pr' =  pr `isNaivelyStrongerThan` pr'Relabeled
@@ -230,69 +231,341 @@ isConsistentRelabelingFor g0 pr pr' =  pr `isNaivelyStrongerThan` pr'Relabeled
         pr'Relabeled = pr' { includes = \p -> g (includes pr' p) }
 \end{code}
 
+Unfortunately, this criterion is neither sound nor complete, i.e.:
 
+Neither does the following property hold ...
+\begin{code}
+existsConsistentRelabelingIsJustified ::  (Ord p, Ord d, Ord d') => Procedure p d -> Procedure p d' -> Property
+existsConsistentRelabelingIsJustified pr pr' =
+       (
+          (input  pr) == (input  pr')
+        ∧ (output pr) == (output pr')
+        ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
 
-Unfortunately, using at least this version of "relabeling", we cannot provide for the database component
+        ∧ (secure hecker pr)
+        ∧ (∃) relabelings (\g0 -> isConsistentRelabelingFor g0 pr pr')
+       )
+   ==>    (secure hecker pr')
+
+  where relabelings = setFunctionsBetween (datasets pr) (datasets pr')
+\end{code}
+
+%if False
+It is impracticable to directly check this property with QuickCheck, since the technical preconditions will almost never
+be fullfilled. Hence we will use a generator that always produces two specifications for the "same" procedure.
+\begin{code}
+existsConsistentRelabelingIsJustifiedTestable ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
+existsConsistentRelabelingIsJustifiedTestable (SpecificationPair pr pr') =
+       (
+          (secure hecker pr)
+        ∧ (∃) relabelings (\g0 -> isConsistentRelabelingFor g0 pr pr')
+       )
+   ==>    (secure hecker pr')
+
+  where relabelings = setFunctionsBetween (datasets pr) (datasets pr')
+\end{code}
+%endif
+
+.. nor does this:
+\begin{code}
+existsConsistentRelabelingIsComplete ::  (Ord p, Ord d, Ord d') => Procedure p d -> Procedure p d' -> Property
+existsConsistentRelabelingIsComplete pr pr' =
+       (
+          (input  pr) == (input  pr')
+        ∧ (output pr) == (output pr')
+        ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
+
+        ∧ (secure hecker pr)
+        ∧ (secure hecker pr')
+       )
+   ==>    (∃) relabelings (\g0 -> isConsistentRelabelingFor g0 pr pr')
+
+  where relabelings = setFunctionsBetween (datasets pr) (datasets pr')
+\end{code}
+
+%if False
+\begin{code}
+existsConsistentRelabelingIsCompleteTestable ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
+existsConsistentRelabelingIsCompleteTestable (SpecificationPair pr pr') =
+       (
+          (secure hecker pr)
+        ∧ (secure hecker pr')
+       )
+   ==>    (∃) relabelings (\g0 -> isConsistentRelabelingFor g0 pr pr')
+
+  where relabelings = setFunctionsBetween (datasets pr) (datasets pr')
+\end{code}
+%endif
+
+Specifically, we cannot provide for the database component from the paper example
 a generic ifc-specification in terms of datasets "Time" and "Data" from which we can infer that the ifc specification
 in the paper is correct, since there is no consistent relabeling between those!
 
 See `noConsistentRelabelingGetValue` from module `Instances.PaperExample.ExampleOne.Noninterference`
 
+
+
+
 There may be several ways to fix this.
 
  1. Take the meaning of "relabeling" as it is, but find a better Definition of `isConsistentRelabelingFor`.
- 2. Change the meaning of  "relabeling".
-    Maybe things work out if we take a relabeling to be a function
+ 2. Change the meaning of  "relabeling"
+ 3. Abandon the concept of "relabeling"
 
-    `(d  -> Set d')` instead of
 
-    `(d' -> Set d)` ?!?
+First, i will develop Option 2, then Option 3.
+I do not know a way to fix things via Option 1.
 
-    What would the definition of isConsistentRelabelingFor be then?
- 3. abandon the concept of "relabeling"
 
-In the following, i will develop option 3.
+A Criterion using Relabelings
+-----------------------------
+We now "reverse" the dircetion of relabelings, i.e., we define a relabeling to be a function `f0` which interprets datasets
+
+     ds ∈ d in terms of sets of datasets ds' ⊆ d'
+
+Of course, simpler relabelings that interprets datasets
+
+     ds ∈ d in terms of         datasets ds' ∈ d'
+
+are again a special case of this notion of "relabeling".
+
+The analogous Definition of `isConsistentRelabelingFor` reads:
+
+\begin{code}
+isConsistentRelabelingRevFor :: forall d d' p. Ord d' => (d -> Set d') -> Procedure p d -> Procedure p d' -> Bool
+isConsistentRelabelingRevFor f0 pr pr' =  prRelabeled `isNaivelyStrongerThan` pr'
+  where f :: Set d -> Set d'
+        f ds = (⋃) [ f0 d | d <- toList ds]
+
+        prRelabeled :: Procedure p d'
+        prRelabeled = pr { includes = \p -> f (includes pr p) }
+\end{code}
+
+This criterion *is* Sound:
+\begin{code}
+existsConsistentRelabelingRevIsJustified ::  (Ord p, Ord d, Ord d') => Procedure p d -> Procedure p d' -> Property
+existsConsistentRelabelingRevIsJustified pr pr' =
+       (
+          (input  pr) == (input  pr')
+        ∧ (output pr) == (output pr')
+        ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
+
+        ∧ (secure hecker pr)
+        ∧ (∃) relabelings (\f0 -> isConsistentRelabelingRevFor f0 pr pr')
+       )
+   ==>    (secure hecker pr')
+
+  where relabelings = setFunctionsBetween (datasets pr') (datasets pr)
+\end{code}
+
+%if False
+\begin{code}
+existsConsistentRelabelingRevIsJustifiedTestable ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
+existsConsistentRelabelingRevIsJustifiedTestable (SpecificationPair pr pr') =
+       (
+          (secure hecker pr)
+        ∧ (∃) relabelings (\f0 -> isConsistentRelabelingRevFor f0 pr pr')
+       )
+   ==>    (secure hecker pr')
+
+  where relabelings = setFunctionsBetween (datasets pr') (datasets pr)
+\end{code}
+%endif
+
+.. but not complete, i.e., the following property does *not* hold:
+\begin{code}
+existsConsistentRelabelingRevIsComplete ::  (Ord p, Ord d, Ord d') => Procedure p d -> Procedure p d' -> Property
+existsConsistentRelabelingRevIsComplete pr pr' =
+       (
+          (input  pr) == (input  pr')
+        ∧ (output pr) == (output pr')
+        ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
+
+        ∧ (secure hecker pr)
+        ∧ (secure hecker pr')
+       )
+   ==>    (∃) relabelings (\f0 -> isConsistentRelabelingRevFor f0 pr pr')
+
+  where relabelings = setFunctionsBetween (datasets pr') (datasets pr)
+\end{code}
+
+%if False
+\begin{code}
+existsConsistentRelabelingRevIsCompleteTestable ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
+existsConsistentRelabelingRevIsCompleteTestable (SpecificationPair pr pr') =
+       (
+          (secure hecker pr)
+        ∧ (secure hecker pr')
+       )
+   ==>    (∃) relabelings (\f0 -> isConsistentRelabelingRevFor f0 pr pr')
+
+  where relabelings = setFunctionsBetween (datasets pr') (datasets pr)
+\end{code}
+%endif
+
+Note that i'm currently don't even know how to directly justify the soundness of this criterion. The only reason i'm confident
+it holds is the fact that my (somewhat, but of course not completely exhasutive) QuickCheck checks pass.
+
+%if False
+\begin{code}
+setFunctionsBetween :: (Ord d, Ord d') => (Set d) -> (Set d') -> [ d' -> Set d]
+setFunctionsBetween ds ds' =
+    fmap ((M.!) . (M.fromList)) $
+    chooseOneEach $ [(d', toList $ powerset ds) | d' <- toList ds']
+  where chooseOneEach :: [(a,[b])] -> [[(a,b)]]
+        chooseOneEach choices = fmap (zip as) $ sequence bss
+          where as  = fmap fst choices
+                bss = fmap snd choices
+\end{code}
+
+\begin{code}
+existsConsistentRelabelingFor :: forall d d' p. (Ord d, Ord d', Ord p) => Procedure p d -> Procedure p d' -> Bool
+existsConsistentRelabelingFor pr pr' =  (∃) relabelings (\g0 -> isConsistentRelabelingFor g0 pr pr')
+  where relabelings = setFunctionsBetween (datasets pr) (datasets pr')
+
+existsConsistentRelabelingRevFor :: forall d d' p. (Ord d, Ord d', Ord p) => Procedure p d -> Procedure p d' -> Bool
+existsConsistentRelabelingRevFor pr pr' =  (∃) relabelings (\g0 -> isConsistentRelabelingRevFor g0 pr pr')
+  where relabelings = setFunctionsBetween (datasets pr') (datasets pr)
+\end{code}
+%endif
+
 
 A Criterion without relabelings
 -------------------------------
+I will now develope Option 3.
+
+Note that the sound (but not complete) relabeling-based criterion ("Option 2.") suggest two method of proof-reuse, given `pr` and `pr'`:
+
+ 1. let the user specifiy a relabeling candidate f0, and check whether
+
+        isConsistentRelabelingRevFor f0 pr pr'
+
+    holds.
+ 2. Insteam of letting the user specifiy the candiate, enumerate all possible relabeling candidates `f0` and check them.
+    If `pr` specified in terms of `n` datasets, and `pr'` in terms of `m` datasets, there are `2^(n+m)` possible candidates.
+
+Is there a sound and criterion that avoids the need of relabelings, but is at least as complete?
 
 Given two ifc specifications `pr` and `pr'`, i propose to define the notion
 
-| `pr isStrongerThan        pr'`           which, unlike
-| `pr isNaivelyStrongerThan pr'`
+        pr isStrongerThan        pr'           which, unlike
+        pr isNaivelyStrongerThan pr'
 
 is defined even if `pr` is stated in terms of a set `d` (of datasets) *different* from `d'` (the set of dataterms in which `pr'` is stated).
 
-We will then have the property (Theorem 3.):
+We will then have the soundness property:
 \begin{code}
-isStrongerThanIsJustifiedUntestable ::  (Ord p, Ord d, Ord d') => Procedure p d ->  Procedure p d' -> Property
-isStrongerThanIsJustifiedUntestable pr pr' =
+isStrongerThanIsJustified ::  (Ord p, Ord d, Ord d') => Procedure p d ->  Procedure p d' -> Property
+isStrongerThanIsJustified pr pr' =
        (
           (secure hecker pr)
         ∧ (input  pr) == (input  pr')
         ∧ (output pr) == (output pr')
-        ∧ (pr  `isStrongerThan` pr')
+
         ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
+        ∧ (pr  `isStrongerThan` pr')
        )
    ==>      (secure hecker pr')
 \end{code}
 
 %if False
 It is impracticable to directly check this property with QuickCheck, since the technical preconditions will almost never
-be fullfilled. Hence we will use a generator that always produces two specifications for the "same" procedure (Theorem 3'.):
+be fullfilled. Hence we will use a generator that always produces two specifications for the "same" procedure:
 \begin{code}
-isStrongerThanIsJustified ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
-isStrongerThanIsJustified (SpecificationPair pr pr') =
+isStrongerThanIsJustifiedTestable ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
+isStrongerThanIsJustifiedTestable (SpecificationPair pr pr') =
        (
             (secure hecker pr)
         &&  (pr  `isStrongerThan` pr')
        )
    ==>      (secure hecker pr')
 \end{code}
+%endif
+
+.. but *not* the completeness Property:
+\begin{code}
+isStrongerThanIsComplete ::  (Ord p, Ord d, Ord d') => Procedure p d ->  Procedure p d' -> Property
+isStrongerThanIsComplete pr pr' =
+       (
+          (secure hecker pr)
+        ∧ (input  pr) == (input  pr')
+        ∧ (output pr) == (output pr')
+
+        ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
+        ∧ (secure hecker pr')
+       )
+   ==>    (pr  `isStrongerThan` pr')
+\end{code}
+
+%if False
+\begin{code}
+isStrongerThanIsCompleteTestable ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
+isStrongerThanIsCompleteTestable (SpecificationPair pr pr') =
+       (
+          (secure hecker pr)
+        ∧ (secure hecker pr')
+       )
+   ==>    (pr  `isStrongerThan` pr')
+\end{code}
+%endif
+
+In fact, Option 3.  will tourn out to be strictly "better" than Option 2.:
+
+It will hold that:
+\begin{code}
+isStrongerThanBetterThanConsistentRelabelingRevFor ::  (Ord p, Ord d, Ord d') => Procedure p d ->  Procedure p d' ->  Bool
+isStrongerThanBetterThanConsistentRelabelingRevFor pr pr' =
+       (
+          (input  pr) == (input  pr')
+        ∧ (output pr) == (output pr')
+        ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
+
+        ∧ (∃) relabelings (\f0 -> isConsistentRelabelingRevFor f0 pr pr')
+       )
+    →    (pr  `isStrongerThan` pr')
+  where relabelings = setFunctionsBetween (datasets pr') (datasets pr)
+\end{code}
+
+%if False
+\begin{code}
+isStrongerThanBetterThanConsistentRelabelingRevForTestable ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Bool
+isStrongerThanBetterThanConsistentRelabelingRevForTestable (SpecificationPair pr pr') =
+          (∃) relabelings (\f0 -> isConsistentRelabelingRevFor f0 pr pr')
+    →    (pr  `isStrongerThan` pr')
+  where relabelings = setFunctionsBetween (datasets pr') (datasets pr)
+\end{code}
+%endif
+
+
+
+... but *not* that:
+\begin{code}
+consistentRelabelingRevForBetterThanIsStrongerThan ::  (Ord p, Ord d, Ord d') =>  Procedure p d ->  Procedure p d' ->  Bool
+consistentRelabelingRevForBetterThanIsStrongerThan pr pr' =
+       (
+          (input  pr) == (input  pr')
+        ∧ (output pr) == (output pr')
+        ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
+
+        ∧ (pr  `isStrongerThan` pr')
+       )
+    →    (∃) relabelings (\f0 -> isConsistentRelabelingRevFor f0 pr pr')
+  where relabelings = setFunctionsBetween (datasets pr') (datasets pr)
+\end{code}
+
+%if False
+\begin{code}
+consistentRelabelingRevForBetterThanIsStrongerThanTestable ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Bool
+consistentRelabelingRevForBetterThanIsStrongerThanTestable (SpecificationPair pr pr') =
+          (pr  `isStrongerThan` pr')
+    →    (∃) relabelings (\f0 -> isConsistentRelabelingRevFor f0 pr pr')
+  where relabelings = setFunctionsBetween (datasets pr') (datasets pr)
+\end{code}
+%endif
+
+
 
 Now the definition of `isStrongerThan`:
-
-%endif
 
 Given two different ifc requirements for the same procedure,
 i.e.: given procedures `pr`, `pr'` such that
@@ -334,14 +607,14 @@ Concept I.:     One "implementation" of a procedure may have fewer flows than an
 \begin{code}
 hasFewerFlowsThan ::  (Ord p) => Procedure p d ->  Procedure p d' -> Bool
 pr `hasFewerFlowsThan` pr'  =
-      (∀) (input pr) (\p -> influences pr p ⊆ influences pr' p )
+      (∀) (input pr) (\i -> influences pr i ⊆ influences pr' i )
 \end{code}
 
 
 
 Concept II.:  The ifc specification part of a given procedure
 
-pr :: Procedure p d
+    pr :: Procedure p d
 
 can be understood as an abstraction of all "implementations" that satisfy the specification.
 Among all such "implementations", there is one that is "most-leaking" (one with the most flows),
@@ -366,7 +639,6 @@ has fewer flows than the most-leaking implementation of `pr'`:
 Indeed, this is equivalent to the definition of `isStrongerThan` given above,
 which is easily shown by unfolding the definition of `γ`.
 
-Lemma 4.:
 \begin{code}
 isStrongerThanIsHasFewerFlowsThan ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Bool
 isStrongerThanIsHasFewerFlowsThan (SpecificationPair pr pr') =
@@ -378,7 +650,7 @@ isStrongerThanIsHasFewerFlowsThan (SpecificationPair pr pr') =
 
 Property `isStrongerThanIsJustified` says that `isStrongerThan` is a "sound" criterion for re-use of specifications.
 But is it better than its relabeling counter-part `isConsistentRelabelingFor` ?!?!
-At the minimum, it is not worse (Lemma 5.), in the following sense:
+At the minimum, it is not worse, in the following sense:
 \begin{code}
 isStrongerThanIsBetterThanIsNaivelyStrongerThan ::  (Ord p, Ord d) => SpecificationPair p d d -> Property
 isStrongerThanIsBetterThanIsNaivelyStrongerThan (SpecificationPair pr pr') =
@@ -415,25 +687,27 @@ all output parameter by the set of input parameters that influence it.
 \end{code}
 
 
-Lemma 6. Every "implementation" `pr` does indeed fullfill the ifc-specification `α(pr)`:
+Every "implementation" `pr` does indeed fullfill the ifc-specification `α(pr)`:
 \begin{code}
 mostPreciseIsSecure :: (Ord p) => Procedure p d -> Bool
 mostPreciseIsSecure p = secure hecker (α p)
 \end{code}
 
-Lemma 7. Every "implementation" `pr` is equal to the the most-leaking implementation of it's most-precise ifc-specification
+Every "implementation" `pr` is equal to the the most-leaking implementation of it's most-precise ifc-specification
 \begin{code}
 γMostPreciseIsMostPrecuse :: (Ord d, Ord p) => Procedure p d -> Bool
 γMostPreciseIsMostPrecuse pr = pr `eqImpl` γ (α pr)
   where pr `eqImpl` pr' = (∀) (input pr) (\p -> influences pr p == influences pr' p)
 \end{code}
 
-Lemma 8. An auxilarry properties that demonstrate that the definitions above are all natural:
+An auxilarry properties that demonstrate that the definitions above are all natural:
+
+A procedure  `pr` is secure iff it has fewer Flows than the most-leaking implementation of the ifc-specification of `pr`.
 \begin{code}
 fewerFlowsIffSecure  :: forall d p. (Ord d, Ord p) => Procedure p d -> Bool
-fewerFlowsIffSecure procedure@(Procedure { input, output, includes, influences}) =
-       (secure hecker procedure)
-   ⇔  (procedure `hasFewerFlowsThan` (γ procedure))
+fewerFlowsIffSecure pr =
+      (secure hecker pr)
+   ⇔  (pr `hasFewerFlowsThan` (γ pr))
 \end{code}
 
 An alternative definition of γ
