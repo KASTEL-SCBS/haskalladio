@@ -148,8 +148,18 @@ secureWeakeningsAreSecure pr pr' =
   (secure hecker pr')
 \end{code}
 
+
 %if False
-unfortunately, naively checking this using QuickCheck is inefficient.
+unfortunately, naively checking this using QuickCheck is inefficient,
+even if we test the following:
+\begin{code}
+secureWeakeningsAreSecure' :: (Enum d, Bounded d, Ord d, Ord p) => SpecificationPair p d d -> Property
+secureWeakeningsAreSecure' (SpecificationPair pr pr') =
+  (secure hecker pr ) ∧ (pr `isNaivelyStrongerThan` pr')
+  ==>
+  (secure hecker pr')
+\end{code}
+
 
 Instead, we define the enumeration of all "weakenings" of a given ifc specification:
 "weakings pr" enumerates all weakenings of pr, i.e. all procedures pr' such that
@@ -169,13 +179,19 @@ weakenings pr@(Procedure { input, output, includes, influences}) =
                 bss = fmap snd choices
 \end{code}
 
-Then, we check the following two properties, which is sufficient under the
-assumption that "weakenings" does indeed enumerate *all* weakenings:
-Weakenings do indeed "naively weaken" the ifc requirement
+Then, we check the following three properties:
 \begin{code}
 weakeningsAreWeaker :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Bool
 weakeningsAreWeaker pr = (∀) (weakenings pr) (\pr' -> pr `isNaivelyStrongerThan` pr')
 \end{code}
+
+\begin{code}
+weakerAreWeakenings :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => SpecificationPair p d d -> Property
+weakerAreWeakenings (SpecificationPair pr pr') =
+     pr `isNaivelyStrongerThan` pr'
+ ==> (∃) (weakenings pr) (\prw ->  (show $ prw) == (show $ pr')) -- TODO: dont use hacky string-comparison
+\end{code}
+
 
 If pr fullfills its ifc requirement, then also all weakenings of pr do
 \begin{code}
@@ -219,17 +235,22 @@ Of course, simpler relabelings that interprets datasets
 are a special case of this notion of "relabeling".
 
 The following definition of `isConsistentRelabelingFor` checks that after restating `pr'` in terms of datasets `d` (by appling relabeling `g0`),
-the resulting ifc specification `pr'Relabeled` is "naively weaker" than `pr`.
+the resulting ifc specification is "naively weaker" than `pr`.
 
 \begin{code}
 isConsistentRelabelingFor :: forall d d' p. Ord d => (d' -> Set d) -> Procedure p d -> Procedure p d' -> Bool
-isConsistentRelabelingFor g0 pr pr' =  pr `isNaivelyStrongerThan` pr'Relabeled
+isConsistentRelabelingFor g0 pr pr' =  pr `isNaivelyStrongerThan` (pr' `relabeledUsing` g0)
+\end{code}
+
+with the application of a relabeling defined as:
+\begin{code}
+relabeledUsing :: forall p d d'. (Ord d) =>  Procedure p d' -> (d' -> Set d) -> Procedure p d
+pr' `relabeledUsing` g0 = pr' { includes = \p -> g (includes pr' p) }
   where g :: Set d' -> Set d
         g ds' = (⋃) [ g0 d' | d' <- toList ds']
 
-        pr'Relabeled :: Procedure p d
-        pr'Relabeled = pr' { includes = \p -> g (includes pr' p) }
 \end{code}
+
 
 Unfortunately, this criterion is neither sound nor complete, i.e.:
 
@@ -333,13 +354,17 @@ The analogous Definition of `isConsistentRelabelingFor` reads:
 
 \begin{code}
 isConsistentRelabelingRevFor :: forall d d' p. Ord d' => (d -> Set d') -> Procedure p d -> Procedure p d' -> Bool
-isConsistentRelabelingRevFor f0 pr pr' =  prRelabeled `isNaivelyStrongerThan` pr'
+isConsistentRelabelingRevFor f0 pr pr' =  (pr `relabeledRevUsing` f0) `isNaivelyStrongerThan` pr'
+\end{code}
+
+with the application of a relabeling defined as:
+\begin{code}
+relabeledRevUsing :: forall p d d'. (Ord d') =>  Procedure p d -> (d -> Set d') -> Procedure p d'
+pr `relabeledRevUsing` f0 =  pr { includes = \p -> f (includes pr p) }
   where f :: Set d -> Set d'
         f ds = (⋃) [ f0 d | d <- toList ds]
-
-        prRelabeled :: Procedure p d'
-        prRelabeled = pr { includes = \p -> f (includes pr p) }
 \end{code}
+
 
 This criterion *is* Sound:
 \begin{code}
@@ -403,8 +428,16 @@ existsConsistentRelabelingRevIsCompleteTestable (SpecificationPair pr pr') =
 \end{code}
 %endif
 
-Note that i'm currently don't even know how to directly justify the soundness of this criterion. The only reason i'm confident
-it holds is the fact that my (somewhat, but of course not completely exhasutive) QuickCheck checks pass.
+
+
+Note that i'm currently don't know how to directly justify the soundness of this criterion.
+An indirect justifcation stems from the following property (see below for the definition of `isStrongerThan`).
+\begin{code}
+relabeleingsRevAreStrongerThan ::  (Ord p, Ord d, Ord d') => Set d' -> Procedure p d -> Bool
+relabeleingsRevAreStrongerThan ds' pr =
+   (∀) relabelings (\f0 -> pr `isStrongerThan` (pr `relabeledRevUsing` f0))
+  where relabelings = setFunctionsBetween ds' (datasets pr)
+\end{code}
 
 %if False
 \begin{code}

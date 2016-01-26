@@ -4,11 +4,16 @@ import Noninterference.Procedure
 import Noninterference.Testgen
 import Instances.PaperExample.ExampleOne.Noninterference
 import Noninterference
-import Test.QuickCheck
+import Noninterference.Util
+import Test.QuickCheck hiding (output)
 
+import Data.Set
+import qualified Data.Map as M
 
 checkAllProperties = do
   quickCheck (heckerIsGreiner                                 :: Procedure Parameter Datasets -> Bool)
+  quickCheckWith  stdArgs { maxDiscardRatio = 400 }
+             (weakerAreWeakenings                             :: SpecificationPair Parameter Datasets Datasets -> Property)
   quickCheck (weakeningsAreWeaker                             :: Procedure Parameter Datasets -> Bool)
   quickCheck (weakeningsAreSafe                               :: Procedure Parameter Datasets -> Property)
   quickCheckWith stdArgs { maxDiscardRatio = 400 }
@@ -24,6 +29,12 @@ checkAllProperties = do
              (isStrongerThanBetterThanConsistentRelabelingRevForTestable :: SpecificationPair Parameter DatasetDatabase Datasets ->  Bool)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
              (existsConsistentRelabelingRevIsJustifiedTestable :: SpecificationPair Parameter DatasetDatabase Datasets -> Property)
+  quickCheck (relabeleingsRevAreStrongerThan (fromList allValues :: Set Datasets) :: Procedure Parameter DatasetDatabase -> Bool)
+
+
+impracticalProperties = do
+  quickCheckWith  stdArgs { maxDiscardRatio = 400 }
+             (secureWeakeningsAreSecure'                      :: SpecificationPair Parameter Datasets Datasets -> Property)
 
 
 failingProperties = do
