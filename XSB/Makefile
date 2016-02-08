@@ -8,6 +8,7 @@ LINKMODEL=simpleLinkModel.P
 # otherwise, use FROMPALLADIO=Instances/FromPalladio/empty.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.minimalexample/src-gen/fromPalladio.P
 FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.paperexample/src-gen/fromPalladio.P
+# FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.iflowexample/src-gen/fromPalladio.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/empty.P
 
 
