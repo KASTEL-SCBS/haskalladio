@@ -11,7 +11,7 @@
 outerRequiredRole(_,_) :- fail.
 basicComponent(_) :- fail.
 unencryptedDataSets(_,_) :- fail.
-
+tamperProtections(_,_) :- fail.
 
 % Suppress warnings wrt unused predicates:
 fake_usage :-
