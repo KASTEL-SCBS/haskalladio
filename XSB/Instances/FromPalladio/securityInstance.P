@@ -56,7 +56,7 @@ uiInterfaceOn(Container,Interface) :-
         outerProvidedRole(Connector,ProvidedRole),
         assemblyContext(Connector,        AssemblyContext),  % TODO: well, this ...
         assemblyContext(AllocationContext,AssemblyContext),  %       .. is awkward: the exported predicate name assemblyContext/2 is overloaded!
-        resourceContainer(AllocationContext,Container),
+        resourceContainer(AllocationContext,Container),      % TODO MAX output separate predicates for both cases
         providedInterface(ProvidedRole,Interface).
 uiInterfaceOn(Container,Interface) :-
         system(_System),
@@ -94,6 +94,8 @@ classificationOf(return(Service), Dataset) :-
         member(Dataset, Datasets).
 
 % TODO: currently there is no way in palladio to specify what information is contained in the presence of calls
+% TODO MAX check that a backslash is always followed by return or call and implement other well-formedness checks for specification
+% TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
 classificationOfCall(_Service, _Dataset) :- false.
 
 
@@ -142,6 +144,7 @@ location(Container,Location, none) :-
 
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
+% TODO MAX explain the semantics of an empty tamper protection set for the system spec and the adversary spec
 linkLocationWithOrWithoutSpecifiedTamperProtection(LinkingResource,Location, Pair) :-
         linkingResource(LinkingResource),
         locationsAndTamperProtectionsPairs(LinkingResource,Pairs),

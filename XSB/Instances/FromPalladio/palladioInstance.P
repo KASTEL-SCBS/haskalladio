@@ -41,6 +41,7 @@ systemRequires(Interface) :- systemRequiredAssembledTo(Interface,_).
 
 % TODO: confirm that a palladio AssemblyConnector *really* is meant to
 % connect all matching interfaces between two contexts.
+% TODO MAX: output relation from connector to provided and required role
 systemAssembledTo(RequiringContext, Interface, byAssembly(ProvidingContext)) :-
         assemblyConnector(Connector),
         requiringAssemblyContext(Connector, RequiringContext),

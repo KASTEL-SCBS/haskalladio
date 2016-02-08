@@ -20,5 +20,3 @@ encryptsExcept(Link,Dataset) :-
         member(Dataset, Datasets).
 
 
-
-
