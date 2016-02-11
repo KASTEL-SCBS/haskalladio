@@ -63,6 +63,8 @@ showTerm (Node f xs) = f ++ "(" ++ (intercalate "," (fmap showTerm xs)) ++ ")"
 instance Show Assertion where
   show (Assertion t) = showTerm t
   show (Not a)       = "not " ++ (show a)
+  show (NotEq left right) = "not [" ++ (intercalate "," $ fmap showTerm left)  ++ "] = ["
+                                    ++ (intercalate "," $ fmap showTerm right) ++ "]"
 
 
 
@@ -107,12 +109,12 @@ notSimple = do
 notComplex :: Parser Proof
 notComplex = parens $ do
   reserved "not"
-  parens $ term `sepBy` (reserved "','")
+  left <- parens $ term `sepBy` (reserved "','")
   reservedOp "="
-  parens $ term `sepBy` (reserved "','")
+  right <- parens $ term `sepBy` (reserved "','")
   reservedOp "','"
   brackets $ return ()
-  return $ Node (NotEq [] []) []
+  return $ Node (NotEq left right) []
 
 assertion :: Parser Proof
 assertion =  parens $ try simple <|> notSimple
