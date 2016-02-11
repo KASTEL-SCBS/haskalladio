@@ -27,14 +27,15 @@
 % END IMPORTS
 % BEGIN EXPORTS
 :- export  % Predicates
-           accessibleParameters/2,               % accessibleParameters(Attacker,Parameter)
-           observableServices/2,                 % observableServices(Attacker,Parameter)
-           dataAccessibleTo/2.                   % dataAccessibleTo(Attacker,DataSet)
+           parameterAllowedToBeAccessedBy/2,        % parameterAllowedToBeAccessedBy(Attacker, Parameter)
+           serviceAllowedToBeObservedBy/2,          % parameterAllowedToBeAccessedBy(Attacker, Parameter)
+
+           accessibleParameters/2,                  % accessibleParameters(Attacker,Parameter)
+           observableServices/2.                    % observableServices(Attacker,Parameter)
 % END EXPORTS
 
 justify_pred(accessibleParameters(_,_)).
 justify_pred(observableServices(_,_)).
-justify_pred(dataAccessibleTo(_,_)).
 
 accessibleParameters(Attacker,Parameter) :-
   % Ausgabe-Parameter, auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat
@@ -91,12 +92,3 @@ observableServices(Attacker, Service) :-
   runsOn(Right,ContainerRight),
   services(Interface,Service),
   classificationOfCall(Service,DataSet).
-
-
-dataAccessibleTo(Attacker,DataSet) :-
-    accessibleParameters(Attacker,Parameter),
-    classificationOf(Parameter,DataSet).
-
-dataAccessibleTo(Attacker,DataSet) :-
-    observableServices(Attacker,Service),
-    classificationOfCall(Service,DataSet).
