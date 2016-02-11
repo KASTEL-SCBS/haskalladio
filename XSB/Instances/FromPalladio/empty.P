@@ -55,6 +55,8 @@ innerProvidedRole(_,_) :- fail.
 
 assemblyContext(_,_) :- fail.
 
+assemblyContext_AllocationContext(_,_) :- fail.
+
 assemblyContexts(_,[_,_]) :- fail.
 
 confidentialitySpecification(_) :- fail.

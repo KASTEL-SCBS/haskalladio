@@ -70,6 +70,14 @@ operationRequiredRole(98).
 operationRequiredRole(142).
 operationRequiredRole(143).
 
+requiredRole(125,146).
+requiredRole(126,148).
+requiredRole(128,91).
+requiredRole(129,89).
+requiredRole(130,85).
+requiredRole(131,92).
+requiredRole(132,93).
+
 resourceContainer(19,26).
 resourceContainer(20,28).
 resourceContainer(21,30).
@@ -170,21 +178,14 @@ innerProvidedRole(134,96).
 innerProvidedRole(136,88).
 innerProvidedRole(137,97).
 
-assemblyContext(19,27).
-assemblyContext(20,29).
-assemblyContext(21,31).
-assemblyContext(22,33).
-assemblyContext(23,35).
-assemblyContext(24,37).
-assemblyContext(25,38).
+assemblyContexts(123,[33,38,35,37]).
+
 assemblyContext(127,38).
 assemblyContext(133,38).
 assemblyContext(134,37).
 assemblyContext(135,37).
 assemblyContext(136,35).
 assemblyContext(137,37).
-
-assemblyContexts(123,[33,38,35,37]).
 
 confidentialitySpecification(39).
 
@@ -214,6 +215,14 @@ requiredRoles(123,[142,143]).
 adversaries(1,[2,3,4,5,6,7]).
 
 connectors(123,[124,125,126,127,128,129,130,131,132,133,134,135,136,137]).
+
+assemblyContext_AllocationContext(19,27).
+assemblyContext_AllocationContext(20,29).
+assemblyContext_AllocationContext(21,31).
+assemblyContext_AllocationContext(22,33).
+assemblyContext_AllocationContext(23,35).
+assemblyContext_AllocationContext(24,37).
+assemblyContext_AllocationContext(25,38).
 
 locationsAndTamperProtectionsPairs(2,[13,14,15]).
 locationsAndTamperProtectionsPairs(3,[16]).
@@ -355,6 +364,14 @@ providedInterface(141,82).
 linkingResource(117).
 linkingResource(118).
 linkingResource(119).
+
+providedRole(125,145).
+providedRole(126,147).
+providedRole(128,83).
+providedRole(129,84).
+providedRole(130,86).
+providedRole(131,87).
+providedRole(132,95).
 
 locationsAndTamperProtectionsPair(16).
 locationsAndTamperProtectionsPair(17).

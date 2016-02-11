@@ -11,6 +11,7 @@
            outerProvidedRole/2,
            innerProvidedRole/2,
            assemblyContext/2,
+           assemblyContext_AllocationContext/2,
            providedDelegationConnector/1,
            resourceContainer/1,
            systemProvidesAssembledTo/2,
@@ -69,7 +70,7 @@ systemProvidesAsssembledTo(Interface, Context) :-
 runsOn(AssemblyContext, ResourceContainer) :-
         allocationContext(AllocationContext), % TODO: likely reduntant
         resourceContainer(AllocationContext,ResourceContainer),
-        assemblyContext(AllocationContext,AssemblyContext).
+        assemblyContext_AllocationContext(AllocationContext,AssemblyContext).
 
 componentOf(AssemblyContext, Component) :-
         assemblyContext(AssemblyContext), % TODO: likely redundant

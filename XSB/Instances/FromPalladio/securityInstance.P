@@ -20,6 +20,7 @@
            requiredInterface/2,
            resourceContainer/2,
            assemblyContext/2,
+           assemblyContext_AllocationContext/2,
            outerRequiredRole/2,
            providedInterface/2,
            outerProvidedRole/2,
@@ -54,15 +55,15 @@ isLocation(Location) :- location(Location).
 uiInterfaceOn(Container,Interface) :-
         system(_System),                                     % TODO: add wellformedness-condition that there is only one system? This is somehwat redundant!!
         outerProvidedRole(Connector,ProvidedRole),
-        assemblyContext(Connector,        AssemblyContext),  % TODO: well, this ...
-        assemblyContext(AllocationContext,AssemblyContext),  %       .. is awkward: the exported predicate name assemblyContext/2 is overloaded!
-        resourceContainer(AllocationContext,Container),      % TODO MAX output separate predicates for both cases
+        assemblyContext(Connector,        AssemblyContext),
+        assemblyContext_AllocationContext(AllocationContext,AssemblyContext),
+        resourceContainer(AllocationContext,Container),
         providedInterface(ProvidedRole,Interface).
 uiInterfaceOn(Container,Interface) :-
         system(_System),
         outerRequiredRole(Connector,ProvidedRole),
         assemblyContext(Connector,        AssemblyContext),
-        assemblyContext(AllocationContext,AssemblyContext),
+        assemblyContext_AllocationContext(AllocationContext,AssemblyContext),
         resourceContainer(AllocationContext,Container),
         requiredInterface(ProvidedRole,Interface).
 

@@ -3,7 +3,8 @@
         allocationContext/1,                        % allocationContext(AllocationContext)
         assemblyConnector/1,                        % assemblyConnector(Connector)
         assemblyContext/1,                          % assemblyContext(AssemblyContext)
-        assemblyContext/2,                          % assemblyContext(AllocationContext,AssemblyContext)
+        assemblyContext/2,                          % assemblyContext(Connector,AssemblyContext)
+        assemblyContext_AllocationContext/2,        % assemblyContext_AllocationContext(AllocationContext,AssemblyContext)
         basicComponent/1,                           % basicComponent(Component)
         connectedResourceContainers/2,              % connectedResourceContainers(Link,[RCLeft,RCRight])
         connectionType/2,                           % connectionType(Container,Mode)
@@ -64,6 +65,8 @@
         operationSignature/1,
         parameter/1,
         parametersAndDataSetsPair/1,
+        providedRole/2,
+        requiredRole/2,
         repository/1,
         resourceEnvironment/1,
         system/1,  % In fact, we shouldn't  export this, since there already is a predicate system/1 elsewhere
