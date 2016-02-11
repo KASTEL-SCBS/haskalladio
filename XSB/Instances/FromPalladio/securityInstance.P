@@ -94,11 +94,15 @@ classificationOf(return(Service), Dataset) :-
         dataSetTargets(Pair, Datasets),
         member(Dataset, Datasets).
 
-% TODO: currently there is no way in palladio to specify what information is contained in the presence of calls
 % TODO MAX check that a backslash is always followed by return or call and implement other well-formedness checks for specification
 % TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
-classificationOfCall(_Service, _Dataset) :- false.
-
+classificationOfCall(Service, Dataset) :-
+        parametersAndDataSetsPairs(Service, Pairs),
+        member(Pair, Pairs),
+        parameterSources(Pair,ParameterNames),
+        member(\call, ParameterNames),
+        dataSetTargets(Pair, Datasets),
+        member(Dataset, Datasets).
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
 tamperingAbilities(Attacker, Location, TamperProtection) :-
