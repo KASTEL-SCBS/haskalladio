@@ -27,9 +27,11 @@
         providedDelegationConnector/1,              % providedDelegationConnector(Connector)
         providedInterface/2,                        % providedInterface(InnerProvidedRole,Interface)
         providedRoles/2,                            % providedRoles(Component,Roles)
+        providedRole/2,                             % providedRole(Connector, ProvidedRole),
         providingAssemblyContext/2,                 % providingAssemblyContext(Connector, ProvidingContext)
         requiredInterface/2,                        % requiredInterface(Role,Interface)
         requiredRoles/2,                            % requiredRoles(Component,Roles)
+        requiredRole/2,                             % requiredRole(Connector, RequiredRole)
         requiringAssemblyContext/2,                 % requiringAssemblyContext(Connector, RequiringContext)
         resourceContainer/1,                        % resourceContainer(Container)
         resourceContainer/2,                        % resourceContainer(AllocationContext,Container)
@@ -65,8 +67,6 @@
         operationSignature/1,
         parameter/1,
         parametersAndDataSetsPair/1,
-        providedRole/2,
-        requiredRole/2,
         repository/1,
         resourceEnvironment/1,
         system/1,  % In fact, we shouldn't  export this, since there already is a predicate system/1 elsewhere

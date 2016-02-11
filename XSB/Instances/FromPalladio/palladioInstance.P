@@ -10,6 +10,9 @@
            operationProvidedRole/1,
            outerProvidedRole/2,
            innerProvidedRole/2,
+           providedRole/2,
+           requiredRole/2,
+           requiredInterface/2,
            assemblyContext/2,
            assemblyContext_AllocationContext/2,
            providedDelegationConnector/1,
@@ -40,17 +43,14 @@ systemProvides(Interface) :- systemProvidesAssembledTo(Interface,_).
 
 systemRequires(Interface) :- systemRequiredAssembledTo(Interface,_).
 
-% TODO: confirm that a palladio AssemblyConnector *really* is meant to
-% connect all matching interfaces between two contexts.
-% TODO MAX: output relation from connector to provided and required role
 systemAssembledTo(RequiringContext, Interface, byAssembly(ProvidingContext)) :-
         assemblyConnector(Connector),
         requiringAssemblyContext(Connector, RequiringContext),
         providingAssemblyContext(Connector, ProvidingContext),
-        componentOf(RequiringContext, RequiringComponent),
-        componentOf(ProvidingContext, ProvidingComponent),
-        requires(RequiringComponent, Interface),
-        provides(ProvidingComponent, Interface).
+        requiredRole(Connector, RequiredRole),
+        requiredInterface(RequiredRole, Interface),
+        providedRole(Connector, ProvidedRole),        % By wellformedness of exported models, thes
+        providedInterface(ProvidedRole, Interface).   % two subgoals are presumably redundant.
 
 
 systemProvidesAsssembledTo(Interface, Context) :-
