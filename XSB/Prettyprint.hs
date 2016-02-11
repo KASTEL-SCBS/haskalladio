@@ -22,7 +22,7 @@ languageDef =
    emptyDef { Token.commentStart    = "/*"
             , Token.commentEnd      = "*/"
             , Token.commentLine     = "//"
-            , Token.identStart      = letter
+            , Token.identStart      = letter <|> char '_'
             , Token.identLetter     = alphaNum
             , Token.reservedNames   = [ "length", "justify6","not"]
             , Token.reservedOpNames = ["','", "=" ]
@@ -102,7 +102,7 @@ notSimple = do
   t <- term
   reservedOp "','"
   subproofs <- brackets $ (try notComplex <|> assertion) `sepBy` comma
-  return $ Node (Not $ Assertion t) []
+  return $ Node (Not $ Assertion t) subproofs
 
 notComplex :: Parser Proof
 notComplex = parens $ do
