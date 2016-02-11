@@ -22,7 +22,7 @@ languageDef =
    emptyDef { Token.commentStart    = "/*"
             , Token.commentEnd      = "*/"
             , Token.commentLine     = "//"
-            , Token.identStart      = letter <|> char '_'
+            , Token.identStart      = letter <|> char '_' <|> char '\\'
             , Token.identLetter     = alphaNum
             , Token.reservedNames   = [ "length", "justify6","not"]
             , Token.reservedOpNames = ["','", "=" ]
