@@ -9,7 +9,7 @@
            systemProvidesAsssembledTo/2, % systemProvidesAsssembledTo(Interface,       -- an interface provided by the system
                                          %                            AssemblyContext) -- the assembly providing that interface
            runsOn/2,              % runsOn(AssemblyContext,ResourceContainer)
-           linkBetween/3,         % linkBetween(LinkingResource,ResourceContainer, ResourceContainer)
+           connects/3,         % connects(LinkingResource,ResourceContainer, ResourceContainer)
 
            % Enumerators
            resourcecontainers/1,  % resourcecontainers(ResourceContainer)

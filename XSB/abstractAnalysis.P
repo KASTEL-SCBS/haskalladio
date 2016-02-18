@@ -4,7 +4,7 @@
            outputParameters/2,
            services/2
            from componentRepositoryInstance.
-:- import  linkBetween/3,
+:- import  connects/3,
            componentOf/2,
            runsOn/2,
            systemAssembledTo/3,
@@ -58,7 +58,7 @@ accessibleParameters(Attacker,Parameter) :-
 accessibleParameters(Attacker,Parameter) :-
   % Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
   linksDataAccessibleBy(Attacker, Link, DataSet),
-  linkBetween(Link,ContainerLeft,ContainerRight),
+  connects(Link,ContainerLeft,ContainerRight),
   runsOn(Left,ContainerLeft),
   componentOf(Left,Component),
   requires(Component,Interface),
@@ -83,7 +83,7 @@ observableServices(Attacker,Service) :-
 observableServices(Attacker, Service) :-
   % Services, deren Aufrufe der Angreifer beobachten kann, weil er eine entsprechende LinkResource angreifen konnte.
   linksDataAccessibleBy(Attacker, Link, DataSet),
-  linkBetween(Link,ContainerLeft, ContainerRight),
+  connects(Link,ContainerLeft, ContainerRight),
   runsOn(Left,ContainerLeft),
   componentOf(Left,Component),
   requires(Component,Interface),
