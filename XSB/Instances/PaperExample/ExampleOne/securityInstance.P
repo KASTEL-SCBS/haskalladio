@@ -56,7 +56,8 @@ tamperingAbilities(guest,             Location,none) :- isLocation(Location).
 tamperingAbilities(inhabitant,        Location,none) :- isLocation(Location).
 tamperingAbilities(passerByAdversary, Location,none) :- isLocation(Location).
 
-locationsAccessibleBy(guest,Location) :- isLocation(Location).
+locationsAccessibleBy(guest,outdoors).
+locationsAccessibleBy(guest,livingRoom).
 locationsAccessibleBy(inhabitant,Location) :- isLocation(Location).
 locationsAccessibleBy(passerByAdversary,outdoors).
 
