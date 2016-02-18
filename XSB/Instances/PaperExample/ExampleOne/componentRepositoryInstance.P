@@ -10,7 +10,7 @@ services(databaseInterface, getValues).
 services(databaseInterface, storeValue).
 services(energyVisualizationI, drawEnergyConsumptionGraph).
 services(energyMeasurement, getEnergyValue).
-services(energyMeasurement, getCustomerCredentials).
+services(energyMeasurement, getCustomerId).
 
 
 inputParameters(storeValue,timestamp).
@@ -29,7 +29,7 @@ typeOf(end,int).
 typeOf(return(getValues),intArray).
 typeOf(return(drawEnergyConsumptionGraph),image).
 typeOf(return(getEnergyValue), int).
-typeOf(return(getCustomerCredentials), int).
+typeOf(return(getCustomerId), int).
 
 
 provides(dbms               , databaseInterface).

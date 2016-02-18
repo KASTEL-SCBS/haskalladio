@@ -1,7 +1,7 @@
 # modify this to run queries on different model instances,
 # or with a different linkModel.
-# INSTANCE=Instances/PaperExample/ExampleOne
-INSTANCE=Instances/FromPalladio
+INSTANCE=Instances/PaperExample/ExampleOne
+# INSTANCE=Instances/FromPalladio
 LINKMODEL=simpleLinkModel.P
 
 # if INSTANCE==Instances/FromPalladio, specify the location of fromPalladio.P

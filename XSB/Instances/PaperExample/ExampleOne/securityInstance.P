@@ -47,7 +47,7 @@ classificationOf(end                                ,consumptionData).
 classificationOf(return(getValues)                  ,consumptionData).
 classificationOf(return(drawEnergyConsumptionGraph) ,consumptionData).
 classificationOf(return(getEnergyValue)             ,consumptionData).
-classificationOf(return(getCustomerCredentials)     ,billingData).
+classificationOf(return(getCustomerId)              ,billingData).
 
 classificationOfCall(_AnyParameter,publicData).
 
