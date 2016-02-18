@@ -58,11 +58,11 @@ containersFullyAccessibleBy(Attacker,Container) :-
         location(Container,Location,Method),
         tamperingAbilities(Attacker,Location,Method).
 containersFullyAccessibleBy(_,Container) :-
-        sharingOf(Container,openShared),
+        sharingOf(Container,shared),
         furtherConnections(Container,existing).
 containersFullyAccessibleBy(Attacker,Container) :-
         containersPhysicalAccessibleBy(Attacker,Container,_),
-        sharingOf(Container,openShared),
+        sharingOf(Container,shared),
         furtherConnections(Container,possible).
 
 
