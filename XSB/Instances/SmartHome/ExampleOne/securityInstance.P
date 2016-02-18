@@ -3,9 +3,9 @@
            from security.
 % END IMPORTS
 
-justify_pred(dataAllowedToBeAccessedBy(_,_)).
-justify_pred(classificationOf(_,_)).
-justify_pred(classificationOfCall(_,_)).
+justify_pred(mayknow(_,_)).
+justify_pred(includes(_,_)).
+justify_pred(includesCall(_,_)).
 justify_pred(tamperingAbilities(_,_,_)).
 justify_pred(locationsAccessibleBy(_,_)).
 justify_pred(furtherConnections(_,_)).
@@ -32,21 +32,21 @@ attacker(handyMan).
 attacker(anybody).
 attacker(blindDeafGuy).
 
-dataAllowedToBeAccessedBy(guest,publicData).
-dataAllowedToBeAccessedBy(guest,inhabitantData).
-dataAllowedToBeAccessedBy(handyMan,publicData).
-dataAllowedToBeAccessedBy(handyMan,providerData).
-dataAllowedToBeAccessedBy(anybody,publicData).
-dataAllowedToBeAccessedBy(burglar,publicData).
-dataAllowedToBeAccessedBy(blindDeafGuy,publicData).
+mayknow(guest,publicData).
+mayknow(guest,inhabitantData).
+mayknow(handyMan,publicData).
+mayknow(handyMan,providerData).
+mayknow(anybody,publicData).
+mayknow(burglar,publicData).
+mayknow(blindDeafGuy,publicData).
 
 
-classificationOf(consumption,inhabitantData).
-classificationOf(return(getCurrentConsumptionConsumptionDataSending),inhabitantData).
-classificationOf(return(getCurrentConsumptionCurrentConsumptionDataDisplaying),inhabitantData).
-classificationOf(return(getHistoricConsumption),providerData).
+includes(consumption,inhabitantData).
+includes(return(getCurrentConsumptionConsumptionDataSending),inhabitantData).
+includes(return(getCurrentConsumptionCurrentConsumptionDataDisplaying),inhabitantData).
+includes(return(getHistoricConsumption),providerData).
 
-classificationOfCall(_AnyParameter,publicData).
+includesCall(_AnyParameter,publicData).
 
 
 tamperingAbilities(anybody,plombeEntfernen, Location) :- isLocation(Location).

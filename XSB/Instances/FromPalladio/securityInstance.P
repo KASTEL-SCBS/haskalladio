@@ -36,9 +36,9 @@
            from componentRepositoryInstance.
 % END IMPORTS
 
-justify_pred(dataAllowedToBeAccessedBy(_,_)).
-justify_pred(classificationOf(_,_)).
-justify_pred(classificationOfCall(_,_)).
+justify_pred(mayknow(_,_)).
+justify_pred(includes(_,_)).
+justify_pred(includesCall(_,_)).
 justify_pred(tamperingAbilities(_,_,_)).
 justify_pred(locationsAccessibleBy(_,_)).
 justify_pred(furtherConnections(_,_)).
@@ -72,11 +72,11 @@ dataset(Dataset) :- dataSet(Dataset).
 
 attacker(Attacker) :- adversary(Attacker).
 
-dataAllowedToBeAccessedBy(Attacker,Dataset) :-
+mayknow(Attacker,Dataset) :-
         mayKnowDataSets(Attacker, Datasets),
         member(Dataset, Datasets).
 
-classificationOf(parm(Service,ParameterName), Dataset) :-
+includes(parm(Service,ParameterName), Dataset) :-
         inputParameters(Service, parm(Service,ParameterName)),
         parametersAndDataSetsPairs(Service, Pairs),
         member(Pair, Pairs),
@@ -85,7 +85,7 @@ classificationOf(parm(Service,ParameterName), Dataset) :-
         dataSetTargets(Pair, Datasets),
         member(Dataset, Datasets).
 
-classificationOf(return(Service), Dataset) :-
+includes(return(Service), Dataset) :-
         outputParameters(Service, return(Service)),
         parametersAndDataSetsPairs(Service, Pairs),
         member(Pair, Pairs),
@@ -96,7 +96,7 @@ classificationOf(return(Service), Dataset) :-
 
 % TODO MAX check that a backslash is always followed by return or call and implement other well-formedness checks for specification
 % TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
-classificationOfCall(Service, Dataset) :-
+includesCall(Service, Dataset) :-
         parametersAndDataSetsPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),

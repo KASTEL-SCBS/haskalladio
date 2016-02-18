@@ -21,8 +21,8 @@
            requiredInterfacesAccessibleTo/2
            from security.
 
-:- import  classificationOfCall/2,
-           classificationOf/2
+:- import  includesCall/2,
+           includes/2
            from securityInstance.
 % END IMPORTS
 % BEGIN EXPORTS
@@ -66,7 +66,7 @@ accessibleParameters(Attacker,Parameter) :-
   runsOn(Right,ContainerRight),
   services(Interface, Service),
   parametersOf(Service,Parameter),
-  classificationOf(Parameter,DataSet).
+  includes(Parameter,DataSet).
 
 
 observableServices(Attacker, Service) :-
@@ -90,13 +90,13 @@ observableServices(Attacker, Service) :-
   systemAssembledTo(Left,Interface,byAssembly(Right)),
   runsOn(Right,ContainerRight),
   services(Interface,Service),
-  classificationOfCall(Service,DataSet).
+  includesCall(Service,DataSet).
 
 
 dataAccessibleTo(Attacker,DataSet) :-
     accessibleParameters(Attacker,Parameter),
-    classificationOf(Parameter,DataSet).
+    includes(Parameter,DataSet).
 
 dataAccessibleTo(Attacker,DataSet) :-
     observableServices(Attacker,Service),
-    classificationOfCall(Service,DataSet).
+    includesCall(Service,DataSet).
