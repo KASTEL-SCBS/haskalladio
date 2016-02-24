@@ -15,6 +15,7 @@ import Data.Set as S
 import Data.Set.Unicode
 import Data.Maybe (fromJust)
 
+import Control.Monad(filterM)
 import Test.QuickCheck hiding (output)
 
 import qualified Data.Map as M
@@ -72,6 +73,7 @@ instance (Enumerable d, Ord d) => Arbitrary (Procedure Parameter d) where
          influences = influences
        }
    where
+    sublistOf xs = filterM (\_ -> choose (False, True)) xs
     includesFrom as bs cs xs ys zs = includes
       where includes (Input A) = S.fromList $ as
             includes (Input B) = S.fromList $ bs
