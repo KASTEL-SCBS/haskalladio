@@ -72,18 +72,18 @@ for the ifc specification to hold.
 type SpecificationInterpretation p d l = Procedure p d -> [VerificationCondition p l]
 \end{code}
 
-Simon's approach for KeY is to translate the ifc-specification into several non-interference verification
+The approach for KeY is to translate the ifc-specification into several non-interference verification
 condition, each for the `LowHigh` lattice.
 \begin{code}
-greiner :: (Ord d, Ord p) => SpecificationInterpretation p d LowHigh
-greiner pr@(Procedure { input, output, includes, influences}) =
+key :: (Ord d, Ord p) => SpecificationInterpretation p d LowHigh
+key pr@(Procedure { input, output, includes, influences}) =
     [ (lowhigh, (\p -> if (d ∈ includes p) then High else Low)) | d <- toList $ datasets pr]
 \end{code}
 
-Martin's Approach for JOANA generates just one JOANA-Specification, using the powerset-lattice of `d`.
+The approach for JOANA generates just one JOANA-Specification, using the powerset-lattice of `d`.
 \begin{code}
-hecker :: (Ord d, Ord p) => SpecificationInterpretation p d (Set d)
-hecker pr@(Procedure { input, output, includes, influences}) = [((powerset (datasets pr), (⊆)), includes )]
+joana :: (Ord d, Ord p) => SpecificationInterpretation p d (Set d)
+joana pr@(Procedure { input, output, includes, influences}) = [((powerset (datasets pr), (⊆)), includes )]
 \end{code}
 
 In this simplified model, a procedures implementation is abstractly defined by its  information-flow
@@ -97,17 +97,17 @@ holds (Procedure { input, output, includes, influences}) ((l,(⊑)), classifiedA
     ))
 \end{code}
 
-Given an ifc-specification interpretation (e.g. `hecker` or `greiner`),
+Given an ifc-specification interpretation (e.g. `joana` or `greiner`),
 a procedure pr is secure iff all its verification conditions hold.
 \begin{code}
 secure :: (Ord p) => SpecificationInterpretation p d l -> Procedure p d -> Bool
 secure interpretation pr = (∀) (interpretation pr) (\condition -> holds pr condition)
 \end{code}
 
-`hecker` and `greiner` are equivalent! Otherwise, we couldn't use KeY and JOANA interchangably!!
+`joana` and `key` are equivalent! Otherwise, we couldn't use KeY and JOANA interchangably!!
 \begin{code}
-heckerIsGreiner :: (Ord d, Ord p) => Procedure p d -> Bool
-heckerIsGreiner pr = secure hecker pr ⇔ secure greiner pr
+joanaIsKey :: (Ord d, Ord p) => Procedure p d -> Bool
+joanaIsKey pr = secure joana pr ⇔ secure key pr
 \end{code}
 
 
@@ -143,9 +143,9 @@ Weakenings of secure ifc-specifications are secure:
 \begin{code}
 secureWeakeningsAreSecure :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Procedure p d -> Property
 secureWeakeningsAreSecure pr pr' =
-  (secure hecker pr ) ∧ (pr `isNaivelyStrongerThan` pr')
+  (secure joana pr ) ∧ (pr `isNaivelyStrongerThan` pr')
   ==>
-  (secure hecker pr')
+  (secure joana pr')
 \end{code}
 
 
@@ -155,9 +155,9 @@ even if we test the following:
 \begin{code}
 secureWeakeningsAreSecure' :: (Enum d, Bounded d, Ord d, Ord p) => SpecificationPair p d d -> Property
 secureWeakeningsAreSecure' (SpecificationPair pr pr') =
-  (secure hecker pr ) ∧ (pr `isNaivelyStrongerThan` pr')
+  (secure joana pr ) ∧ (pr `isNaivelyStrongerThan` pr')
   ==>
-  (secure hecker pr')
+  (secure joana pr')
 \end{code}
 
 
@@ -196,8 +196,8 @@ weakerAreWeakenings (SpecificationPair pr pr') =
 If pr fullfills its ifc requirement, then also all weakenings of pr do
 \begin{code}
 weakeningsAreSafe :: (Enum d, Bounded d, Ord d, Ord p) => Procedure p d -> Property
-weakeningsAreSafe pr = secure hecker pr ==>
-  (∀) (weakenings pr) (\pr' -> secure hecker pr')
+weakeningsAreSafe pr = secure joana pr ==>
+  (∀) (weakenings pr) (\pr' -> secure joana pr')
 \end{code}
 %endif
 
@@ -209,8 +209,8 @@ Now we try define a criterion which allows us to re-use existing non-interferenc
 Assume that we have
 
 * an existing ifc specification `pr`  in terms of a set `d`  (of datasets)
-* proven `pr` secure, by establishing all verification conditions derived by the interpretation `hecker`
- (or interpretation `greiner`  which, by property `heckerIsGreiner`, is equivalent)
+* proven `pr` secure, by establishing all verification conditions derived by the interpretation `joana`
+ (or interpretation `greiner`  which, by property `joanaIsGreiner`, is equivalent)
 
 Assume moreover, that  we have
 
@@ -263,10 +263,10 @@ existsConsistentRelabelingIsJustified pr pr' =
         ∧ (output pr) == (output pr')
         ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
 
-        ∧ (secure hecker pr)
+        ∧ (secure joana pr)
         ∧ (∃) relabelings (\g0 -> isConsistentRelabelingFor g0 pr pr')
        )
-   ==>    (secure hecker pr')
+   ==>    (secure joana pr')
 
   where relabelings = setFunctionsBetween (datasets pr) (datasets pr')
 \end{code}
@@ -278,10 +278,10 @@ be fullfilled. Hence we will use a generator that always produces two specificat
 existsConsistentRelabelingIsJustifiedTestable ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
 existsConsistentRelabelingIsJustifiedTestable (SpecificationPair pr pr') =
        (
-          (secure hecker pr)
+          (secure joana pr)
         ∧ (∃) relabelings (\g0 -> isConsistentRelabelingFor g0 pr pr')
        )
-   ==>    (secure hecker pr')
+   ==>    (secure joana pr')
 
   where relabelings = setFunctionsBetween (datasets pr) (datasets pr')
 \end{code}
@@ -296,8 +296,8 @@ existsConsistentRelabelingIsComplete pr pr' =
         ∧ (output pr) == (output pr')
         ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
 
-        ∧ (secure hecker pr)
-        ∧ (secure hecker pr')
+        ∧ (secure joana pr)
+        ∧ (secure joana pr')
        )
    ==>    (∃) relabelings (\g0 -> isConsistentRelabelingFor g0 pr pr')
 
@@ -309,8 +309,8 @@ existsConsistentRelabelingIsComplete pr pr' =
 existsConsistentRelabelingIsCompleteTestable ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
 existsConsistentRelabelingIsCompleteTestable (SpecificationPair pr pr') =
        (
-          (secure hecker pr)
-        ∧ (secure hecker pr')
+          (secure joana pr)
+        ∧ (secure joana pr')
        )
    ==>    (∃) relabelings (\g0 -> isConsistentRelabelingFor g0 pr pr')
 
@@ -375,10 +375,10 @@ existsConsistentRelabelingRevIsJustified pr pr' =
         ∧ (output pr) == (output pr')
         ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
 
-        ∧ (secure hecker pr)
+        ∧ (secure joana pr)
         ∧ (∃) relabelings (\f0 -> isConsistentRelabelingRevFor f0 pr pr')
        )
-   ==>    (secure hecker pr')
+   ==>    (secure joana pr')
 
   where relabelings = setFunctionsBetween (datasets pr') (datasets pr)
 \end{code}
@@ -388,10 +388,10 @@ existsConsistentRelabelingRevIsJustified pr pr' =
 existsConsistentRelabelingRevIsJustifiedTestable ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
 existsConsistentRelabelingRevIsJustifiedTestable (SpecificationPair pr pr') =
        (
-          (secure hecker pr)
+          (secure joana pr)
         ∧ (∃) relabelings (\f0 -> isConsistentRelabelingRevFor f0 pr pr')
        )
-   ==>    (secure hecker pr')
+   ==>    (secure joana pr')
 
   where relabelings = setFunctionsBetween (datasets pr') (datasets pr)
 \end{code}
@@ -406,8 +406,8 @@ existsConsistentRelabelingRevIsComplete pr pr' =
         ∧ (output pr) == (output pr')
         ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
 
-        ∧ (secure hecker pr)
-        ∧ (secure hecker pr')
+        ∧ (secure joana pr)
+        ∧ (secure joana pr')
        )
    ==>    (∃) relabelings (\f0 -> isConsistentRelabelingRevFor f0 pr pr')
 
@@ -419,8 +419,8 @@ existsConsistentRelabelingRevIsComplete pr pr' =
 existsConsistentRelabelingRevIsCompleteTestable ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
 existsConsistentRelabelingRevIsCompleteTestable (SpecificationPair pr pr') =
        (
-          (secure hecker pr)
-        ∧ (secure hecker pr')
+          (secure joana pr)
+        ∧ (secure joana pr')
        )
    ==>    (∃) relabelings (\f0 -> isConsistentRelabelingRevFor f0 pr pr')
 
@@ -491,14 +491,14 @@ We will then have the soundness property:
 isStrongerThanIsJustified ::  (Ord p, Ord d, Ord d') => Procedure p d ->  Procedure p d' -> Property
 isStrongerThanIsJustified pr pr' =
        (
-          (secure hecker pr)
+          (secure joana pr)
         ∧ (input  pr) == (input  pr')
         ∧ (output pr) == (output pr')
 
         ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
         ∧ (pr  `isStrongerThan` pr')
        )
-   ==>      (secure hecker pr')
+   ==>      (secure joana pr')
 \end{code}
 
 %if False
@@ -508,10 +508,10 @@ be fullfilled. Hence we will use a generator that always produces two specificat
 isStrongerThanIsJustifiedTestable ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
 isStrongerThanIsJustifiedTestable (SpecificationPair pr pr') =
        (
-            (secure hecker pr)
+            (secure joana pr)
         &&  (pr  `isStrongerThan` pr')
        )
-   ==>      (secure hecker pr')
+   ==>      (secure joana pr')
 \end{code}
 %endif
 
@@ -520,12 +520,12 @@ isStrongerThanIsJustifiedTestable (SpecificationPair pr pr') =
 isStrongerThanIsComplete ::  (Ord p, Ord d, Ord d') => Procedure p d ->  Procedure p d' -> Property
 isStrongerThanIsComplete pr pr' =
        (
-          (secure hecker pr)
+          (secure joana pr)
         ∧ (input  pr) == (input  pr')
         ∧ (output pr) == (output pr')
 
         ∧ (∀) (input pr) (\p -> influences pr p == influences pr' p)
-        ∧ (secure hecker pr')
+        ∧ (secure joana pr')
        )
    ==>    (pr  `isStrongerThan` pr')
 \end{code}
@@ -535,8 +535,8 @@ isStrongerThanIsComplete pr pr' =
 isStrongerThanIsCompleteTestable ::  (Ord p, Ord d, Ord d') => SpecificationPair p d d' -> Property
 isStrongerThanIsCompleteTestable (SpecificationPair pr pr') =
        (
-          (secure hecker pr)
-        ∧ (secure hecker pr')
+          (secure joana pr)
+        ∧ (secure joana pr')
        )
    ==>    (pr  `isStrongerThan` pr')
 \end{code}
@@ -727,7 +727,7 @@ all output parameter by the set of input parameters that influence it.
 Every "implementation" `pr` does indeed fullfill the ifc-specification `α(pr)`:
 \begin{code}
 mostPreciseIsSecure :: (Ord p) => Procedure p d -> Bool
-mostPreciseIsSecure p = secure hecker (α p)
+mostPreciseIsSecure p = secure joana (α p)
 \end{code}
 
 Every "implementation" `pr` is equal to the the most-leaking implementation of it's most-precise ifc-specification
@@ -743,7 +743,7 @@ A procedure  `pr` is secure iff it has fewer Flows than the most-leaking impleme
 \begin{code}
 fewerFlowsIffSecure  :: forall d p. (Ord d, Ord p) => Procedure p d -> Bool
 fewerFlowsIffSecure pr =
-      (secure hecker pr)
+      (secure joana pr)
    ⇔  (pr `hasFewerFlowsThan` (γ pr))
 \end{code}
 
