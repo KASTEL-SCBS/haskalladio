@@ -8,7 +8,7 @@ SED_REMOVE_HIDDEN := sed '/%if False/,/%endif/d'
 SED_CONVERT := sed '/\\begin{code}/,/\\end{code}/s/^/> /g'
 GREP_FILTER := grep -ve '\\\(begin\|end\){code}'
 
-HTMLS = Noninterference.html Noninterference/Procedure.html Instances/PaperExample/ExampleOne/Noninterference.html
+HTMLS = Noninterference.html NoninterferenceGreiner.html Noninterference/Procedure.html Instances/PaperExample/ExampleOne/Noninterference.html
 all : $(HTMLS)
 
 .lhs.mkd:
