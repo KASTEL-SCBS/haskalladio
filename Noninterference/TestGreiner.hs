@@ -12,6 +12,7 @@ import qualified Data.Map as M
 
 checkAllProperties = do
   quickCheck (joanaIsKey                                      :: Procedure Parameter Datasets -> Bool)
+  quickCheck (secureCharactization                            :: Procedure Parameter Datasets -> Bool)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
              (weakerAreWeakenings                             :: SpecificationPair Parameter Datasets Datasets -> Property)
   quickCheck (weakeningsAreWeaker                             :: Procedure Parameter Datasets -> Bool)

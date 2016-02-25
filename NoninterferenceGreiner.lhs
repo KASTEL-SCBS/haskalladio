@@ -97,7 +97,7 @@ holds (Procedure { input, output, includes, influences}) ((l,(⊑)), classifiedA
     ))
 \end{code}
 
-Given an ifc-specification interpretation (e.g. `joana` or `greiner`),
+Given an ifc-specification interpretation (e.g. `joana` or `key`),
 a procedure pr is secure iff all its verification conditions hold.
 \begin{code}
 secure :: (Ord p) => SpecificationInterpretation p d l -> Procedure p d -> Bool
@@ -108,6 +108,16 @@ secure interpretation pr = (∀) (interpretation pr) (\condition -> holds pr con
 \begin{code}
 joanaIsKey :: (Ord d, Ord p) => Procedure p d -> Bool
 joanaIsKey pr = secure joana pr ⇔ secure key pr
+\end{code}
+
+Specifically, a procedure being secure is characerized as:
+\begin{code}
+secureCharactization :: forall d p. (Ord d, Ord p) => Procedure p d -> Bool
+secureCharactization pr@(Procedure { input, output, includes, influences }) =
+       (secure key pr)
+   ⇔  (∀) input (\i ->  (∀) output (\o ->
+          (o ∈ influences i) → (includes i ⊇ includes o)
+       ))
 \end{code}
 
 
