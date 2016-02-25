@@ -22,7 +22,7 @@ justify_pred(requires(_,_)).
 
 
 
-services(Interface, Service) :-
+hasService(Interface, Service) :-
         signatures(Interface,Services),
         member(Service, Services).
 

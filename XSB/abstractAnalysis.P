@@ -2,7 +2,7 @@
 :- import  requires/2,
            inputParameters/2,
            outputParameters/2,
-           services/2
+           hasService/2
            from componentRepositoryInstance.
 :- import  connects/3,
            componentOf/2,
@@ -39,20 +39,20 @@ justify_pred(dataAccessibleTo(_,_)).
 accessibleParameters(Attacker,Parameter) :-
   % Ausgabe-Parameter, auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat
   providedInterfacesAccessibleTo(Attacker,Interface),
-  services(Interface,Service),
+  hasService(Interface,Service),
   outputParameters(Service, Parameter).
 
 accessibleParameters(Attacker,Parameter) :-
   % Eingabe-Parameter,auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat, weil er vom System Aufgerufen wird.
   requiredInterfacesAccessibleTo(Attacker,Interface),
-  services(Interface,Service),
+  hasService(Interface,Service),
   inputParameters(Service, Parameter).
 
 accessibleParameters(Attacker,Parameter) :-
   % Parameter, auf die der Angreifer Zugriff hat, weil er einen entsprechenden ResourceContainer angreifen konnte.
   containersFullyAccessibleBy(Attacker, Container),
   interfacesOn(Container,Interface),
-  services(Interface,Service),
+  hasService(Interface,Service),
   parametersOf(Service,Parameter).
 
 accessibleParameters(Attacker,Parameter) :-
@@ -64,7 +64,7 @@ accessibleParameters(Attacker,Parameter) :-
   requires(Component,Interface),
   systemAssembledTo(Left,Interface,byAssembly(Right)),
   runsOn(Right,ContainerRight),
-  services(Interface, Service),
+  hasService(Interface, Service),
   parametersOf(Service,Parameter),
   includes(Parameter,DataSet).
 
@@ -72,13 +72,13 @@ accessibleParameters(Attacker,Parameter) :-
 observableServices(Attacker, Service) :-
   % Services, deren Aufrufe der Angreifer als regulärer "Benutzer" des Systems beobachten kann
   requiredInterfacesAccessibleTo(Attacker,Interface),
-  services(Interface, Service).
+  hasService(Interface, Service).
 
 observableServices(Attacker,Service) :-
   % Services, deren Aufrufe der Angreifer beobachten kann, weil er einen entsprechenden ResourceContainer angreifen konnte.
   containersFullyAccessibleBy(Attacker,Container),
   interfacesOn(Container,Interface),
-  services(Interface,Service).
+  hasService(Interface,Service).
 
 observableServices(Attacker, Service) :-
   % Services, deren Aufrufe der Angreifer beobachten kann, weil er eine entsprechende LinkResource angreifen konnte.
@@ -89,7 +89,7 @@ observableServices(Attacker, Service) :-
   requires(Component,Interface),
   systemAssembledTo(Left,Interface,byAssembly(Right)),
   runsOn(Right,ContainerRight),
-  services(Interface,Service),
+  hasService(Interface,Service),
   includesCall(Service,DataSet).
 
 

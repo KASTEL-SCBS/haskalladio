@@ -1,4 +1,4 @@
-:- export services/2,          % services(Interface,Service)
+:- export hasService/2,        % hasService(Interface,Service)
           inputParameters/2,   % inputParameters(Service, Parameter)
           outputParameters/2,  % outputParameters(Service, Parameter)
           typeOf/2,            % typeOf(Parameter, DataType)
