@@ -2,13 +2,16 @@ module Noninterference.Test where
 
 import Noninterference.Procedure
 import Noninterference.Testgen
-import Instances.PaperExample.ExampleOne.Noninterference
 import Noninterference
 import Noninterference.Util
 import Test.QuickCheck hiding (output)
 
 import Data.Set
 import qualified Data.Map as M
+
+data DatasetDatabase = Time
+                     | Data
+                     deriving (Show, Eq, Ord, Enum, Bounded)
 
 checkAllProperties = do
   quickCheck (joanaIsKey                                      :: Procedure Parameter Datasets -> Bool)
