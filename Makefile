@@ -23,5 +23,8 @@ all : $(HTMLS)
 .tex.pdf:
 	pdflatex $< && pdflatex $< && pdflatex $<
 
+Noninterference/examples-include.tex : Noninterference/Examples.hs
+	runghc $< > $@
+
 clean:
 	rm -f $(HTMLS)

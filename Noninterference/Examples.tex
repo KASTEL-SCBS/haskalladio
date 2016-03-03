@@ -1,0 +1,172 @@
+%% LaTeX-Beamer template for KIT design
+%% by Erik Burger, Christian Hammer
+%% title picture by Klaus Krogmann
+%%
+%% version 2.1
+%%
+%% mostly compatible to KIT corporate design v2.0
+%% http://intranet.kit.edu/gestaltungsrichtlinien.php
+%%
+%% Problems, bugs and comments to
+%% burger@kit.edu
+
+\documentclass[18pt]{beamer}
+
+%% SLIDE FORMAT
+
+% use 'beamerthemekit' for standard 4:3 ratio
+% for widescreen slides (16:9), use 'beamerthemekitwide'
+
+\usepackage{templates/beamerthemekit}
+%\usepackage{templates/beamerthemekitblack}
+%\usepackage{templates/beamerthemekitwide}
+
+\usepackage{xspace}
+% \usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{listings}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{fit}
+\usetikzlibrary{shapes}
+\usetikzlibrary{calc}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{invisible}
+
+%% TITLE PICTURE
+
+% if a custom picture is to be used on the title page, copy it into the 'logos'
+% directory, in the line below, replace 'mypicture' with the 
+% filename (without extension) and uncomment the following line
+% (picture proportions: 63 : 20 for standard, 169 : 40 for wide
+% *.eps format if you use latex+dvips+ps2pdf, 
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+\titleimage{Castel0}
+
+% (*.eps format if you use latex+dvips+ps2pdf,
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+%% TikZ INTEGRATION
+
+% use these packages for PCM symbols and UML classes
+% \usepackage{templates/tikzkit}
+% \usepackage{templates/tikzuml}
+
+% the presentation starts here
+
+\newcommand{\kit}[1]{\textcolor{kit-green100}{#1}}
+
+\title{Methodik}
+\subtitle{Verteilte Systeme}
+\author{Simon Greiner, Martin Hecker}
+
+\institute{Kompetenzzentrum für angewandte Sicherheitstechnologie}
+
+% Bibliography
+
+%\usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=biber]{biblatex}
+%\addbibresource{templates/example.bib}
+%\bibhang1em
+
+\newboolean{sol}
+\setboolean{sol}{false}
+
+\newcommand{\stereo}[1]{$\ll$#1$\gg$\xspace}
+\newcommand{\includesstereo}[2]{\stereo{$#1$ \emph{includes} $#2$}}
+\newcommand{\sicherunsicher}{%
+Spezifikation erfüllt?         \hfill \Square \\
+}
+\newcommand{\securewrt}[2]{%
+\ifsol
+Spezifikation erfüllt nach #1  \hfill #2 \\
+\fi
+}
+
+\begin{document}
+
+% change the following line to "ngerman" for German style date and logos
+%\selectlanguage{english}
+\selectlanguage{ngerman}
+
+
+\AtBeginSection{\frame{\sectionpage}}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\include{examples-include}
+
+\begin{frame}[fragile,t]{Interpretationen}
+
+\begin{overprint}
+\onslide<1>
+A component satisfies its specification if for every dataset $d$, output defined (by $d$) to be {\color{blue} low} is not influenced
+by input defined (by $d$) to be {\color{red} high} .
+\onslide<2>
+Insbesondere ist eine Spezifikation genau dann erfüllt wenn für alle Eingabeparameter $i$, und alle Ausgabeparameter $o$ gilt:
+\onslide<3>
+Intuitiv bedeutet eine Annotation \includesstereo{ds}{\ldots, p \ldots} also:
+\end{overprint}
+
+\vfill
+
+\kit{Interpretation i}
+\begin{overprint}
+\onslide<1>
+For a given dataset $d$ and stereotype \includesstereo{ds}{P},
+$d$ defines parameters $p \in P$ to be {\color{red} high},  all others to be  {\color{blue} low}.
+\onslide<2>
+\begin{itemize}
+  \item Falls $o$ durch $i$ beeinflusst wird, dann  $DS_i \subseteq DS_o$
+\end{itemize}
+\onslide<3>
+\begin{itemize}
+  \item Es ist möglich,    dass ein Teil der Information die \enquote{in $p$ steckt}, aus Dataset $ds$ ist.
+\end{itemize}
+\end{overprint}
+
+\vfill
+
+\kit{Interpretation ii}
+\begin{overprint}
+\onslide<1>
+For a given dataset $d$, and stereotype \includesstereo{d}{P},
+$d$ defines parameters $p \in P$ to be {\color{blue} low},  all others to be  {\color{red} high}.
+\onslide<2>
+\begin{itemize}
+  \item Falls $o$ durch $i$ beeinflusst wird, dann  $DS_o \subseteq DS_i$
+\end{itemize}
+\onslide<3>
+\begin{itemize}
+   \item Es ist garantiert, dass alle Information         die \enquote{in $p$ steckt}, aus Dataset $ds$ ist\footnote{lasst Euch nicht von Simon erzählen, dass Interpretation ii irgendeine andere intuitive Interpretation hat! :)}.
+\end{itemize}
+\end{overprint}
+
+\vfill
+
+\begin{overprint}
+\onslide<2>
+wobei $DS_i$ die Menge der Datasets ist, in denen $i$ included ist, und
+      $DS_o$ die Menge der Datasets ist, in denen $o$ included ist.
+\end{overprint}
+
+
+\end{frame}
+\appendix
+\beginbackup
+
+%\begin{frame}[allowframebreaks]{References}
+%\printbibliography
+%\end{frame}
+
+\backupend
+
+\end{document}
