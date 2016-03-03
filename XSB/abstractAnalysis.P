@@ -1,7 +1,7 @@
 % BEGIN IMPORTS
 :- import  requires/2,
-           inputParameters/2,
-           outputParameters/2,
+           hasParameter/2,
+           returnParameter/2,
            hasService/2
            from componentRepositoryInstance.
 :- import  connects/3,
@@ -40,13 +40,13 @@ accessibleParameters(Attacker,Parameter) :-
   % Ausgabe-Parameter, auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat
   providedInterfacesAccessibleTo(Attacker,Interface),
   hasService(Interface,Service),
-  outputParameters(Service, Parameter).
+  returnParameter(Service, Parameter).
 
 accessibleParameters(Attacker,Parameter) :-
   % Eingabe-Parameter,auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat, weil er vom System Aufgerufen wird.
   requiredInterfacesAccessibleTo(Attacker,Interface),
   hasService(Interface,Service),
-  inputParameters(Service, Parameter).
+  hasParameter(Service, Parameter).
 
 accessibleParameters(Attacker,Parameter) :-
   % Parameter, auf die der Angreifer Zugriff hat, weil er einen entsprechenden ResourceContainer angreifen konnte.

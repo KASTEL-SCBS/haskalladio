@@ -1,6 +1,6 @@
 :- export hasService/2,        % hasService(Interface,Service)
-          inputParameters/2,   % inputParameters(Service, Parameter)
-          outputParameters/2,  % outputParameters(Service, Parameter)
+          hasParameter/2,   % hasParameter(Service, Parameter)
+          returnParameter/2,  % returnParameter(Service, Parameter)
           typeOf/2,            % typeOf(Parameter, DataType)
           provides/2,          % provides(Component, Interface)
           requires/2,          % requires(Component, Interface)

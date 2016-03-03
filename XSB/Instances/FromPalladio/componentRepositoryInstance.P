@@ -15,8 +15,8 @@
            from lists.
 % END IMPORTS
 
-justify_pred(inputParameters(_,_)).
-justify_pred(outputParameters(_,_)).
+justify_pred(hasParameter(_,_)).
+justify_pred(returnParameter(_,_)).
 justify_pred(provides(_,_)).
 justify_pred(requires(_,_)).
 
@@ -26,19 +26,19 @@ hasService(Interface, Service) :-
         signatures(Interface,Services),
         member(Service, Services).
 
-inputParameters(Service,parm(Service,ParameterName)) :-
+hasParameter(Service,parm(Service,ParameterName)) :-
         % operationSignature(Service),
         parameters(Service, Parameters),
         member(ParameterName, Parameters).
 
-outputParameters(Service,return(Service)) :-
+returnParameter(Service,return(Service)) :-
         % operationSignature(Service),
         returnType(Service,_Type).
 
 % TODO: this just cannot work with the current palladio fact export: if there are two different signatures with a common parameter name X,
 % *two* facts dataType(X,Type) are generated. Luckily, typeOf/2 isn't currently uses anywhere in the access analysis.
 typeOf(parm(Service,ParameterName),Type) :-
-        inputParameters(Service, parm(Service,ParameterName)), % make this work as a generator
+        hasParameter(Service, parm(Service,ParameterName)), % make this work as a generator
         dataType(ParameterName,Type).
 typeOf(return(Service),Type) :-
         returnType(Service,Type).
