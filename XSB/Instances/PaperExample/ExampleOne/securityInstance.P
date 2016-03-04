@@ -49,7 +49,7 @@ includes(return(drawEnergyConsumptionGraph) ,consumptionData).
 includes(return(getEnergyValue)             ,consumptionData).
 includes(return(getCustomerId)              ,billingData).
 
-includesCall(_AnyParameter,publicData).
+includesCall(_,_) :- false.
 
 
 tamperingAbilities(guest,             Location,none) :- isLocation(Location).
