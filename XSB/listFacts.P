@@ -1,0 +1,106 @@
+% BEGIN IMPORTS
+:- import
+           uiInterfaceOn/2,                         % uiInterfaceOn(ResourceContainer,Interface)
+           mayknow/2,             % mayknow(Attacker,DataSet)
+           includes/2,                      % includes(Parameter,DataSet)
+           includesCall/2,                  % includesCall(Service,DataSet)
+
+           tamperingAbilities/3,                    % tamperingAbilities(Attacker,Location,TamperingAbility)
+           locationsAccessibleBy/2,                 % locationsAccessibleBy(Attacker,Location)
+           furtherConnections/2,                    % furtherConnections(ResourceContainer,FurtherConnections)
+           sharingOf/2,                             % sharingOf(ResourceContainer,Sharing)
+           isLocation/1,                            % isLocation(Location)
+           location/3,                              % location(ResourceContainer,Location,TamperingAbility)
+           linkLocation/3,                          % linkLocation(LinkingResource,Location,TamperingAbility)
+
+           % Enumerators
+           dataset/1,    % dataset(DataSet)
+           attacker/1   % attacker(Attacker)
+    from securityInstance.
+
+:- import
+          hasService/2,        % hasService(Interface,Service)
+          hasParameter/2,   % hasParameter(Service, Parameter)
+          returnParameter/2,  % returnParameter(Service, Parameter)
+          typeOf/2,            % typeOf(Parameter, DataType)
+          provides/2,          % provides(Component, Interface)
+          requires/2           % requires(Component, Interface)
+   from componentRepositoryInstance.
+
+
+:- import
+           systemProvides/1,      % systemProvides(Interface)
+           systemRequires/1,      % systemRequires(Interface)
+           componentOf/2,         % componentOf(AssemblyContext,Component)
+           systemAssembledTo/3,   % systemAssembledTo(AssemblyContext,Interface,AssemblyRequirementSatisfaction)
+           systemProvidesAsssembledTo/2, % systemProvidesAsssembledTo(Interface,AssemblyContext)
+           runsOn/2,              % runsOn(AssemblyContext,ResourceContainer)
+           connects/3,         % connects(LinkingResource,ResourceContainer, ResourceContainer)
+
+           % Enumerators
+           resourcecontainers/1,  % resourcecontainers(ResourceContainer)
+           linkingresources/1,    % linkingresources(LinkingResource )
+           system/1               % system(AsssemblyContext)
+   from palladioInstance.
+
+:- import exposesPhysicallyAccessibleDataTo/3 from linkModel.
+
+:- import length/2 from lists.
+% END IMPORTS
+
+
+
+listFacts :-
+	listFact('uiInterfaceOn/2:', uiInterfaceOn(ResourceContainer,Interface)),
+	listFact('mayknow/2:',       mayknow(Attacker,DataSet)),
+	listFact('includes/2:',      includes(Parameter,DataSet)),
+	listFact('includesCall/2:',  includesCall(Service,DataSet)),
+	listFact('tamperingAbilities/3:',    tamperingAbilities(Attacker,Location,TamperingAbility)),
+	listFact('locationsAccessibleBy/2:', locationsAccessibleBy(Attacker,Location)),
+	listFact('furtherConnections/2:',    furtherConnections(ResourceContainer,FurtherConnections)),
+	listFact('sharingOf/2:',             sharingOf(ResourceContainer,Sharing)),
+	listFact('isLocation/1:',            isLocation(Location)),
+	listFact('location/3:',              location(ResourceContainer,Location,TamperingAbility)),
+	listFact('linkLocation/3:',           linkLocation(LinkingResource,Location,TamperingAbility)),
+
+	listFact('hasService/2:', hasService(Interface,Service)),
+	listFact('hasParameter/2:', hasParameter(Service, Parameter)),
+	listFact('returnParameter/2:', returnParameter(Service, Parameter)),
+	listFact('typeOf/2:', typeOf(Parameter, DataType)),
+	listFact('provides/2:', provides(Component, Interface)),
+	listFact('requires/2:', requires(Component, Interface)),
+
+	listFact('systemProvides/1:', systemProvides(Interface)),
+	listFact('systemRequires/1:', systemRequires(Interface)),
+	listFact('componentOf/2:', componentOf(AssemblyContext,Component)),
+	listFact('systemAssembledTo/3:', systemAssembledTo(AssemblyContext,Interface,AssemblyRequirementSatisfaction)),
+	listFact('systemProvidesAsssembledTo/2:', systemProvidesAsssembledTo(Interface,AssemblyContext)),
+	listFact('runsOn/2:', runsOn(AssemblyContext,ResourceContainer)),
+	listFact('connects/3:', connects(LinkingResource,ResourceContainerA, ResourceContainerB)),
+	listFact('resourcecontainers/1:', resourcecontainers(ResourceContainer)),
+	listFact('linkingresources/1:', linkingresources(LinkingResource )),
+	listFact('system/1:', system(AsssemblyContext)),
+
+        listFact('exposesPhysicallyAccessibleDataTo/2', exposesPhysicallyAccessibleDataTo(Link,Attacker,Dataset)).
+
+listFact(Name, Call) :-
+        Call =.. [_|Args],
+        write(Name),nl,
+        findall(Args, Call, Bag),
+        length(Bag,L),
+        write(Bag),nl,
+        write('length:'), write(L), nl,nl.
+
+listFacts1 :-
+        write('uiInterfaceOn/2:'),nl,
+        bagof((ResourceContainer,Interface), uiInterfaceOn(ResourceContainer,Interface), Bag),
+        length(Bag,L),
+        write(Bag),nl,
+        write('length:'), write(L), nl.
+
+listFacts2 :-
+        write('mayknow/2:'),nl,
+        bagof((Attacker,DataSet), mayknow(Attacker,DataSet), Bag),
+        length(Bag,L),
+        write(Bag),nl,
+        write('length:'), write(L), nl.
