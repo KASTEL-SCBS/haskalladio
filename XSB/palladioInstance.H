@@ -6,7 +6,7 @@
                                   %                   Interface                       -- an interface required by the assemblys component
                                   %                   AssemblyRequirementSatisfaction -- Another assembly resolving that requirement,
                                   %                                                   -- Unless requirement becomes a system requirement.
-           systemProvidesAsssembledTo/2, % systemProvidesAsssembledTo(Interface,       -- an interface provided by the system
+           systemProvidesAssembledTo/2, % systemProvidesAssembledTo(Interface,       -- an interface provided by the system
                                          %                            AssemblyContext) -- the assembly providing that interface
            runsOn/2,              % runsOn(AssemblyContext,ResourceContainer)
            connects/3,         % connects(LinkingResource,ResourceContainer, ResourceContainer)

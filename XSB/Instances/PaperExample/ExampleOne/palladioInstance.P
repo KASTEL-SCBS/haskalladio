@@ -4,7 +4,7 @@
 %justify_pred(systemProvides(_)).
 %justify_pred(systemRequires(_)).
 %justify_pred(systemAssembledTo(_,_,_)).
-%justify_pred(systemProvidesAsssembledTo(_,_)).
+%justify_pred(systemProvidesAssembledTo(_,_)).
 %justify_pred(runsOn(_,_)).
 %justify_pred(componentOf(_,_)).
 justify_pred(connects(_,_,_)).
@@ -25,7 +25,7 @@ systemRequires(_) :- false.
 systemAssembledTo(energyVisualizationContext,databaseInterface,byAssembly(databaseContext)).
 systemAssembledTo(energyVisualizationContext,energyMeasurement,byAssembly(energyMeterAssemblyContext)).
 
-systemProvidesAsssembledTo(energyVisualizationI, energyVisualizationContext).
+systemProvidesAssembledTo(energyVisualizationI, energyVisualizationContext).
 
 
 runsOn(databaseContext, energyVisualizationRC).

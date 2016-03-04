@@ -4,7 +4,7 @@ justify_pred(system(_)).
 justify_pred(systemProvides(_)).
 justify_pred(systemRequires(_)).
 justify_pred(systemAssembledTo(_,_,_)).
-justify_pred(systemProvidesAsssembledTo(_,_)).
+justify_pred(systemProvidesAssembledTo(_,_)).
 justify_pred(runsOn(_,_)).
 justify_pred(componentOf(_,_)).
 justify_pred(connects(_,_,_)).
@@ -28,7 +28,7 @@ systemRequires(_) :- false.
 systemAssembledTo(digitalMeterContext,currentMeterDataReceiving,byAssembly(controllerContext)).
 systemAssembledTo(tabletContext,consumptionDataSending,byAssembly(controllerContext)).
 
-systemProvidesAsssembledTo(currentConsumptionDataDisplaying,tabletContext).
+systemProvidesAssembledTo(currentConsumptionDataDisplaying,tabletContext).
 
 
 runsOn(digitalMeterContext,digitalMeterContainer).

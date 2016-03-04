@@ -8,19 +8,21 @@
            linkingResource/1,
            providedInterface/2,
            operationProvidedRole/1,
+           operationRequiredRole/1,
+           outerRequiredRole/2,
            outerProvidedRole/2,
            innerProvidedRole/2,
+           innerRequiredRole/2,
            providedRole/2,
            requiredRole/2,
            requiredInterface/2,
            assemblyContext/2,
            assemblyContext_AllocationContext/2,
            providedDelegationConnector/1,
+           requiredDelegationConnector/1,
            resourceContainer/1,
-           systemProvidesAssembledTo/2,
            resourceContainer/2,
-           allocationContext/1,
-           systemRequiredAssembledTo/2
+           allocationContext/1
            from fromPalladio.
 
 :- import  provides/2,
@@ -53,7 +55,7 @@ systemAssembledTo(RequiringContext, Interface, byAssembly(ProvidingContext)) :-
         providedInterface(ProvidedRole, Interface).   % two subgoals are presumably redundant.
 
 
-systemProvidesAsssembledTo(Interface, Context) :-
+systemProvidesAssembledTo(Interface, Context) :-
         providedDelegationConnector(Connector),
         assemblyContext(Connector,Context),
 
@@ -65,6 +67,20 @@ systemProvidesAsssembledTo(Interface, Context) :-
         outerProvidedRole(Connector,OuterProvidedRole),
         operationProvidedRole(OuterProvidedRole), % TODO: redundant?
         providedInterface(OuterProvidedRole,Interface).
+
+
+systemRequiredAssembledTo(Interface, Context) :-
+        requiredDelegationConnector(Connector),
+        assemblyContext(Connector,Context),
+
+        innerRequiredRole(Connector,InnerRequiredRole),
+        operationRequiredRole(InnerRequiredRole), % TODO: redundant?
+        requiredInterface(InnerRequiredRole,Interface),
+
+        % TODO: redundant?
+        outerRequiredRole(Connector,OuterRequiredRole),
+        operationRequiredRole(OuterRequiredRole), % TODO: redundant?
+        requiredInterface(OuterRequiredRole,Interface).
 
 
 runsOn(AssemblyContext, ResourceContainer) :-
