@@ -33,7 +33,7 @@
            systemRequires/1,      % systemRequires(Interface)
            componentOf/2,         % componentOf(AssemblyContext,Component)
            systemAssembledTo/3,   % systemAssembledTo(AssemblyContext,Interface,AssemblyRequirementSatisfaction)
-           systemProvidesAsssembledTo/2, % systemProvidesAsssembledTo(Interface,AssemblyContext)
+           systemProvidesAssembledTo/2, % systemProvidesAssembledTo(Interface,AssemblyContext)
            runsOn/2,              % runsOn(AssemblyContext,ResourceContainer)
            connects/3,         % connects(LinkingResource,ResourceContainer, ResourceContainer)
 
@@ -43,7 +43,7 @@
            system/1               % system(AsssemblyContext)
    from palladioInstance.
 
-:- import exposesPhysicallyAccessibleDataTo/3 from linkModel.
+:- import encryptsExcept/2 from simpleLinkModelInstance.
 
 :- import length/2 from lists.
 % END IMPORTS
@@ -74,14 +74,14 @@ listFacts :-
 	listFact('systemRequires/1:', systemRequires(Interface)),
 	listFact('componentOf/2:', componentOf(AssemblyContext,Component)),
 	listFact('systemAssembledTo/3:', systemAssembledTo(AssemblyContext,Interface,AssemblyRequirementSatisfaction)),
-	listFact('systemProvidesAsssembledTo/2:', systemProvidesAsssembledTo(Interface,AssemblyContext)),
+	listFact('systemProvidesAssembledTo/2:', systemProvidesAssembledTo(Interface,AssemblyContext)),
 	listFact('runsOn/2:', runsOn(AssemblyContext,ResourceContainer)),
 	listFact('connects/3:', connects(LinkingResource,ResourceContainerA, ResourceContainerB)),
 	listFact('resourcecontainers/1:', resourcecontainers(ResourceContainer)),
 	listFact('linkingresources/1:', linkingresources(LinkingResource )),
 	listFact('system/1:', system(AsssemblyContext)),
 
-        listFact('exposesPhysicallyAccessibleDataTo/2', exposesPhysicallyAccessibleDataTo(Link,Attacker,Dataset)).
+        listFact('encryptsExcept/2', encryptsExcept(Link,Dataset)).
 
 listFact(Name, Call) :-
         Call =.. [_|Args],

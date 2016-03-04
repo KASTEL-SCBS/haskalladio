@@ -13,12 +13,14 @@
         dataType/2,                                 % dataType(Parameter,Type)
         encapsulatedComponent/2,                    % encapsulatedComponent(AssemblyContext,Component)
         innerProvidedRole/2,                        % innerProvidedRole(Connector,InnerProvidedRole)
+        innerRequiredRole/2,                        % innerProvidedRole(Connector,InnerRequiredRole)
         linkingResource/1,                          % linkingResource(LinkingResource)
         location/1,                                 % location(Location)
         locations/2,                                % locations(LocationsAndTamperProtectionsPair,Locations),
         locationsAndTamperProtectionsPairs/2,       % locationsAndTamperProtectionsPairs(LinkingResource,LocationsAndTamperProtectionsPairs),
         mayKnowDataSets/2,                          % mayKnowDataSets(Attacker, Datasets)
         operationProvidedRole/1,                    % operationProvidedRole(InnerProvidedRole)
+        operationRequiredRole/1,                    % operationRequiredRole(InnerRequiredRole)
         outerProvidedRole/2,                        % outerProvidedRole(Connector,OuterProvidedRole)
         outerRequiredRole/2,                        % outerRequiredRole(Connector,ProvidedRole)
         parameterSources/2,                         % parameterSources(Pair,ParameterNames)
@@ -29,6 +31,7 @@
         providedRoles/2,                            % providedRoles(Component,Roles)
         providedRole/2,                             % providedRole(Connector, ProvidedRole),
         providingAssemblyContext/2,                 % providingAssemblyContext(Connector, ProvidingContext)
+        requiredDelegationConnector/1,              % providedDelegationConnector(Connector)
         requiredInterface/2,                        % requiredInterface(Role,Interface)
         requiredRoles/2,                            % requiredRoles(Component,Roles)
         requiredRole/2,                             % requiredRole(Connector, RequiredRole)
@@ -63,7 +66,6 @@
         locationsAndTamperProtectionsPair/1,
         confidentialitySpecification/1,
         operationInterface/1,
-        operationRequiredRole/1, % TODO: why is this unused, while operationProvidedRole/1 *is* used?
         operationSignature/1,
         parameter/1,
         parametersAndDataSetsPair/1,
