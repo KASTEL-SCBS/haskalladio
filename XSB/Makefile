@@ -53,6 +53,9 @@ $(INSTANCE_SYMLINKS) : .force
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[justify],[$(<:.P=)],jxm($(<:.P=)),halt."
 
 
+listFacts.result: $(XWAMS)
+	$(XSB) $(XSB_OPTIONS_QUIET) -e "[listFacts],listFacts,halt." > $@
+
 queries.result: $(XWAMS)
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[queries],nojustify6,halt." > $@
 

@@ -18,8 +18,10 @@ hasParameter(storeValue,value).
 hasParameter(getValues,start).
 hasParameter(getValues,end).
 
-returnParameter(Service,return(Service)) :- Service \= storeValue.
-
+returnParameter(Service,return(getValues)).
+returnParameter(Service,return(drawEnergyConsumptionGraph)).
+returnParameter(Service,return(getEnergyValue)).
+returnParameter(Service,return(getCustomerId)).
 
 
 typeOf(timestamp,int).
