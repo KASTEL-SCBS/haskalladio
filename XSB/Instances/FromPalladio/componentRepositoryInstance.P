@@ -39,7 +39,9 @@ returnParameter(Service,return(Service)) :-
 % *two* facts dataType(X,Type) are generated. Luckily, typeOf/2 isn't currently uses anywhere in the access analysis.
 typeOf(parm(Service,ParameterName),Type) :-
         hasParameter(Service, parm(Service,ParameterName)), % make this work as a generator
-        dataType(ParameterName,Type).
+        once(dataType(ParameterName,Type)).                 % for the case that there are  two different signatures with a common parameter name X, pick the first only
+
+
 typeOf(return(Service),Type) :-
         returnType(Service,Type).
 

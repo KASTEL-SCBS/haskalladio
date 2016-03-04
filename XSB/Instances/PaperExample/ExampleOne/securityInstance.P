@@ -40,6 +40,7 @@ mayknow(inhabitant       , consumptionData).
 mayknow(inhabitant       , billingData).
 mayknow(passerByAdversary, publicData).
 
+includes(evalue                             ,consumptionData).
 includes(value                              ,consumptionData).
 includes(timestamp                          ,consumptionData).
 includes(start                              ,consumptionData).
@@ -52,9 +53,10 @@ includes(return(getCustomerId)              ,billingData).
 includesCall(_,_) :- false.
 
 
-tamperingAbilities(guest,             Location,none) :- isLocation(Location).
-tamperingAbilities(inhabitant,        Location,none) :- isLocation(Location).
-tamperingAbilities(passerByAdversary, Location,none) :- isLocation(Location).
+tamperingAbilities(guest,             Location,none)   :- locationsAccessibleBy(guest, Location).
+tamperingAbilities(inhabitant,        Location,none)   :- locationsAccessibleBy(inhabitant, Location).
+tamperingAbilities(passerByAdversary, Location,none)   :- locationsAccessibleBy(passerByAdversary, Location).
+tamperingAbilities(passerByAdversary, outdoors,sealed) :- locationsAccessibleBy(passerByAdversary, outdoors).
 
 locationsAccessibleBy(guest,outdoors).
 locationsAccessibleBy(guest,livingRoom).

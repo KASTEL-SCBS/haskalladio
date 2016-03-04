@@ -117,7 +117,7 @@ tamperingAbilities(Attacker, Location, none) :-
         member(Location, Locations).
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
-locationsAccessibleBy(Attacker, Location) :- tamperingAbilities(Attacker, Location, _TamperProtection), !.
+locationsAccessibleBy(Attacker, Location) :- tamperingAbilities(Attacker, Location, _TamperProtection).
 
 
 furtherConnections(Container,Mode) :- connectionType(Container,Mode).

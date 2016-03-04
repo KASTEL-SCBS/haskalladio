@@ -6,22 +6,23 @@ justify_pred(provides(_,_)).
 justify_pred(requires(_,_)).
 
 
+hasService(measurementAcquisition, setEnergyValue).
 hasService(databaseInterface, getValues).
 hasService(databaseInterface, storeValue).
 hasService(energyVisualizationI, drawEnergyConsumptionGraph).
 hasService(energyMeasurement, getEnergyValue).
 hasService(energyMeasurement, getCustomerId).
 
-
+hasParameter(setEnergyValue, evalue).
 hasParameter(storeValue,timestamp).
 hasParameter(storeValue,value).
 hasParameter(getValues,start).
 hasParameter(getValues,end).
 
-returnParameter(Service,return(getValues)).
-returnParameter(Service,return(drawEnergyConsumptionGraph)).
-returnParameter(Service,return(getEnergyValue)).
-returnParameter(Service,return(getCustomerId)).
+returnParameter(getValues,                  return(getValues)).
+returnParameter(drawEnergyConsumptionGraph, return(drawEnergyConsumptionGraph)).
+returnParameter(getEnergyValue,             return(getEnergyValue)).
+returnParameter(getCustomerId,              return(getCustomerId)).
 
 
 typeOf(timestamp,int).
@@ -32,11 +33,12 @@ typeOf(return(getValues),intArray).
 typeOf(return(drawEnergyConsumptionGraph),image).
 typeOf(return(getEnergyValue), int).
 typeOf(return(getCustomerId), int).
-
+typeOf(evalue, int).
 
 provides(dbms               , databaseInterface).
 provides(energyVisualization, energyVisualizationI).
 provides(energyMeter        , energyMeasurement).
+provides(energyMeter        , measurementAcquisition).
 
 requires(energyVisualization, databaseInterface).
 requires(energyVisualization, energyMeasurement).
