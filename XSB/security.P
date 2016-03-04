@@ -7,8 +7,8 @@
            furtherConnections/2,
            sharingOf/2,
            location/3,
-           classificationOfCall/2,
-           classificationOf/2,
+           includesCall/2,
+           includes/2,
            uiInterfaceOn/2,
            linkLocation/3
            from securityInstance.
@@ -65,12 +65,12 @@ isInSecureWithRespectTo(Attacker) :-
 
 
 serviceAllowedToBeObservedBy(Attacker, Service) :-
-        classificationOfCall(Service, DataSet),
+        includesCall(Service, DataSet),
         mayknow(Attacker, DataSet).
 
 
 parameterAllowedToBeAccessedBy(Attacker, Parameter) :-
-        classificationOf(Parameter, DataSet),
+        includes(Parameter, DataSet),
         mayknow(Attacker, DataSet).
 
 

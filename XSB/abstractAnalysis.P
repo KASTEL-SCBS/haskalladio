@@ -27,11 +27,11 @@
 % END IMPORTS
 % BEGIN EXPORTS
 :- export  % Predicates
-           parameterAllowedToBeAccessedBy/2,        % parameterAllowedToBeAccessedBy(Attacker, Parameter)
-           serviceAllowedToBeObservedBy/2,          % parameterAllowedToBeAccessedBy(Attacker, Parameter)
+           accessibleParameters/2,               % accessibleParameters(Attacker,Parameter)
+           observableServices/2,                 % observableServices(Attacker,Parameter)
+           parameterAllowedToBeAccessedBy/2,     % parameterAllowedToBeAccessedBy(Attacker, Parameter)
+           serviceAllowedToBeObservedBy/2.       % parameterAllowedToBeAccessedBy(Attacker, Parameter)
 
-           accessibleParameters/2,                  % accessibleParameters(Attacker,Parameter)
-           observableServices/2.                    % observableServices(Attacker,Parameter)
 % END EXPORTS
 
 justify_pred(accessibleParameters(_,_)).
