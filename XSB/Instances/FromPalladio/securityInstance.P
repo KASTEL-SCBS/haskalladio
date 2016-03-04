@@ -29,8 +29,6 @@
            dataSet/1
            from fromPalladio.
 
-:- import  system/1
-           from palladioInstance.
 :- import  returnParameter/2,
            hasParameter/2
            from componentRepositoryInstance.
@@ -53,14 +51,12 @@ isLocation(Location) :- location(Location).
 % TODO: there currently appears to be no palladio stereotype corresponding to uiInterfaceOn, as was required in the paper submission.
 % Instead, i consider every interface provided by the system as an uiInterface. Isn't this what we want?
 uiInterfaceOn(Container,Interface) :-
-        system(_System),                                     % TODO: add wellformedness-condition that there is only one system? This is somehwat redundant!!
         outerProvidedRole(Connector,ProvidedRole),
         assemblyContext(Connector,        AssemblyContext),
         assemblyContext_AllocationContext(AllocationContext,AssemblyContext),
         resourceContainer(AllocationContext,Container),
         providedInterface(ProvidedRole,Interface).
 uiInterfaceOn(Container,Interface) :-
-        system(_System),
         outerRequiredRole(Connector,ProvidedRole),
         assemblyContext(Connector,        AssemblyContext),
         assemblyContext_AllocationContext(AllocationContext,AssemblyContext),
