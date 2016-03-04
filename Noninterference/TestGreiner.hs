@@ -1,8 +1,8 @@
-module Noninterference.Test where
+module Noninterference.TestGreiner where
 
 import Noninterference.Procedure
 import Noninterference.Testgen
-import Noninterference
+import NoninterferenceGreiner
 import Noninterference.Util
 import Test.QuickCheck hiding (output)
 
@@ -28,7 +28,7 @@ checkAllProperties = do
   quickCheck (mostPreciseIsSecure                             :: Procedure Parameter Datasets -> Bool)
   quickCheck (γMostPreciseIsMostPrecuse                       :: Procedure Parameter Datasets -> Bool)
   quickCheck (fewerFlowsIffSecure                             :: Procedure Parameter Datasets -> Bool)
-  quickCheck (γIsγ'                                           :: Procedure Parameter Datasets -> Bool)
+
   quickCheckWith  stdArgs { maxSuccess = 10000 }
              (isStrongerThanBetterThanConsistentRelabelingRevForTestable :: SpecificationPair Parameter DatasetDatabase Datasets ->  Bool)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }

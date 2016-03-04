@@ -7,7 +7,7 @@ justify_pred(systemAssembledTo(_,_,_)).
 justify_pred(systemProvidesAsssembledTo(_,_)).
 justify_pred(runsOn(_,_)).
 justify_pred(componentOf(_,_)).
-justify_pred(linkBetween(_,_,_)).
+justify_pred(connects(_,_,_)).
 
 resourcecontainers(digitalMeterContainer).
 resourcecontainers(controllerContainer).
@@ -40,6 +40,6 @@ componentOf(controllerContext,controller).
 componentOf(tabletContext,tablet).
 
 
-linkBetween(linkMeterController,digitalMeterContainer, controllerContainer).
-linkBetween(linkControllerTablet,controllerContainer, tabletContainer).
+connects(linkMeterController,digitalMeterContainer, controllerContainer).
+connects(linkControllerTablet,controllerContainer, tabletContainer).
 

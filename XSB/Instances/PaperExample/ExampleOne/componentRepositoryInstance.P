@@ -1,24 +1,24 @@
-%justify_pred(services(_,_)).
-justify_pred(inputParameters(_,_)).
-justify_pred(outputParameters(_,_)).
+%justify_pred(hasService(_,_)).
+justify_pred(hasParameter(_,_)).
+justify_pred(returnParameter(_,_)).
 %justify_pred(typeOf(_,_)).
 justify_pred(provides(_,_)).
 justify_pred(requires(_,_)).
 
 
-services(databaseInterface, getValues).
-services(databaseInterface, storeValue).
-services(energyVisualizationI, drawEnergyConsumptionGraph).
-services(energyMeasurement, getEnergyValue).
-services(energyMeasurement, getCustomerCredentials).
+hasService(databaseInterface, getValues).
+hasService(databaseInterface, storeValue).
+hasService(energyVisualizationI, drawEnergyConsumptionGraph).
+hasService(energyMeasurement, getEnergyValue).
+hasService(energyMeasurement, getCustomerId).
 
 
-inputParameters(storeValue,timestamp).
-inputParameters(storeValue,value).
-inputParameters(getValues,start).
-inputParameters(getValues,end).
+hasParameter(storeValue,timestamp).
+hasParameter(storeValue,value).
+hasParameter(getValues,start).
+hasParameter(getValues,end).
 
-outputParameters(Service,return(Service)) :- Service \= storeValue.
+returnParameter(Service,return(Service)) :- Service \= storeValue.
 
 
 
@@ -29,7 +29,7 @@ typeOf(end,int).
 typeOf(return(getValues),intArray).
 typeOf(return(drawEnergyConsumptionGraph),image).
 typeOf(return(getEnergyValue), int).
-typeOf(return(getCustomerCredentials), int).
+typeOf(return(getCustomerId), int).
 
 
 provides(dbms               , databaseInterface).

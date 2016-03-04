@@ -5,7 +5,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Noninterference where
+module NoninterferenceGreiner where
 
 import Noninterference.Util
 import Noninterference.Procedure
@@ -77,13 +77,13 @@ condition, each for the `LowHigh` lattice.
 \begin{code}
 key :: (Ord d, Ord p) => SpecificationInterpretation p d LowHigh
 key pr@(Procedure { input, output, includes, influences}) =
-    [ (lowhigh, (\p -> if (d ∈ includes p) then High else Low)) | d <- toList $ datasets pr]
+    [ (lowhigh, (\p -> if (d ∈ includes p) then Low else High)) | d <- toList $ datasets pr]
 \end{code}
 
-The approach for JOANA generates just one JOANA-Specification, using the powerset-lattice of `d`.
+The approach for JOANA generates just one JOANA-Specification, using the reversed powerset-lattice of `d`.
 \begin{code}
 joana :: (Ord d, Ord p) => SpecificationInterpretation p d (Set d)
-joana pr@(Procedure { input, output, includes, influences}) = [((powerset (datasets pr), (⊆)), includes )]
+joana pr@(Procedure { input, output, includes, influences}) = [((powerset (datasets pr), (⊇)), includes )]
 \end{code}
 
 In this simplified model, a procedures implementation is abstractly defined by its  information-flow
@@ -110,17 +110,15 @@ joanaIsKey :: (Ord d, Ord p) => Procedure p d -> Bool
 joanaIsKey pr = secure joana pr ⇔ secure key pr
 \end{code}
 
-
 Specifically, a procedure being secure is characerized as:
 \begin{code}
 secureCharactization :: forall d p. (Ord d, Ord p) => Procedure p d -> Bool
 secureCharactization pr@(Procedure { input, output, includes, influences }) =
        (secure key pr)
    ⇔  (∀) input (\i ->  (∀) output (\o ->
-          (o ∈ influences i) → (includes i ⊆ includes o)
+          (o ∈ influences i) → (includes i ⊇ includes o)
        ))
 \end{code}
-
 
 
 Criteria for Re-use of existing Non-inteference Proofs
@@ -147,8 +145,8 @@ as defined here:
 \begin{code}
 isNaivelyStrongerThan ::  (Ord d) => Procedure p d ->  Procedure p d -> Bool
 pr `isNaivelyStrongerThan` pr'  =
-      (∀) (input pr)  (\i -> includes pr' i ⊆ includes pr i)
-  ∧   (∀) (output pr) (\o -> includes pr' o ⊇ includes pr o)
+      (∀) (input pr)  (\i -> includes pr' i ⊇ includes pr i)
+  ∧   (∀) (output pr) (\o -> includes pr' o ⊆ includes pr o)
 \end{code}
 
 Weakenings of secure ifc-specifications are secure:
@@ -182,8 +180,8 @@ weakenings :: (Ord d, Ord p, Enum d, Bounded d) => Procedure p d -> [Procedure p
 \begin{code}
 weakenings pr@(Procedure { input, output, includes, influences}) =
    [ pr { includes = \p -> fromJust $ lookup p choice } | choice <- choices ]
-  where choices = chooseOneEach $    [(i, [d | d <- toList $ powerset $ fromList allValues, d ⊆ includes i]) | i <- toList $  input]
-                                  ++ [(o, [d | d <- toList $ powerset $ fromList allValues, d ⊇ includes o]) | o <- toList $ output]
+  where choices = chooseOneEach $    [(i, [d | d <- toList $ powerset $ fromList allValues, d ⊇ includes i]) | i <- toList $  input]
+                                  ++ [(o, [d | d <- toList $ powerset $ fromList allValues, d ⊆ includes o]) | o <- toList $ output]
 
         chooseOneEach :: [(a,[b])] -> [[(a,b)]]
         chooseOneEach choices = fmap (zip as) $ sequence bss
@@ -622,19 +620,19 @@ given procedure `pr` of type `Procedure p d` and procedure `pr'` of type `Proced
 the ifc specification of `pr` is called "stronger" than that of `pr'` iff
 for all input parameters `i`, the set of output parameters `o` that
 
-  * by specification `pr` include at least those datasets included in `i`
+  * by specification `pr` include no more than those datasets included in `i`
 
 is included in the set of of output parameters `o` that
 
-  * by specification *`pr'`* include at least those datasets included in `i`
+  * by specification *`pr'`* include no more than those datasets included in `i`
 
 \begin{code}
 isStrongerThan ::  (Ord p, Ord d, Ord d') => Procedure p d ->  Procedure p d' -> Bool
 pr@(Procedure { input = input, output = output, includes = includes }) `isStrongerThan` pr'@(Procedure { includes = includes' })  =
   (∀) input  (\i ->
-        fromList [ o | o <- toList output, includes  i ⊆ includes  o ]
+        fromList [ o | o <- toList output, includes  i ⊇ includes  o ]
         ⊆
-        fromList [ o | o <- toList output, includes' i ⊆ includes' o ]
+        fromList [ o | o <- toList output, includes' i ⊇ includes' o ]
   )
 \end{code}
 
@@ -675,7 +673,7 @@ It is given by:
 γ :: (Ord d, Ord p) => Procedure p d -> Procedure p d
 γ procedure@(Procedure { input, output, includes }) =
   procedure { influences = \p ->
-                if (p ∈ input) then fromList [ p' | p' <- toList output, includes p ⊆ includes p' ]
+                if (p ∈ input) then fromList [ p' | p' <- toList output,  includes p ⊇ includes p' ]
                                else fromList []
             }
 \end{code}
@@ -730,8 +728,8 @@ all output parameter by the set of input parameters that influence it.
       includes = includes
     }
   where includes p
-          | p ∈ input  = fromList [p]
-          | p ∈ output = fromList [i | i <- toList input, p ∈ influences i]
+          | p ∈ input  = influences p
+          | p ∈ output = fromList [p]
           | otherwise  = fromList [] -- TODO: require some wellformedness for procedures
 \end{code}
 
@@ -758,23 +756,3 @@ fewerFlowsIffSecure pr =
       (secure joana pr)
    ⇔  (pr `hasFewerFlowsThan` (γ pr))
 \end{code}
-
-
-An alternative definition of γ
-\begin{code}
-γ' :: (Ord d, Ord p) => Procedure p d -> Procedure p d
-γ' procedure@(Procedure { input, output, includes }) =
-  procedure { influences = \p ->
-                if (p ∈ input) then output ∖ fromList [ p' | p' <- toList output, ds <- toList $ includes p,
-                                                                                  not $ ds ∈ includes p' ]
-                               else fromList []
-            }
-
-γIsγ' :: (Show d, Show p, Enum p, Bounded p, Ord d, Ord p) => Procedure p d -> Bool
-γIsγ' pr = (show $ γ pr) == (show $ γ' pr) -- TODO: dont use hacky string-comparison
-\end{code}
-
-
-
-
-

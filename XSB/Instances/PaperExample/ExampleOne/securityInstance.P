@@ -5,9 +5,9 @@
            from security.
 % END IMPORTS
 
-justify_pred(dataAllowedToBeAccessedBy(_,_)).
-justify_pred(classificationOf(_,_)).
-justify_pred(classificationOfCall(_,_)).
+justify_pred(mayknow(_,_)).
+justify_pred(includes(_,_)).
+justify_pred(includesCall(_,_)).
 justify_pred(tamperingAbilities(_,_,_)).
 justify_pred(locationsAccessibleBy(_,_)).
 justify_pred(furtherConnections(_,_)).
@@ -33,30 +33,31 @@ attacker(guest).
 attacker(inhabitant).
 attacker(passerByAdversary).
 
-dataAllowedToBeAccessedBy(guest            , publicData).
-dataAllowedToBeAccessedBy(guest            , consumptionData).
-dataAllowedToBeAccessedBy(inhabitant       , publicData).
-dataAllowedToBeAccessedBy(inhabitant       , consumptionData).
-dataAllowedToBeAccessedBy(inhabitant       , billingData).
-dataAllowedToBeAccessedBy(passerByAdversary, publicData).
+mayknow(guest            , publicData).
+mayknow(guest            , consumptionData).
+mayknow(inhabitant       , publicData).
+mayknow(inhabitant       , consumptionData).
+mayknow(inhabitant       , billingData).
+mayknow(passerByAdversary, publicData).
 
-classificationOf(value                              ,consumptionData).
-classificationOf(timestamp                          ,consumptionData).
-classificationOf(start                              ,consumptionData).
-classificationOf(end                                ,consumptionData).
-classificationOf(return(getValues)                  ,consumptionData).
-classificationOf(return(drawEnergyConsumptionGraph) ,consumptionData).
-classificationOf(return(getEnergyValue)             ,consumptionData).
-classificationOf(return(getCustomerCredentials)     ,billingData).
+includes(value                              ,consumptionData).
+includes(timestamp                          ,consumptionData).
+includes(start                              ,consumptionData).
+includes(end                                ,consumptionData).
+includes(return(getValues)                  ,consumptionData).
+includes(return(drawEnergyConsumptionGraph) ,consumptionData).
+includes(return(getEnergyValue)             ,consumptionData).
+includes(return(getCustomerId)              ,billingData).
 
-classificationOfCall(_AnyParameter,publicData).
+includesCall(_AnyParameter,publicData).
 
 
 tamperingAbilities(guest,             Location,none) :- isLocation(Location).
 tamperingAbilities(inhabitant,        Location,none) :- isLocation(Location).
 tamperingAbilities(passerByAdversary, Location,none) :- isLocation(Location).
 
-locationsAccessibleBy(guest,Location) :- isLocation(Location).
+locationsAccessibleBy(guest,outdoors).
+locationsAccessibleBy(guest,livingRoom).
 locationsAccessibleBy(inhabitant,Location) :- isLocation(Location).
 locationsAccessibleBy(passerByAdversary,outdoors).
 

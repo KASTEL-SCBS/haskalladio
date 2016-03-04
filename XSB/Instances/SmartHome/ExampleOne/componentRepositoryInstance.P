@@ -1,20 +1,20 @@
-justify_pred(services(_,_)).
-justify_pred(inputParameters(_,_)).
-justify_pred(outputParameters(_,_)).
+justify_pred(hasService(_,_)).
+justify_pred(hasParameter(_,_)).
+justify_pred(returnParameter(_,_)).
 justify_pred(typeOf(_,_)).
 justify_pred(provides(_,_)).
 justify_pred(requires(_,_)).
 
 
-services(currentMeterDataReceiving,storeCurrentConsumption).
-services(consumptionDataSending,getCurrentConsumptionConsumptionDataSending).
-services(consumptionDataSending,getHistoricConsumption).
-services(currentConsumptionDataDisplaying,getCurrentConsumptionCurrentConsumptionDataDisplaying).
+hasService(currentMeterDataReceiving,storeCurrentConsumption).
+hasService(consumptionDataSending,getCurrentConsumptionConsumptionDataSending).
+hasService(consumptionDataSending,getHistoricConsumption).
+hasService(currentConsumptionDataDisplaying,getCurrentConsumptionCurrentConsumptionDataDisplaying).
 
 
-inputParameters(storeCurrentConsumption,consumption).
+hasParameter(storeCurrentConsumption,consumption).
 
-outputParameters(Service,return(Service)) :- Service \= storeCurrentConsumption.
+returnParameter(Service,return(Service)) :- Service \= storeCurrentConsumption.
 
 typeOf(consumption,timedConsumption).
 typeOf(return(getCurrentConsumptionConsumptionDataSending),timedConsumption).

@@ -1,7 +1,7 @@
 % BEGIN IMPORTS
 :- import  exposesPhysicallyAccessibleDataTo/3 from linkModel.
 
-:- import  dataAllowedToBeAccessedBy/2,
+:- import  mayknow/2,
            tamperingAbilities/3,
            locationsAccessibleBy/2,
            furtherConnections/2,
@@ -30,7 +30,7 @@
            containersFullyAccessibleBy/2,           % containersFullyAccessibleBy(Attacker,ResourceContainer)
            linksDataAccessibleBy/3,                 % linksDataAccessibleBy(Attacker,LinkingResource, Dataset)
 
-           linksPhysicalAccessibleBy/3,             % linksPhysicalAccessibleBy(Attacker,Link,Location)
+           linkAccessibleBy/3,             % linkAccessibleBy(Attacker,Link,Location)
            containersPhysicalAccessibleBy/3,        % containersPhysicalAccessibleBy(Attacker,Container,Location)
 
            providedInterfacesAccessibleTo/2,        % providedInterfacesAccessibleTo(Attacker, Interface)
@@ -48,7 +48,7 @@
 justify_pred(isInSecureWithRespectTo(_)).
 justify_pred(containersFullyAccessibleBy(_,_)).
 justify_pred(linksDataAccessibleBy(_,_,_)).
-justify_pred(linksPhysicalAccessibleBy(_,_,_)).
+justify_pred(linkAccessibleBy(_,_,_)).
 justify_pred(containersPhysicalAccessibleBy(_,_,_)).
 justify_pred(providedInterfacesAccessibleTo(_,_)).
 justify_pred(requiredInterfacesAccessibleTo(_,_)).
@@ -66,12 +66,12 @@ isInSecureWithRespectTo(Attacker) :-
 
 serviceAllowedToBeObservedBy(Attacker, Service) :-
         classificationOfCall(Service, DataSet),
-        dataAllowedToBeAccessedBy(Attacker, DataSet).
+        mayknow(Attacker, DataSet).
 
 
 parameterAllowedToBeAccessedBy(Attacker, Parameter) :-
         classificationOf(Parameter, DataSet),
-        dataAllowedToBeAccessedBy(Attacker, DataSet).
+        mayknow(Attacker, DataSet).
 
 
 containersFullyAccessibleBy(Attacker,Container) :-
@@ -79,22 +79,22 @@ containersFullyAccessibleBy(Attacker,Container) :-
         location(Container,Location,Method),
         tamperingAbilities(Attacker,Location,Method).
 containersFullyAccessibleBy(_,Container) :-
-        sharingOf(Container,openShared),
+        sharingOf(Container,shared),
         furtherConnections(Container,existing).
 containersFullyAccessibleBy(Attacker,Container) :-
         containersPhysicalAccessibleBy(Attacker,Container,_),
-        sharingOf(Container,openShared),
+        sharingOf(Container,shared),
         furtherConnections(Container,possible).
 
 
 linksDataAccessibleBy(Attacker,Link,Dataset) :-
-    linksPhysicalAccessibleBy(Attacker,Link,Location),
+    linkAccessibleBy(Attacker,Link,Location),
     linkLocation(Link,Location,Method),
     tamperingAbilities(Attacker,Location,Method),
     exposesPhysicallyAccessibleDataTo(Link,Attacker,Dataset).
 
 
-linksPhysicalAccessibleBy(Attacker,Link,Location) :-
+linkAccessibleBy(Attacker,Link,Location) :-
     linkLocation(Link,Location,_),
     locationsAccessibleBy(Attacker,Location).
 

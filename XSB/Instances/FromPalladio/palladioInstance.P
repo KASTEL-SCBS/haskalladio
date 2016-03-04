@@ -27,7 +27,7 @@
            requires/2
            from componentRepositoryInstance.
 % END IMPORTS
-justify_pred(linkBetween(_,_,_)).
+justify_pred(connects(_,_,_)).
 
 % % resourceContainer/2 and linkingResources/2 are appearantly redundant,
 % % hence we do not use the following 2 rules, but the 2 simpler rules thereafter
@@ -76,5 +76,5 @@ componentOf(AssemblyContext, Component) :-
         assemblyContext(AssemblyContext), % TODO: likely redundant
         encapsulatedComponent(AssemblyContext,Component).
 
-linkBetween(Link,RCLeft,RCRight) :- connectedResourceContainers(Link,[RCLeft,RCRight]).
-linkBetween(Link,RCLeft,RCRight) :- connectedResourceContainers(Link,[RCRight,RCLeft]).
+connects(Link,RCLeft,RCRight) :- connectedResourceContainers(Link,[RCLeft,RCRight]).
+connects(Link,RCLeft,RCRight) :- connectedResourceContainers(Link,[RCRight,RCLeft]).

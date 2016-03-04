@@ -21,8 +21,8 @@
 
 :- import  provides/2,
            requires/2,
-           outputParameters/2,
-           inputParameters/2
+           returnParameter/2,
+           hasParameter/2
            from componentRepositoryInstance.
 % END IMPORTS
 
@@ -53,9 +53,9 @@ interfacesOn(Container,Interface) :-
 
 
 parametersOf(Service, Parameter) :-
-        inputParameters(Service, Parameter).
+        hasParameter(Service, Parameter).
 parametersOf(Service, Parameter) :-
-        outputParameters(Service, Parameter).
+        returnParameter(Service, Parameter).
 
 providedInterfaces(Interface) :-
         system(AssemblyContext),

@@ -7,7 +7,7 @@
 %justify_pred(systemProvidesAsssembledTo(_,_)).
 %justify_pred(runsOn(_,_)).
 %justify_pred(componentOf(_,_)).
-justify_pred(linkBetween(_,_,_)).
+justify_pred(connects(_,_,_)).
 
 resourcecontainers(energyVisualizationRC).
 resourcecontainers(energyMeterRC).
@@ -37,6 +37,6 @@ componentOf(energyMeterAssemblyContext,energyMeter).
 componentOf(energyVisualizationContext,energyVisualization).
 
 
-linkBetween(wireless,energyVisualizationRC, energyMeterRC).
-linkBetween(wireless,energyMeterRC, energyVisualizationRC).
+connects(wireless,energyVisualizationRC, energyMeterRC).
+connects(wireless,energyMeterRC, energyVisualizationRC).
 

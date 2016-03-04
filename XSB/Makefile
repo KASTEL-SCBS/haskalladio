@@ -1,7 +1,7 @@
 # modify this to run queries on different model instances,
 # or with a different linkModel.
-# INSTANCE=Instances/PaperExample/ExampleOne
-INSTANCE=Instances/FromPalladio
+INSTANCE=Instances/PaperExample/ExampleOne
+# INSTANCE=Instances/FromPalladio
 LINKMODEL=simpleLinkModel.P
 
 # if INSTANCE==Instances/FromPalladio, specify the location of fromPalladio.P
@@ -32,7 +32,7 @@ XWAMS=$(SOURCES:.P=.xwam)
 
 .PHONY: clean clean-xwam test-queries-justify force queries.result default dist
 
-default: queries-justify.result
+default: queries-justify.result.pretty
 
 dist: accessanalysis-prolog.zip
 
@@ -75,6 +75,7 @@ clean: clean-xwam
 	rm -f $(LINKMODEL_SYMLINK) $(INSTANCE_SYMLINKS) $(FROMPALLADIO)
 	rm -f *_jxm.*
 	rm -f *.result
+	rm -f *.result.pretty
 	rm -f all.P
 	rm -f all-with-imports.P
 	find . -name '*~' -delete
