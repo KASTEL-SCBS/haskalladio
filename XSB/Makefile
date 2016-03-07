@@ -4,16 +4,11 @@ INSTANCE=Instances/PaperExample/ExampleOne
 # INSTANCE=Instances/FromPalladio
 LINKMODEL=simpleLinkModel.P
 
-# if INSTANCE==Instances/FromPalladio, specify the location of fromPalladio.P
-# otherwise, use FROMPALLADIO=Instances/FromPalladio/empty.P
-# FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.minimalexample/src-gen/fromPalladio.P
-FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.paperexample/src-gen/fromPalladio.P
-# FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.iflowexample/src-gen/fromPalladio.P
-# FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.iflowexample-simonsdatasetsinterpretation/src-gen/fromPalladio.P
-# FROMPALLADIO_FACTS=Instances/FromPalladio/empty.P
-
+# if INSTANCE==Instances/FromPalladio, specify the path to the exported facts file fromPalladio.P to be used:
+FROMPALLADIO_FACTS=$(FROMPALLADIO_FACTS_EXAMPLE)
 
 # path to the xsb binary, see http://xsb.sourceforge.net/
+# use version 3.5
 XSB=xsb
 XSB_OPTIONS_QUIET=--noprompt --quietload --nobanner --nofeedback
 
@@ -24,6 +19,10 @@ RUNGHC=runghc
 
 
 # These shouldn't need to be changed
+FROMPALLADIO_FACTS_MINIMAL=Instances/FromPalladio/edu.kit.kastel.scbs.minimalexample/src-gen/fromPalladio.P
+FROMPALLADIO_FACTS_EXAMPLE=Instances/FromPalladio/edu.kit.kastel.scbs.paperexample/src-gen/fromPalladio.P
+FROMPALLADIO_FACTS_TRAVELPLANNER=Instances/FromPalladio/edu.kit.kastel.scbs.travelplanner/src-gen/fromPalladio.P
+FROMPALLADIO_FACTS_EMPTY=Instances/FromPalladio/empty.P
 FROMPALLADIO_PREFIX=Instances/FromPalladio/fromPalladio.P.prefix
 INSTANCE_SYMLINKS=componentRepositoryInstance.P palladioInstance.P securityInstance.P simpleLinkModelInstance.P
 LINKMODEL_SYMLINK=linkModel.P
@@ -33,7 +32,7 @@ XWAMS=$(SOURCES:.P=.xwam)
 
 .PHONY: clean clean-xwam test-queries-justify force queries.result default dist
 
-default: queries-justify.result.pretty
+default: queries-justify.result
 
 dist: accessanalysis-prolog.zip
 
@@ -88,6 +87,6 @@ clean-xwam:
 	rm -f *.xwam
 
 
-accessanalysis-prolog.zip: abstractAnalysis.P  queries.P  security.P palladio.P $(LINKMODEL) $(wildcard $(INSTANCE)/*.P)  Makefile README Prettyprint.hs
+accessanalysis-prolog.zip: abstractAnalysis.P  queries.P  security.P palladio.P $(LINKMODEL) $(wildcard $(INSTANCE)/*.P) $(wildcard Instances/FromPalladio/*.P)  Makefile README Prettyprint.hs $(FROMPALLADIO_FACTS_MINIMAL) $(FROMPALLADIO_FACTS_EXAMPLE) $(FROMPALLADIO_FACTS_TRAVELPLANNER) $(FROMPALLADIO_FACTS_EMPTY) $(FROMPALLADIO_PREFIX) $(FROMPALLADIO)
 	rm -f $@
 	zip $@ $^
