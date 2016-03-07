@@ -9,13 +9,13 @@ query6(Attacker) :- attacker(Attacker), isInSecureWithRespectTo(Attacker).
 
 nojustify6:-
         write('justify6:'),nl,
-        bagof((Attacker), query6(Attacker), Bag),
+        findall((Attacker), query6(Attacker), Bag),
         length(Bag,L),
         write(Bag),nl,
         write('length:'), write(L), nl.
 justify6 :-
         write('justify6:'),nl,
-        bagof((Attacker,E),
+        findall((Attacker,E),
         just_true(query6(Attacker),E),Bag),
         length(Bag,L),
         write(Bag),nl,
