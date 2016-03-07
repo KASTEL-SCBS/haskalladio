@@ -14,23 +14,25 @@ parametersAndDataSetsPair(52).
 parametersAndDataSetsPair(53).
 parametersAndDataSetsPair(54).
 parametersAndDataSetsPair(55).
+parametersAndDataSetsPair(56).
+parametersAndDataSetsPair(57).
 
-providedDelegationConnector(121).
-providedDelegationConnector(130).
-providedDelegationConnector(131).
+providedDelegationConnector(123).
+providedDelegationConnector(132).
 providedDelegationConnector(133).
-providedDelegationConnector(134).
+providedDelegationConnector(135).
+providedDelegationConnector(136).
 
 allocation(15).
 
-requiredDelegationConnector(124).
-requiredDelegationConnector(132).
+requiredDelegationConnector(126).
+requiredDelegationConnector(134).
 
-requiringAssemblyContext(125,35).
-requiringAssemblyContext(126,32).
-requiringAssemblyContext(127,30).
-requiringAssemblyContext(128,35).
-requiringAssemblyContext(129,35).
+requiringAssemblyContext(127,35).
+requiringAssemblyContext(128,32).
+requiringAssemblyContext(129,30).
+requiringAssemblyContext(130,35).
+requiringAssemblyContext(131,35).
 
 locations(36,[38,39,40,41,42,43]).
 locations(13,[39]).
@@ -40,14 +42,12 @@ locations(11,[42]).
 locations(12,[43]).
 locations(37,[41]).
 
-providingAssemblyContext(125,30).
-providingAssemblyContext(126,30).
-providingAssemblyContext(127,32).
-providingAssemblyContext(128,32).
-providingAssemblyContext(129,34).
+providingAssemblyContext(127,30).
+providingAssemblyContext(128,30).
+providingAssemblyContext(129,32).
+providingAssemblyContext(130,32).
+providingAssemblyContext(131,34).
 
-operationInterface(70).
-operationInterface(71).
 operationInterface(72).
 operationInterface(73).
 operationInterface(74).
@@ -56,24 +56,26 @@ operationInterface(76).
 operationInterface(77).
 operationInterface(78).
 operationInterface(79).
+operationInterface(80).
+operationInterface(81).
 
-operationRequiredRole(82).
-operationRequiredRole(86).
+operationRequiredRole(84).
 operationRequiredRole(88).
-operationRequiredRole(89).
 operationRequiredRole(90).
 operationRequiredRole(91).
-operationRequiredRole(95).
-operationRequiredRole(139).
-operationRequiredRole(140).
+operationRequiredRole(92).
+operationRequiredRole(93).
+operationRequiredRole(97).
+operationRequiredRole(141).
+operationRequiredRole(142).
 
-requiredRole(122,143).
-requiredRole(123,145).
-requiredRole(125,88).
-requiredRole(126,86).
-requiredRole(127,82).
-requiredRole(128,89).
-requiredRole(129,90).
+requiredRole(124,145).
+requiredRole(125,147).
+requiredRole(127,90).
+requiredRole(128,88).
+requiredRole(129,84).
+requiredRole(130,91).
+requiredRole(131,92).
 
 resourceContainer(16,23).
 resourceContainer(17,25).
@@ -82,7 +84,7 @@ resourceContainer(19,29).
 resourceContainer(20,31).
 resourceContainer(21,33).
 resourceContainer(22,33).
-resourceContainer(113,[29,31,33]).
+resourceContainer(115,[29,31,33]).
 
 location(38).
 location(39).
@@ -91,127 +93,132 @@ location(41).
 location(42).
 location(43).
 
-parametersAndDataSetsPairs(36,[44,45,46,47,48,49,50,51,52,53,54,55]).
-parametersAndDataSetsPairs(111,[44]).
-parametersAndDataSetsPairs(110,[45]).
-parametersAndDataSetsPairs(105,[48]).
-parametersAndDataSetsPairs(108,[50,49]).
-parametersAndDataSetsPairs(101,[51,52]).
-parametersAndDataSetsPairs(103,[53,54]).
+parametersAndDataSetsPairs(36,[44,45,46,47,48,49,50,51,52,53,54,55,56,57]).
+parametersAndDataSetsPairs(113,[46]).
+parametersAndDataSetsPairs(112,[47]).
+parametersAndDataSetsPairs(100,[45]).
+parametersAndDataSetsPairs(99,[49]).
+parametersAndDataSetsPairs(107,[50]).
+parametersAndDataSetsPairs(110,[52,51]).
+parametersAndDataSetsPairs(103,[53,54,44]).
+parametersAndDataSetsPairs(105,[55,56]).
+parametersAndDataSetsPairs(108,[57]).
 
-encapsulatedComponent(30,66).
-encapsulatedComponent(35,68).
-encapsulatedComponent(32,67).
-encapsulatedComponent(34,69).
+encapsulatedComponent(30,68).
+encapsulatedComponent(35,70).
+encapsulatedComponent(32,69).
+encapsulatedComponent(34,71).
 
-dataSetTargets(44,[7]).
-dataSetTargets(45,[7]).
-dataSetTargets(46,[9]).
-dataSetTargets(47,[8,7,9]).
-dataSetTargets(48,[5]).
-dataSetTargets(49,[5]).
-dataSetTargets(50,[7,8,9]).
-dataSetTargets(51,[7,8,9]).
-dataSetTargets(52,[6]).
-dataSetTargets(53,[9]).
-dataSetTargets(54,[7,9]).
-dataSetTargets(55,[7,8,9]).
+dataSetTargets(44,[6,7,8,9]).
+dataSetTargets(45,[9]).
+dataSetTargets(46,[7]).
+dataSetTargets(47,[7]).
+dataSetTargets(48,[9]).
+dataSetTargets(49,[8,7,9]).
+dataSetTargets(50,[5]).
+dataSetTargets(51,[5]).
+dataSetTargets(52,[7,8,9]).
+dataSetTargets(53,[7,8,9]).
+dataSetTargets(54,[6]).
+dataSetTargets(55,[9]).
+dataSetTargets(56,[7,9]).
+dataSetTargets(57,[7,8,9]).
 
-basicComponent(66).
-basicComponent(67).
 basicComponent(68).
 basicComponent(69).
+basicComponent(70).
+basicComponent(71).
 
-interfaces(65,[70,71,72,73,74,75,76,77,78,79]).
+interfaces(67,[72,73,74,75,76,77,78,79,80,81]).
 
-linkingResources(113,[114,115,116]).
+linkingResources(115,[116,117,118]).
 
-repository(65).
+repository(67).
 
-requiredInterface(82,73).
-requiredInterface(86,70).
-requiredInterface(88,73).
-requiredInterface(89,72).
+requiredInterface(84,75).
+requiredInterface(88,72).
 requiredInterface(90,75).
-requiredInterface(91,77).
-requiredInterface(95,76).
-requiredInterface(139,77).
-requiredInterface(140,76).
+requiredInterface(91,74).
+requiredInterface(92,77).
+requiredInterface(93,79).
+requiredInterface(97,78).
+requiredInterface(141,79).
+requiredInterface(142,78).
 
-signatures(70,[96]).
-signatures(71,[97,98]).
-signatures(72,[101]).
-signatures(73,[103]).
-signatures(74,[105]).
-signatures(75,[106]).
-signatures(76,[108]).
-signatures(77,[109,110]).
-signatures(78,[111]).
-signatures(79,[112]).
+signatures(72,[98]).
+signatures(73,[99,100]).
+signatures(74,[103]).
+signatures(75,[105]).
+signatures(76,[107]).
+signatures(77,[108]).
+signatures(78,[110]).
+signatures(79,[111,112]).
+signatures(80,[113]).
+signatures(81,[114]).
 
-parameter(60).
+parameter(62).
+parameter(59).
+parameter(65).
+parameter(66).
 parameter(59).
 parameter(63).
 parameter(64).
-parameter(59).
+parameter(63).
+parameter(64).
 parameter(61).
-parameter(62).
-parameter(61).
-parameter(62).
-parameter(58).
-parameter(57).
+parameter(60).
 
 adversaries(1).
 
-components(65,[66,67,68,69]).
+components(67,[68,69,70,71]).
 
 connectionType(29,possible).
 connectionType(31,possible).
 connectionType(33,possible).
 
-innerProvidedRole(121,141).
-innerProvidedRole(130,87).
-innerProvidedRole(131,93).
-innerProvidedRole(133,85).
-innerProvidedRole(134,94).
+innerProvidedRole(123,143).
+innerProvidedRole(132,89).
+innerProvidedRole(133,95).
+innerProvidedRole(135,87).
+innerProvidedRole(136,96).
 
-assemblyContexts(120,[30,35,32,34]).
+assemblyContexts(122,[30,35,32,34]).
 
-assemblyContext(124,35).
-assemblyContext(130,35).
-assemblyContext(131,34).
-assemblyContext(132,34).
-assemblyContext(133,32).
+assemblyContext(126,35).
+assemblyContext(132,35).
+assemblyContext(133,34).
 assemblyContext(134,34).
+assemblyContext(135,32).
+assemblyContext(136,34).
 
 confidentialitySpecification(36).
 
-innerRequiredRole(124,91).
-innerRequiredRole(132,95).
+innerRequiredRole(126,93).
+innerRequiredRole(134,97).
 
-dataSets(36,[5,56,9,6,7,8]).
+dataSets(36,[5,58,9,6,7,8]).
 
-system(120).
+system(122).
 
 mayKnowDataSets(2,[5,6,7,8,9]).
 mayKnowDataSets(3,[6,7,8,9]).
 mayKnowDataSets(4,[7,9]).
 
-providedRoles(66,[80,81]).
-providedRoles(67,[83,84,85]).
-providedRoles(68,[87]).
-providedRoles(69,[92,93,94]).
-providedRoles(120,[135,136,137,138]).
+providedRoles(68,[82,83]).
+providedRoles(69,[85,86,87]).
+providedRoles(70,[89]).
+providedRoles(71,[94,95,96]).
+providedRoles(122,[137,138,139,140]).
 
-requiredRoles(66,[82]).
-requiredRoles(67,[86]).
-requiredRoles(68,[88,89,90,91]).
-requiredRoles(69,[95]).
-requiredRoles(120,[139,140]).
+requiredRoles(68,[84]).
+requiredRoles(69,[88]).
+requiredRoles(70,[90,91,92,93]).
+requiredRoles(71,[97]).
+requiredRoles(122,[141,142]).
 
 adversaries(1,[2,3,4]).
 
-connectors(120,[121,122,123,124,125,126,127,128,129,130,131,132,133,134]).
+connectors(122,[123,124,125,126,127,128,129,130,131,132,133,134,135,136]).
 
 assemblyContext_AllocationContext(16,24).
 assemblyContext_AllocationContext(17,26).
@@ -228,75 +235,76 @@ locationsAndTamperProtectionsPairs(36,[13,14,10,11,12,37]).
 locationsAndTamperProtectionsPairs(33,[10]).
 locationsAndTamperProtectionsPairs(31,[13]).
 locationsAndTamperProtectionsPairs(29,[14]).
-locationsAndTamperProtectionsPairs(116,[11]).
-locationsAndTamperProtectionsPairs(115,[12,37]).
-locationsAndTamperProtectionsPairs(114,[37]).
+locationsAndTamperProtectionsPairs(118,[11]).
+locationsAndTamperProtectionsPairs(117,[12,37]).
+locationsAndTamperProtectionsPairs(116,[37]).
 
 sharing(29,shared).
 sharing(31,shared).
 sharing(33,shared).
 
-outerRequiredRole(124,139).
-outerRequiredRole(132,140).
+outerRequiredRole(126,141).
+outerRequiredRole(134,142).
 
-resourceEnvironment(113).
+resourceEnvironment(115).
 
-communicationLinkResourceSpecifications(114,117).
-communicationLinkResourceSpecifications(115,118).
 communicationLinkResourceSpecifications(116,119).
+communicationLinkResourceSpecifications(117,120).
+communicationLinkResourceSpecifications(118,121).
 
-operationProvidedRole(80).
-operationProvidedRole(81).
+operationProvidedRole(82).
 operationProvidedRole(83).
-operationProvidedRole(84).
 operationProvidedRole(85).
+operationProvidedRole(86).
 operationProvidedRole(87).
-operationProvidedRole(92).
-operationProvidedRole(93).
+operationProvidedRole(89).
 operationProvidedRole(94).
-operationProvidedRole(135).
-operationProvidedRole(136).
+operationProvidedRole(95).
+operationProvidedRole(96).
 operationProvidedRole(137).
 operationProvidedRole(138).
+operationProvidedRole(139).
+operationProvidedRole(140).
 
-returnType(101,"BOOL").
-returnType(103,104).
-returnType(106,102).
+returnType(103,"BOOL").
+returnType(105,106).
 
-parameters(97,[60]).
-parameters(98,[59]).
-parameters(101,[63,64]).
-parameters(103,[59]).
-parameters(105,[61]).
-parameters(106,[62]).
-parameters(108,[61,62]).
-parameters(110,[58]).
-parameters(111,[57]).
+parameters(99,[62]).
+parameters(100,[59]).
+parameters(103,[65,66]).
+parameters(105,[59]).
+parameters(107,[63]).
+parameters(108,[64]).
+parameters(110,[63,64]).
+parameters(112,[61]).
+parameters(113,[60]).
 
-parameterSources(44,[57]).
-parameterSources(45,[58]).
-parameterSources(46,[59]).
-parameterSources(47,[60]).
-parameterSources(48,[61]).
-parameterSources(49,[61]).
-parameterSources(50,[62]).
+parameterSources(44,[\return]).
+parameterSources(45,[59]).
+parameterSources(46,[60]).
+parameterSources(47,[61]).
+parameterSources(48,[59]).
+parameterSources(49,[62]).
+parameterSources(50,[63]).
 parameterSources(51,[63]).
 parameterSources(52,[64]).
-parameterSources(53,[59]).
-parameterSources(54,[\return]).
-parameterSources(55,[62]).
+parameterSources(53,[65]).
+parameterSources(54,[66]).
+parameterSources(55,[59]).
+parameterSources(56,[\return]).
+parameterSources(57,[64]).
 
-dataType(60,99).
-dataType(59,100).
-dataType(63,"INT").
-dataType(64,102).
-dataType(59,100).
-dataType(61,102).
-dataType(62,107).
-dataType(61,102).
-dataType(62,107).
-dataType(58,104).
-dataType(57,104).
+dataType(62,101).
+dataType(59,102).
+dataType(65,"INT").
+dataType(66,104).
+dataType(59,102).
+dataType(63,104).
+dataType(64,109).
+dataType(63,104).
+dataType(64,109).
+dataType(61,106).
+dataType(60,106).
 
 allocationContext(16).
 allocationContext(17).
@@ -310,65 +318,65 @@ resourceContainer(29).
 resourceContainer(31).
 resourceContainer(33).
 
-assemblyConnector(122).
-assemblyConnector(123).
+assemblyConnector(124).
 assemblyConnector(125).
-assemblyConnector(126).
 assemblyConnector(127).
 assemblyConnector(128).
 assemblyConnector(129).
+assemblyConnector(130).
+assemblyConnector(131).
 
 allocationContexts(15,[16,17,18,19,20,21,22]).
 
-connectedResourceContainers(114,[31,29]).
-connectedResourceContainers(115,[33,31]).
-connectedResourceContainers(116,[31,33]).
+connectedResourceContainers(116,[31,29]).
+connectedResourceContainers(117,[33,31]).
+connectedResourceContainers(118,[31,33]).
 
-operationSignature(96).
-operationSignature(97).
 operationSignature(98).
-operationSignature(101).
+operationSignature(99).
+operationSignature(100).
 operationSignature(103).
 operationSignature(105).
-operationSignature(106).
+operationSignature(107).
 operationSignature(108).
-operationSignature(109).
 operationSignature(110).
 operationSignature(111).
 operationSignature(112).
+operationSignature(113).
+operationSignature(114).
 
 dataSet(5).
-dataSet(56).
+dataSet(58).
 dataSet(9).
 dataSet(6).
 dataSet(7).
 dataSet(8).
 
-providedInterface(80,73).
-providedInterface(81,70).
-providedInterface(83,73).
-providedInterface(84,72).
-providedInterface(85,78).
-providedInterface(87,71).
-providedInterface(92,75).
-providedInterface(93,74).
-providedInterface(94,79).
-providedInterface(135,71).
-providedInterface(136,74).
-providedInterface(137,78).
-providedInterface(138,79).
+providedInterface(82,75).
+providedInterface(83,72).
+providedInterface(85,75).
+providedInterface(86,74).
+providedInterface(87,80).
+providedInterface(89,73).
+providedInterface(94,77).
+providedInterface(95,76).
+providedInterface(96,81).
+providedInterface(137,73).
+providedInterface(138,76).
+providedInterface(139,80).
+providedInterface(140,81).
 
-linkingResource(114).
-linkingResource(115).
 linkingResource(116).
+linkingResource(117).
+linkingResource(118).
 
-providedRole(122,142).
-providedRole(123,144).
-providedRole(125,80).
-providedRole(126,81).
-providedRole(127,83).
-providedRole(128,84).
-providedRole(129,92).
+providedRole(124,144).
+providedRole(125,146).
+providedRole(127,82).
+providedRole(128,83).
+providedRole(129,85).
+providedRole(130,86).
+providedRole(131,94).
 
 locationsAndTamperProtectionsPair(13).
 locationsAndTamperProtectionsPair(14).
@@ -382,7 +390,7 @@ assemblyContext(35).
 assemblyContext(32).
 assemblyContext(34).
 
-outerProvidedRole(130,135).
-outerProvidedRole(131,136).
-outerProvidedRole(133,137).
-outerProvidedRole(134,138).
+outerProvidedRole(132,137).
+outerProvidedRole(133,138).
+outerProvidedRole(135,139).
+outerProvidedRole(136,140).
