@@ -5,7 +5,9 @@ module Noninterference.Procedure where
 
 import Noninterference.Util
 
-import Data.Set as S
+import qualified Data.Set as S
+import Data.Set (Set)
+import Unicode
 import Data.Set.Unicode
 \end{code}
 %endif
@@ -29,13 +31,15 @@ data Procedure p d = Procedure {
 %if False
 \begin{code}
 instance (Show p, Show d, Ord p, Ord d, Enumerable p) =>  Show (Procedure p d) where
-  show (Procedure { input, output, includes, influences}) =
-    "Procedure { input = " ++ (show input) ++ ", output = " ++ (show output) ++ ", includes = (M.!) $ M." ++ (showMapFun includes) ++ ", influences = (M.!) $ M." ++ (showMapFun influences) ++ " }"
+  show (Procedure { input, output, includes, influences})
+   | (∃) output (\o -> influences o /= (∅) ) = error "invalid procedure"
+   | otherwise =
+    "Procedure { input = " ++ (show input) ++ ", output = " ++ (show output) ++ ", includes = (M.!) $ M." ++ (showMapFun includes) ++ ", influences = (M.!) $ M." ++ (showMapFun $ (\p -> if (p ∈ output) then (∅) else influences p)) ++ " }"
 \end{code}
 
 %endif
 
 \begin{code}
 datasets :: (Ord d, Ord p) => Procedure p d -> Set d
-datasets (Procedure { input, output, includes, influences}) = fromList [ d | p <- toList $ output ∪ input, d <- toList $ includes p]
+datasets (Procedure { input, output, includes, influences}) = S.fromList [ d | p <- S.toList $ output ∪ input, d <- S.toList $ includes p]
 \end{code}

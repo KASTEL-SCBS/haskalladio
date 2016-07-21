@@ -5,6 +5,7 @@ import qualified Noninterference        as NI
 import qualified NoninterferenceGreiner as NIG
 import Noninterference.Util
 import Noninterference.Procedure
+import Noninterference.Comparison
 
 import Data.Set as S
 import Data.Set.Unicode
@@ -152,6 +153,7 @@ example5 = Procedure {
 
     influences A = S.fromList [Return]
     influences B = S.fromList [Return]
+    influences _ = (∅)
 
 
 example6 :: Procedure Parameter Datasets
@@ -168,6 +170,25 @@ example6 = Procedure {
 
     influences A = S.fromList [Return]
     influences B = S.fromList [Return]
+    influences _ = (∅)
+
+
+
+example7 :: Procedure Parameter Datasets
+example7 = Procedure {
+      input  = S.fromList [A,B],
+      output = S.fromList [RA, RB],
+      includes = includes,
+      influences = influences
+    }
+  where
+    includes A      = S.fromList $ [D1,D3]
+    includes B      = S.fromList $ [D2,D3]
+    includes Return = S.fromList $ [D3]
+
+    influences A = S.fromList [Return]
+    influences B = S.fromList [Return]
+    influences _ = (∅)
 
 
 foo :: Procedure Parameter Datasets
