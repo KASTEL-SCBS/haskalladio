@@ -1,5 +1,7 @@
 % BEGIN IMPORTS
-:- import  none/0
+:- import  none/0,
+           shared/0, exlusive/0,
+           possible/0, existing/0, complete/0
            from security.
 :- import  return/1
            from palladio.
@@ -126,6 +128,10 @@ locationsAccessibleBy(Attacker, Location) :-
 furtherConnections(Container,Mode) :- connectionType(Container,Mode).
 
 sharingOf(Container,Mode) :- sharing(Container,Mode).
+sharingOf(Container,exclusive) :-
+        not(sharing(Container,_)),
+        resourceContainer(Container).
+
 
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.

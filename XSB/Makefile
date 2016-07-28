@@ -1,13 +1,14 @@
 # modify this to run queries on different model instances,
 # or with a different linkModel.
-INSTANCE=Instances/PaperExample/ExampleOne
-# INSTANCE=Instances/FromPalladio
+# INSTANCE=Instances/PaperExample/ExampleOne
+INSTANCE=Instances/FromPalladio
 LINKMODEL=simpleLinkModel.P
 
 # if INSTANCE==Instances/FromPalladio, specify the location of fromPalladio.P
 # otherwise, use FROMPALLADIO=Instances/FromPalladio/empty.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.minimalexample/src-gen/fromPalladio.P
-FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.paperexample/src-gen/fromPalladio.P
+# FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.paperexample/src-gen/fromPalladio.P
+FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.cloudscenario/src-gen/fromPalladio.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.iflowexample/src-gen/fromPalladio.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.iflowexample-simonsdatasetsinterpretation/src-gen/fromPalladio.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/empty.P
@@ -31,13 +32,15 @@ FROMPALLADIO=fromPalladio.P
 SOURCES=$(INSTANCE_SYMLINKS) $(LINKMODEL_SYMLINK) $(FROMPALLADIO) abstractAnalysis.P  queries.P  security.P palladio.P
 XWAMS=$(SOURCES:.P=.xwam)
 
-.PHONY: clean clean-xwam test-queries-justify force queries.result default dist
+.PHONY: clean clean-xwam test-queries-justify force queries.result default dist symlinks
 
 default: queries-justify.result.pretty
 
 dist: accessanalysis-prolog.zip
 
 .force :
+
+symlinks : $(INSTANCE_SYMLINKS) $(LINKMODEL_SYMLINK) $(FROMPALLADIO)
 
 $(LINKMODEL_SYMLINK)  : .force
 	ln -f -s $(LINKMODEL) $@
