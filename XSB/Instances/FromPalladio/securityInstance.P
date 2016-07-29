@@ -8,7 +8,7 @@
 :- import  member/2
            from lists.
 
-:- import  mayKnowDataSets/2,
+:- import  mayKnowData/2,
            location/1,
            locations/2,
            locationsAndTamperProtectionsPairs/2,
@@ -17,8 +17,9 @@
            connectionType/2,
            resourceContainer/1,
            dataSetTargets/2,
+           dataSetMapEntry/1,
            parameterSources/2,
-           parametersAndDataSetsPairs/2,
+           parametersAndDataPairs/2,
            requiredInterface/2,
            resourceContainer/2,
            assemblyContext/2,
@@ -67,16 +68,17 @@ uiInterfaceOn(Container,Interface) :-
 
 
 dataset(Dataset) :- dataSet(Dataset).
+dataset(DatasetMapEntry) :- dataSetMapEntry(DatasetMapEntry).
 
 attacker(Attacker) :- adversary(Attacker).
 
 mayknow(Attacker,Dataset) :-
-        mayKnowDataSets(Attacker, Datasets),
+        mayKnowData(Attacker, Datasets),
         member(Dataset, Datasets).
 
 includes(parm(Service,ParameterName), Dataset) :-
         hasParameter(Service, parm(Service,ParameterName)),
-        parametersAndDataSetsPairs(Service, Pairs),
+        parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
         member(ParameterName, ParameterNames),
@@ -85,7 +87,7 @@ includes(parm(Service,ParameterName), Dataset) :-
 
 includes(return(Service), Dataset) :-
         returnParameter(Service, return(Service)),
-        parametersAndDataSetsPairs(Service, Pairs),
+        parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
         member(\return, ParameterNames),
@@ -95,7 +97,7 @@ includes(return(Service), Dataset) :-
 % TODO MAX check that a backslash is always followed by return or call and implement other well-formedness checks for specification
 % TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
 includesCall(Service, Dataset) :-
-        parametersAndDataSetsPairs(Service, Pairs),
+        parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
         member(\call, ParameterNames),

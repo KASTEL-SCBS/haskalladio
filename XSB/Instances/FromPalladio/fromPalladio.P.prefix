@@ -13,6 +13,7 @@ basicComponent(_) :- fail.
 unencryptedDataSets(_,_) :- fail.
 tamperProtections(_,_) :- fail.
 requiredDelegationConnector(_) :- fail.
+dataSetMapEntry(_) :- fail.
 sharing(_,_) :- fail. % see "default-rule" for sharingOf/2 in Instances/FromPalladio/securityInstance.P
 
 
@@ -27,6 +28,9 @@ fake_usage :-
         components(_,_),
         connectors(_,_),
         dataSets(_,_),
+        dataIdentifier(_,_),
+        dataSetMap(_),     % in the analysis, we only deal with instantiations of dataSetMaps
+        dataSetMaps(_,_),
         interfaces(_,_),
         linkingResources(_,_),
         locationsAndTamperProtectionsPair(_),
@@ -35,7 +39,8 @@ fake_usage :-
         operationRequiredRole(_),
         operationSignature(_),
         parameter(_),
-        parametersAndDataSetsPair(_),
+        parametersAndDataPair(_),
+        parentInterfaces(_,_),
         repository(_),
         system(_),
         resourceEnvironment(_),

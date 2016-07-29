@@ -2,6 +2,7 @@
 :- import attacker/1 from securityInstance.
 :- import isInSecureWithRespectTo/1 from security.
 :- import length/2 from lists.
+:- import dataset/1 from securityInstance.
 % END IMPORTS
 justify_pred(query6(_)).
 

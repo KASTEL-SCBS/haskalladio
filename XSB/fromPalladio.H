@@ -10,6 +10,7 @@
         connectionType/2,                           % connectionType(Container,Mode)
         dataSet/1,                                  % dataSet(Dataset)
         dataSetTargets/2,                           % dataSetTargets(ParametersAndDataSetsPair, Datasets),
+        dataSetMapEntry/1,                          % dataSetMapEntry(DatasetMapEntry)
         dataType/2,                                 % dataType(Parameter,Type)
         encapsulatedComponent/2,                    % encapsulatedComponent(AssemblyContext,Component)
         innerProvidedRole/2,                        % innerProvidedRole(Connector,InnerProvidedRole)
@@ -18,14 +19,14 @@
         location/1,                                 % location(Location)
         locations/2,                                % locations(LocationsAndTamperProtectionsPair,Locations),
         locationsAndTamperProtectionsPairs/2,       % locationsAndTamperProtectionsPairs(LinkingResource,LocationsAndTamperProtectionsPairs),
-        mayKnowDataSets/2,                          % mayKnowDataSets(Attacker, Datasets)
+        mayKnowData/2,                              % mayKnowData(Attacker, Datasets)
         operationProvidedRole/1,                    % operationProvidedRole(InnerProvidedRole)
         operationRequiredRole/1,                    % operationRequiredRole(InnerRequiredRole)
         outerProvidedRole/2,                        % outerProvidedRole(Connector,OuterProvidedRole)
         outerRequiredRole/2,                        % outerRequiredRole(Connector,ProvidedRole)
         parameterSources/2,                         % parameterSources(Pair,ParameterNames)
         parameters/2,                               % parameters(Service, Parameters)
-        parametersAndDataSetsPairs/2,               % parametersAndDataSetsPairs(Service, Pairs)
+        parametersAndDataPairs/2,                   % parametersAndDataPairs(Service, Pairs)
         providedDelegationConnector/1,              % providedDelegationConnector(Connector)
         providedInterface/2,                        % providedInterface(InnerProvidedRole,Interface)
         providedRoles/2,                            % providedRoles(Component,Roles)
@@ -43,8 +44,7 @@
         returnType/2,                               % returnType(Service,Type)
         sharing/2,                                  % sharing(Container,Mode) % TODO: fix the situation where a predicate sharing/2 is also defined elsewhere
         signatures/2,                               % signatures(Interface,Services)
-        parametersAndDataSetsPairs/2,               % parametersAndDataSetsPairs(Service, Pairs)
-        tamperProtections/2,                        % tamperProtections(Pair, TamperProtections)
+        parametersAndDataPairs/2,                   % parametersAndDataPairs(Service, Pairs)
 
         fake_usage/0.
 
@@ -68,7 +68,7 @@
         operationInterface/1,
         operationSignature/1,
         parameter/1,
-        parametersAndDataSetsPair/1,
+        parametersAndDataPair/1,
         repository/1,
         resourceEnvironment/1,
         system/1,  % In fact, we shouldn't  export this, since there already is a predicate system/1 elsewhere
