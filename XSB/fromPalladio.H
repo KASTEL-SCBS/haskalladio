@@ -60,7 +60,6 @@
         communicationLinkResourceSpecifications/2,
         components/2,
         connectors/2,
-        dataSets/2,
         interfaces/2,
         linkingResources/2,
         locationsAndTamperProtectionsPair/1,

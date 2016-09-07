@@ -27,7 +27,6 @@ fake_usage :-
         communicationLinkResourceSpecifications(_,_),
         components(_,_),
         connectors(_,_),
-        dataSets(_,_),
         dataIdentifier(_,_),
         dataSetMap(_),     % in the analysis, we only deal with instantiations of dataSetMaps
         dataSetMaps(_,_),
