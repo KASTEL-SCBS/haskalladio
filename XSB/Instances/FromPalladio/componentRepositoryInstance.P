@@ -31,6 +31,12 @@ hasParameter(Service,parm(Service,ParameterName)) :-
         parameters(Service, Parameters),
         member(ParameterName, Parameters).
 
+hasParameter(Service,parm(Service,sizeOf(ParameterName))) :-
+        % operationSignature(Service),
+        parameters(Service, Parameters),
+        member(ParameterName, Parameters).
+
+
 returnParameter(Service,return(Service)) :-
         % operationSignature(Service),
         returnType(Service,_Type).

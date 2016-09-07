@@ -76,6 +76,8 @@ mayknow(Attacker,Dataset) :-
         mayKnowData(Attacker, Datasets),
         member(Dataset, Datasets).
 
+% cases such as: parameterSources(6,[..,x,..]).
+%    as well as: parameterSources(6,[..,sizeOf(x),..]).
 includes(parm(Service,ParameterName), Dataset) :-
         hasParameter(Service, parm(Service,ParameterName)),
         parametersAndDataPairs(Service, Pairs),
@@ -84,6 +86,29 @@ includes(parm(Service,ParameterName), Dataset) :-
         member(ParameterName, ParameterNames),
         dataSetTargets(Pair, Datasets),
         member(Dataset, Datasets).
+
+% cases such as: parameterSources(6,[..,*,..]).
+includes(parm(Service,ParameterName), Dataset) :-
+        hasParameter(Service, parm(Service,ParameterName)),
+	not(ParameterName=sizeOf(_)),
+        parametersAndDataPairs(Service, Pairs),
+        member(Pair, Pairs),
+        parameterSources(Pair,ParameterNames),
+        member(*, ParameterNames),
+        dataSetTargets(Pair, Datasets),
+        member(Dataset, Datasets).
+
+% cases such as: parameterSources(6,[..,sizeOf(*),..]).
+includes(parm(Service,sizeOf(ParameterName)), Dataset) :-
+        hasParameter(Service, parm(Service,sizeOf(ParameterName))),
+        parametersAndDataPairs(Service, Pairs),
+        member(Pair, Pairs),
+        parameterSources(Pair,ParameterNames),
+        member(sizeOf(*), ParameterNames),
+        dataSetTargets(Pair, Datasets),
+        member(Dataset, Datasets).
+
+
 
 includes(return(Service), Dataset) :-
         returnParameter(Service, return(Service)),
