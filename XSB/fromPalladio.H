@@ -44,7 +44,8 @@
         returnType/2,                               % returnType(Service,Type)
         sharing/2,                                  % sharing(Container,Mode) % TODO: fix the situation where a predicate sharing/2 is also defined elsewhere
         signatures/2,                               % signatures(Interface,Services)
-        parametersAndDataPairs/2,                   % parametersAndDataPairs(Service, Pairs)
+        tamperProtections/2,                        % 
+        parametersAndDataPairs/2, % parametersAndDataPairs(Service, Pairs)
 
         fake_usage/0.
 
