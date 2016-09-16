@@ -9,7 +9,9 @@ LINKMODEL=simpleLinkModel.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.minimalexample/src-gen/fromPalladio.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.paperexample/src-gen/fromPalladio.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.cloudscenario/src-gen/fromPalladio.P
-FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.minimalcloud/src-gen/fromPalladio.P
+# FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.minimalcloud/src-gen/fromPalladio.P
+FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.travelplanner/src-gen/default.all_in_one.P
+
 # FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.iflowexample/src-gen/fromPalladio.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.iflowexample-simonsdatasetsinterpretation/src-gen/fromPalladio.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/empty.P
