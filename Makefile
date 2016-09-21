@@ -27,7 +27,7 @@ all : $(HTMLS)
 	pdflatex $< && pdflatex $< && pdflatex $<
 
 Noninterference/examples-include.tex : Noninterference/Examples.hs
-	runghc $< > $@
+	$(CABAL_PREFIX) runghc $< > $@
 
 
 
@@ -56,3 +56,5 @@ clean:
 	find -name "*.o"       -not -path "./.cabal-sandbox/*" -delete
 	find -name "*.dyn_o"   -not -path "./.cabal-sandbox/*" -delete
 	find -name "*~"        -not -path "./.cabal-sandbox/*" -delete
+	rm -f test.bin testGreiner.bin testComparison.bin
+	rm -f Noninterference/examples-include.tex
