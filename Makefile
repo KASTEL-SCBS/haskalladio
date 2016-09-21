@@ -34,7 +34,13 @@ Noninterference/examples-include.tex : Noninterference/Examples.hs
 test.bin : .FORCE
 	$(CABAL_PREFIX) ghc $(THREADED) -rtsopts -O --make Noninterference.Test  -main-is Noninterference.Test -o $@
 
+testGreiner.bin : .FORCE
+	$(CABAL_PREFIX) ghc $(THREADED) -rtsopts -O --make Noninterference.TestGreiner  -main-is Noninterference.TestGreiner -o $@
+
 test : test.bin .FORCE
+	./$< $(RTS)
+
+testGreiner : testGreiner.bin .FORCE
 	./$< $(RTS)
 
 clean:

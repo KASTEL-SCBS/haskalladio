@@ -8,6 +8,7 @@ import qualified Data.Set as S
 import Data.Set.Unicode hiding ((∈))
 import Data.Bool.Unicode as Bool
 
+import Noninterference.Util (intersections)
 
 infixl 6 ⊔
 (⊔) :: (JoinSemiLattice a) => a -> a -> a
@@ -32,6 +33,9 @@ infixl 7 ⊓
 
 (⋃) :: (Ord a) => [S.Set a] -> S.Set a
 (⋃) = S.unions
+
+(⋂) :: (Ord a, Enum a, Bounded a) => [S.Set a] -> S.Set a
+(⋂) = intersections
 
 𝝁 :: (Eq a, BoundedJoinSemiLattice a) => (a -> a) -> a
 𝝁 = lfp

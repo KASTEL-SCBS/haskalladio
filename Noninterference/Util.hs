@@ -5,7 +5,6 @@
 module Noninterference.Util where
 
 import Algebra.Lattice
-import Unicode
 
 import Data.Set as S
 import Data.Set.Unicode
