@@ -58,3 +58,4 @@ clean:
 	find -name "*~"        -not -path "./.cabal-sandbox/*" -delete
 	rm -f test.bin testGreiner.bin testComparison.bin
 	rm -f Noninterference/examples-include.tex
+	rm -f tmpfile*

@@ -835,3 +835,13 @@ strongestValidGuaranteeIsValid pr pr' =
   ==>
       (secure joana $ strongestValidGuarantee pr pr')
 \end{code}
+
+Also, it is "extensive" in its guarantees
+
+\begin{code}
+strongestValidGuaranteeIsExtensive :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Procedure p d -> Procedure p d -> Property
+strongestValidGuaranteeIsExtensive pr pr' =
+       pr' `makesWeakerAssumptionsThan` pr
+  ==>
+       pr `makesStrongerGuaranteesThan` (strongestValidGuarantee pr pr')
+\end{code}

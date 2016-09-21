@@ -6,6 +6,12 @@ import Noninterference
 import Noninterference.Util
 import Test.QuickCheck hiding (output)
 
+
+import Control.Monad.Random (getStdRandom, randomR)
+import System.Process (runInteractiveCommand, system)
+import Noninterference.Export
+
+
 import Data.Set
 import qualified Data.Map as M
 
@@ -40,6 +46,8 @@ checkAllProperties = do
   quickCheck (relabeleingsRevAreStrongerThan (fromList allValues :: Set Datasets) :: Procedure Parameter DatasetDatabase -> Bool)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
              (strongestValidGuaranteeIsValid :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
+  quickCheckWith  stdArgs { maxDiscardRatio = 400 }
+             (strongestValidGuaranteeIsExtensive :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
 
 impracticalProperties = do
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
@@ -54,3 +62,14 @@ failingProperties = do
   quickCheck (isStrongerThanIsCompleteTestable                :: SpecificationPair Parameter DatasetDatabase Datasets -> Property)
 
   quickCheck (consistentRelabelingRevForBetterThanIsStrongerThanTestable :: SpecificationPair Parameter Datasets Datasets -> Bool)
+
+
+
+showProcedure pr = do
+  let tex = toTikzComplete pr
+  randomInt <- getStdRandom (randomR (1,65536)) :: IO Int
+  let file = "tmpfile" ++ (show randomInt)
+  writeFile (file ++ ".tex")  tex
+  system                $ "pdflatex -interaction=batchmode " ++ (file ++ ".tex")
+  runInteractiveCommand $ "evince " ++ (file ++ ".pdf")
+
