@@ -14,6 +14,8 @@ data DatasetDatabase = Time
                      deriving (Show, Eq, Ord, Enum, Bounded)
 
 checkAllProperties = do
+  quickCheckWith stdArgs { maxSuccess = 25000 }
+             (weakerStongerIsNaively                          :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Bool)
   quickCheck (joanaIsKey                                      :: Procedure Parameter Datasets -> Bool)
   quickCheck (secureCharactization                            :: Procedure Parameter Datasets -> Bool)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
@@ -34,7 +36,8 @@ checkAllProperties = do
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
              (existsConsistentRelabelingRevIsJustifiedTestable :: SpecificationPair Parameter DatasetDatabase Datasets -> Property)
   quickCheck (relabeleingsRevAreStrongerThan (fromList allValues :: Set Datasets) :: Procedure Parameter DatasetDatabase -> Bool)
-
+  quickCheckWith  stdArgs { maxDiscardRatio = 400 }
+             (strongestValidGuaranteeIsValid :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
 
 impracticalProperties = do
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }

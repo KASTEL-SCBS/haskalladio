@@ -712,10 +712,6 @@ stronger than the ifc-specification in terms of "Consumptiondata", and hence we 
 See `isStrongerThanCriterionHoldsGetValue` from module `Instances.PaperExample.ExampleOne.Noninterference`.
 
 
-
-
-
-
 Appendix
 ========
 
@@ -776,5 +772,66 @@ An alternative definition of γ
 
 
 
+Strongest Guarantee w.r.t. weakened Assumptions
+-----------------------------------------------
+
+A given ifc-specification is comprised of "Assumptions" and "Guarantees":
+
+ * `includes` restricted to `input`   parameters specifies assumptions on the information content of `input` paramaters
+ * `includes` restricted to `output`  parameters specifies guarantees made by the program on the the information content of `output` paramaters
 
 
+A natural quesion to ask is what guarantees still hold given a "weakening of assumptions".
+
+Based on the notiong of `isNaivelyStrongerThan`, we define
+
+    `pr makesWeakerAssumptionsThan pr'`
+
+and
+
+    `pr makesStrongerGuaranteesThan pr'`
+
+to mean:
+\begin{code}
+makesWeakerAssumptionsThan ::  (Ord d) => Procedure p d ->  Procedure p d -> Bool
+pr `makesWeakerAssumptionsThan` pr'  =
+      (∀) (input pr)  (\i -> includes pr' i ⊆ includes pr i)
+
+makesStrongerGuaranteesThan ::  (Ord d) => Procedure p d ->  Procedure p d -> Bool
+pr `makesStrongerGuaranteesThan` pr'  =
+      (∀) (output pr) (\o -> includes pr' o ⊇ includes pr o)
+\end{code}
+
+i.e. we have:
+\begin{code}
+weakerStongerIsNaively :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Procedure p d -> Procedure p d -> Bool
+weakerStongerIsNaively  pr pr' =
+      pr `isNaivelyStrongerThan` pr'
+  ⇔ (pr `makesWeakerAssumptionsThan`  pr'
+    ∧ pr `makesStrongerGuaranteesThan` pr' )
+\end{code}
+
+
+Then, the strongest guarantee still valid given a weakening `pr'` of assumptions wrt. original specification `pr` is obtained by considereing the most-leaking-implementation of  the original specification `pr`
+
+\begin{code}
+strongestValidGuarantee :: (Ord d, Ord p) => Procedure p d -> Procedure p d -> Procedure p d
+strongestValidGuarantee pr@(Procedure { input, output }) pr' = pr {
+    includes = \p -> if (p ∈ input) then
+                       (includes pr' p)
+                     else
+                       (⋃) [ includes pr' i  | i <- toList input, p ∈ (influences mostLeaking i)]
+    }
+  where mostLeaking = γ pr
+\end{code}
+
+This is indeed valid:
+
+\begin{code}
+strongestValidGuaranteeIsValid :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Procedure p d -> Procedure p d -> Property
+strongestValidGuaranteeIsValid pr pr' =
+      (secure joana pr
+    ∧  pr' `makesWeakerAssumptionsThan` pr )
+  ==>
+      (secure joana $ strongestValidGuarantee pr pr')
+\end{code}

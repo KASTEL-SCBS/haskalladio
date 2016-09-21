@@ -87,7 +87,7 @@ instance (Enumerable d, Ord d) => Arbitrary (Procedure Parameter d) where
             influences (Input C) = S.fromList $ fmap Output cs
             influences _         = S.empty
 
-
+-- A SpecificationPar consists of two different specfications `includes` for the same implementation `influences`
 data SpecificationPair p d d' = SpecificationPair (Procedure p d) (Procedure p d') deriving Show
 instance (Enumerable d, Ord d, Enumerable d', Ord d') => Arbitrary (SpecificationPair Parameter d d') where
   arbitrary = do
@@ -96,7 +96,13 @@ instance (Enumerable d, Ord d, Enumerable d', Ord d') => Arbitrary (Specificatio
       return $ SpecificationPair pr (pr { includes = includes pr' })
 
 
-
+data SpecificationTriplet p d d' d'' = SpecificationTriplet (Procedure p d) (Procedure p d') (Procedure p d'') deriving Show
+instance (Enumerable d, Ord d, Enumerable d', Ord d', Enumerable d'', Ord d'') => Arbitrary (SpecificationTriplet Parameter d d' d'') where
+  arbitrary = do
+      pr   <- arbitrary
+      pr'  <- arbitrary
+      pr'' <- arbitrary
+      return $ SpecificationTriplet pr (pr { includes = includes pr' }) (pr { includes = includes pr'' })
 
 
 foo :: Procedure Parameter Datasets
