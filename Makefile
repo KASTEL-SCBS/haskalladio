@@ -1,5 +1,5 @@
 .SUFFIXES: .lhs .mkd .html .tex .pdf
-.PHONY: all clean test .FORCE
+.PHONY: all clean test testGreiner testComparison .FORCE
 
 CABAL_PREFIX=cabal exec --
 
@@ -37,10 +37,16 @@ test.bin : .FORCE
 testGreiner.bin : .FORCE
 	$(CABAL_PREFIX) ghc $(THREADED) -rtsopts -O --make Noninterference.TestGreiner  -main-is Noninterference.TestGreiner -o $@
 
+testComparison.bin : .FORCE
+	$(CABAL_PREFIX) ghc $(THREADED) -rtsopts -O --make Noninterference.TestComparison  -main-is Noninterference.TestComparison -o $@
+
 test : test.bin .FORCE
 	./$< $(RTS)
 
 testGreiner : testGreiner.bin .FORCE
+	./$< $(RTS)
+
+testComparison : testComparison.bin .FORCE
 	./$< $(RTS)
 
 clean:
