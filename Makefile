@@ -1,5 +1,8 @@
 .SUFFIXES: .lhs .mkd .html .tex .pdf
-.PHONY: all clean
+.PHONY: all clean test .FORCE
+
+CABAL_PREFIX=cabal exec --
+
 
 PANDOC := pandoc  -sS --include-in-header=hscolour.css
 HSCOLOUR := hscolour -lit
@@ -26,5 +29,18 @@ all : $(HTMLS)
 Noninterference/examples-include.tex : Noninterference/Examples.hs
 	runghc $< > $@
 
+
+
+test.bin : .FORCE
+	$(CABAL_PREFIX) ghc $(THREADED) -rtsopts -O --make Noninterference.Test  -main-is Noninterference.Test -o $@
+
+test : test.bin .FORCE
+	./$< $(RTS)
+
 clean:
 	rm -f $(HTMLS)
+	find -name "*.hi"      -not -path "./.cabal-sandbox/*" -delete
+	find -name "*.dyn_hi"  -not -path "./.cabal-sandbox/*" -delete
+	find -name "*.o"       -not -path "./.cabal-sandbox/*" -delete
+	find -name "*.dyn_o"   -not -path "./.cabal-sandbox/*" -delete
+	find -name "*~"        -not -path "./.cabal-sandbox/*" -delete

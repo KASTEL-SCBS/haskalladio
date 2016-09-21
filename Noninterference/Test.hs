@@ -13,6 +13,8 @@ data DatasetDatabase = Time
                      | Data
                      deriving (Show, Eq, Ord, Enum, Bounded)
 
+main = checkAllProperties
+
 checkAllProperties = do
   quickCheckWith stdArgs { maxSuccess = 25000 }
              (weakerStongerIsNaively                          :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Bool)
