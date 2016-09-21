@@ -47,7 +47,9 @@ checkAllProperties = do
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
              (strongestValidGuaranteeIsValid :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
-             (strongestValidGuaranteeIsExtensive :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
+             (strongestValidGuaranteeExtensiveIsExtensive :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
+  quickCheckWith  stdArgs { maxDiscardRatio = 400 }
+             (strongestValidGuaranteeExtensiveIsValid :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
 
 impracticalProperties = do
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
@@ -55,6 +57,8 @@ impracticalProperties = do
 
 
 failingProperties = do
+  quickCheckWith  stdArgs { maxDiscardRatio = 400 }
+             (strongestValidGuaranteeIsExtensive :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
   quickCheck (existsConsistentRelabelingIsJustifiedTestable   :: SpecificationPair Parameter DatasetDatabase Datasets -> Property)
 
   quickCheck (existsConsistentRelabelingIsCompleteTestable    :: SpecificationPair Parameter DatasetDatabase Datasets -> Property)

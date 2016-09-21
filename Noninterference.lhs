@@ -836,12 +836,53 @@ strongestValidGuaranteeIsValid pr pr' =
       (secure joana $ strongestValidGuarantee pr pr')
 \end{code}
 
-Also, it is "extensive" in its guarantees
+Note that it is *not "extensive" in the following sense:
 
 \begin{code}
 strongestValidGuaranteeIsExtensive :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Procedure p d -> Procedure p d -> Property
 strongestValidGuaranteeIsExtensive pr pr' =
-       pr' `makesWeakerAssumptionsThan` pr
+      (secure joana pr
+    ∧  pr' `makesWeakerAssumptionsThan` pr )
   ==>
        pr `makesStrongerGuaranteesThan` (strongestValidGuarantee pr pr')
+\end{code}
+
+since `pr` may include datasets in one of it's output parameters that are included in none of its input parameters.
+
+Once can, of course, define an "extensive" operator like this:
+
+
+\begin{code}
+strongestValidGuaranteeExtensive :: (Ord d, Ord p) => Procedure p d -> Procedure p d -> Procedure p d
+strongestValidGuaranteeExtensive pr@(Procedure { input, output }) pr' = pr'' {
+    includes = \p -> if (p ∈ input) then
+                       (includes pr'' p)
+                     else
+                       (includes pr p) ∪ (includes pr'' p)
+    }
+  where pr'' = strongestValidGuarantee pr pr'
+\end{code}
+
+
+such that both:
+
+\begin{code}
+strongestValidGuaranteeExtensiveIsExtensive :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Procedure p d -> Procedure p d -> Property
+strongestValidGuaranteeExtensiveIsExtensive pr pr' =
+      (secure joana pr
+    ∧  pr' `makesWeakerAssumptionsThan` pr )
+  ==>
+       pr `makesStrongerGuaranteesThan` (strongestValidGuaranteeExtensive pr pr')
+\end{code}
+
+
+and:
+
+\begin{code}
+strongestValidGuaranteeExtensiveIsValid :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Procedure p d -> Procedure p d -> Property
+strongestValidGuaranteeExtensiveIsValid pr pr' =
+      (secure joana pr
+    ∧  pr' `makesWeakerAssumptionsThan` pr )
+  ==>
+      (secure joana $ strongestValidGuaranteeExtensive pr pr')
 \end{code}
