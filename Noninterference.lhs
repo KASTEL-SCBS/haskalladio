@@ -830,8 +830,7 @@ This is indeed valid:
 \begin{code}
 strongestValidGuaranteeIsValid :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Procedure p d -> Procedure p d -> Property
 strongestValidGuaranteeIsValid pr pr' =
-      (secure joana pr
-    ∧  pr' `makesWeakerAssumptionsThan` pr )
+      secure joana pr
   ==>
       (secure joana $ strongestValidGuarantee pr pr')
 \end{code}
@@ -841,8 +840,7 @@ Note that it is *not "extensive" in the following sense:
 \begin{code}
 strongestValidGuaranteeIsExtensive :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Procedure p d -> Procedure p d -> Property
 strongestValidGuaranteeIsExtensive pr pr' =
-      (secure joana pr
-    ∧  pr' `makesWeakerAssumptionsThan` pr )
+       pr' `makesWeakerAssumptionsThan` pr
   ==>
        pr `makesStrongerGuaranteesThan` (strongestValidGuarantee pr pr')
 \end{code}
@@ -880,8 +878,7 @@ and:
 \begin{code}
 strongestValidGuaranteeExtensiveIsValid :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Procedure p d -> Procedure p d -> Property
 strongestValidGuaranteeExtensiveIsValid pr pr' =
-      (secure joana pr
-    ∧  pr' `makesWeakerAssumptionsThan` pr )
+      secure joana pr
   ==>
       (secure joana $ strongestValidGuaranteeExtensive pr pr')
 \end{code}
@@ -890,19 +887,15 @@ strongestValidGuaranteeExtensiveIsValid pr pr' =
 Both operator are idempotent:
 
 \begin{code}
-strongestValidGuaranteeExtensiveIsIdempotent :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Procedure p d -> Procedure p d -> Property
+strongestValidGuaranteeExtensiveIsIdempotent :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Procedure p d -> Procedure p d -> Bool
 strongestValidGuaranteeExtensiveIsIdempotent pr pr' =
-       pr' `makesWeakerAssumptionsThan` pr
-  ==>
       (show $ strongestValidGuaranteeExtensive pr                                         pr') ==
       (show $ strongestValidGuaranteeExtensive (strongestValidGuaranteeExtensive pr pr')  pr')      -- TODO: dont use hacky string-comparison
 \end{code}
 
 \begin{code}
-strongestValidGuaranteeIsIdempotent :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Procedure p d -> Procedure p d -> Property
+strongestValidGuaranteeIsIdempotent :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Procedure p d -> Procedure p d -> Bool
 strongestValidGuaranteeIsIdempotent pr pr' =
-       pr' `makesWeakerAssumptionsThan` pr
-  ==>
       (show $ strongestValidGuarantee pr                                pr') ==
       (show $ strongestValidGuarantee (strongestValidGuarantee pr pr')  pr')      -- TODO: dont use hacky string-comparison
 \end{code}
