@@ -46,10 +46,14 @@ checkAllProperties = do
   quickCheck (relabeleingsRevAreStrongerThan (fromList allValues :: Set Datasets) :: Procedure Parameter DatasetDatabase -> Bool)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
              (strongestValidGuaranteeIsValid :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
-  quickCheckWith  stdArgs { maxDiscardRatio = 400 }
+  quickCheckWith  stdArgs { maxSuccess = 1000, maxDiscardRatio = 400 }
              (strongestValidGuaranteeExtensiveIsExtensive :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
              (strongestValidGuaranteeExtensiveIsValid :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
+  quickCheckWith  stdArgs { maxDiscardRatio = 400 }
+             (strongestValidGuaranteeExtensiveIsIdempotent :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
+  quickCheckWith  stdArgs { maxDiscardRatio = 400 }
+             (strongestValidGuaranteeIsIdempotent :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
 
 impracticalProperties = do
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
