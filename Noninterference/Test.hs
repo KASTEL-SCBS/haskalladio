@@ -6,11 +6,9 @@ import Noninterference
 import Noninterference.Util
 import Test.QuickCheck hiding (output)
 
-
-import Control.Monad.Random (getStdRandom, randomR)
-import System.Process (runInteractiveCommand, system)
 import Noninterference.Export
 
+import Unicode
 
 import Data.Set
 import qualified Data.Map as M
@@ -69,15 +67,5 @@ failingProperties = do
   quickCheck (existsConsistentRelabelingRevIsCompleteTestable :: SpecificationPair Parameter DatasetDatabase Datasets -> Property)
   quickCheck (isStrongerThanIsCompleteTestable                :: SpecificationPair Parameter DatasetDatabase Datasets -> Property)
 
-  quickCheck (consistentRelabelingRevForBetterThanIsStrongerThanTestable :: SpecificationPair Parameter Datasets Datasets -> Bool)
-
-
-
-showProcedure pr = do
-  let tex = toTikzComplete pr
-  randomInt <- getStdRandom (randomR (1,65536)) :: IO Int
-  let file = "tmpfile" ++ (show randomInt)
-  writeFile (file ++ ".tex")  tex
-  system                $ "pdflatex -interaction=batchmode " ++ (file ++ ".tex")
-  runInteractiveCommand $ "evince " ++ (file ++ ".pdf")
+  quickCheck (consistentRelabelingRevForBetterThanIsStrongerThanTestable :: SpecificationPair Parameter DatasetDatabase Datasets -> Bool)
 
