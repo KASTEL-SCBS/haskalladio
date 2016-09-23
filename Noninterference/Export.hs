@@ -12,8 +12,8 @@ import System.Process (runInteractiveCommand, system)
 import Data.Set as S
 import Data.Map as Map
 
-toTikz :: (Show p, Ord p, Show d) => Procedure p d -> String
-toTikz (Procedure { input, output, includes, influences}) =
+toTikz :: (Show p, Ord p, Show d) => Procedure p -> Implementation p -> Specification p d -> String
+toTikz (Procedure { input, output }) (Implementation { influences }) (Specification { includes })  =
     unlines $ [
       "\\begin{tikzpicture}[node distance=1cm, auto]"
     ]
@@ -39,22 +39,22 @@ toTikz (Procedure { input, output, includes, influences}) =
 
 
 
-toTikzComplete  :: (Show p, Ord p, Show d) => Procedure p d -> String
-toTikzComplete pr = unlines [
+toTikzComplete  :: (Show p, Ord p, Show d) => Procedure p -> Implementation p -> Specification p d -> String
+toTikzComplete pr impl sp = unlines [
     "\\documentclass[a4paper,landscape]{article}",
     "\\usepackage{tikz}",
     "\\usetikzlibrary{arrows,positioning}",
     "\\begin{document}"
   ]
   ++
-  (toTikz pr)
+  (toTikz pr impl sp)
   ++ unlines [
     "\\end{document}"
   ]
 
 
-showProcedure pr = do
-  let tex = toTikzComplete pr
+showProcedure pr impl sp = do
+  let tex = toTikzComplete pr impl sp
   randomInt <- getStdRandom (randomR (1,65536)) :: IO Int
   let file = "tmpfile" ++ (show randomInt)
   writeFile (file ++ ".tex")  tex

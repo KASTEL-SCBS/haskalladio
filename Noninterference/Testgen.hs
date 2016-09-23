@@ -53,7 +53,33 @@ data Datasets = Customer
               deriving (Show, Eq, Ord, Enum, Bounded)
 
 
-instance (Enumerable d, Ord d) => Arbitrary (Procedure Parameter d) where
+instance  Arbitrary (Procedure Parameter) where
+  arbitrary = do
+      return $ Procedure {
+         input  = S.map Input  $ S.fromList allValues,
+         output = S.map Output $ S.fromList allValues
+       }
+
+instance  Arbitrary (Implementation Parameter) where
+  arbitrary = do
+      as <- sublistOf allValues
+      bs <- sublistOf allValues
+      cs <- sublistOf allValues
+      let influences = influencesFrom as bs cs
+      return $ Implementation {
+         influences = influences
+       }
+   where
+    sublistOf xs = filterM (\_ -> choose (False, True)) xs
+    influencesFrom as bs cs = influences
+      where influences (Input A) = S.fromList $ fmap Output as
+            influences (Input B) = S.fromList $ fmap Output bs
+            influences (Input C) = S.fromList $ fmap Output cs
+            influences _         = S.empty
+
+
+
+instance (Enumerable d, Ord d) => Arbitrary (Specification Parameter d) where
   arbitrary = do
       as <- sublistOf allValues
       bs <- sublistOf allValues
@@ -62,15 +88,9 @@ instance (Enumerable d, Ord d) => Arbitrary (Procedure Parameter d) where
       ys <- sublistOf allValues
       zs <- sublistOf allValues
       let includes = includesFrom as bs cs xs ys zs
-      as <- sublistOf allValues
-      bs <- sublistOf allValues
-      cs <- sublistOf allValues
-      let influences = influencesFrom as bs cs
-      return $ Procedure {
-         input  = S.map Input  $ S.fromList allValues,
-         output = S.map Output $ S.fromList allValues,
+      return $ Specification {
          includes = includes,
-         influences = influences
+         datasets = S.fromList allValues
        }
    where
     sublistOf xs = filterM (\_ -> choose (False, True)) xs
@@ -81,36 +101,12 @@ instance (Enumerable d, Ord d) => Arbitrary (Procedure Parameter d) where
             includes (Output X) = S.fromList $ xs
             includes (Output Y) = S.fromList $ ys
             includes (Output Z) = S.fromList $ zs
-    influencesFrom as bs cs = influences
-      where influences (Input A) = S.fromList $ fmap Output as
-            influences (Input B) = S.fromList $ fmap Output bs
-            influences (Input C) = S.fromList $ fmap Output cs
-            influences _         = S.empty
-
--- A SpecificationPar consists of two different specfications `includes` for the same implementation `influences`
-data SpecificationPair p d d' = SpecificationPair (Procedure p d) (Procedure p d') deriving Show
-instance (Enumerable d, Ord d, Enumerable d', Ord d') => Arbitrary (SpecificationPair Parameter d d') where
-  arbitrary = do
-      pr  <- arbitrary
-      pr' <- arbitrary
-      return $ SpecificationPair pr (pr { includes = includes pr' })
 
 
-data SpecificationTriplet p d d' d'' = SpecificationTriplet (Procedure p d) (Procedure p d') (Procedure p d'') deriving Show
-instance (Enumerable d, Ord d, Enumerable d', Ord d', Enumerable d'', Ord d'') => Arbitrary (SpecificationTriplet Parameter d d' d'') where
-  arbitrary = do
-      pr   <- arbitrary
-      pr'  <- arbitrary
-      pr'' <- arbitrary
-      return $ SpecificationTriplet pr (pr { includes = includes pr' }) (pr { includes = includes pr'' })
-
-
-foo :: Procedure Parameter Datasets
-foo = Procedure {
-      input  = S.map Input  $ S.fromList allValues,
-      output = S.map Output $ S.fromList allValues,
+fooSpec :: Specification Parameter Datasets
+fooSpec = Specification {
       includes = includes,
-      influences = influences
+      datasets = S.fromList allValues
     }
   where
     includes (Input A) = S.fromList $ []
@@ -121,19 +117,30 @@ foo = Procedure {
     includes (Output Y) = S.fromList $ [Customer, Appliance]
     includes (Output Z) = S.fromList $ []
 
+
+fooImpl :: Implementation Parameter
+fooImpl = Implementation {
+      influences = influences
+    }
+  where
     influences (Input A) = S.fromList $ fmap Output [X]
     influences (Input B) = S.fromList $ fmap Output [Y,Z]
     influences (Input C) = S.fromList $ fmap Output [Y]
 
     influences _         = S.empty
 
-
-bar :: Procedure Parameter Datasets
-bar = Procedure {
+foo :: Procedure Parameter
+foo = Procedure {
       input  = S.map Input  $ S.fromList allValues,
-      output = S.map Output $ S.fromList allValues,
-      includes = includes,
-      influences = influences
+      output = S.map Output $ S.fromList allValues
+    }
+
+
+
+barSpec :: Specification Parameter Datasets
+barSpec = Specification {
+      datasets = S.fromList allValues,
+      includes = includes
     }
   where
     includes (Input A) = S.fromList $ []
@@ -144,22 +151,39 @@ bar = Procedure {
     includes (Output Y) = S.fromList $ [Customer, Appliance, Provider]
     includes (Output Z) = S.fromList $ []
 
+
+barImpl :: Implementation Parameter
+barImpl = Implementation {
+      influences = influences
+    }
+  where
     influences (Input A) = S.fromList $ fmap Output [X]
     influences (Input B) = S.fromList $ fmap Output [Y,Z]
     influences (Input C) = S.fromList $ fmap Output [Y]
 
     influences _         = S.empty
 
+bar :: Procedure Parameter
+bar = Procedure {
+      input  = S.map Input  $ S.fromList allValues,
+      output = S.map Output $ S.fromList allValues
+    }
 
-example = Procedure { input = fromList [Input A,Input B,Input C],
-                   output = fromList [Output X,Output Y,Output Z],
+
+exampleSpec = Specification {
+                   datasets = S.fromList allValues,
                    includes  = (M.!) $ M.fromList [(Input A,fromList [Customer,Appliance]),
                                                      (Input B,fromList [Customer]),
                                                      (Input C,fromList [Customer,Appliance]),
                                                      (Output X,fromList [Customer,Provider]),
                                                      (Output Y,fromList [Customer]),
-                                                     (Output Z,fromList [Customer,Provider,Appliance])],
-                  influences = (M.!) $ M.fromList [(Input A,fromList [Output Y]),
+                                                     (Output Z,fromList [Customer,Provider,Appliance])]
+                 }
+example = Procedure { input = fromList [Input A,Input B,Input C],
+                      output = fromList [Output X,Output Y,Output Z]
+                 }
+exampleImp = Implementation {
+                   influences = (M.!) $ M.fromList [(Input A,fromList [Output Y]),
                                                       (Input B,fromList [Output Y,Output Z]),
                                                       (Input C,fromList [Output Y,Output Z]),
                                                       (Output X,fromList []),

@@ -21,51 +21,51 @@ main = checkAllProperties
 
 checkAllProperties = do
   quickCheckWith stdArgs { maxSuccess = 25000 }
-             (weakerStongerIsNaively                          :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Bool)
-  quickCheck (joanaIsKey                                      :: Procedure Parameter Datasets -> Bool)
-  quickCheck (secureCharactization                            :: Procedure Parameter Datasets -> Bool)
+             (weakerStongerIsNaively                          :: Procedure Parameter -> Specification  Parameter Datasets -> Specification  Parameter Datasets -> Bool)
+  quickCheck (joanaIsKey                                      :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Bool)
+  quickCheck (secureCharactization                            :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Bool)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
-             (weakerAreWeakenings                             :: SpecificationPair Parameter Datasets Datasets -> Property)
-  quickCheck (weakeningsAreWeaker                             :: Procedure Parameter Datasets -> Bool)
-  quickCheck (weakeningsAreSafe                               :: Procedure Parameter Datasets -> Property)
+             (weakerAreWeakenings                             :: Procedure Parameter -> Specification Parameter Datasets -> Specification  Parameter Datasets -> Property)
+  quickCheck (weakeningsAreWeaker                             :: Procedure Parameter -> Specification Parameter Datasets -> Bool)
+  quickCheck (weakeningsAreSafe                               :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Property)
   quickCheckWith stdArgs { maxDiscardRatio = 400 }
-             (isStrongerThanIsJustifiedTestable               :: SpecificationPair Parameter Datasets Datasets -> Property)
-  quickCheck (isStrongerThanIsHasFewerFlowsThan               :: SpecificationPair Parameter Datasets Datasets -> Bool)
+             (isStrongerThanIsJustifiedTestable               :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Specification  Parameter Datasets -> Property)
+  quickCheck (isStrongerThanIsHasFewerFlowsThan               :: Procedure Parameter -> Specification Parameter Datasets -> Specification  Parameter Datasets -> Bool)
   quickCheckWith  stdArgs { maxDiscardRatio = 200 }
-             (isStrongerThanIsBetterThanIsNaivelyStrongerThan :: SpecificationPair Parameter Datasets Datasets -> Property)
-  quickCheck (mostPreciseIsSecure                             :: Procedure Parameter Datasets -> Bool)
-  quickCheck (γMostPreciseIsMostPrecuse                       :: Procedure Parameter Datasets -> Bool)
-  quickCheck (fewerFlowsIffSecure                             :: Procedure Parameter Datasets -> Bool)
-  quickCheck (γIsγ'                                           :: Procedure Parameter Datasets -> Bool)
+             (isStrongerThanIsBetterThanIsNaivelyStrongerThan :: Procedure Parameter -> Specification Parameter Datasets -> Specification  Parameter Datasets -> Property)
+  quickCheck (mostPreciseIsSecure                             :: Procedure Parameter -> Implementation Parameter -> Bool)
+  quickCheck (γMostPreciseIsMostPrecuse                       :: Procedure Parameter -> Implementation Parameter -> Bool)
+  quickCheck (fewerFlowsIffSecure                             :: Procedure Parameter -> Implementation Parameter -> Specification  Parameter Datasets -> Bool)
+  quickCheck (γIsγ'                                           :: Procedure Parameter -> Specification Parameter Datasets -> Bool)
   quickCheckWith  stdArgs { maxSuccess = 10000 }
-             (isStrongerThanBetterThanConsistentRelabelingRevForTestable :: SpecificationPair Parameter DatasetDatabase Datasets ->  Bool)
+             (isStrongerThanBetterThanConsistentRelabelingRevForTestable :: Procedure Parameter -> Specification Parameter DatasetDatabase -> Specification  Parameter Datasets -> Bool)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
-             (existsConsistentRelabelingRevIsJustifiedTestable :: SpecificationPair Parameter DatasetDatabase Datasets -> Property)
-  quickCheck (relabeleingsRevAreStrongerThan (fromList allValues :: Set Datasets) :: Procedure Parameter DatasetDatabase -> Bool)
+             (existsConsistentRelabelingRevIsJustifiedTestable :: Procedure Parameter -> Implementation Parameter -> Specification Parameter DatasetDatabase -> Specification  Parameter Datasets -> Property)
+  quickCheck (relabeleingsRevAreStrongerThan (fromList allValues :: Set Datasets) :: Procedure Parameter -> Specification  Parameter DatasetDatabase -> Bool)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
-             (strongestValidGuaranteeIsValid :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
+             (strongestValidGuaranteeIsValid :: Procedure Parameter -> Implementation Parameter -> Specification  Parameter Datasets -> Specification  Parameter Datasets -> Property)
   quickCheckWith  stdArgs { maxSuccess = 1000, maxDiscardRatio = 400 }
-             (strongestValidGuaranteeExtensiveIsExtensive :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
+             (strongestValidGuaranteeExtensiveIsExtensive :: Procedure Parameter -> Specification  Parameter Datasets -> Specification  Parameter Datasets -> Property)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
-             (strongestValidGuaranteeExtensiveIsValid :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
+             (strongestValidGuaranteeExtensiveIsValid :: Procedure Parameter -> Implementation Parameter -> Specification  Parameter Datasets -> Specification  Parameter Datasets -> Property)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
-             (strongestValidGuaranteeExtensiveIsIdempotent :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Bool)
+             (strongestValidGuaranteeExtensiveIsIdempotent :: Procedure Parameter -> Specification  Parameter Datasets -> Specification  Parameter Datasets -> Bool)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
-             (strongestValidGuaranteeIsIdempotent :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Bool)
+             (strongestValidGuaranteeIsIdempotent :: Procedure Parameter -> Specification  Parameter Datasets -> Specification  Parameter Datasets -> Bool)
 
 impracticalProperties = do
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
-             (secureWeakeningsAreSecure'                      :: SpecificationPair Parameter Datasets Datasets -> Property)
+             (secureWeakeningsAreSecure                      :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Specification  Parameter Datasets -> Property)
 
 
 failingProperties = do
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
-             (strongestValidGuaranteeIsExtensive :: Procedure Parameter Datasets -> Procedure Parameter Datasets -> Property)
-  quickCheck (existsConsistentRelabelingIsJustifiedTestable   :: SpecificationPair Parameter DatasetDatabase Datasets -> Property)
+             (strongestValidGuaranteeIsExtensive :: Procedure Parameter -> Specification  Parameter Datasets -> Specification  Parameter Datasets -> Property)
+  quickCheck (existsConsistentRelabelingIsJustifiedTestable   :: Procedure Parameter -> Implementation Parameter -> Specification Parameter DatasetDatabase -> Specification  Parameter Datasets -> Property)
 
-  quickCheck (existsConsistentRelabelingIsCompleteTestable    :: SpecificationPair Parameter DatasetDatabase Datasets -> Property)
-  quickCheck (existsConsistentRelabelingRevIsCompleteTestable :: SpecificationPair Parameter DatasetDatabase Datasets -> Property)
-  quickCheck (isStrongerThanIsCompleteTestable                :: SpecificationPair Parameter DatasetDatabase Datasets -> Property)
+  quickCheck (existsConsistentRelabelingIsCompleteTestable    :: Procedure Parameter -> Implementation Parameter -> Specification Parameter DatasetDatabase -> Specification  Parameter Datasets -> Property)
+  quickCheck (existsConsistentRelabelingRevIsCompleteTestable :: Procedure Parameter -> Implementation Parameter -> Specification Parameter DatasetDatabase -> Specification  Parameter Datasets -> Property)
+  quickCheck (isStrongerThanIsCompleteTestable                :: Procedure Parameter -> Implementation Parameter -> Specification Parameter DatasetDatabase -> Specification  Parameter Datasets -> Property)
 
-  quickCheck (consistentRelabelingRevForBetterThanIsStrongerThanTestable :: SpecificationPair Parameter DatasetDatabase Datasets -> Bool)
+  quickCheck (consistentRelabelingRevForBetterThanIsStrongerThanTestable :: Procedure Parameter -> Specification Parameter DatasetDatabase -> Specification  Parameter Datasets -> Bool)
 
