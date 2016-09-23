@@ -1,6 +1,5 @@
 {-# LANGUAGE NamedFieldPuns #-}
 import Unicode
-import Security
 import Noninterference
 import Noninterference.Util
 import Noninterference.Procedure
