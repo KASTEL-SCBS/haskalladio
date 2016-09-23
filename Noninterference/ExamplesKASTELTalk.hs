@@ -3,7 +3,6 @@ import Unicode
 import Noninterference
 import Noninterference.Util
 import Noninterference.Procedure
-import Noninterference.Comparison
 import Noninterference.Export
 
 import Data.Set as S
@@ -42,15 +41,26 @@ data Parameter = Input Input
               deriving (Show, Eq, Ord)
 
 
+noImpl :: Implementation Parameter
+noImpl = Implementation {
+    influences = \_ -> S.empty
+  }
+
 inputs  = S.fromList $ fmap Input  [A,B,C]
 outputs = S.fromList $ fmap Output [X,Y,Z]
 
-example1 :: Procedure Parameter Datasets
-example1 = Procedure {
+datasetss :: (Ord d, Enum d, Bounded d) => Set d
+datasetss = S.fromList $ allValues
+
+pr = Procedure {
       input  = inputs,
-      output = outputs,
-      includes = includes,
-      influences = influences
+      output = outputs
+ }
+
+example1 :: Specification Parameter Datasets
+example1 = Specification {
+      datasets = datasetss,
+      includes = includes
     }
   where
     includes (Input A)   = S.fromList $ [Consumption,Billing]
@@ -60,10 +70,9 @@ example1 = Procedure {
     includes (Output Y)  = S.fromList $ [DeviceStatus, Billing]
     includes (Output Z)  = S.fromList $ [Passwords]
 
-    influences _         = S.empty
-
-example1Weakening :: Procedure Parameter Datasets
-example1Weakening = example1 {
+example1Weakening :: Specification Parameter Datasets
+example1Weakening = Specification {
+      datasets = datasetss,
       includes = incl
     }
   where
@@ -71,8 +80,9 @@ example1Weakening = example1 {
     incl p           = includes example1 p
 
 
-example1Suggestion :: Procedure Parameter Datasets
-example1Suggestion = example1 {
+example1Suggestion :: Specification Parameter Datasets
+example1Suggestion = Specification {
+      datasets = datasetss,
       includes = incl
     }
   where
@@ -81,10 +91,8 @@ example1Suggestion = example1 {
       | p ∈ inputs  = includes example1Weakening p
 
 
-example1StrongestGuarantee :: Procedure Parameter Datasets
-example1StrongestGuarantee = strongestValidGuarantee example1 example1Weakening
-
-
+example1StrongestGuarantee :: Specification Parameter Datasets
+example1StrongestGuarantee = strongestValidGuarantee pr example1 example1Weakening
 
 
 f Consumption  = S.fromList [Private]
@@ -92,38 +100,40 @@ f Billing      = S.fromList [Public]
 f DeviceStatus = S.fromList [Private]
 f Passwords    = S.fromList [Private]
 
-example1Grob :: Procedure Parameter DatasetsGrob
+example1Grob :: Specification Parameter DatasetsGrob
 example1Grob = relabeledRevUsing example1 f
 
 
-example2 :: Procedure Parameter Datasets
-example2 =  Procedure {
-  input  = fromList [Input A,Input B,Input C],
-  output = fromList [Output X,Output Y,Output Z],
+example2 :: Specification Parameter Datasets
+example2 = Specification {
+  datasets = datasetss,
   includes = (M.!) $ M.fromList [
-      (Input A,fromList [DeviceStatus]),
-      (Input B,fromList []),
-      (Input C,fromList [Consumption]),
+      (Input A,fromList [Passwords,DeviceStatus]),
+      (Input B,fromList [Passwords]),
+      (Input C,fromList [Passwords,Consumption]),
 
-      (Output X,fromList [Billing,DeviceStatus]),
-      (Output Y,fromList [Consumption,DeviceStatus]),
-      (Output Z,fromList [])],
+      (Output X,fromList [Passwords,Billing,DeviceStatus]),
+      (Output Y,fromList [Passwords,Consumption,DeviceStatus]),
+      (Output Z,fromList [Passwords])]
+ }
 
-  influences = \_ -> S.empty
-  -- influences = (M.!) $ M.fromList [
-  --     (Input A,fromList [Output X]),
-  --     (Input B,fromList [Output X,Output Y,Output Z]),
-  --     (Input C,fromList []),
+{-
+example2Incl :: Implementation Parameter
+example2Incl = Implementation {
+  influences = (M.!) $ M.fromList [
+      (Input A,fromList [Output X]),
+      (Input B,fromList [Output X,Output Y,Output Z]),
+      (Input C,fromList []),
 
-  --     (Output X,fromList []),
-  --     (Output Y,fromList []),
-  --     (Output Z,fromList [])]
+      (Output X,fromList []),
+      (Output Y,fromList []),
+      (Output Z,fromList [])]
   }
+-}
 
-example2Grob :: Procedure Parameter DatasetsGrob
-example2Grob = Procedure {
-  input = fromList [Input A,Input B,Input C],
-  output = fromList [Output X,Output Y,Output Z],
+example2Grob :: Specification Parameter DatasetsGrob
+example2Grob = Specification {
+  datasets = datasetss,
   includes = (M.!) $ M.fromList [
       (Input A,fromList [Private]),
       (Input B,fromList [Private]),
@@ -131,15 +141,18 @@ example2Grob = Procedure {
 
       (Output X,fromList [Public,Private]),
       (Output Y,fromList [Public,Private]),
-      (Output Z,fromList [Private])],
-  influences = \_ -> S.empty
-  -- influences = (M.!) $ M.fromList [
-  --     (Input A,fromList [Output X]),
-  --     (Input B,fromList [Output X,Output Y,Output Z]),
-  --     (Input C,fromList []),
+      (Output Z,fromList [Private])]
+}
 
-  --     (Output X,fromList []),
-  --     (Output Y,fromList []),
-  --     (Output Z,fromList [])
-  --     ]
+example2GrobIncl :: Implementation Parameter
+example2GrobIncl = Implementation {
+  influences = (M.!) $ M.fromList [
+      (Input A,fromList [Output X]),
+      (Input B,fromList [Output X,Output Y,Output Z]),
+      (Input C,fromList []),
+
+      (Output X,fromList []),
+      (Output Y,fromList []),
+      (Output Z,fromList [])
+      ]
   }
