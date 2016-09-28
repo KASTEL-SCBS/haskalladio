@@ -591,6 +591,40 @@ all output parameter by the set of input parameters that influence it.
 \end{code}
 
 
+`α` and `γ` are monotone:
+
+\begin{code}
+αIsMonotone :: (Ord p) => Procedure p -> Implementation p -> Implementation p -> Property
+αIsMonotone pr impl impl' =
+            impl  `hasFewerFlowsThan`       impl'
+  ==> (α pr impl) `isStrongerThan`    (α pr impl')
+  where isStrongerThan        = isStrongerThanFor pr
+        hasFewerFlowsThan     = hasFewerFlowsThanFor pr
+\end{code}
+
+
+
+\begin{code}
+γIsMonotone :: (Ord p, Ord d, Ord d') => Procedure p -> Specification p d -> Specification p d' -> Property
+γIsMonotone pr sp sp' =
+            sp  `isStrongerThan`          sp'
+  ==> (γ pr sp) `hasFewerFlowsThan` (γ pr sp)
+  where isStrongerThan        = isStrongerThanFor pr
+        hasFewerFlowsThan     = hasFewerFlowsThanFor pr
+\end{code}
+
+
+\begin{code}
+γIsMonotone' :: (Ord p, Ord d) => Procedure p -> Specification p d -> Specification p d  -> Property
+γIsMonotone' pr sp sp' =
+            sp  `isNaivelyStrongerThan`   sp'
+  ==> (γ pr sp) `hasFewerFlowsThan` (γ pr sp)
+  where isNaivelyStrongerThan = isNaivelyStrongerThanFor pr
+        hasFewerFlowsThan     = hasFewerFlowsThanFor pr
+\end{code}
+
+
+
 Formally, `α` and `γ` form a Galois-Connection (this, though is a rather weak statement, since `α` does not work for general datasets `d`):
 \begin{code}
 galoisAlphaGamma :: forall p d. (Ord p, Ord d, Bounded d, Enum d) => Procedure p -> Implementation p -> Specification p d -> Bool

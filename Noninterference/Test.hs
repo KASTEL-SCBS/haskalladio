@@ -20,6 +20,16 @@ data DatasetDatabase = Time
 main = checkAllProperties
 
 checkAllProperties = do
+  quickCheckWith stdArgs { maxSuccess = 10000 }
+             (γIsMonotone'                                   :: Procedure Parameter -> Specification Parameter Datasets -> Specification Parameter Datasets -> Property)
+  quickCheckWith stdArgs { maxSuccess = 10000 }
+             (γIsMonotone                                    :: Procedure Parameter -> Specification Parameter Datasets -> Specification Parameter Datasets -> Property)
+  quickCheckWith stdArgs { maxSuccess = 10000 }
+             (γIsMonotone                                    :: Procedure Parameter -> Specification Parameter Datasets -> Specification Parameter DatasetDatabase -> Property)
+  quickCheckWith stdArgs { maxSuccess = 10000 }
+             (γIsMonotone                                    :: Procedure Parameter -> Specification Parameter DatasetDatabase -> Specification Parameter Datasets -> Property)
+  quickCheckWith stdArgs { maxSuccess = 10000 }
+             (αIsMonotone                                    :: Procedure Parameter -> Implementation Parameter -> Implementation Parameter -> Property)
   quickCheckWith stdArgs { maxSuccess = 25000 }
              (weakerThanIffSecure                            :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Bool)
   quickCheckWith stdArgs { maxSuccess = 25000 }
