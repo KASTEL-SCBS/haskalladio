@@ -17,6 +17,8 @@ import Algebra.Lattice
 import Unicode
 import Data.Bool.Unicode
 
+import Data.List (sortBy)
+import Data.Ord (comparing)
 import Data.Set as S
 import Data.Set.Unicode
 import Data.Maybe (fromJust)
@@ -573,7 +575,7 @@ Appendix
 
 It follows a section with some non-essential considerations.
 
-Given an implementation `impl`, we can derive, in some sense, it's most-precise ifc specification `α(pr)`.
+Given an implementation `impl`, we can derive, in some sense, it's strongest ifc specification `α(impl)`.
 This is in some sense "the" strongest ifc specification that `impl` fullfills, and it's derived by simply labeling
 all output parameter by the set of input parameters that influence it.
 \begin{code}
@@ -587,6 +589,71 @@ all output parameter by the set of input parameters that influence it.
           | p ∈ output = fromList [i | i <- toList input, p ∈ influences i]
           | otherwise  = fromList [] -- TODO: require some wellformedness for procedures
 \end{code}
+
+
+Formally, `α` and `γ` form a Galois-Connection (this, though is a rather weak statement, since `α` does not work for general datasets `d`):
+\begin{code}
+galoisAlphaGamma :: forall p d. (Ord p, Ord d, Bounded d, Enum d) => Procedure p -> Implementation p -> Specification p d -> Bool
+galoisAlphaGamma pr impl sp =
+     (α pr impl) `isStrongerThan`     sp
+  ⇔       impl  `hasFewerFlowsThan` (γ pr sp)
+  where isStrongerThan        = isStrongerThanFor pr
+        hasFewerFlowsThan     = hasFewerFlowsThanFor pr
+\end{code}
+
+Trvially, an implementation `impl` is secure wrt. `sp` iff it is weaker that it's strongtes ifc specification `α(impl)`:
+\begin{code}
+weakerThanIffSecure  :: forall p d. (Ord p, Ord d) => Procedure p -> Implementation p -> Specification p d -> Bool
+weakerThanIffSecure pr impl sp =
+       (secure joana pr impl sp)
+   ⇔  (α pr impl) `isStrongerThan`     sp
+   where  isStrongerThan        = isStrongerThanFor pr
+\end{code}
+
+
+
+One alternativ way to derive a  correct ifc-specification is to pick one of the specifications `β(impl)`:
+\begin{code}
+β :: forall p d. (Ord p, Ord d, Bounded d, Enum d) => Procedure p -> Implementation p -> [Specification p d]
+β (Procedure { input, output }) (Implementation { influences }) = do
+      start <- [0 .. size input]
+      let includes :: p -> Set d = (M.!) $ M.fromList $ [
+             (i, if (S.null $ influences i) then (fromList allValues) else  fromList [d] ) | (i,d) <- zip (rotate start $ toList input) (cycle (allValues :: [d]))
+           ] ++ [
+             (o, (⋃) [ includes i | i <- toList input, o ∈ influences i]) | o <- toList output
+           ]
+      return $ Specification {
+        datasets = fromList allValues,
+        includes = includes
+    }
+
+β' :: forall p d. (Ord p, Ord d, Bounded d, Enum d) => Procedure p -> Implementation p -> Specification p d
+β' pr impl = head $ sortBy (comparing sumOfOutputDatasets) (β pr impl :: [Specification p d])
+  where sumOfOutputDatasets sp = sum [ size $ includes sp o | o <- toList $ output pr ]
+
+β'' :: forall p d. (Ord p, Ord d, Bounded d, Enum d) => Procedure p -> Implementation p -> Specification p d
+β'' pr impl = head $                                       (β pr impl :: [Specification p d])
+
+
+β''' :: forall p d. (Ord p, Ord d, Bounded d, Enum d) => Procedure p -> Implementation p -> Specification p d
+β''' pr impl = head $ sortBy (comparing sumOfOutputDatasets) minimals
+  where minimals = [ sp | sp <- sps, (∀) sps (\sp' -> (not $ sp' `isStrongerThan` sp) ∨ (sp `isStrongerThan` sp'))]
+        sps = (β pr impl :: [Specification p d])
+        isStrongerThan = isStrongerThanFor pr
+        sumOfOutputDatasets sp = sum [ size $ includes sp o | o <- toList $ output pr ]
+\end{code}
+
+Unfortunataley, neither of these `β` form a galois connection with `γ`. It does *not* hold in genaral that:
+\begin{code}
+galoisBetaGamma :: forall p d. (Ord p, Ord d, Bounded d, Enum d) => Procedure p -> Implementation p -> Specification p d -> Bool
+galoisBetaGamma pr impl sp =
+     (β''' pr impl :: Specification p d) `isStrongerThan`     sp
+  ⇔                               impl  `hasFewerFlowsThan` (γ pr sp)
+  where isStrongerThan        = isStrongerThanFor pr
+        hasFewerFlowsThan     = hasFewerFlowsThanFor pr
+\end{code}
+
+
 
 
 Every implementation `impl` does indeed fullfill the ifc-specification `α(impl)`:

@@ -57,8 +57,8 @@ instance (Show p, Ord p, Enumerable p) =>  Show (Implementation p) where
     "Implementation { influences = (M.!) $ M." ++ (showMapFun $ influences) ++ " }"
 
 instance (Show p, Show d, Ord p, Ord d, Enumerable p) =>  Show (Specification p d) where
-  show (Specification { includes }) =
-    "Procedure { includes = (M.!) $ M." ++ (showMapFun includes) ++ " }"
+  show (Specification { includes, datasets }) =
+    "Specification { includes = (M.!) $ M." ++ (showMapFun includes) ++  ", datasets = " ++ (show datasets) ++ " }"
 \end{code}
 
 %endif

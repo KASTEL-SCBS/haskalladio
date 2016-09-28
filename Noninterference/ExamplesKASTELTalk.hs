@@ -1,3 +1,4 @@
+{-# LANGUAGE IncoherentInstances #-}
 {-# LANGUAGE NamedFieldPuns #-}
 import Unicode
 import Noninterference
@@ -40,6 +41,10 @@ data Parameter = Input Input
                | Output Output
               deriving (Show, Eq, Ord)
 
+
+instance Enumerable Parameter where
+  allValues = [Input i  | i <- allValues] ++
+              [Output o | o <- allValues]
 
 noImpl :: Implementation Parameter
 noImpl = Implementation {
@@ -144,12 +149,26 @@ example2Grob = Specification {
       (Output Z,fromList [Private])]
 }
 
-example2GrobIncl :: Implementation Parameter
-example2GrobIncl = Implementation {
+example2GrobImpl :: Implementation Parameter
+example2GrobImpl = Implementation {
   influences = (M.!) $ M.fromList [
       (Input A,fromList [Output X]),
       (Input B,fromList [Output X,Output Y,Output Z]),
       (Input C,fromList []),
+
+      (Output X,fromList []),
+      (Output Y,fromList []),
+      (Output Z,fromList [])
+      ]
+  }
+
+
+example2AnotherImpl :: Implementation Parameter
+example2AnotherImpl = Implementation {
+  influences = (M.!) $ M.fromList [
+      (Input A,fromList [Output X]),
+      (Input B,fromList [Output X,Output Y,Output Z]),
+      (Input C,fromList [Output Y]),
 
       (Output X,fromList []),
       (Output Y,fromList []),

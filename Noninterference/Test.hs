@@ -21,6 +21,12 @@ main = checkAllProperties
 
 checkAllProperties = do
   quickCheckWith stdArgs { maxSuccess = 25000 }
+             (weakerThanIffSecure                            :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Bool)
+  quickCheckWith stdArgs { maxSuccess = 25000 }
+             (galoisAlphaGamma                               :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Bool)
+  quickCheckWith stdArgs { maxSuccess = 25000 }
+             (galoisAlphaGamma                               :: Procedure Parameter -> Implementation Parameter -> Specification Parameter DatasetDatabase -> Bool)
+  quickCheckWith stdArgs { maxSuccess = 25000 }
              (weakerStongerIsNaively                          :: Procedure Parameter -> Specification  Parameter Datasets -> Specification  Parameter Datasets -> Bool)
   quickCheck (joanaIsKey                                      :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Bool)
   quickCheck (secureCharactization                            :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Bool)
@@ -58,6 +64,8 @@ impracticalProperties = do
              (secureWeakeningsAreSecure                      :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Specification  Parameter Datasets -> Property)
 
 failingProperties = do
+  quickCheckWith stdArgs { maxSuccess = 25000 }
+             (galoisBetaGamma                               :: Procedure Parameter -> Implementation Parameter -> Specification Parameter DatasetDatabase -> Bool)
   quickCheckWith  stdArgs { maxDiscardRatio = 400 }
              (strongestValidGuaranteeIsExtensive :: Procedure Parameter -> Specification  Parameter Datasets -> Specification  Parameter Datasets -> Property)
   quickCheck (existsConsistentRelabelingIsJustified :: Procedure Parameter -> Implementation Parameter -> Specification Parameter DatasetDatabase -> Specification  Parameter Datasets -> Property)
