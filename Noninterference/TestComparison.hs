@@ -14,10 +14,10 @@ main = checkAllProperties
 
 checkAllProperties = do
   quickCheckWith  stdArgs { maxSuccess = 10000 }
-             (conversionEquivalent1                             :: Procedure Parameter Datasets -> Bool)
+             (conversionEquivalent1                             :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Bool)
   quickCheckWith  stdArgs { maxSuccess = 10000 }
-             (conversionEquivalent2                             :: Procedure Parameter Datasets -> Bool)
+             (conversionEquivalent2                             :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Bool)
   quickCheckWith  stdArgs { maxSuccess = 10000 }
-             (conversionEquivalent3                             :: Procedure Parameter Datasets -> Bool)
+             (conversionEquivalent3                             :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Bool)
   quickCheckWith  stdArgs { maxSuccess = 10000 }
-             (conversionEquivalent4                             :: Procedure Parameter Datasets -> Bool)
+             (conversionEquivalent4                             :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> Bool)
