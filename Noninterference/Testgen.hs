@@ -53,9 +53,9 @@ data Datasets = Customer
               deriving (Show, Eq, Ord, Enum, Bounded)
 
 
-instance  Arbitrary (Procedure Parameter) where
+instance  Arbitrary (Component Parameter) where
   arbitrary = do
-      return $ Procedure {
+      return $ Component {
          input  = S.map Input  $ S.fromList allValues,
          output = S.map Output $ S.fromList allValues
        }
@@ -129,8 +129,8 @@ fooImpl = Implementation {
 
     influences _         = S.empty
 
-foo :: Procedure Parameter
-foo = Procedure {
+foo :: Component Parameter
+foo = Component {
       input  = S.map Input  $ S.fromList allValues,
       output = S.map Output $ S.fromList allValues
     }
@@ -163,8 +163,8 @@ barImpl = Implementation {
 
     influences _         = S.empty
 
-bar :: Procedure Parameter
-bar = Procedure {
+bar :: Component Parameter
+bar = Component {
       input  = S.map Input  $ S.fromList allValues,
       output = S.map Output $ S.fromList allValues
     }
@@ -179,7 +179,7 @@ exampleSpec = Specification {
                                                      (Output Y,fromList [Customer]),
                                                      (Output Z,fromList [Customer,Provider,Appliance])]
                  }
-example = Procedure { input = fromList [Input A,Input B,Input C],
+example = Component { input = fromList [Input A,Input B,Input C],
                       output = fromList [Output X,Output Y,Output Z]
                  }
 exampleImp = Implementation {

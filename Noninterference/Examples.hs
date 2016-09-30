@@ -43,8 +43,8 @@ main = forM_ [(example1, example1Impl, example1Spec),
 
 
 
-toLatex :: Procedure Parameter -> Implementation Parameter -> Specification Parameter Datasets -> String
-toLatex pr@(Procedure { input, output }) impl@(Implementation { influences }) sp@(Specification { includes })
+toLatex :: Component Parameter -> Implementation Parameter -> Specification Parameter Datasets -> String
+toLatex pr@(Component { input, output }) impl@(Implementation { influences }) sp@(Specification { includes })
   | output /= S.fromList [Return] = error "rofl"
   | otherwise          =
     unlines [
@@ -82,8 +82,8 @@ toLatex pr@(Procedure { input, output }) impl@(Implementation { influences }) sp
 
 
 
-example1 :: Procedure Parameter
-example1 = Procedure {
+example1 :: Component Parameter
+example1 = Component {
       input  = S.fromList [A],
       output = S.fromList [Return]
     }
@@ -161,8 +161,8 @@ example4Spec = Specification {
     includes Return = S.fromList $ []
 
 
-example5 :: Procedure Parameter
-example5 = Procedure {
+example5 :: Component Parameter
+example5 = Component {
       input  = S.fromList [A,B],
       output = S.fromList [Return]
     }
@@ -187,7 +187,7 @@ example5Spec = Specification {
     includes Return = S.fromList $ [D1,D2]
 
 
-example6 :: Procedure Parameter
+example6 :: Component Parameter
 example6 = example5
 
 example6Impl :: Implementation Parameter
@@ -210,8 +210,8 @@ example6Spec = Specification {
     includes Return = S.fromList $ [D3]
 
 
-example7 :: Procedure Parameter
-example7 = Procedure {
+example7 :: Component Parameter
+example7 = Component {
       input  = S.fromList [A,B],
       output = S.fromList [RA, RB]
     }
@@ -237,8 +237,8 @@ example7Spec = Specification {
 
 
 
-foo :: Procedure Parameter
-foo = Procedure {
+foo :: Component Parameter
+foo = Component {
       input  = S.fromList [A,B],
       output = S.fromList [RBoth,RA,RB]
     }

@@ -12,18 +12,18 @@ import Data.Set.Unicode
 \end{code}
 %endif
 
-A Procedure `pr :: Procedure p`  is described by
+A Component `pr :: Component p`  is described by
 
 * `input  pr:     ` the set of input  parameters (of type `p`)
 * `output pr:     ` the set of output parameters (of type `p`)
 \begin{code}
-data Procedure p = Procedure {
+data Component p = Component {
     input :: Set p,
     output :: Set p
   }
 \end{code}
 
-A Procedure `pr` can have implementations `impl :: Implementation `, which are described by
+A Component `pr` can have implementations `impl :: Implementation `, which are described by
 
 * `influences impl: ` the set of output-parameters `pr` may influence, which is our simplified idea of the procedures implementation
 \begin{code}
@@ -32,7 +32,7 @@ data Implementation p = Implementation {
   }
 \end{code}
 
-A Procedure `pr` can have information-flow specifications `sp`, which consists of
+A Component `pr` can have information-flow specifications `sp`, which consists of
 
 * `includes   sp: ` the procedures parameter classifcation, as set of datasets (of type `d`)
 
@@ -48,8 +48,8 @@ data Specification p d = Specification {
 
 %if False
 \begin{code}
-instance (Show p, Ord p, Enumerable p) =>  Show (Procedure p) where
-  show (Procedure { input, output }) =
+instance (Show p, Ord p, Enumerable p) =>  Show (Component p) where
+  show (Component { input, output }) =
     "Procedure { input = " ++ (show input) ++ ", output = " ++ (show output) ++  " }"
 
 instance (Show p, Ord p, Enumerable p) =>  Show (Implementation p) where
@@ -65,5 +65,5 @@ instance (Show p, Show d, Ord p, Ord d, Enumerable p) =>  Show (Specification p 
 
 -- \begin{code}
 -- datasets :: (Ord d, Ord p) => SpecificationProcedure p d -> Set d
--- datasets (Procedure { input, output, includes, influences}) = S.fromList [ d | p <- S.toList $ output ∪ input, d <- S.toList $ includes p]
+-- datasets (Component { input, output, includes, influences}) = S.fromList [ d | p <- S.toList $ output ∪ input, d <- S.toList $ includes p]
 -- \end{code}

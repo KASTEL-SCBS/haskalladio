@@ -62,7 +62,7 @@ outputs = S.fromList $ fmap Output [X,Y,Z]
 datasetss :: (Ord d, Enum d, Bounded d) => Set d
 datasetss = S.fromList $ allValues
 
-pr = Procedure {
+pr = Component {
       input  = inputs,
       output = outputs
  }
@@ -213,8 +213,8 @@ example2AnotherImpl = Implementation {
   }
 
 
-small :: Procedure Parameter
-small = Procedure {
+small :: Component Parameter
+small = Component {
       input  = S.fromList $ fmap Input  [A],
       output = S.fromList $ fmap Output [X]
  }

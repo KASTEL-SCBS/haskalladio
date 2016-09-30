@@ -12,11 +12,11 @@ import Data.List (intersperse)
 import Data.Set as S
 import Data.Map as Map
 
-toTikz :: (Show p, Ord p, Show d) =>  Procedure p -> Implementation p -> Specification p d -> String
+toTikz :: (Show p, Ord p, Show d) =>  Component p -> Implementation p -> Specification p d -> String
 toTikz = toTikzQuestionMark True False
 
-toTikzQuestionMark :: (Show p, Ord p, Show d) => Bool -> Bool -> Procedure p -> Implementation p -> Specification p d -> String
-toTikzQuestionMark showSpec questionMark (Procedure { input, output }) (Implementation { influences }) (Specification { includes })  =
+toTikzQuestionMark :: (Show p, Ord p, Show d) => Bool -> Bool -> Component p -> Implementation p -> Specification p d -> String
+toTikzQuestionMark showSpec questionMark (Component { input, output }) (Implementation { influences }) (Specification { includes })  =
     unlines $ [
       "\\begin{tikzpicture}[node distance=1cm, auto, framed, background rectangle/.style={ultra thick,draw=kit, fill=kit, fill opacity=0.15, rounded corners}  ]"
     ]
@@ -70,7 +70,7 @@ toTikzQuestionMark showSpec questionMark (Procedure { input, output }) (Implemen
 
 
 
-toTikzNamed :: (Show p, Ord p, Show d) => String -> Bool -> Bool -> Procedure p -> Implementation p -> Specification p d -> String
+toTikzNamed :: (Show p, Ord p, Show d) => String -> Bool -> Bool -> Component p -> Implementation p -> Specification p d -> String
 toTikzNamed name showSpec questionmark pr impl sp = unlines [
     "\\newcommand{\\" ++ name ++ "}{%"
   ]
@@ -80,7 +80,7 @@ toTikzNamed name showSpec questionmark pr impl sp = unlines [
     "}"
   ]
 
-toTikzComplete  :: (Show p, Ord p, Show d) => Procedure p -> Implementation p -> Specification p d -> String
+toTikzComplete  :: (Show p, Ord p, Show d) => Component p -> Implementation p -> Specification p d -> String
 toTikzComplete pr impl sp = unlines [
     "\\documentclass[a4paper,landscape]{article}",
     "\\usepackage{tikz}",

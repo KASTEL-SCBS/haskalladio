@@ -26,8 +26,8 @@ data Parameter = R
                deriving (Show, Eq, Ord, Enum, Bounded)
 
 
-foo :: Procedure Parameter
-foo = Procedure {
+foo :: Component Parameter
+foo = Component {
       input  = S.fromList [A,B],
       output = S.fromList [R]
    }

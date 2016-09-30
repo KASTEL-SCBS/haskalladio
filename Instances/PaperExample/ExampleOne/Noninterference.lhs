@@ -42,8 +42,8 @@ data DatasetDatabase = Time
 An implementation of `getValue` that is secure with regard to its ifc specification
 in terms of "Time" and "Data":
 \begin{code}
-getValue :: Procedure (P.Parameter ExampleOne) DatasetDatabase
-getValue = Procedure {
+getValue :: Component (P.Parameter ExampleOne) DatasetDatabase
+getValue = Component {
       input  = S.fromList [Timestamp, Value, Start, End],
       output = S.fromList [Return GetValues],
       includes = includes,
@@ -66,7 +66,7 @@ getValue = Procedure {
 
 The same implementation, but with a different ifc specification (in terms of the datasets used in the paper):
 \begin{code}
-getValue' :: Procedure (P.Parameter ExampleOne) (DataSet ExampleOne)
+getValue' :: Component (P.Parameter ExampleOne) (DataSet ExampleOne)
 getValue' = getValue {
       includes = includes
     }
@@ -116,8 +116,8 @@ isStrongerThanCriterionHoldsGetHighestValue = getHighestValue `isStrongerThan` g
 
 
 
-getHighestValue :: Procedure (P.Parameter ExampleOne) DatasetDatabase
-getHighestValue = Procedure {
+getHighestValue :: Component (P.Parameter ExampleOne) DatasetDatabase
+getHighestValue = Component {
       input  = S.fromList [Timestamp, Value, Start, End],
       output = S.fromList [Return GetHighestValue],
       includes = includes,
@@ -137,7 +137,7 @@ getHighestValue = Procedure {
     influences End       = S.fromList []
     influences _         = S.empty
 
-getHighestValue' :: Procedure (P.Parameter ExampleOne) (DataSet ExampleOne)
+getHighestValue' :: Component (P.Parameter ExampleOne) (DataSet ExampleOne)
 getHighestValue' = getHighestValue {
       includes = includes
     }
