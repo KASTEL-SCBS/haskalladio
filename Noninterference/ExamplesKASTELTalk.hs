@@ -39,7 +39,11 @@ data Output = X
 
 data Parameter = Input Input
                | Output Output
-              deriving (Show, Eq, Ord)
+              deriving ( Eq, Ord)
+
+instance Show Parameter where
+  show (Input i)  = show i
+  show (Output o) = show o
 
 
 instance Enumerable Parameter where
