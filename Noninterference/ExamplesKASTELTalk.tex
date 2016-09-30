@@ -33,15 +33,22 @@
 \usetikzlibrary{arrows.meta}
 \usepackage{relsize}
 \usepackage{adjustbox}
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@verbatim}
+  {\verbatim@font}
+  {\verbatim@font\tiny}
+  {}{}
+\makeatother
 
 % \usetikzlibrary{decorations.pathmorphing}
 % \usetikzlibrary{fit}
 % \usetikzlibrary{shapes}
 % \usetikzlibrary{calc}
-\usepackage[utf8]{inputenc}
 \usepackage{csquotes}
-
-
+\usepackage{fontspec}
+\setmainfont{FreeSerif}
+\setmonofont{FreeMono}
 
 
 \setbeamertemplate{navigation symbols}{}
@@ -133,6 +140,14 @@
 \vfill
 
 \begin{overprint}
+\onslide<1>
+Komponente: 
+\onslide<3>
+\begin{verbatim}
+(∀) input (\i ->  (∀) output (\o ->
+          (o ∈ influences i) → (includes i ⊆ includes o)
+       ))
+\end{verbatim}
 \onslide<5>
 \begin{center}
   \adjustbox{valign=t}{\resizebox{!}{.6cm}{\smallSpecOne}}

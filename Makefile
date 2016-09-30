@@ -4,7 +4,7 @@
 CABAL_PREFIX=cabal exec --
 
 
-PANDOC := pandoc  -sS --include-in-header=hscolour.css
+PANDOC := pandoc -sS
 HSCOLOUR := hscolour -lit
 
 SED_REMOVE_HIDDEN := sed '/%if False/,/%endif/d'
@@ -18,10 +18,10 @@ all : $(HTMLS)
 	cat $< | $(SED_REMOVE_HIDDEN) | $(SED_CONVERT) | $(GREP_FILTER) | $(HSCOLOUR) -css > $@
 
 .lhs.html:
-	cat $< | $(SED_REMOVE_HIDDEN) | $(SED_CONVERT) | $(GREP_FILTER) | $(HSCOLOUR) -css | $(PANDOC) -t html -c hscolour.css > $@
+	cat $< | $(SED_REMOVE_HIDDEN) | $(SED_CONVERT) | $(GREP_FILTER) | $(HSCOLOUR) -css | $(PANDOC) --include-in-header=hscolour.css -t html -c hscolour.css > $@
 
 .lhs.tex:
-	cat $< | $(HSCOLOUR) -latex | $(PANDOC) -t latex> $@
+	cat $< | $(SED_REMOVE_HIDDEN) | $(SED_CONVERT) | $(GREP_FILTER) | $(HSCOLOUR) -latex | $(PANDOC) -t latex> $@
 
 .tex.pdf:
 	pdflatex $< && pdflatex $< && pdflatex $<
@@ -40,7 +40,7 @@ Noninterference/KASTELTalk-examples-include.tex : Noninterference/ExamplesKASTEL
 IMAGES_SVGS=$(wildcard Noninterference/img/svg/*.svg)
 IMAGES_PDFS=$(patsubst %.svg,%.pdf,$(IMAGES_SVGS))
 Noninterference/ExamplesKASTELTalk.pdf : Noninterference/ExamplesKASTELTalk.tex Noninterference/KASTELTalk-examples-include.tex $(IMAGES_PDFS)
-	cd Noninterference/ && rubber --pdf ExamplesKASTELTalk.tex
+	cd Noninterference/ && lualatex ExamplesKASTELTalk.tex
 
 
 
