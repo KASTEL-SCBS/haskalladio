@@ -1,0 +1,156 @@
+%% LaTeX-Beamer template for KIT design
+%% by Erik Burger, Christian Hammer
+%% title picture by Klaus Krogmann
+%%
+%% version 2.1
+%%
+%% mostly compatible to KIT corporate design v2.0
+%% http://intranet.kit.edu/gestaltungsrichtlinien.php
+%%
+%% Problems, bugs and comments to
+%% burger@kit.edu
+
+\documentclass[18pt]{beamer}
+
+%% SLIDE FORMAT
+
+% use 'beamerthemekit' for standard 4:3 ratio
+% for widescreen slides (16:9), use 'beamerthemekitwide'
+
+\usepackage{templates/beamerthemekit}
+%\usepackage{templates/beamerthemekitblack}
+%\usepackage{templates/beamerthemekitwide}
+
+\usepackage{xspace}
+% \usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{listings}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows.meta}
+\usepackage{relsize}
+\usepackage{adjustbox}
+
+% \usetikzlibrary{decorations.pathmorphing}
+% \usetikzlibrary{fit}
+% \usetikzlibrary{shapes}
+% \usetikzlibrary{calc}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+
+
+
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{invisible}
+
+%% TITLE PICTURE
+
+% if a custom picture is to be used on the title page, copy it into the 'logos'
+% directory, in the line below, replace 'mypicture' with the 
+% filename (without extension) and uncomment the following line
+% (picture proportions: 63 : 20 for standard, 169 : 40 for wide
+% *.eps format if you use latex+dvips+ps2pdf, 
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+\titleimage{Castel0}
+
+% (*.eps format if you use latex+dvips+ps2pdf,
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+%% TikZ INTEGRATION
+
+% use these packages for PCM symbols and UML classes
+% \usepackage{templates/tikzkit}
+% \usepackage{templates/tikzuml}
+
+% the presentation starts here
+
+\newcommand{\kit}[1]{\textcolor{kit-green100}{#1}}
+
+\title{Quiz}
+\subtitle{Verteilte Systeme}
+\author{Martin Hecker}
+
+\institute{Kompetenzzentrum für angewandte Sicherheitstechnologie}
+
+% Bibliography
+
+%\usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=biber]{biblatex}
+%\addbibresource{templates/example.bib}
+%\bibhang1em
+
+\definecolor{kit}{RGB}{0,150,130}
+
+
+\begin{document}
+
+% change the following line to "ngerman" for German style date and logos
+%\selectlanguage{english}
+\selectlanguage{ngerman}
+
+
+\AtBeginSection{\frame{\sectionpage}}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\include{KASTELTalk-examples-include}
+
+\begin{frame}[fragile,t]{Interpretationen}
+
+\begin{overprint}
+\providecommand{\exheight}{4cm}
+\onslide<1>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOne}}
+\end{center}
+\onslide<2>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneImpl}}
+\end{center}
+\onslide<3>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneImplWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+\onslide<4>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneImplWithSpecViol}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/failmark.pdf}}
+\end{center}
+\onslide<5>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneImplWithSpecViol}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/failmark.pdf}}
+\end{center}
+\end{overprint}
+
+\vfill
+
+\begin{overprint}
+\onslide<5>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{.6cm}{\smallSpecOne}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=.5cm]{img/svg/checkmark.pdf}}
+
+  \adjustbox{valign=t}{\resizebox{!}{.6cm}{\smallSpecTwo}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=.5cm]{img/svg/failmark.pdf}}
+\end{center}
+\end{overprint}
+
+\end{frame}
+\appendix
+\beginbackup
+
+%\begin{frame}[allowframebreaks]{References}
+%\printbibliography
+%\end{frame}
+
+\backupend
+
+\end{document}

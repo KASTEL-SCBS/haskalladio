@@ -55,6 +55,7 @@ noImpl = Implementation {
     influences = \_ -> S.empty
   }
 
+
 inputs  = S.fromList $ fmap Input  [A,B,C]
 outputs = S.fromList $ fmap Output [X,Y,Z]
 
@@ -65,6 +66,23 @@ pr = Procedure {
       input  = inputs,
       output = outputs
  }
+
+example1Impl :: Implementation Parameter
+example1Impl = Implementation {
+      influences = influences
+    }
+  where influences (Input A) = S.fromList [Output X]
+        influences (Input B) = S.fromList [Output Z]
+        influences (Input C) = S.fromList []
+
+
+example1ImplViol :: Implementation Parameter
+example1ImplViol = Implementation {
+      influences = influences
+    }
+  where influences (Input A) = S.fromList [Output X, Output Y]
+        influences (Input B) = S.fromList [Output Z]
+        influences (Input C) = S.fromList []
 
 example1 :: Specification Parameter Datasets
 example1 = Specification {
@@ -78,6 +96,20 @@ example1 = Specification {
     includes (Output X)  = S.fromList $ [Billing,Consumption]
     includes (Output Y)  = S.fromList $ [DeviceStatus, Billing]
     includes (Output Z)  = S.fromList $ [Passwords]
+
+example1Stronger :: Specification Parameter Datasets
+example1Stronger = Specification {
+      datasets = datasetss,
+      includes = includes
+    }
+  where
+    includes (Input A)   = S.fromList $ [Consumption,Billing]
+    includes (Input B)   = S.fromList $ [Passwords]
+    includes (Input C)   = S.fromList $ [DeviceStatus]
+    includes (Output X)  = S.fromList $ [Billing,Consumption]
+    includes (Output Y)  = S.fromList $ [DeviceStatus, Billing]
+    includes (Output Z)  = S.fromList $ [Passwords]
+
 
 example1Weakening :: Specification Parameter Datasets
 example1Weakening = Specification {
@@ -179,3 +211,44 @@ example2AnotherImpl = Implementation {
       (Output Z,fromList [])
       ]
   }
+
+
+small :: Procedure Parameter
+small = Procedure {
+      input  = S.fromList $ fmap Input  [A],
+      output = S.fromList $ fmap Output [X]
+ }
+
+smallImpl :: Implementation Parameter
+smallImpl =  Implementation {
+      influences = influences
+    }
+  where influences (Input A) = S.fromList [Output X]
+
+smallSpec1 :: Specification Parameter Datasets
+smallSpec1 = Specification {
+      datasets = datasetss,
+      includes = incl
+    }
+  where
+    incl (Input A)  = S.fromList []
+    incl (Output X) = S.fromList [Passwords]
+
+smallSpec2 :: Specification Parameter Datasets
+smallSpec2 = Specification {
+      datasets = datasetss,
+      includes = incl
+    }
+  where
+    incl (Input A)  = S.fromList [Passwords]
+    incl (Output X) = S.fromList []
+
+main = forM_ [("exampleOne",                 False, False, pr, noImpl,            example1),
+              ("exampleOneImpl",             False, False, pr, example1Impl,      example1),
+              ("exampleOneImplWithSpec",     True,  False, pr, example1Impl,      example1),
+              ("exampleOneImplWithSpecViol", True,  False, pr, example1ImplViol,  example1),
+              ("smallSpecOne",               True,  False, small, smallImpl, smallSpec1),
+              ("smallSpecTwo",               True,  False, small, smallImpl, smallSpec2)
+            ]
+        (\(name,showSpec, questionmark,pr,impl,sp) -> putStrLn $ toTikzNamed name showSpec questionmark pr impl sp)
+

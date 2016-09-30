@@ -26,8 +26,22 @@ all : $(HTMLS)
 .tex.pdf:
 	pdflatex $< && pdflatex $< && pdflatex $<
 
+
+%.pdf : %.svg
+	inkscape -f $< -A $@ --export-dpi=360
+
 Noninterference/examples-include.tex : Noninterference/Examples.hs
 	$(CABAL_PREFIX) runghc $< > $@
+
+
+Noninterference/KASTELTalk-examples-include.tex : Noninterference/ExamplesKASTELTalk.hs Noninterference/Export.hs
+	$(CABAL_PREFIX) runghc $< > $@
+
+IMAGES_SVGS=$(wildcard Noninterference/img/svg/*.svg)
+IMAGES_PDFS=$(patsubst %.svg,%.pdf,$(IMAGES_SVGS))
+Noninterference/ExamplesKASTELTalk.pdf : Noninterference/ExamplesKASTELTalk.tex Noninterference/KASTELTalk-examples-include.tex $(IMAGES_PDFS)
+	cd Noninterference/ && rubber --pdf ExamplesKASTELTalk.tex
+
 
 
 

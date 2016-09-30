@@ -12,10 +12,13 @@ import Data.List (intersperse)
 import Data.Set as S
 import Data.Map as Map
 
-toTikz :: (Show p, Ord p, Show d) => Procedure p -> Implementation p -> Specification p d -> String
-toTikz (Procedure { input, output }) (Implementation { influences }) (Specification { includes })  =
+toTikz :: (Show p, Ord p, Show d) =>  Procedure p -> Implementation p -> Specification p d -> String
+toTikz = toTikzQuestionMark True False
+
+toTikzQuestionMark :: (Show p, Ord p, Show d) => Bool -> Bool -> Procedure p -> Implementation p -> Specification p d -> String
+toTikzQuestionMark showSpec questionMark (Procedure { input, output }) (Implementation { influences }) (Specification { includes })  =
     unlines $ [
-      "\\begin{tikzpicture}[node distance=1cm, auto, framed, background rectangle/.style={ultra thick,draw=kit, fill=kit, fill opacity=0.2, rounded corners}  ]"
+      "\\begin{tikzpicture}[node distance=1cm, auto, framed, background rectangle/.style={ultra thick,draw=kit, fill=kit, fill opacity=0.15, rounded corners}  ]"
     ]
     ++
     [ "  \\node (input"  ++ (show i) ++ ") at ( 1, " ++ (show $ -i*3) ++ ") { " ++ (show p) ++ " };" | p <- S.toList input,  let i = input2Index ! p]
@@ -25,12 +28,14 @@ toTikz (Procedure { input, output }) (Implementation { influences }) (Specificat
     [ "  \\draw[color=black,thick, -{>[scale=2.5, length=2, width=3]}] (input" ++ (show iIn) ++ ") --  (output" ++ (show iOut) ++ ");" | pIn <- S.toList input,             let iIn  = input2Index  ! pIn,
                                                                                    pOut <- S.toList (influences pIn), let iOut = output2Index ! pOut
     ]
-    ++
+    ++ ( if showSpec then 
     [ "  \\node[left=of input"   ++ (show i) ++ "] { " ++ (showSet $ includes p) ++ " };" | p <- S.toList input,  let i = input2Index ! p ]
     ++
     [ "  \\node[right=of output" ++ (show i) ++ "] { " ++ (showSet $ includes p) ++ " };" | p <- S.toList output, let i = output2Index ! p ]
+    else []
+    )
     ++ [
-      "  \\filldraw[draw=kit, fill=kit, fill opacity=0.2, rounded corners]",
+      "  \\filldraw[draw=kit, fill=kit, fill opacity=0.15, rounded corners]",
       "                                         (input1.north west) --",
       "                                         (output1.north east) --"
     ]
@@ -45,7 +50,15 @@ toTikz (Procedure { input, output }) (Implementation { influences }) (Specificat
     )
     ++
     [
-      "                                         cycle;",
+      "                                         cycle;"
+    ]
+    ++ (
+      if (questionMark) then [
+      "  \\node at (3, " ++ (show $ -(3*((max maxInputIndex maxOutputIndex) + 1) `div` 2)) ++ ") [fontscale=10] { ? };"
+      ] else []
+    )
+    ++
+    [
       "\\end{tikzpicture}"
     ]
 
@@ -57,6 +70,15 @@ toTikz (Procedure { input, output }) (Implementation { influences }) (Specificat
 
 
 
+toTikzNamed :: (Show p, Ord p, Show d) => String -> Bool -> Bool -> Procedure p -> Implementation p -> Specification p d -> String
+toTikzNamed name showSpec questionmark pr impl sp = unlines [
+    "\\newcommand{\\" ++ name ++ "}{%"
+  ]
+  ++
+  (toTikzQuestionMark showSpec questionmark pr impl sp)
+  ++ unlines [
+    "}"
+  ]
 
 toTikzComplete  :: (Show p, Ord p, Show d) => Procedure p -> Implementation p -> Specification p d -> String
 toTikzComplete pr impl sp = unlines [
@@ -65,6 +87,8 @@ toTikzComplete pr impl sp = unlines [
     "\\usetikzlibrary{arrows,positioning}",
     "\\usetikzlibrary{backgrounds}",
     "\\usetikzlibrary{arrows.meta}",
+    "\\usepackage{relsize}", 
+    "\\tikzset{fontscale/.style = {font=\\relsize{#1}}}",
     "\\definecolor{kit}{RGB}{0,150,130}",
     "\\begin{document}"
   ]
