@@ -77,6 +77,8 @@
 % the presentation starts here
 
 \newcommand{\kit}[1]{\textcolor{kit-green100}{#1}}
+\tikzset{fontscale/.style = {font=\relsize{#1}}}
+
 
 \title{Quiz}
 \subtitle{Verteilte Systeme}
@@ -139,15 +141,58 @@
 
 \vfill
 
-\begni{overprint}
+\begin{overprint}
 \onslide<1>
-Komponente: 
-\onslide<3>
+\begin{minipage}{5cm}
+\kit{Komponente:}
 \begin{verbatim}
-(∀) input (\i ->  (∀) output (\o ->
-          (o ∈ influences i) → (includes i ⊆ includes o)
-       ))
+data Component p = Component {
+    input :: Set p,
+    output :: Set p
+  }
 \end{verbatim}
+\end{minipage}
+\begin{minipage}{6cm}
+\begin{itemize}
+  \item Erweiterungen: Services
+\end{itemize}
+\end{minipage}
+\onslide<2>
+\begin{minipage}{5cm}
+\kit{Implementierung:}
+\begin{verbatim}
+data Implementation p = Implementation {
+    influences :: p -> Set p
+  }
+\end{verbatim}
+\end{minipage}
+\begin{minipage}{6cm}
+\begin{itemize}
+  \item Erweiterungen: Komponenteweiter Zustand (symbolisch)
+\end{itemize}
+\end{minipage}
+\onslide<3,4>
+\kit{Spezifikation:}
+\begin{minipage}[t]{8cm}
+\begin{verbatim}
+data Specification p d = Specification {
+    includes :: p -> Set d,
+    datasets :: Set d
+  }
+\end{verbatim}
+\end{minipage}
+
+\kit{Sicherheit:}
+\begin{minipage}[t]{8cm}
+\begin{verbatim}
+secure ⇔ (∀) input (\i ->  (∀) output (\o ->
+                (o ∈ influences i) → (includes i ⊆ includes o)
+          ))
+\end{verbatim}
+\end{minipage}
+\begin{itemize}
+  \item $\approx$ non-interference mit Teilmengenverband \texttt{𝒫(datasets),⊆}
+\end{itemize}
 \onslide<5>
 \begin{center}
   \adjustbox{valign=t}{\resizebox{!}{.6cm}{\smallSpecOne}}
@@ -159,6 +204,286 @@ Komponente:
 \end{overprint}
 
 \end{frame}
+
+\begin{frame}[fragile]{Auswirkung von Änderungen}
+\providecommand{\exheight}{2.1cm}
+\begin{overprint}
+\onslide<1->
+\kit{Bestehende Komponente:} verifiziert in \includegraphics[height=0.5\baselineskip]{img/key-color.png} \ für 20.000€
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+\end{overprint}
+
+\vfill
+
+\begin{overprint}
+\onslide<1>
+\kit{Änderung in Spezifikation:} Hinzufügen von \texttt{Passwords} zu \texttt{A}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpecWeakQM}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<2>
+\kit{Tatsächlich gilt noch:}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpecWeakMono}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<3>
+\kit{Und sogar:}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpecWeak}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\kit{Gegeben:} Späzifikation \texttt{sp}, Änderungen der Annahmen von \texttt{sp} \\
+\kit{Gesucht:} \enquote{stärksten} Garantien \texttt{sp''} sodaß für alle \texttt{impl}:
+\begin{verbatim}
+              secure impl sp    ⟹    secure impl sp''
+\end{verbatim}
+
+\end{overprint}
+
+\end{frame}
+
+\begin{frame}[fragile]{Halbordnungen}
+\kit{Spezifikationen:}
+\begin{verbatim}
+sp `makesWeakerAssumptionsThan` sp'  ⇔
+      (∀) (input pr)  (\i -> includes sp' i ⊇ includes sp i)
+
+sp `makesStrongerGuaranteesThanFor` sp'  ⇔
+      (∀) (output pr) (\o -> includes sp' o ⊆ includes sp o)
+
+sp  ≤ sp'  ⇔
+   sp `makesStrongerGuaranteesThanFor` sp'
+∧  sp `makesWeakerAssumptionsThan`     sp'
+\end{verbatim}
+\begin{itemize}
+   \item \texttt{sp  ≤ sp'  ⇔ } \\
+         \enquote{\ \texttt{sp} erlaubt weniger Informationsfluss als \texttt{sp'} \ }
+   \item Nur definiert für \texttt{sp} und \texttt{sp'} mit gleichen \texttt{datasets}
+\end{itemize}
+
+\vfill
+
+\kit{Implementierungen:}
+\begin{verbatim}
+impl ⊑ impl' ⇔
+      (∀) (input pr) (\i -> influences impl i ⊆ influences impl' i )
+\end{verbatim}
+\begin{itemize}
+   \item (Impl,\texttt{⊑}) ist Verband
+   \item \texttt{impl ⊑ impl'  ⇔}  \\
+         \enquote{\ \texttt{impl} läßt weniger Informationen fließen als \texttt{impl'}\ }
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Spezifikationen als Abstraktion}
+\begin{center}
+\includegraphics[width=0.6\columnwidth]{img/svg/abstraction.pdf}
+\end{center}
+\kit{Ansatz:}
+\begin{itemize}
+  \item Spezifikation \texttt{sp} ist Abstraktion aller ihrer sicheren Implementierungen
+  \item Unter diesen gibt es eine \enquote{größte} Spezifikation \texttt{γ(sp)}: die mit den \emph{meisten} Flüssen
+\end{itemize}
+\kit{Es gilt:}
+\begin{verbatim}
+γ sp@(Specification { includes }) =
+  Implementation { influences = \p ->
+                if (p ∈ input) then [ p' | p' <- toList output, includes p ⊇ includes p' ]
+                               else []
+            }
+\end{verbatim}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+\begin{frame}[fragile]{Auswirkung von Änderungen}
+\providecommand{\exheight}{2.1cm}
+\begin{overprint}
+\onslide<1>
+\kit{Bestehende Komponente:} verifiziert in \includegraphics[height=0.5\baselineskip]{img/key-color.png} \ für 20.000€
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+\kit{Implementierung:} \enquote{unbekannt}
+\onslide<2->
+\kit{Bestehende Komponente:} verifiziert in \includegraphics[height=0.5\baselineskip]{img/key-color.png} \ für 20.000€
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+\kit{Implementierung:} \enquote{unbekannt}, aber wir betrachten: \texttt{γ(sp)}
+\end{overprint}
+
+\vfill
+
+\begin{overprint}
+\onslide<1>
+\kit{Änderung in Spezifikation:} Hinzufügen von \texttt{Passwords} zu \texttt{A}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpecWeakQM}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<2>
+\kit{Änderung in Spezifikation:} Hinzufügen von \texttt{Passwords} zu \texttt{A}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpecWeakQM}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+
+
+\onslide<3>
+\kit{Tatsächlich gilt noch:}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpecWeakMono}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<4>
+\kit{Und sogar:}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpecWeak}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\end{overprint}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}[fragile]{Andere Datasets}
+\providecommand{\exheight}{2.1cm}
+\begin{overprint}
+\onslide<1,2>
+\kit{Bestehende Komponente:} eingekauft,  generisch, 100.000€
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<3>
+\kit{Andere Komponente:} eingekauft,  generisch, 200.000€
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleTwoWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<4>
+\kit{Andere Komponente:} eingekauft,  generisch, 200.000€
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleTwoGammaWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<5>
+\kit{Bestehende Komponente:} eingekauft,  generisch, 100.000€
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+
+\end{overprint}
+
+\vfill
+
+\kit{Anwendung:} \texttt{Datasets' = \{ Money, Home\}}
+
+\begin{overprint}
+\onslide<1>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGrobRelabeled}}
+  \adjustbox{valign=t,rlap}{?}
+\end{center}
+
+\onslide<2>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGrobRelabeled}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<3>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleTwoWithSpecGrob}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<4>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleTwoGammaWithSpecGrob}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+
+\onslide<5>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaGrob}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+
+\end{overprint}
+
+\begin{overprint}
+\onslide<2>
+\begin{itemize}
+  \item denn \texttt{f :: Datasets -> Set Datasets' }: mit
+\begin{verbatim}
+f Consumption  = [Home]          f Billing      = [Money]
+f DeviceStatus = [Home]          f Passwords    = [Home]
+\end{verbatim}
+        ist konsistent mit Spezifikation: \texttt{f (sp) ≤ sp'}
+\end{itemize}
+
+\onslide<3>
+\begin{itemize}
+  \item Problem: nicht alle gültigen Spezifikationen via \texttt{Datasets'} haben \enquote{Zeugen} \texttt{f}
+  \item selbst wenn: wie bestimmt man Zeugen? Benutzer?
+\end{itemize}
+
+\onslide<4->
+\begin{itemize}
+  \item Vergleiche \texttt{γ}: \ \texttt{sp  ⊑ sp'  ⇔ (γ sp) ⊑ (γ sp')}
+  \item \texttt{sp  ⊑ sp'  ⇔ } \  \enquote{\ \texttt{sp} erlaubt weniger Informationsfluss als \texttt{sp'} \ }
+  \item Definiert auch dann, wenn \texttt{sp} und \texttt{sp'} mittels  \emph{unterschiedlichen} Mengen \texttt{Datasets, Datasets'} definiert sind!
+\end{itemize}
+\end{overprint}
+
+\end{frame}
+
+
+
+
+
+
 \appendix
 \beginbackup
 

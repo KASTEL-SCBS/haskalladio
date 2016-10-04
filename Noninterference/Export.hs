@@ -54,7 +54,7 @@ toTikzQuestionMark showSpec questionMark (Component { input, output }) (Implemen
     ]
     ++ (
       if (questionMark) then [
-      "  \\node at (3, " ++ (show $ -(3*((max maxInputIndex maxOutputIndex) + 1) `div` 2)) ++ ") [fontscale=10] { ? };"
+      "  \\node at (3, " ++ (show $ -(3*((max maxInputIndex maxOutputIndex) + 1) `div` 2)) ++ ") [fontscale=10] { ... };"
       ] else []
     )
     ++

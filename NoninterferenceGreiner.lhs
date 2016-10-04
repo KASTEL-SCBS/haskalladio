@@ -869,3 +869,14 @@ strongestValidGuaranteeIsIdempotent pr sp sp' =
       (show $ strongestValidGuarantee pr (strongestValidGuarantee pr sp sp')  sp')      -- TODO: dont use hacky string-comparison
 \end{code}
 
+
+
+\begin{code}
+strongestValidGuaranteeIsExtensive :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Component p -> Specification  p d -> Specification p d -> Property
+strongestValidGuaranteeIsExtensive pr sp sp' =
+       sp' `makesWeakerAssumptionsThan` sp
+  ==>
+       sp `makesStrongerGuaranteesThan` (strongestValidGuarantee pr sp sp')
+  where makesWeakerAssumptionsThan  = makesWeakerAssumptionsThanFor  pr
+        makesStrongerGuaranteesThan = makesStrongerGuaranteesThanFor pr
+\end{code}

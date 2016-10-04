@@ -65,6 +65,7 @@ testComparison : testComparison.bin .FORCE
 
 clean:
 	rm -f $(HTMLS)
+	rm -f $(IMAGES_PDFS)
 	find -name "*.hi"      -not -path "./.cabal-sandbox/*" -delete
 	find -name "*.dyn_hi"  -not -path "./.cabal-sandbox/*" -delete
 	find -name "*.o"       -not -path "./.cabal-sandbox/*" -delete
