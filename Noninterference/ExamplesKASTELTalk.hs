@@ -22,6 +22,8 @@ import qualified Data.Map as M
 
 
 data Datasets = Billing
+              | BillingSO
+              | BillingSOQM
               | Consumption
               | Passwords
               | DeviceStatus
@@ -34,6 +36,8 @@ instance Show Datasets where
   show Passwords = "Passwords"
   show DeviceStatus = "DeviceStatus"
   show PasswordsQuestionMark = "Passwords??"
+  show BillingSOQM  = "\\sout{Billing} ??"
+  show BillingSO    = "\\sout{Billing}"
 
 
 data DatasetsGrob = Home
@@ -105,23 +109,31 @@ example1 = Specification {
   where
     includes (Input A)   = S.fromList $ [Consumption,Billing]
     includes (Input B)   = S.fromList $ [Passwords]
-    includes (Input C)   = S.fromList $ [DeviceStatus]
+    includes (Input C)   = S.fromList $ [Billing,DeviceStatus]
     includes (Output X)  = S.fromList $ [Billing,Consumption]
     includes (Output Y)  = S.fromList $ [DeviceStatus, Billing]
     includes (Output Z)  = S.fromList $ [Passwords]
 
-example1Stronger :: Specification Parameter Datasets
-example1Stronger = Specification {
+example1Strong :: Specification Parameter Datasets
+example1Strong = Specification {
       datasets = datasetss,
-      includes = includes
+      includes = incl
     }
   where
-    includes (Input A)   = S.fromList $ [Consumption,Billing]
-    includes (Input B)   = S.fromList $ [Passwords]
-    includes (Input C)   = S.fromList $ [DeviceStatus]
-    includes (Output X)  = S.fromList $ [Billing,Consumption]
-    includes (Output Y)  = S.fromList $ [DeviceStatus, Billing]
-    includes (Output Z)  = S.fromList $ [Passwords]
+    incl p@(Input A) = includes example1 p ∖ (S.fromList [Billing])
+    incl p           = includes example1 p
+
+
+example1StrongQM :: Specification Parameter Datasets
+example1StrongQM = Specification {
+      datasets = datasetss,
+      includes = incl
+    }
+  where
+    incl p@(Input A)  = (includes example1 p ∖ (S.fromList [Billing])) ∪ S.fromList [BillingSO]
+    incl p@(Output X) = (includes example1 p ∖ (S.fromList [Billing])) ∪ S.fromList [BillingSOQM]
+    incl p@(Output Y) = (includes example1 p ∖ (S.fromList [Billing])) ∪ S.fromList [BillingSOQM]
+    incl p            = includes example1 p
 
 
 example1Weakening :: Specification Parameter Datasets
@@ -253,6 +265,7 @@ smallImpl =  Implementation {
       influences = influences
     }
   where influences (Input A) = S.fromList [Output X]
+        influences _         = S.fromList []
 
 smallSpec1 :: Specification Parameter Datasets
 smallSpec1 = Specification {
@@ -262,6 +275,7 @@ smallSpec1 = Specification {
   where
     incl (Input A)  = S.fromList []
     incl (Output X) = S.fromList [Passwords]
+    incl _          = S.fromList []
 
 smallSpec2 :: Specification Parameter Datasets
 smallSpec2 = Specification {
@@ -271,10 +285,13 @@ smallSpec2 = Specification {
   where
     incl (Input A)  = S.fromList [Passwords]
     incl (Output X) = S.fromList []
+    incl _          = S.fromList []
 
 main = if (    (not $ isConsistentRelabelingRevFor pr f example1 example1Grob)
            ||  (existsConsistentRelabelingRevFor pr example2 example2Grob)
            ||  (existsConsistentRelabelingRevFor pr example3 example3Grob)
+           ||  (not $ secure joana pr example1Impl example1)
+           ||  (not $ secure joana pr smallImpl smallSpec1)
           ) then error "rofl" else do
        forM_ [
               ("exampleOne",                    False, False, pr, noImpl,            example1),
@@ -288,10 +305,13 @@ main = if (    (not $ isConsistentRelabelingRevFor pr f example1 example1Grob)
               ("exampleOneGammaWithSpec",       True, False, pr, γ pr example1,     example1),
               ("exampleOneWithSpecWeakQM",      True, True,  pr, noImpl,            example1WeakeningQM),
               ("exampleOneGammaWithSpecWeakQM", True, False, pr, γ pr example1,     example1WeakeningQM),
-              ("exampleOneWithSpecWeakMono",    True, True,  pr, noImpl,            strongestValidGuaranteeExtensive pr example1 example1Weakening),
-              ("exampleOneGammaWithSpecWeakMono",True,False, pr, γ pr example1,     strongestValidGuaranteeExtensive pr example1 example1Weakening),
+--              ("exampleOneWithSpecWeakMono",    True, True,  pr, noImpl,            strongestValidGuaranteeExtensive pr example1 example1Weakening),
+--              ("exampleOneGammaWithSpecWeakMono",True,False, pr, γ pr example1,     strongestValidGuaranteeExtensive pr example1 example1Weakening),
               ("exampleOneWithSpecWeak",        True, True,  pr, noImpl,            strongestValidGuarantee pr example1 example1Weakening),
               ("exampleOneGammaWithSpecWeak",   True, False,  pr, γ pr example1,     strongestValidGuarantee pr example1 example1Weakening),
+
+              ("exampleOneGammaWithSpecStrongQM", True, False,  pr, γ pr example1,   example1StrongQM),
+              ("exampleOneGammaWithSpecStrong",   True, False,  pr, γ pr example1,   strongestValidGuarantee pr example1 example1Strong),
 
               ("exampleTwoWithSpec",            True, True,  pr, noImpl,            example2),
               ("exampleTwoGammaWithSpec",       True, False, pr, γ pr example2,     example2),

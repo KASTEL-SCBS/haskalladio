@@ -27,6 +27,7 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{listings}
+\usepackage{ulem}
 \usetikzlibrary{positioning}
 \usetikzlibrary{arrows}
 \usetikzlibrary{backgrounds}
@@ -80,7 +81,7 @@
 \tikzset{fontscale/.style = {font=\relsize{#1}}}
 
 
-\title{Quiz}
+\title{Weiterverwendung von IFC-Spezifikationen}
 \subtitle{Verteilte Systeme}
 \author{Martin Hecker}
 
@@ -143,8 +144,9 @@
 
 \begin{overprint}
 \onslide<1>
-\begin{minipage}{5cm}
-\kit{Komponente:}
+\kit{Komponente:} 
+
+\begin{minipage}[t]{5cm}
 \begin{verbatim}
 data Component p = Component {
     input :: Set p,
@@ -152,21 +154,22 @@ data Component p = Component {
   }
 \end{verbatim}
 \end{minipage}
-\begin{minipage}{6cm}
+\begin{minipage}[t]{6cm}
 \begin{itemize}
   \item Erweiterungen: Services
 \end{itemize}
 \end{minipage}
 \onslide<2>
-\begin{minipage}{5cm}
 \kit{Implementierung:}
+
+\begin{minipage}[t]{5cm}
 \begin{verbatim}
 data Implementation p = Implementation {
     influences :: p -> Set p
   }
 \end{verbatim}
 \end{minipage}
-\begin{minipage}{6cm}
+\begin{minipage}[t]{6cm}
 \begin{itemize}
   \item Erweiterungen: Komponenteweiter Zustand (symbolisch)
 \end{itemize}
@@ -227,14 +230,7 @@ secure ⇔ (∀) input (\i ->  (∀) output (\o ->
 \end{center}
 
 \onslide<2>
-\kit{Tatsächlich gilt noch:}
-\begin{center}
-  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpecWeakMono}}
-  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
-\end{center}
-
-\onslide<3>
-\kit{Und sogar:}
+\kit{Tatsächlich gilt noch:} \vphantom{Änderung}
 \begin{center}
   \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpecWeak}}
   \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
@@ -351,18 +347,27 @@ impl ⊑ impl' ⇔
 
 
 \onslide<3>
-\kit{Tatsächlich gilt noch:}
-\begin{center}
-  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpecWeakMono}}
-  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
-\end{center}
-
-\onslide<4>
-\kit{Und sogar:}
+\kit{Tatsächlich gilt noch:} \vphantom{Änderung}
 \begin{center}
   \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpecWeak}}
   \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
 \end{center}
+
+\onslide<4>
+\kit{Änderung in Spezifikation:} Entfernen von \texttt{Billing} aus \texttt{A}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpecStrongQM}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/questionmark.pdf}}
+\end{center}
+
+\onslide<5>
+\kit{Es gilt lediglich:} \vphantom{Änderung}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpecStrong}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+
 
 \end{overprint}
 
@@ -421,7 +426,7 @@ impl ⊑ impl' ⇔
 \onslide<1>
 \begin{center}
   \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGrobRelabeled}}
-  \adjustbox{valign=t,rlap}{?}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/questionmark.pdf}}
 \end{center}
 
 \onslide<2>

@@ -74,3 +74,6 @@ clean:
 	rm -f test.bin testGreiner.bin testComparison.bin
 	rm -f Noninterference/examples-include.tex
 	rm -f tmpfile*
+	cd Noninterference && rubber --clean ExamplesKASTELTalk.tex
+	rm -f Noninterference/ExamplesKASTELTalk.vrb Noninterference/texput.log Noninterference/KASTELTalk-examples-include.tex
+
