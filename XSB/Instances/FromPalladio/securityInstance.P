@@ -176,7 +176,7 @@ location(Container,Location, none) :-
         locationWithOrWithoutSpecifiedTamperProtection(Container,Location,Pair),
         not((
           tamperProtections(Pair, TamperProptections),
-          member(TamperProtection, TamperProptections)
+          member(_TamperProtection, TamperProptections)
         )).
 
 
@@ -197,6 +197,6 @@ linkLocation(LinkingResource,Location, none) :-
         linkLocationWithOrWithoutSpecifiedTamperProtection(LinkingResource,Location, Pair),
         not((
           tamperProtections(Pair, TamperProptections),
-          member(TamperProtection, TamperProptections)
+          member(_TamperProtection, TamperProptections)
         )).
 
