@@ -778,13 +778,13 @@ weakerStongerIsNaively  pr sp sp' =
 Then, the strongest guarantee still valid given a weakening `sp'` of assumptions wrt. original specification `sp` is obtained by considering the most-leaking-implementation of the original specification `sp`
 
 \begin{code}
-strongestValidGuarantee :: (Ord d, Ord p) => Component p -> Specification p d -> Specification p d -> Specification p d
+strongestValidGuarantee :: (Ord d, Ord p, Ord d') => Component p -> Specification p d -> Specification p d' -> Specification p d'
 strongestValidGuarantee pr@(Component { input, output }) sp sp' = Specification {
     includes = \p -> if (p ∈ input) then
                        (includes sp' p)
                      else
                        (⋃) [ includes sp' i  | i <- toList input, p ∈ (influences mostLeaking i)],
-    datasets = datasets sp
+    datasets = datasets sp'
     }
   where mostLeaking = γ pr sp
 \end{code}

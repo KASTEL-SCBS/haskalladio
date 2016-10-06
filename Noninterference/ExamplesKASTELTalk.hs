@@ -7,7 +7,7 @@ import Noninterference.Procedure
 import Noninterference.Export
 
 
-import Noninterference.Testgen hiding (Datasets)
+-- import Noninterference.Testgen hiding (Datasets)
 import Test.QuickCheck hiding (output)
 
 
@@ -45,27 +45,21 @@ data DatasetsGrob = Home
                   deriving (Show, Eq, Ord, Enum, Bounded)
 
 
--- data Input  = A
---             | B
---             | C
---             deriving (Show, Eq, Ord, Enum, Bounded)
--- data Output = X
---             | Y
---             | Z
---             deriving (Show, Eq, Ord, Enum, Bounded)
-
--- data Parameter = Input Input
---                | Output Output
---               deriving ( Eq, Ord)
-
--- instance Show Parameter where
---   show (Input i)  = show i
---   show (Output o) = show o
+data Parameter =
+              A
+            | B
+            | C
+            | X
+            | Y
+            | Z
+            | N
+            | M
+            deriving (Eq, Ord, Enum, Bounded, Show)
 
 
-instance Enumerable Parameter where
-  allValues = [Input i  | i <- allValues] ++
-              [Output o | o <- allValues]
+-- instance Enumerable Parameter where
+--   allValues = [i  | i <- allValues] ++
+--               [o | o <- allValues]
 
 noImpl :: Implementation Parameter
 noImpl = Implementation {
@@ -73,8 +67,8 @@ noImpl = Implementation {
   }
 
 
-inputs  = S.fromList $ fmap Input  [A,B,C]
-outputs = S.fromList $ fmap Output [X,Y,Z]
+inputs  = S.fromList [A,B,C]
+outputs = S.fromList [X,Y,Z]
 
 datasetss :: (Ord d, Enum d, Bounded d) => Set d
 datasetss = S.fromList $ allValues
@@ -82,24 +76,24 @@ datasetss = S.fromList $ allValues
 pr = Component {
       input  = inputs,
       output = outputs
- }
+}
 
 example1Impl :: Implementation Parameter
 example1Impl = Implementation {
       influences = influences
     }
-  where influences (Input A) = S.fromList [Output X]
-        influences (Input B) = S.fromList [Output Z]
-        influences (Input C) = S.fromList []
+  where influences (A) = S.fromList [X]
+        influences (B) = S.fromList [Z]
+        influences (C) = S.fromList []
 
 
 example1ImplViol :: Implementation Parameter
 example1ImplViol = Implementation {
       influences = influences
     }
-  where influences (Input A) = S.fromList [Output X, Output Y]
-        influences (Input B) = S.fromList [Output Z]
-        influences (Input C) = S.fromList []
+  where influences (A) = S.fromList [X, Y]
+        influences (B) = S.fromList [Z]
+        influences (C) = S.fromList []
 
 example1 :: Specification Parameter Datasets
 example1 = Specification {
@@ -107,12 +101,12 @@ example1 = Specification {
       includes = includes
     }
   where
-    includes (Input A)   = S.fromList $ [Consumption,Billing]
-    includes (Input B)   = S.fromList $ [Passwords]
-    includes (Input C)   = S.fromList $ [Billing,DeviceStatus]
-    includes (Output X)  = S.fromList $ [Billing,Consumption]
-    includes (Output Y)  = S.fromList $ [DeviceStatus, Billing]
-    includes (Output Z)  = S.fromList $ [Passwords]
+    includes (A)   = S.fromList $ [Consumption,Billing]
+    includes (B)   = S.fromList $ [Passwords]
+    includes (C)   = S.fromList $ [Billing,DeviceStatus]
+    includes (X)  = S.fromList $ [Billing,Consumption]
+    includes (Y)  = S.fromList $ [DeviceStatus, Billing]
+    includes (Z)  = S.fromList $ [Passwords]
 
 example1Strong :: Specification Parameter Datasets
 example1Strong = Specification {
@@ -120,7 +114,7 @@ example1Strong = Specification {
       includes = incl
     }
   where
-    incl p@(Input A) = includes example1 p ∖ (S.fromList [Billing])
+    incl p@(A) = includes example1 p ∖ (S.fromList [Billing])
     incl p           = includes example1 p
 
 
@@ -130,9 +124,9 @@ example1StrongQM = Specification {
       includes = incl
     }
   where
-    incl p@(Input A)  = (includes example1 p ∖ (S.fromList [Billing])) ∪ S.fromList [BillingSO]
-    incl p@(Output X) = (includes example1 p ∖ (S.fromList [Billing])) ∪ S.fromList [BillingSOQM]
-    incl p@(Output Y) = (includes example1 p ∖ (S.fromList [Billing])) ∪ S.fromList [BillingSOQM]
+    incl p@(A)  = (includes example1 p ∖ (S.fromList [Billing])) ∪ S.fromList [BillingSO]
+    incl p@(X) = (includes example1 p ∖ (S.fromList [Billing])) ∪ S.fromList [BillingSOQM]
+    incl p@(Y) = (includes example1 p ∖ (S.fromList [Billing])) ∪ S.fromList [BillingSOQM]
     incl p            = includes example1 p
 
 
@@ -142,7 +136,7 @@ example1Weakening = Specification {
       includes = incl
     }
   where
-    incl p@(Input A) = includes example1 p ∪ (S.fromList [Passwords])
+    incl p@(A) = includes example1 p ∪ (S.fromList [Passwords])
     incl p           = includes example1 p
 
 
@@ -152,9 +146,9 @@ example1WeakeningQM = Specification {
       includes = incl
     }
   where
-    incl p@(Input A)  = includes example1 p ∪ (S.fromList [Passwords])
-    incl p@(Output X) = includes example1 p ∪ (S.fromList [PasswordsQuestionMark])
-    incl p@(Output Y) = includes example1 p ∪ (S.fromList [PasswordsQuestionMark])
+    incl p@(A)  = includes example1 p ∪ (S.fromList [Passwords])
+    incl p@(X) = includes example1 p ∪ (S.fromList [PasswordsQuestionMark])
+    incl p@(Y) = includes example1 p ∪ (S.fromList [PasswordsQuestionMark])
     incl p           = includes example1 p
 
 
@@ -186,26 +180,26 @@ example2 :: Specification Parameter Datasets
 example2 = Specification {
   datasets = datasetss,
   includes = (M.!) $ M.fromList [
-      (Input A,fromList [DeviceStatus]),
-      (Input B,fromList []),
-      (Input C,fromList [Consumption]),
+      (A,fromList [DeviceStatus]),
+      (B,fromList []),
+      (C,fromList [Consumption]),
 
-      (Output X,fromList [Billing,DeviceStatus]),
-      (Output Y,fromList [Consumption,DeviceStatus]),
-      (Output Z,fromList [])]
+      (X,fromList [Billing,DeviceStatus]),
+      (Y,fromList [Consumption,DeviceStatus]),
+      (Z,fromList [])]
  }
 
 {-
 example2Incl :: Implementation Parameter
 example2Incl = Implementation {
   influences = (M.!) $ M.fromList [
-      (Input A,fromList [Output X]),
-      (Input B,fromList [Output X,Output Y,Output Z]),
-      (Input C,fromList []),
+      (A,fromList [X]),
+      (B,fromList [X,Y,Z]),
+      (C,fromList []),
 
-      (Output X,fromList []),
-      (Output Y,fromList []),
-      (Output Z,fromList [])]
+      (X,fromList []),
+      (Y,fromList []),
+      (Z,fromList [])]
   }
 -}
 
@@ -213,25 +207,25 @@ example2Grob :: Specification Parameter DatasetsGrob
 example2Grob = Specification {
   datasets = datasetss,
   includes = (M.!) $ M.fromList [
-      (Input A,fromList [Home]),
-      (Input B,fromList [Home]),
-      (Input C,fromList [Money,Home]),
+      (A,fromList [Home]),
+      (B,fromList [Home]),
+      (C,fromList [Money,Home]),
 
-      (Output X,fromList [Money,Home]),
-      (Output Y,fromList [Money,Home]),
-      (Output Z,fromList [Home])]
+      (X,fromList [Money,Home]),
+      (Y,fromList [Money,Home]),
+      (Z,fromList [Home])]
 }
 
 example2GrobImpl :: Implementation Parameter
 example2GrobImpl = Implementation {
   influences = (M.!) $ M.fromList [
-      (Input A,fromList [Output X]),
-      (Input B,fromList [Output X,Output Y,Output Z]),
-      (Input C,fromList []),
+      (A,fromList [X]),
+      (B,fromList [X,Y,Z]),
+      (C,fromList []),
 
-      (Output X,fromList []),
-      (Output Y,fromList []),
-      (Output Z,fromList [])
+      (X,fromList []),
+      (Y,fromList []),
+      (Z,fromList [])
       ]
   }
 
@@ -239,32 +233,32 @@ example2GrobImpl = Implementation {
 example2AnotherImpl :: Implementation Parameter
 example2AnotherImpl = Implementation {
   influences = (M.!) $ M.fromList [
-      (Input A,fromList [Output X]),
-      (Input B,fromList [Output X,Output Y,Output Z]),
-      (Input C,fromList [Output Y]),
+      (A,fromList [X]),
+      (B,fromList [X,Y,Z]),
+      (C,fromList [Y]),
 
-      (Output X,fromList []),
-      (Output Y,fromList []),
-      (Output Z,fromList [])
+      (X,fromList []),
+      (Y,fromList []),
+      (Z,fromList [])
       ]
   }
 
 
-example3 = Specification { includes = (M.!) $ M.fromList [(Input A,fromList []),(Input B,fromList [Billing,Consumption,DeviceStatus]),(Input C,fromList [DeviceStatus]),(Output X,fromList [Billing,Consumption,Passwords]),(Output Y,fromList [Consumption,DeviceStatus]),(Output Z,fromList [Passwords])], datasets = fromList [Billing,Consumption,Passwords,DeviceStatus] }
-example3Grob = Specification { includes = (M.!) $ M.fromList [(Input A,fromList [Money]),(Input B,fromList [Money]),(Input C,fromList [Money]),(Output X,fromList [Home,Money]),(Output Y,fromList [Home,Money]),(Output Z,fromList [Home,Money])], datasets = fromList [Home,Money] }
+example3 = Specification { includes = (M.!) $ M.fromList [(A,fromList []),(B,fromList [Billing,Consumption,DeviceStatus]),(C,fromList [DeviceStatus]),(X,fromList [Billing,Consumption,Passwords]),(Y,fromList [Consumption,DeviceStatus]),(Z,fromList [Passwords])], datasets = fromList [Billing,Consumption,Passwords,DeviceStatus] }
+example3Grob = Specification { includes = (M.!) $ M.fromList [(A,fromList [Money]),(B,fromList [Money]),(C,fromList [Money]),(X,fromList [Home,Money]),(Y,fromList [Home,Money]),(Z,fromList [Home,Money])], datasets = fromList [Home,Money] }
 
 
 small :: Component Parameter
 small = Component {
-      input  = S.fromList $ fmap Input  [A],
-      output = S.fromList $ fmap Output [X]
+      input  = S.fromList [A],
+      output = S.fromList [X]
  }
 
 smallImpl :: Implementation Parameter
 smallImpl =  Implementation {
       influences = influences
     }
-  where influences (Input A) = S.fromList [Output X]
+  where influences (A) = S.fromList [X]
         influences _         = S.fromList []
 
 smallSpec1 :: Specification Parameter Datasets
@@ -273,8 +267,8 @@ smallSpec1 = Specification {
       includes = incl
     }
   where
-    incl (Input A)  = S.fromList []
-    incl (Output X) = S.fromList [Passwords]
+    incl (A)  = S.fromList []
+    incl (X) = S.fromList [Passwords]
     incl _          = S.fromList []
 
 smallSpec2 :: Specification Parameter Datasets
@@ -283,15 +277,91 @@ smallSpec2 = Specification {
       includes = incl
     }
   where
-    incl (Input A)  = S.fromList [Passwords]
-    incl (Output X) = S.fromList []
+    incl (A)  = S.fromList [Passwords]
+    incl (X) = S.fromList []
     incl _          = S.fromList []
+
+
+
+prLeft = Component {
+      input  = S.fromList [A, B],
+      output = S.fromList [X, Y]
+    }
+
+prRight = Component {
+      input  = S.fromList [X, Y],
+      output = S.fromList [N, M]
+    }
+
+spLeft ::  Specification Parameter DatasetsGrob
+spLeft = Specification {
+      datasets = datasetss,
+      includes = incl
+    }
+  where
+    incl (A)  = S.fromList [Home]
+    incl (B)  = S.fromList [Money]
+    incl (X)  = S.fromList [Home, Money]
+    incl (Y)  = S.fromList [Home, Money]
+
+
+spLeft' ::  Specification Parameter DatasetsGrob
+spLeft' = Specification {
+      datasets = datasetss,
+      includes = incl
+    }
+  where
+    incl (A)  = S.fromList [Home]
+    incl (B)  = S.fromList [Money]
+    incl (X)  = S.fromList [Home]
+    incl (Y)  = S.fromList [Money]
+
+
+spRightFine ::  Specification Parameter Datasets
+spRightFine = Specification {
+      datasets = datasetss,
+      includes = incl
+    }
+  where
+    incl (X)  = S.fromList [Consumption]
+    incl (Y)  = S.fromList [Billing]
+    incl (N)  = S.fromList [Consumption]
+    incl (M)  = S.fromList [Billing]
+
+
+spRight ::  Specification Parameter DatasetsGrob
+spRight = Specification {
+      datasets = datasetss,
+      includes = incl
+    }
+  where
+    incl (X)  = S.fromList [Home, Money]
+    incl (Y)  = S.fromList [Home, Money]
+    incl (N)  = S.fromList [Home, Money]
+    incl (M)  = S.fromList [Home, Money]
+
+
+
+spRight' ::  Specification Parameter DatasetsGrob
+spRight' = Specification {
+      datasets = datasetss,
+      includes = incl
+    }
+  where
+    incl (X)  = S.fromList [Home]
+    incl (Y)  = S.fromList [Money]
+    incl (N)  = undefined
+    incl (M)  = undefined
+
+
+
 
 main = if (    (not $ isConsistentRelabelingRevFor pr f example1 example1Grob)
            ||  (existsConsistentRelabelingRevFor pr example2 example2Grob)
            ||  (existsConsistentRelabelingRevFor pr example3 example3Grob)
            ||  (not $ secure joana pr example1Impl example1)
            ||  (not $ secure joana pr smallImpl smallSpec1)
+           ||  (not $ secure joana prRight (γ prRight spRightFine) spRight)
           ) then error "rofl" else do
        forM_ [
               ("exampleOne",                    False, False, pr, noImpl,            example1),
@@ -315,7 +385,9 @@ main = if (    (not $ isConsistentRelabelingRevFor pr f example1 example1Grob)
 
               ("exampleTwoWithSpec",            True, True,  pr, noImpl,            example2),
               ("exampleTwoGammaWithSpec",       True, False, pr, γ pr example2,     example2),
-              ("exampleThreeWithSpec",          True, True,  pr, noImpl,            example3)
+              ("exampleThreeWithSpec",          True, True,  pr, noImpl,            example3),
+
+              ("spRightFine",                   True, False, prRight, (γ prRight spRightFine),        spRightFine)
              ]
         (\(name,showSpec, questionmark,pr,impl,sp) -> putStrLn $ toTikzNamed name showSpec questionmark pr impl sp)
        forM_ [
@@ -323,7 +395,12 @@ main = if (    (not $ isConsistentRelabelingRevFor pr f example1 example1Grob)
               ("exampleOneGammaGrob",        True, False, pr, γ pr example1Grob, example1Grob),
               ("exampleTwoWithSpecGrob",     True, True,  pr, noImpl,            example2Grob),
               ("exampleTwoGammaWithSpecGrob",True, False, pr, γ pr example2Grob, example2Grob),
-              ("exampleThreeWithSpecGrob",   True, True,  pr, noImpl,            example3Grob)
+              ("exampleThreeWithSpecGrob",   True, True,  pr, noImpl,            example3Grob),
+
+              ("spLeft",                        True, True,  prLeft, noImpl,        spLeft),
+              ("spLeftAssumed",                 True, True,  prLeft, noImpl,        spLeft'),
+              ("spRight",                       True, False, prRight, (γ prRight spRightFine),        spRight),
+              ("spRightThen",                   True, False, prRight, (γ prRight spRightFine),        (strongestValidGuarantee prRight spRightFine spRight' :: Specification Parameter DatasetsGrob))
              ]
         (\(name,showSpec, questionmark,pr,impl,sp) -> putStrLn $ toTikzNamed name showSpec questionmark pr impl sp)
 

@@ -778,13 +778,13 @@ weakerStongerIsNaively  pr sp sp' =
 Then, the strongest guarantee still valid given a weakening `sp'` of assumptions wrt. original specification `sp` is obtained by considering the most-leaking-implementation of the original specification `sp`
 
 \begin{code}
-strongestValidGuarantee :: (Ord d, Bounded d, Enum d, Ord p) => Component p -> Specification p d -> Specification p d -> Specification p d
+strongestValidGuarantee :: (Ord d, Ord p, Ord d', Bounded d', Enum d') => Component p -> Specification p d -> Specification p d' -> Specification p d'
 strongestValidGuarantee pr@(Component { input, output }) sp sp' = Specification {
     includes = \p -> if (p ∈ input) then
                        (includes sp' p)
                      else
                        (⋂) [ includes sp' i  | i <- toList input, p ∈ (influences mostLeaking i)],
-    datasets = datasets sp
+    datasets = datasets sp'
     }
   where mostLeaking = γ pr sp
 \end{code}
@@ -869,14 +869,3 @@ strongestValidGuaranteeIsIdempotent pr sp sp' =
       (show $ strongestValidGuarantee pr (strongestValidGuarantee pr sp sp')  sp')      -- TODO: dont use hacky string-comparison
 \end{code}
 
-
-
-\begin{code}
-strongestValidGuaranteeIsExtensive :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Component p -> Specification  p d -> Specification p d -> Property
-strongestValidGuaranteeIsExtensive pr sp sp' =
-       sp' `makesWeakerAssumptionsThan` sp
-  ==>
-       sp `makesStrongerGuaranteesThan` (strongestValidGuarantee pr sp sp')
-  where makesWeakerAssumptionsThan  = makesWeakerAssumptionsThanFor  pr
-        makesStrongerGuaranteesThan = makesStrongerGuaranteesThanFor pr
-\end{code}
