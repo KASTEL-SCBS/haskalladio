@@ -1,7 +1,5 @@
 % BEGIN IMPORTS
-:- import  none/0,
-           shared/0, exlusive/0,
-           possible/0, existing/0, complete/0
+:- import  none/0
            from security.
 :- import  return/1
            from palladio.
