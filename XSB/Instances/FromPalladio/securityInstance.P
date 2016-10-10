@@ -14,7 +14,7 @@
            tamperProtections/2,
            connectionType/2,
            resourceContainer/1,
-           dataSetTargets/2,
+           dataTargets/2,
            dataSetMapEntry/1,
            parameterSources/2,
            parametersAndDataPairs/2,
@@ -27,7 +27,10 @@
            outerProvidedRole/2,
            linkingResource/1,
            sharing/2,
-           dataSet/1
+           dataSet/1,
+
+	   call/0,
+	   return/0
            from fromPalladio.
 
 :- import  returnParameter/2,
@@ -52,17 +55,17 @@ isLocation(Location) :- location(Location).
 % TODO: there currently appears to be no palladio stereotype corresponding to uiInterfaceOn, as was required in the paper submission.
 % Instead, i consider every interface provided by the system as an uiInterface. Isn't this what we want?
 uiInterfaceOn(Container,Interface) :-
-        outerProvidedRole(Connector,ProvidedRole),
-        assemblyContext(Connector,        AssemblyContext),
-        assemblyContext_AllocationContext(AllocationContext,AssemblyContext),
-        resourceContainer(AllocationContext,Container),
-        providedInterface(ProvidedRole,Interface).
+        outerProvidedRole(Connector,[ProvidedRole]),
+        assemblyContext(Connector, [AssemblyContext]),
+        assemblyContext_AllocationContext(AllocationContext,[AssemblyContext]),
+        resourceContainer(AllocationContext,[Container]),
+        providedInterface(ProvidedRole,[Interface]).
 uiInterfaceOn(Container,Interface) :-
-        outerRequiredRole(Connector,ProvidedRole),
-        assemblyContext(Connector,        AssemblyContext),
-        assemblyContext_AllocationContext(AllocationContext,AssemblyContext),
-        resourceContainer(AllocationContext,Container),
-        requiredInterface(ProvidedRole,Interface).
+        outerRequiredRole(Connector,[ProvidedRole]),
+        assemblyContext(Connector,        [AssemblyContext]),
+        assemblyContext_AllocationContext(AllocationContext,[AssemblyContext]),
+        resourceContainer(AllocationContext,[Container]),
+        requiredInterface(ProvidedRole,[Interface]).
 
 
 dataset(Dataset) :- dataSet(Dataset).
@@ -82,7 +85,7 @@ includes(parm(Service,ParameterName), Dataset) :-
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
         member(ParameterName, ParameterNames),
-        dataSetTargets(Pair, Datasets),
+        dataTargets(Pair, Datasets),
         member(Dataset, Datasets).
 
 % cases such as: parameterSources(6,[..,*,..]).
@@ -93,7 +96,7 @@ includes(parm(Service,ParameterName), Dataset) :-
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
         member(*, ParameterNames),
-        dataSetTargets(Pair, Datasets),
+        dataTargets(Pair, Datasets),
         member(Dataset, Datasets).
 
 % cases such as: parameterSources(6,[..,sizeOf(*),..]).
@@ -103,7 +106,7 @@ includes(parm(Service,sizeOf(ParameterName)), Dataset) :-
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
         member(sizeOf(*), ParameterNames),
-        dataSetTargets(Pair, Datasets),
+        dataTargets(Pair, Datasets),
         member(Dataset, Datasets).
 
 
@@ -113,18 +116,17 @@ includes(return(Service), Dataset) :-
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
-        member(\return, ParameterNames),
-        dataSetTargets(Pair, Datasets),
+        member(return, ParameterNames),
+        dataTargets(Pair, Datasets),
         member(Dataset, Datasets).
 
-% TODO MAX check that a backslash is always followed by return or call and implement other well-formedness checks for specification
 % TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
 includesCall(Service, Dataset) :-
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
-        member(\call, ParameterNames),
-        dataSetTargets(Pair, Datasets),
+        member(call, ParameterNames),
+        dataTargets(Pair, Datasets),
         member(Dataset, Datasets).
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
@@ -150,11 +152,14 @@ locationsAccessibleBy(Attacker, Location) :-
         once(tamperingAbilities(Attacker, Location, _TamperProtection)).
 
 
-furtherConnections(Container,Mode) :- connectionType(Container,Mode).
+furtherConnections(Container,Mode) :- connectionType(Container,[Mode]).
 
-sharingOf(Container,Mode) :- sharing(Container,Mode).
+sharingOf(Container,Mode) :- sharing(Container,[Mode]).
 sharingOf(Container,exclusive) :-
         not(sharing(Container,_)),
+        resourceContainer(Container).
+sharingOf(Container,exclusive) :-
+        sharing(Container,[]),
         resourceContainer(Container).
 
 

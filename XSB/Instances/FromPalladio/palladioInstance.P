@@ -1,4 +1,7 @@
 % BEGIN IMPORTS
+:- import  member/2
+           from lists.
+
 :- import  encapsulatedComponent/2,
            assemblyContext/1,
            providingAssemblyContext/2,
@@ -25,9 +28,6 @@
            allocationContext/1
            from fromPalladio.
 
-:- import  provides/2,
-           requires/2
-           from componentRepositoryInstance.
 % END IMPORTS
 justify_pred(connects(_,_,_)).
 
@@ -47,50 +47,57 @@ systemRequires(Interface) :- systemRequiredAssembledTo(Interface,_).
 
 systemAssembledTo(RequiringContext, Interface, byAssembly(ProvidingContext)) :-
         assemblyConnector(Connector),
-        requiringAssemblyContext(Connector, RequiringContext),
-        providingAssemblyContext(Connector, ProvidingContext),
-        requiredRole(Connector, RequiredRole),
-        requiredInterface(RequiredRole, Interface),
-        providedRole(Connector, ProvidedRole),        % By wellformedness of exported models, thes
-        providedInterface(ProvidedRole, Interface).   % two subgoals are presumably redundant.
+        requiringAssemblyContext(Connector, [RequiringContext]),
+        providingAssemblyContext(Connector, [ProvidingContext]),
+        requiredRole(Connector, [RequiredRole]),
+        requiredInterface(RequiredRole, [Interface]),
+        providedRole(Connector, [ProvidedRole]),        % By wellformedness of exported models, thes
+        providedInterface(ProvidedRole, [Interface]).   % two subgoals are presumably redundant.
 
 
 systemProvidesAssembledTo(Interface, Context) :-
         providedDelegationConnector(Connector),
-        assemblyContext(Connector,Context),
+        assemblyContext(Connector,[Context]),
 
-        innerProvidedRole(Connector,InnerProvidedRole),
+        innerProvidedRole(Connector,[InnerProvidedRole]),
         operationProvidedRole(InnerProvidedRole), % TODO: redundant?
-        providedInterface(InnerProvidedRole,Interface),
+        providedInterface(InnerProvidedRole,[Interface]),
 
         % TODO: redundant?
-        outerProvidedRole(Connector,OuterProvidedRole),
+        outerProvidedRole(Connector,[OuterProvidedRole]),
         operationProvidedRole(OuterProvidedRole), % TODO: redundant?
-        providedInterface(OuterProvidedRole,Interface).
+        providedInterface(OuterProvidedRole,[Interface]).
 
 
 systemRequiredAssembledTo(Interface, Context) :-
         requiredDelegationConnector(Connector),
-        assemblyContext(Connector,Context),
+        assemblyContext(Connector,[Context]),
 
-        innerRequiredRole(Connector,InnerRequiredRole),
+        innerRequiredRole(Connector,[InnerRequiredRole]),
         operationRequiredRole(InnerRequiredRole), % TODO: redundant?
-        requiredInterface(InnerRequiredRole,Interface),
+        requiredInterface(InnerRequiredRole,[Interface]),
 
         % TODO: redundant?
-        outerRequiredRole(Connector,OuterRequiredRole),
+        outerRequiredRole(Connector,[OuterRequiredRole]),
         operationRequiredRole(OuterRequiredRole), % TODO: redundant?
-        requiredInterface(OuterRequiredRole,Interface).
+        requiredInterface(OuterRequiredRole,[Interface]).
 
 
 runsOn(AssemblyContext, ResourceContainer) :-
         allocationContext(AllocationContext), % TODO: likely reduntant
-        resourceContainer(AllocationContext,ResourceContainer),
-        assemblyContext_AllocationContext(AllocationContext,AssemblyContext).
+        resourceContainer(AllocationContext,[ResourceContainer]),
+        assemblyContext_AllocationContext(AllocationContext,[AssemblyContext]).
 
 componentOf(AssemblyContext, Component) :-
         assemblyContext(AssemblyContext), % TODO: likely redundant
-        encapsulatedComponent(AssemblyContext,Component).
+        encapsulatedComponent(AssemblyContext,[Component]).
 
-connects(Link,RCLeft,RCRight) :- connectedResourceContainers(Link,[RCLeft,RCRight]).
-connects(Link,RCLeft,RCRight) :- connectedResourceContainers(Link,[RCRight,RCLeft]).
+% Apparently, in Palladio a single Link can connect multiple container, so we cannot use:
+% connects(Link,RCLeft,RCRight) :- connectedResourceContainers(Link,[RCLeft,RCRight]).
+% connects(Link,RCLeft,RCRight) :- connectedResourceContainers(Link,[RCRight,RCLeft]).
+
+connects(Link,RCLeft,RCRight) :-
+	connectedResourceContainers(Link,RCs),
+	member(RCLeft,RCs),
+	member(RCRight,RCs),
+	RCLeft \= RCRight.

@@ -10,6 +10,7 @@
            requiredInterfaces/1,
 
            % Functors
+	   call/1,
            return/1.
 
 % END EXPORTS

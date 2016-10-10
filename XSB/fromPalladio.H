@@ -1,26 +1,49 @@
 :- export  % Predicates
         adversary/1,                                % adversary(Attacker)
+        allocationContext/1,                        % allocationContext(AllocationContext)
+        assemblyConnector/1,                        % assemblyConnector(Connector)
+        assemblyContext/1,                          % assemblyContext(AssemblyContext)
         assemblyContext/2,                          % assemblyContext(ProvidedDelegationConnector,AssemblyContext)
         assemblyContext_AllocationContext/2,        % assemblyContext_AllocationContext(AllocationContext,AssemblyContext)
+        basicComponent/1,                           % basicComponent(Component)
         connectionType/2,                           % connectionType(Container,[Mode])
+        connectedResourceContainers/2,              % connectedResourceContainers(Link,[RCLeft,RCRight])
         dataSet/1,                                  % dataSet(Dataset)
         dataSetMapEntry/1,                          % dataSetMapEntry(DatasetMapEntry)
+        dataTargets/2,                              % dataTargets(ParametersAndDataSetsPair, Datasets),
+        encapsulatedComponent/2,                    % encapsulatedComponent(AssemblyContext,[Component])
+        innerProvidedRole/2,                        % innerProvidedRole(Connector,[InnerProvidedRole])
         linkingResource/1,                          % linkingResource(LinkingResource)
         location/1,                                 % location(Location)
         locations/2,                                % locations(LocationsAndTamperProtectionsPair,Locations),
         locationsAndTamperProtectionsPairs/2,       % locationsAndTamperProtectionsPairs(LinkingResource,LocationsAndTamperProtectionsPairs),
         mayKnowData/2,                              % mayKnowData(Attacker, Datasets)
+        operationProvidedRole/1,                    % operationProvidedRole(InnerProvidedRole)
+        operationRequiredRole/1,                    % operationRequiredRole(InnerRequiredRole)
         outerProvidedRole/2,                        % outerProvidedRole(Connector,[OuterProvidedRole])
+        parameters/2,                               % parameters(Service, Parameters)
         parameterSources/2,                         % parameterSources(Pair,ParameterNames)
         parametersAndDataPairs/2,                   % parametersAndDataPairs(Service, Pairs)
+        providedDelegationConnector/1,              % providedDelegationConnector(Connector)
         providedInterface/2,                        % providedInterface(InnerProvidedRole,[Interface])
+        providedRole/2,                             % providedRole(Connector, [ProvidedRole]),
+        providedRoles/2,                            % providedRoles(Component,Roles)
+        providingAssemblyContext/2,                 % providingAssemblyContext(Connector, [ProvidingContext])
+        requiredDelegationConnector/1,              % providedDelegationConnector(Connector)
         requiredInterface/2,                        % requiredInterface(Role,Interface)
+        requiredRole/2,                             % requiredRole(Connector, [RequiredRole])
+        requiredRoles/2,                            % requiredRoles(Component,Roles)
+        requiringAssemblyContext/2,                 % requiringAssemblyContext(Connector, [RequiringContext])
         resourceContainer/1,                        % resourceContainer(Container)
         resourceContainer/2,                        % resourceContainer(AllocationContext,Container)
+        returnType/2,                               % returnType(Service,Type)
+        signatures/2,                               % signatures(Interface,Services)
         sharing/2,                                  % sharing(Container,[Mode]) % TODO: fix the situation where a predicate sharing/2 is also defined elsewhere
         tamperProtections/2,                        % 
         outerRequiredRole/2,                        % outerRequiredRole(Connector,ProvidedRole)
 
+	call/0,
+	return/0,
         fake_usage/0.
 
 
@@ -28,34 +51,15 @@
 % Currently unused:
 :- local
 
-        allocationContext/1,                        % allocationContext(AllocationContext)
-        assemblyConnector/1,                        % assemblyConnector(Connector)
-        assemblyContext/1,                          % assemblyContext(AssemblyContext)
-        basicComponent/1,                           % basicComponent(Component)
-        connectedResourceContainers/2,              % connectedResourceContainers(Link,[RCLeft,RCRight])
-        dataTargets/2,                              % dataSetTargets(ParametersAndDataSetsPair, Datasets),
+	collectionDataType/1,                       %
+	compositeDataType/1,                        %
 %         dataType/2,                                 % dataType(Parameter,Type)
-        encapsulatedComponent/2,                    % encapsulatedComponent(AssemblyContext,[Component])
-        innerProvidedRole/2,                        % innerProvidedRole(Connector,[InnerProvidedRole])
 %         innerRequiredRole/2,                        % innerProvidedRole(Connector,InnerRequiredRole)
-        operationProvidedRole/1,                    % operationProvidedRole(InnerProvidedRole)
-        operationRequiredRole/1,                    % operationRequiredRole(InnerRequiredRole)
-        parameters/2,                               % parameters(Service, Parameters)
         parameter/1,                                % parameter(ParameterName)
-        providedDelegationConnector/1,              % providedDelegationConnector(Connector)
-        providedRoles/2,                            % providedRoles(Component,Roles)
-        providedRole/2,                             % providedRole(Connector, [ProvidedRole]),
-        providingAssemblyContext/2,                 % providingAssemblyContext(Connector, [ProvidingContext])
-%         requiredDelegationConnector/1,              % providedDelegationConnector(Connector)
-        requiredRoles/2,                            % requiredRoles(Component,Roles)
-        requiredRole/2,                             % requiredRole(Connector, [RequiredRole])
-        requiringAssemblyContext/2,                 % requiringAssemblyContext(Connector, [RequiringContext])
 %       resourceContainer/2,                        % resourceContainer(ResourceEnvironment, Containers) TODO: this 2nd meaning  of resourceContainer/2 is currently exported from Palladio, but not used in inference rules
 %         unencryptedDataSets/2,                      % unencryptedDataSets(Link, Datasets)
-        returnType/2,                               % returnType(Service,Type)
         sizeOfParameter/1, 	                    % sizeOfParameter(SizeOfParameterName)
         sizeOf/2,                                   % sizeOf(SizeOfParameterName, ParameterName)
-        signatures/2,                               % signatures(Interface,Services)
 
 	% Constants
 	sizeOf/1,
