@@ -1,150 +1,150 @@
 
-/** BEGIN resourceEnvironment, ID: '69', NAME: 'aName' */
-resourceEnvironment(69).
-linkingResources(69,[70]).
-resourceContainer(69,[71,72]).
+/** BEGIN resourceEnvironment, ID: 'aName', NAME: 'aName' */
+resourceEnvironment(aName).
+linkingResources(aName,[61]).
+resourceContainer(aName,[62,63]).
 
-/** BEGIN linkingResource, ID: '70', NAME: 'Wireless' */
-linkingResource(70).
-connectedResourceContainers(70,[72,71]).
-communicationLinkResourceSpecifications(70,[]).
-/** END linkingResource, ID: '70', NAME: 'Wireless' */
-
-
-/** BEGIN resourceContainer, ID: '71', NAME: 'Energy Visualization' */
-resourceContainer(71).
-/** END resourceContainer, ID: '71', NAME: 'Energy Visualization' */
+/** BEGIN linkingResource, ID: '61', NAME: 'Wireless' */
+linkingResource(61).
+connectedResourceContainers(61,[63,62]).
+communicationLinkResourceSpecifications(61,[]).
+/** END linkingResource, ID: '61', NAME: 'Wireless' */
 
 
-/** BEGIN resourceContainer, ID: '72', NAME: 'Energy Meter' */
-resourceContainer(72).
-/** END resourceContainer, ID: '72', NAME: 'Energy Meter' */
-
-/** END resourceEnvironment, ID: '69', NAME: 'aName' */
+/** BEGIN resourceContainer, ID: '62', NAME: 'Energy Visualization' */
+resourceContainer(62).
+/** END resourceContainer, ID: '62', NAME: 'Energy Visualization' */
 
 
-/** BEGIN informationFlow, ID: '55', NAME: 'null' */
-parametersAndDataPairs(55,[6]).
-/** END informationFlow, ID: '55', NAME: 'null' */
+/** BEGIN resourceContainer, ID: '63', NAME: 'Energy Meter' */
+resourceContainer(63).
+/** END resourceContainer, ID: '63', NAME: 'Energy Meter' */
+
+/** END resourceEnvironment, ID: 'aName', NAME: 'aName' */
 
 
-/** BEGIN informationFlow, ID: '56', NAME: 'null' */
-parametersAndDataPairs(56,[5]).
-/** END informationFlow, ID: '56', NAME: 'null' */
+/** BEGIN informationFlow, ID: '43', NAME: 'null' */
+parametersAndDataPairs(43,[6]).
+/** END informationFlow, ID: '43', NAME: 'null' */
 
 
-/** BEGIN informationFlow, ID: '57', NAME: 'null' */
-parametersAndDataPairs(57,[7]).
-/** END informationFlow, ID: '57', NAME: 'null' */
+/** BEGIN informationFlow, ID: '44', NAME: 'null' */
+parametersAndDataPairs(44,[5]).
+/** END informationFlow, ID: '44', NAME: 'null' */
 
 
-/** BEGIN informationFlow, ID: '58', NAME: 'null' */
-parametersAndDataPairs(58,[8]).
-/** END informationFlow, ID: '58', NAME: 'null' */
+/** BEGIN informationFlow, ID: '45', NAME: 'null' */
+parametersAndDataPairs(45,[7]).
+/** END informationFlow, ID: '45', NAME: 'null' */
 
 
-/** BEGIN informationFlow, ID: '59', NAME: 'null' */
-parametersAndDataPairs(59,[9]).
-/** END informationFlow, ID: '59', NAME: 'null' */
+/** BEGIN informationFlow, ID: '50', NAME: 'null' */
+parametersAndDataPairs(50,[8]).
+/** END informationFlow, ID: '50', NAME: 'null' */
 
 
-/** BEGIN informationFlow, ID: '60', NAME: 'null' */
-parametersAndDataPairs(60,[10]).
-/** END informationFlow, ID: '60', NAME: 'null' */
+/** BEGIN informationFlow, ID: '51', NAME: 'null' */
+parametersAndDataPairs(51,[9]).
+/** END informationFlow, ID: '51', NAME: 'null' */
 
 
-/** BEGIN locationAndTamperProtection, ID: '73', NAME: 'null' */
-locationsAndTamperProtectionsPairs(73,[18]).
-/** END locationAndTamperProtection, ID: '73', NAME: 'null' */
+/** BEGIN informationFlow, ID: '52', NAME: 'null' */
+parametersAndDataPairs(52,[10]).
+/** END informationFlow, ID: '52', NAME: 'null' */
 
 
-/** BEGIN locationAndTamperProtection, ID: '74', NAME: 'null' */
-locationsAndTamperProtectionsPairs(74,[20]).
-/** END locationAndTamperProtection, ID: '74', NAME: 'null' */
+/** BEGIN locationAndTamperProtection, ID: '61', NAME: 'null' */
+locationsAndTamperProtectionsPairs(61,[18]).
+/** END locationAndTamperProtection, ID: '61', NAME: 'null' */
 
 
-/** BEGIN locationAndTamperProtection, ID: '75', NAME: 'null' */
-locationsAndTamperProtectionsPairs(75,[19]).
-/** END locationAndTamperProtection, ID: '75', NAME: 'null' */
+/** BEGIN locationAndTamperProtection, ID: '62', NAME: 'null' */
+locationsAndTamperProtectionsPairs(62,[20]).
+/** END locationAndTamperProtection, ID: '62', NAME: 'null' */
 
 
-/** BEGIN sharing, ID: '74', NAME: 'null' */
-sharing(74,[shared]).
-/** END sharing, ID: '74', NAME: 'null' */
+/** BEGIN locationAndTamperProtection, ID: '63', NAME: 'null' */
+locationsAndTamperProtectionsPairs(63,[19]).
+/** END locationAndTamperProtection, ID: '63', NAME: 'null' */
 
 
-/** BEGIN furtherPhysicalConnections, ID: '74', NAME: 'null' */
-connectionType(74,[possible]).
-/** END furtherPhysicalConnections, ID: '74', NAME: 'null' */
+/** BEGIN sharing, ID: '62', NAME: 'null' */
+sharing(62,[shared]).
+/** END sharing, ID: '62', NAME: 'null' */
 
 
-/** BEGIN furtherPhysicalConnections, ID: '75', NAME: 'null' */
-connectionType(75,[complete]).
-/** END furtherPhysicalConnections, ID: '75', NAME: 'null' */
+/** BEGIN furtherPhysicalConnections, ID: '62', NAME: 'null' */
+connectionType(62,[possible]).
+/** END furtherPhysicalConnections, ID: '62', NAME: 'null' */
 
 
-/** BEGIN sharing, ID: '75', NAME: 'null' */
-sharing(75,[exclusive]).
-/** END sharing, ID: '75', NAME: 'null' */
+/** BEGIN furtherPhysicalConnections, ID: '63', NAME: 'null' */
+connectionType(63,[complete]).
+/** END furtherPhysicalConnections, ID: '63', NAME: 'null' */
 
 
-/** BEGIN system, ID: '61', NAME: 'ExampleScenario' */
-system(61).
-assemblyContexts(61,[62,63,64]).
-connectors(61,[65,66,67]).
-providedRoles(61,[68]).
-requiredRoles(61,[]).
-
-/** BEGIN assemblyContext, ID: '62', NAME: 'Energy Visualization' */
-assemblyContext(62).
-encapsulatedComponent(62,[30]).
-/** END assemblyContext, ID: '62', NAME: 'Energy Visualization' */
+/** BEGIN sharing, ID: '63', NAME: 'null' */
+sharing(63,[exclusive]).
+/** END sharing, ID: '63', NAME: 'null' */
 
 
-/** BEGIN assemblyContext, ID: '63', NAME: 'Database' */
-assemblyContext(63).
-encapsulatedComponent(63,[32]).
-/** END assemblyContext, ID: '63', NAME: 'Database' */
+/** BEGIN system, ID: '53', NAME: 'ExampleScenario' */
+system(53).
+assemblyContexts(53,[54,55,56]).
+connectors(53,[57,58,59]).
+providedRoles(53,[60]).
+requiredRoles(53,[]).
+
+/** BEGIN assemblyContext, ID: '54', NAME: 'Energy Visualization' */
+assemblyContext(54).
+encapsulatedComponent(54,[30]).
+/** END assemblyContext, ID: '54', NAME: 'Energy Visualization' */
 
 
-/** BEGIN assemblyContext, ID: '64', NAME: 'Energy Meter Assembly Context' */
-assemblyContext(64).
-encapsulatedComponent(64,[31]).
-/** END assemblyContext, ID: '64', NAME: 'Energy Meter Assembly Context' */
+/** BEGIN assemblyContext, ID: '55', NAME: 'Database' */
+assemblyContext(55).
+encapsulatedComponent(55,[32]).
+/** END assemblyContext, ID: '55', NAME: 'Database' */
 
 
-/** BEGIN providedDelegationConnector, ID: '65', NAME: 'ProvDelegation Provided_AnInterface -> Provided_AnInterface_AComponent' */
-providedDelegationConnector(65).
-innerProvidedRole(65,[37]).
-outerProvidedRole(65,[68]).
-assemblyContext(65,[62]).
-/** END providedDelegationConnector, ID: '65', NAME: 'ProvDelegation Provided_AnInterface -> Provided_AnInterface_AComponent' */
+/** BEGIN assemblyContext, ID: '56', NAME: 'Energy Meter Assembly Context' */
+assemblyContext(56).
+encapsulatedComponent(56,[31]).
+/** END assemblyContext, ID: '56', NAME: 'Energy Meter Assembly Context' */
 
 
-/** BEGIN assemblyConnector, ID: '66', NAME: 'Connector Energy Visualization -> Database' */
-assemblyConnector(66).
-requiringAssemblyContext(66,[62]).
-providingAssemblyContext(66,[63]).
-providedRole(66,[42]).
-requiredRole(66,[38]).
-/** END assemblyConnector, ID: '66', NAME: 'Connector Energy Visualization -> Database' */
+/** BEGIN providedDelegationConnector, ID: '57', NAME: 'ProvDelegation Provided_AnInterface -> Provided_AnInterface_AComponent' */
+providedDelegationConnector(57).
+innerProvidedRole(57,[37]).
+outerProvidedRole(57,[60]).
+assemblyContext(57,[54]).
+/** END providedDelegationConnector, ID: '57', NAME: 'ProvDelegation Provided_AnInterface -> Provided_AnInterface_AComponent' */
 
 
-/** BEGIN assemblyConnector, ID: '67', NAME: 'Connector Energy Visualization -> Energy Meter Assembly Context' */
-assemblyConnector(67).
-requiringAssemblyContext(67,[62]).
-providingAssemblyContext(67,[64]).
-providedRole(67,[40]).
-requiredRole(67,[39]).
-/** END assemblyConnector, ID: '67', NAME: 'Connector Energy Visualization -> Energy Meter Assembly Context' */
+/** BEGIN assemblyConnector, ID: '58', NAME: 'Connector Energy Visualization -> Database' */
+assemblyConnector(58).
+requiringAssemblyContext(58,[54]).
+providingAssemblyContext(58,[55]).
+providedRole(58,[42]).
+requiredRole(58,[38]).
+/** END assemblyConnector, ID: '58', NAME: 'Connector Energy Visualization -> Database' */
 
 
-/** BEGIN operationProvidedRole, ID: '68', NAME: 'Provided_EnegeryVisualization' */
-operationProvidedRole(68).
-providedInterface(68,[33]).
-/** END operationProvidedRole, ID: '68', NAME: 'Provided_EnegeryVisualization' */
+/** BEGIN assemblyConnector, ID: '59', NAME: 'Connector Energy Visualization -> Energy Meter Assembly Context' */
+assemblyConnector(59).
+requiringAssemblyContext(59,[54]).
+providingAssemblyContext(59,[56]).
+providedRole(59,[40]).
+requiredRole(59,[39]).
+/** END assemblyConnector, ID: '59', NAME: 'Connector Energy Visualization -> Energy Meter Assembly Context' */
 
-/** END system, ID: '61', NAME: 'ExampleScenario' */
+
+/** BEGIN operationProvidedRole, ID: '60', NAME: 'Provided_EnegeryVisualization' */
+operationProvidedRole(60).
+providedInterface(60,[33]).
+/** END operationProvidedRole, ID: '60', NAME: 'Provided_EnegeryVisualization' */
+
+/** END system, ID: '53', NAME: 'ExampleScenario' */
 
 
 /** BEGIN confidentialitySpecification, ID: '1', NAME: 'paper example confidentiality specification' */
@@ -304,31 +304,31 @@ locationsAndTamperProtectionsPairs(28,[17]).
 /** END adversaries, ID: '25', NAME: 'paper example adversaries' */
 
 
-/** BEGIN allocation, ID: '76', NAME: 'defaultAllocation' */
-allocation(76).
-allocationContexts(76,[77,78,79]).
+/** BEGIN allocation, ID: '64', NAME: 'defaultAllocation' */
+allocation(64).
+allocationContexts(64,[65,66,67]).
 
-/** BEGIN allocationContext, ID: '77', NAME: 'Allocation_Energy Visualization' */
-allocationContext(77).
-resourceContainer(77,[71]).
-assemblyContext_AllocationContext(77,[62]).
-/** END allocationContext, ID: '77', NAME: 'Allocation_Energy Visualization' */
-
-
-/** BEGIN allocationContext, ID: '78', NAME: 'Allocation_Database <DBMS>' */
-allocationContext(78).
-resourceContainer(78,[71]).
-assemblyContext_AllocationContext(78,[63]).
-/** END allocationContext, ID: '78', NAME: 'Allocation_Database <DBMS>' */
+/** BEGIN allocationContext, ID: '65', NAME: 'Allocation_Energy Visualization' */
+allocationContext(65).
+resourceContainer(65,[62]).
+assemblyContext_AllocationContext(65,[54]).
+/** END allocationContext, ID: '65', NAME: 'Allocation_Energy Visualization' */
 
 
-/** BEGIN allocationContext, ID: '79', NAME: 'Allocation_Energy Meter' */
-allocationContext(79).
-resourceContainer(79,[72]).
-assemblyContext_AllocationContext(79,[64]).
-/** END allocationContext, ID: '79', NAME: 'Allocation_Energy Meter' */
+/** BEGIN allocationContext, ID: '66', NAME: 'Allocation_Database <DBMS>' */
+allocationContext(66).
+resourceContainer(66,[62]).
+assemblyContext_AllocationContext(66,[55]).
+/** END allocationContext, ID: '66', NAME: 'Allocation_Database <DBMS>' */
 
-/** END allocation, ID: '76', NAME: 'defaultAllocation' */
+
+/** BEGIN allocationContext, ID: '67', NAME: 'Allocation_Energy Meter' */
+allocationContext(67).
+resourceContainer(67,[63]).
+assemblyContext_AllocationContext(67,[56]).
+/** END allocationContext, ID: '67', NAME: 'Allocation_Energy Meter' */
+
+/** END allocation, ID: '64', NAME: 'defaultAllocation' */
 
 
 /** BEGIN repository, ID: '29', NAME: 'defaultRepository' */
@@ -401,7 +401,7 @@ signatures(33,[43]).
 /** BEGIN operationSignature, ID: '43', NAME: 'drawEnergyConsumptionGraph' */
 operationSignature(43).
 parameters(43,[]).
-returnType(43,[44]).
+returnType(43,["INT"]).
 /** END operationSignature, ID: '43', NAME: 'drawEnergyConsumptionGraph' */
 
 /** END operationInterface, ID: '33', NAME: 'EnergyVisualization' */
@@ -410,48 +410,48 @@ returnType(43,[44]).
 /** BEGIN operationInterface, ID: '34', NAME: 'DatabaseInterface' */
 operationInterface(34).
 parentInterfaces(34,[]).
-signatures(34,[45,46]).
+signatures(34,[44,45]).
 
-/** BEGIN operationSignature, ID: '45', NAME: 'getValues' */
+/** BEGIN operationSignature, ID: '44', NAME: 'getValues' */
+operationSignature(44).
+parameters(44,[start,end]).
+returnType(44,["STRING"]).
+
+/** BEGIN parameter, ID: 'start', NAME: 'start' */
+parameter(start).
+/** END parameter, ID: 'start', NAME: 'start' */
+
+sizeOfParameter(46).
+sizeOf(46,start).
+
+/** BEGIN parameter, ID: 'end', NAME: 'end' */
+parameter(end).
+/** END parameter, ID: 'end', NAME: 'end' */
+
+sizeOfParameter(47).
+sizeOf(47,end).
+/** END operationSignature, ID: '44', NAME: 'getValues' */
+
+
+/** BEGIN operationSignature, ID: '45', NAME: 'storeValue' */
 operationSignature(45).
-parameters(45,[21,22]).
-returnType(45,[47]).
+parameters(45,[timestamp,value]).
+returnType(45,[]).
 
-/** BEGIN parameter, ID: '21', NAME: 'start' */
-parameter(21).
-/** END parameter, ID: '21', NAME: 'start' */
+/** BEGIN parameter, ID: 'timestamp', NAME: 'timestamp' */
+parameter(timestamp).
+/** END parameter, ID: 'timestamp', NAME: 'timestamp' */
 
 sizeOfParameter(48).
-sizeOf(48,21).
+sizeOf(48,timestamp).
 
-/** BEGIN parameter, ID: '22', NAME: 'end' */
-parameter(22).
-/** END parameter, ID: '22', NAME: 'end' */
+/** BEGIN parameter, ID: 'value', NAME: 'value' */
+parameter(value).
+/** END parameter, ID: 'value', NAME: 'value' */
 
 sizeOfParameter(49).
-sizeOf(49,22).
-/** END operationSignature, ID: '45', NAME: 'getValues' */
-
-
-/** BEGIN operationSignature, ID: '46', NAME: 'storeValue' */
-operationSignature(46).
-parameters(46,[23,24]).
-returnType(46,[]).
-
-/** BEGIN parameter, ID: '23', NAME: 'timestamp' */
-parameter(23).
-/** END parameter, ID: '23', NAME: 'timestamp' */
-
-sizeOfParameter(50).
-sizeOf(50,23).
-
-/** BEGIN parameter, ID: '24', NAME: 'value' */
-parameter(24).
-/** END parameter, ID: '24', NAME: 'value' */
-
-sizeOfParameter(51).
-sizeOf(51,24).
-/** END operationSignature, ID: '46', NAME: 'storeValue' */
+sizeOf(49,value).
+/** END operationSignature, ID: '45', NAME: 'storeValue' */
 
 /** END operationInterface, ID: '34', NAME: 'DatabaseInterface' */
 
@@ -459,20 +459,20 @@ sizeOf(51,24).
 /** BEGIN operationInterface, ID: '35', NAME: 'EnergyMeasurement' */
 operationInterface(35).
 parentInterfaces(35,[]).
-signatures(35,[52,53]).
+signatures(35,[50,51]).
 
-/** BEGIN operationSignature, ID: '52', NAME: 'getEnergyValue' */
-operationSignature(52).
-parameters(52,[]).
-returnType(52,[44]).
-/** END operationSignature, ID: '52', NAME: 'getEnergyValue' */
+/** BEGIN operationSignature, ID: '50', NAME: 'getEnergyValue' */
+operationSignature(50).
+parameters(50,[]).
+returnType(50,["INT"]).
+/** END operationSignature, ID: '50', NAME: 'getEnergyValue' */
 
 
-/** BEGIN operationSignature, ID: '53', NAME: 'getCustomerId' */
-operationSignature(53).
-parameters(53,[]).
-returnType(53,[44]).
-/** END operationSignature, ID: '53', NAME: 'getCustomerId' */
+/** BEGIN operationSignature, ID: '51', NAME: 'getCustomerId' */
+operationSignature(51).
+parameters(51,[]).
+returnType(51,["INT"]).
+/** END operationSignature, ID: '51', NAME: 'getCustomerId' */
 
 /** END operationInterface, ID: '35', NAME: 'EnergyMeasurement' */
 
@@ -480,20 +480,20 @@ returnType(53,[44]).
 /** BEGIN operationInterface, ID: '36', NAME: 'MeasurementAcquisition' */
 operationInterface(36).
 parentInterfaces(36,[]).
-signatures(36,[54]).
+signatures(36,[52]).
 
-/** BEGIN operationSignature, ID: '54', NAME: 'setEnergyValue' */
-operationSignature(54).
-parameters(54,[24]).
-returnType(54,[]).
+/** BEGIN operationSignature, ID: '52', NAME: 'setEnergyValue' */
+operationSignature(52).
+parameters(52,[value]).
+returnType(52,[]).
 
-/** BEGIN parameter, ID: '24', NAME: 'value' */
-parameter(24).
-/** END parameter, ID: '24', NAME: 'value' */
+/** BEGIN parameter, ID: 'value', NAME: 'value' */
+parameter(value).
+/** END parameter, ID: 'value', NAME: 'value' */
 
-sizeOfParameter(51).
-sizeOf(51,24).
-/** END operationSignature, ID: '54', NAME: 'setEnergyValue' */
+sizeOfParameter(49).
+sizeOf(49,value).
+/** END operationSignature, ID: '52', NAME: 'setEnergyValue' */
 
 /** END operationInterface, ID: '36', NAME: 'MeasurementAcquisition' */
 
