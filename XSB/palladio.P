@@ -1,8 +1,8 @@
 % BEGIN EXPORTS
 :- export  % Predicates
-           providedInterfacesOn/2,
-           requiredInterfacesOn/2,
-           interfacesOn/2,
+           providedInterfacesOn/3,
+           requiredInterfacesOn/3,
+           interfacesOn/3,
            parametersOf/2,
 
            % Enumerators
@@ -27,30 +27,30 @@
            from componentRepositoryInstance.
 % END IMPORTS
 
-justify_pred(providedInterfacesOn(_,_)).
-justify_pred(requiredInterfacesOn(_,_)).
-justify_pred(interfacesOn(_,_)).
+justify_pred(providedInterfacesOn(_,_,_)).
+justify_pred(requiredInterfacesOn(_,_,_)).
+justify_pred(interfacesOn(_,_,_)).
 justify_pred(parametersOf(_,_)).
 justify_pred(providedInterfaces(_)).
 justify_pred(requiredInterfaces(_)).
 
-providedInterfacesOn(Container,Interface) :-
+providedInterfacesOn(Container,Interface,AssemblyContext) :-
         system(AssemblyContext),
         runsOn(AssemblyContext,Container),
         componentOf(AssemblyContext,Component),
         provides(Component,Interface).
 
-requiredInterfacesOn(Container,Interface) :-
+requiredInterfacesOn(Container,Interface,AssemblyContext) :-
         system(AssemblyContext),
         runsOn(AssemblyContext,Container),
         componentOf(AssemblyContext,Component),
         requires(Component,Interface).
 
 
-interfacesOn(Container,Interface) :-
-        requiredInterfacesOn(Container,Interface).
-interfacesOn(Container,Interface) :-
-        providedInterfacesOn(Container,Interface).
+interfacesOn(Container,Interface,Context) :-
+        requiredInterfacesOn(Container,Interface,Context).
+interfacesOn(Container,Interface,Context) :-
+        providedInterfacesOn(Container,Interface,Context).
 
 
 parametersOf(Service, Parameter) :-

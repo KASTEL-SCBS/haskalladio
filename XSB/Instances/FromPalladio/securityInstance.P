@@ -1,7 +1,8 @@
 % BEGIN IMPORTS
 :- import  none/0
            from security.
-:- import  return/1
+:- import  return/1,
+	   interfacesOn/3
            from palladio.
 :- import  member/2
            from lists.
@@ -28,19 +29,23 @@
            linkingResource/1,
            sharing/2,
            dataSet/1,
+	   connectorSpecificParametersAndDataPairs/2,
+           requiringAssemblyContext/2,
+	   providingAssemblyContext/2,
 
 	   call/0,
 	   return/0
            from fromPalladio.
 
 :- import  returnParameter/2,
+	   hasService/2,
            hasParameter/2
            from componentRepositoryInstance.
 % END IMPORTS
 
 justify_pred(mayknow(_,_)).
-justify_pred(includes(_,_)).
-justify_pred(includesCall(_,_)).
+justify_pred(includes(_,_,_)).
+justify_pred(includesCall(_,_,_)).
 justify_pred(tamperingAbilities(_,_,_)).
 justify_pred(locationsAccessibleBy(_,_)).
 justify_pred(furtherConnections(_,_)).
@@ -77,10 +82,13 @@ mayknow(Attacker,Dataset) :-
         mayKnowData(Attacker, Datasets),
         member(Dataset, Datasets).
 
+% First: non-connection-specific paramatersAndDataPairs
 % cases such as: parameterSources(6,[..,x,..]).
 %    as well as: parameterSources(6,[..,sizeOf(x),..]).
-includes(parm(Service,ParameterName), Dataset) :-
+includes(parm(Service,ParameterName), Dataset, Context) :-
         hasParameter(Service, parm(Service,ParameterName)),
+	hasService(Interface,Service),
+	interfacesOn(_Container,Interface,Context),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
@@ -89,8 +97,10 @@ includes(parm(Service,ParameterName), Dataset) :-
         member(Dataset, Datasets).
 
 % cases such as: parameterSources(6,[..,*,..]).
-includes(parm(Service,ParameterName), Dataset) :-
+includes(parm(Service,ParameterName), Dataset, Context) :-
         hasParameter(Service, parm(Service,ParameterName)),
+	hasService(Interface,Service),
+	interfacesOn(_Container,Interface,Context),
 	not(ParameterName=sizeOf(_)),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
@@ -100,8 +110,10 @@ includes(parm(Service,ParameterName), Dataset) :-
         member(Dataset, Datasets).
 
 % cases such as: parameterSources(6,[..,sizeOf(*),..]).
-includes(parm(Service,sizeOf(ParameterName)), Dataset) :-
+includes(parm(Service,sizeOf(ParameterName)), Dataset,Context) :-
         hasParameter(Service, parm(Service,sizeOf(ParameterName))),
+	hasService(Interface,Service),
+	interfacesOn(_Container,Interface,Context),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
@@ -111,8 +123,10 @@ includes(parm(Service,sizeOf(ParameterName)), Dataset) :-
 
 
 
-includes(return(Service), Dataset) :-
+includes(return(Service), Dataset, Context) :-
         returnParameter(Service, return(Service)),
+	hasService(Interface,Service),
+	interfacesOn(_Container,Interface,Context),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
@@ -121,13 +135,95 @@ includes(return(Service), Dataset) :-
         member(Dataset, Datasets).
 
 % TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
-includesCall(Service, Dataset) :-
+includesCall(Service, Dataset,Context) :-
+        hasService(Interface,Service),
+        interfacesOn(_Container,Interface,Context),
+
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
         member(call, ParameterNames),
         dataTargets(Pair, Datasets),
         member(Dataset, Datasets).
+
+
+
+contextOfConnector(Connector, Context) :- requiringAssemblyContext(Connector,[Context]).
+contextOfConnector(Connector, Context) :- providingAssemblyContext(Connector,[Context]).
+
+% 2nd: connection-specific paramatersAndDataPairs
+% cases such as: parameterSources(6,[..,x,..]).
+%    as well as: parameterSources(6,[..,sizeOf(x),..]).
+includes(parm(Service,ParameterName), Dataset, Context) :-
+        hasParameter(Service, parm(Service,ParameterName)),
+        hasService(Interface,Service),
+	interfacesOn(_Container, Interface, Context),
+        connectorSpecificParametersAndDataPairs(Connector,Pairs),
+	contextOfConnector(Connector, Context),
+        member(Pair, Pairs),
+        parameterSources(Pair,ParameterNames),
+        member(ParameterName, ParameterNames),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets).
+
+% cases such as: parameterSources(6,[..,*,..]).
+includes(parm(Service,ParameterName), Dataset, Context) :-
+        hasParameter(Service, parm(Service,ParameterName)),
+	hasService(Interface,Service),
+	interfacesOn(_Container,Interface,Context),
+        connectorSpecificParametersAndDataPairs(Connector,Pairs),
+	contextOfConnector(Connector, Context),
+	not(ParameterName=sizeOf(_)),
+        member(Pair, Pairs),
+        parameterSources(Pair,ParameterNames),
+        member(*, ParameterNames),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets).
+
+% cases such as: parameterSources(6,[..,sizeOf(*),..]).
+includes(parm(Service,sizeOf(ParameterName)), Dataset,Context) :-
+        hasParameter(Service, parm(Service,sizeOf(ParameterName))),
+	hasService(Interface,Service),
+	interfacesOn(_Container,Interface,Context),
+        connectorSpecificParametersAndDataPairs(Connector,Pairs),
+	contextOfConnector(Connector, Context),
+        member(Pair, Pairs),
+        parameterSources(Pair,ParameterNames),
+        member(sizeOf(*), ParameterNames),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets).
+
+
+
+includes(return(Service), Dataset, Context) :-
+        returnParameter(Service, return(Service)),
+	hasService(Interface,Service),
+	interfacesOn(_Container,Interface,Context),
+        connectorSpecificParametersAndDataPairs(Connector,Pairs),
+	contextOfConnector(Connector, Context),
+        member(Pair, Pairs),
+        parameterSources(Pair,ParameterNames),
+        member(return, ParameterNames),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets).
+
+% TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
+includesCall(Service, Dataset,Context) :-
+        hasService(Interface,Service),
+        interfacesOn(_Container,Interface,Context),
+
+        parametersAndDataPairs(Service, Pairs),
+        member(Pair, Pairs),
+        parameterSources(Pair,ParameterNames),
+        member(call, ParameterNames),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets).
+
+
+
+
+
+
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
 tamperingAbilities(Attacker, Location, TamperProtection) :-

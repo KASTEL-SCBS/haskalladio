@@ -8,6 +8,7 @@
         basicComponent/1,                           % basicComponent(Component)
         connectionType/2,                           % connectionType(Container,[Mode])
         connectedResourceContainers/2,              % connectedResourceContainers(Link,[RCLeft,RCRight])
+        connectorSpecificParametersAndDataPairs/2,  % connectorSpecificParametersAndDataPairs(AssemblyConnector,ParametersAndDataPair)
         dataSet/1,                                  % dataSet(Dataset)
         dataSetMapEntry/1,                          % dataSetMapEntry(DatasetMapEntry)
         dataTargets/2,                              % dataTargets(ParametersAndDataSetsPair, Datasets),
@@ -40,6 +41,7 @@
         signatures/2,                               % signatures(Interface,Services)
         sharing/2,                                  % sharing(Container,[Mode]) % TODO: fix the situation where a predicate sharing/2 is also defined elsewhere
         tamperProtections/2,                        % 
+        unencryptedDataSets/2,                      % unencryptedDataSets(Link, Datasets)
         outerRequiredRole/2,                        % outerRequiredRole(Connector,ProvidedRole)
 
 	call/0,
@@ -57,7 +59,6 @@
 %         innerRequiredRole/2,                        % innerProvidedRole(Connector,InnerRequiredRole)
         parameter/1,                                % parameter(ParameterName)
 %       resourceContainer/2,                        % resourceContainer(ResourceEnvironment, Containers) TODO: this 2nd meaning  of resourceContainer/2 is currently exported from Palladio, but not used in inference rules
-%         unencryptedDataSets/2,                      % unencryptedDataSets(Link, Datasets)
         sizeOfParameter/1, 	                    % sizeOfParameter(SizeOfParameterName)
         sizeOf/2,                                   % sizeOf(SizeOfParameterName, ParameterName)
 
@@ -75,7 +76,6 @@
         communicationLinkResourceSpecifications/2,
         components/2,
         connectors/2,
-        connectorSpecificParametersAndDataPairs/2,  % connectorSpecificParametersAndDataPairs(AssemblyConnector,ParametersAndDataPair)
         interfaces/2,
         linkingResources/2,
         locationsAndTamperProtectionsPair/1,

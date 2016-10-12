@@ -1,8 +1,8 @@
 :- export  % Predicates
            uiInterfaceOn/2,                         % uiInterfaceOn(ResourceContainer,Interface)
            mayknow/2,             % mayknow(Attacker,DataSet)
-           includes/2,                      % includes(Parameter,DataSet)
-           includesCall/2,                  % includesCall(Service,DataSet m)
+           includes/3,                      % includes(Parameter,DataSet)
+           includesCall/3,                  % includesCall(Service,DataSet m)
 
            tamperingAbilities/3,                    % tamperingAbilities(Attacker,Location,TamperingAbility)
            locationsAccessibleBy/2,                 % locationsAccessibleBy(Attacker,Location)

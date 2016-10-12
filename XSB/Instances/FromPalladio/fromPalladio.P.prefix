@@ -16,6 +16,10 @@ requiredDelegationConnector(_) :- fail.
 dataSetMapEntry(_) :- fail.
 sharing(_,_) :- fail. % see "default-rule" for sharingOf/2 in Instances/FromPalladio/securityInstance.P
 dataSetMap(_) :- fail.
+map(_,_) :- fail.
+compositeDataType(_) :- fail.
+connectorSpecificParametersAndDataPairs(_,_) :- fail.
+collectionDataType(_) :- fail.
 
 % Suppress warnings wrt unused predicates:
 fake_usage :-
@@ -28,7 +32,6 @@ fake_usage :-
         components(_,_),
 	collectionDataType(_),
         confidentialitySpecification(_),
-        connectorSpecificParametersAndDataPairs(_,_),
         connectors(_,_),
 	compositeDataType(_),
         dataIdentifier(_,_),
@@ -50,7 +53,6 @@ fake_usage :-
         sizeOfParameter(_),
         system(_),
         tamperProtection(_),
-        unencryptedDataSets(_,_),
 
         shared = shared, exclusive = exclusive,
         possible = possible, existing = existing, complete = complete,
