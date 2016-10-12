@@ -12,6 +12,7 @@
         dataSet/1,                                  % dataSet(Dataset)
         dataSetMapEntry/1,                          % dataSetMapEntry(DatasetMapEntry)
         dataTargets/2,                              % dataTargets(ParametersAndDataSetsPair, Datasets),
+	description/2,
         encapsulatedComponent/2,                    % encapsulatedComponent(AssemblyContext,[Component])
         innerProvidedRole/2,                        % innerProvidedRole(Connector,[InnerProvidedRole])
         linkingResource/1,                          % linkingResource(LinkingResource)

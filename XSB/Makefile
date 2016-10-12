@@ -29,7 +29,7 @@ RUNGHC=runghc
 
 # These shouldn't need to be changed
 FROMPALLADIO_PREFIX=Instances/FromPalladio/fromPalladio.P.prefix
-INSTANCE_SYMLINKS=componentRepositoryInstance.P palladioInstance.P securityInstance.P simpleLinkModelInstance.P
+INSTANCE_SYMLINKS=componentRepositoryInstance.P palladioInstance.P securityInstance.P simpleLinkModelInstance.P descriptionInstance.P
 LINKMODEL_SYMLINK=linkModel.P
 FROMPALLADIO=fromPalladio.P
 SOURCES=$(INSTANCE_SYMLINKS) $(LINKMODEL_SYMLINK) $(FROMPALLADIO) abstractAnalysis.P  queries.P  security.P palladio.P
