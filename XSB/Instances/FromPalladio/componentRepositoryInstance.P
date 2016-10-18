@@ -6,6 +6,7 @@
            providedRoles/2,
            basicComponent/1,
            parameters/2,
+	   serviceParameters/2,
            signatures/2,
            requiredInterface/2,
            requiredRoles/2
@@ -34,6 +35,19 @@ hasParameter(Service,parm(Service,sizeOf(ParameterName))) :-
         % operationSignature(Service),
         parameters(Service, Parameters),
         member(ParameterName, Parameters).
+
+hasParameter(Service,parm(Service,ServiceParamaterName)) :-
+	serviceParameters(Interface,ServiceParamaterNames),
+	member(ServiceParamaterName,ServiceParamaterNames),
+	hasService(Interface,Service).
+
+hasParameter(Service,parm(Service,sizeOf(ServiceParamaterName))) :-
+	serviceParameters(Interface,ServiceParamaterNames),
+	member(ServiceParamaterName,ServiceParamaterNames),
+	hasService(Interface,Service).
+
+
+
 
 
 returnParameter(Service,return(Service)) :-

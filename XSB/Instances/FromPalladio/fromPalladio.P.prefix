@@ -23,6 +23,8 @@ collectionDataType(_) :- fail.
 
 % Suppress warnings wrt unused predicates:
 fake_usage :-
+        addedServiceParameter(_),                    % addedServiceParameter(ServiceParamater)
+        addedServiceParameters(_,_),
         adversaries(_),
         adversaries(_,_),
         allocation(_),

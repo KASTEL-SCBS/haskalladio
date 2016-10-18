@@ -38,7 +38,8 @@
         requiringAssemblyContext/2,                 % requiringAssemblyContext(Connector, [RequiringContext])
         resourceContainer/1,                        % resourceContainer(Container)
         resourceContainer/2,                        % resourceContainer(AllocationContext,Container)
-        returnType/2,                               % returnType(Service,Type)
+        returnType/2,	                            % returnType(Service,Type)
+	serviceParameters/2,                        % serviceParameters(Interface,ServiceParameters)
         signatures/2,                               % signatures(Interface,Services)
         sharing/2,                                  % sharing(Container,[Mode]) % TODO: fix the situation where a predicate sharing/2 is also defined elsewhere
         tamperProtections/2,                        % 
@@ -53,7 +54,8 @@
 
 % Currently unused:
 :- local
-
+        addedServiceParameter/1,                    % addedServiceParameter(ServiceParamater)
+        addedServiceParameters/2,
 	collectionDataType/1,                       %
 	compositeDataType/1,                        %
 %         dataType/2,                                 % dataType(Parameter,Type)

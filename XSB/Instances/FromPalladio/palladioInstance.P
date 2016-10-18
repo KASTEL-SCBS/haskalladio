@@ -84,7 +84,8 @@ systemRequiredAssembledTo(Interface, Context) :-
 
 
 runsOn(AssemblyContext, ResourceContainer) :-
-        allocationContext(AllocationContext), % TODO: likely reduntant
+        allocationContext(AllocationContext),
+	resourceContainer(ResourceContainer),
         resourceContainer(AllocationContext,[ResourceContainer]),
         assemblyContext_AllocationContext(AllocationContext,[AssemblyContext]).
 
