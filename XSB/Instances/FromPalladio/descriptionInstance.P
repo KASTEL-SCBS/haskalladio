@@ -1,0 +1,7 @@
+% BEGIN IMPORTS
+:- import  description/2
+           from fromPalladio.
+% END IMPORTS
+
+
+itemDescription(Item,Desc) :- description(Item,Desc), Desc \= 'null'.
