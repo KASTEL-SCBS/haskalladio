@@ -8,8 +8,8 @@ LINKMODEL=simpleLinkModel.P
 # otherwise, use FROMPALLADIO=Instances/FromPalladio/empty.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.minimalexample/src-gen/fromPalladio.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.paperexample/src-gen/fromPalladio.P
-# FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.cloudscenario/src-gen/fromPalladio.P
-FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.minimalcloud/src-gen/fromPalladio.P
+FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.cloudscenario/src-gen/fromPalladio.P
+# FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.minimalcloud/src-gen/fromPalladio.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.travelplanner/src-gen/default.all_in_one.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.iflowexample/src-gen/fromPalladio.P
 # FROMPALLADIO_FACTS=Instances/FromPalladio/edu.kit.kastel.scbs.iflowexample-simonsdatasetsinterpretation/src-gen/fromPalladio.P
@@ -34,7 +34,7 @@ FROMPALLADIO=fromPalladio.P
 SOURCES=$(INSTANCE_SYMLINKS) $(LINKMODEL_SYMLINK) $(FROMPALLADIO) abstractAnalysis.P  queries.P  security.P palladio.P
 XWAMS=$(SOURCES:.P=.xwam)
 
-.PHONY: clean clean-xwam test-queries-justify force queries.result default dist symlinks
+.PHONY: clean clean-xwam test test-queries-justify force queries.result default dist symlinks
 
 default: queries-justify.result.pretty
 
@@ -73,6 +73,11 @@ queries-justify.result: all_jxm.xwam all.xwam
 
 test-queries-justify: all_jxm.xwam all.xwam
 	rlwrap $(XSB) -e "[basics],[all_jxm],[all]."
+
+test: clean symlinks
+	rlwrap $(XSB) -e "[basics],[security],[securityInstance], [palladio], [componentRepositoryInstance], [abstractAnalysis],[descriptionInstance],[util],[fromPalladio]."
+
+
 
 all.P : $(SOURCES)
 	cat $^ | awk '/% BEGIN IMPORTS/{ignore=1}/% BEGIN EXPORTS/{ignore=1}{if (ignore==0) print }/% END IMPORTS/{ignore=0}/% END EXPORTS/{ignore=0};' > $@

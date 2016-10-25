@@ -22,6 +22,7 @@
         mayKnowData/2,                              % mayKnowData(Attacker, Datasets)
         operationProvidedRole/1,                    % operationProvidedRole(InnerProvidedRole)
         operationRequiredRole/1,                    % operationRequiredRole(InnerRequiredRole)
+	originalParametersAndDataPair/2,            % originalParametersAndDataPair(ConnectorSpecificPair, OriginalPair)
         outerProvidedRole/2,                        % outerProvidedRole(Connector,[OuterProvidedRole])
         parameters/2,                               % parameters(Service, Parameters)
         parameterSources/2,                         % parameterSources(Pair,ParameterNames)
