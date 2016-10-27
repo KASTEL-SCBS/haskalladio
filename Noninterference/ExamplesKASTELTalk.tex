@@ -109,9 +109,21 @@
 \titlepage
 \end{frame}
 
+\begin{frame}{Weiterverwendung von IFC-Spez.}
+\begin{center}
+\begin{minipage}{8cm}
+  \includegraphics[width=\columnwidth]{img/IoE_UP_7_1_Evolution_36.pdf}
+  \begin{itemize}
+    \item \enquote{Wir glauben, dass das geht}
+    \item Ja!
+  \end{itemize}
+\end{minipage}
+\end{center}
+\end{frame}
+
 \include{KASTELTalk-examples-include}
 
-\begin{frame}[fragile,t]{Interpretationen}
+\begin{frame}[fragile,t]{Meta-Modell}
 
 \begin{overprint}
 \providecommand{\exheight}{4cm}
@@ -156,7 +168,7 @@ data Component p = Component {
 \end{minipage}
 \begin{minipage}[t]{6cm}
 \begin{itemize}
-  \item Erweiterungen: Services
+  \item Erweiterungen: Dienste, Interfaces,
 \end{itemize}
 \end{minipage}
 \onslide<2>
@@ -194,7 +206,8 @@ secure ⇔ (∀) input (\i ->  (∀) output (\o ->
 \end{verbatim}
 \end{minipage}
 \begin{itemize}
-  \item $\approx$ non-interference mit Teilmengenverband \texttt{𝒫(datasets),⊆}
+  \item $\approx$ non-interference mit Teilmengenverband \hfill ($\mathcal{P}$\texttt{(datasets),⊆})
+  \item Alles ginge analog für \hfill ($\mathcal{P}$\texttt{(datasets),⊇})
 \end{itemize}
 \onslide<5>
 \begin{center}
@@ -388,28 +401,28 @@ impl ⊑ impl' ⇔
 \providecommand{\exheight}{2.1cm}
 \begin{overprint}
 \onslide<1,2>
-\kit{Bestehende Komponente:} eingekauft,  generisch, 100.000€
+\kit{Bestehende Komponente:} eingekauft,  generisch, 20.000€
 \begin{center}
   \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpec}}
   \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
 \end{center}
 
 \onslide<3>
-\kit{Andere Komponente:} eingekauft,  generisch, 200.000€
+\kit{Andere Komponente:} eingekauft,  generisch, 100.000€
 \begin{center}
   \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleTwoWithSpec}}
   \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
 \end{center}
 
 \onslide<4>
-\kit{Andere Komponente:} eingekauft,  generisch, 200.000€
+\kit{Andere Komponente:} eingekauft,  generisch, 100.000€
 \begin{center}
   \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleTwoGammaWithSpec}}
   \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
 \end{center}
 
 \onslide<5>
-\kit{Bestehende Komponente:} eingekauft,  generisch, 100.000€
+\kit{Bestehende Komponente:} eingekauft,  generisch, 20.000€
 \begin{center}
   \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpec}}
   \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
@@ -438,7 +451,7 @@ impl ⊑ impl' ⇔
 \onslide<3>
 \begin{center}
   \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleTwoWithSpecGrob}}
-  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/questionmark.pdf}}
 \end{center}
 
 \onslide<4>
