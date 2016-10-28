@@ -62,8 +62,3 @@ instance (Show p, Show d, Ord p, Ord d, Enumerable p) =>  Show (Specification p 
 \end{code}
 
 %endif
-
--- \begin{code}
--- datasets :: (Ord d, Ord p) => SpecificationProcedure p d -> Set d
--- datasets (Component { input, output, includes, influences}) = S.fromList [ d | p <- S.toList $ output ∪ input, d <- S.toList $ includes p]
--- \end{code}

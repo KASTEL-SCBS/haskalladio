@@ -99,7 +99,7 @@ toTikzComplete pr impl sp = unlines [
   ]
 
 
-showProcedure pr impl sp = do
+showComponent pr impl sp = do
   let tex = toTikzComplete pr impl sp
   randomInt <- getStdRandom (randomR (1,65536)) :: IO Int
   let file = "tmpfile" ++ (show randomInt)
