@@ -1,7 +1,7 @@
 %if False
 \begin{code}
 {-# LANGUAGE NamedFieldPuns #-}
-module Noninterference.Procedure where
+module Noninterference.Component where
 
 import Noninterference.Util
 
@@ -12,10 +12,10 @@ import Data.Set.Unicode
 \end{code}
 %endif
 
-A Component `pr :: Component p`  is described by
+A Component `co :: Component p`  is described by
 
-* `input  pr:     ` the set of input  parameters (of type `p`)
-* `output pr:     ` the set of output parameters (of type `p`)
+* `input  co:     ` the set of input  parameters (of type `p`)
+* `output co:     ` the set of output parameters (of type `p`)
 \begin{code}
 data Component p = Component {
     input :: Set p,
@@ -23,20 +23,20 @@ data Component p = Component {
   }
 \end{code}
 
-A Component `pr` can have implementations `impl :: Implementation `, which are described by
+A Component `co` can have implementations `impl`, which are described by
 
-* `influences impl: ` the set of output-parameters `pr` may influence, which is our simplified idea of the procedures implementation
+* `influences impl: ` the set of output-parameters `co` may influence, which is our simplified idea of the components implementation
 \begin{code}
 data Implementation p = Implementation {
     influences :: p ->  (Set p)
   }
 \end{code}
 
-A Component `pr` can have information-flow specifications `sp`, which consists of
+A Component `co` can have information-flow specifications `sp`, which consists of
 
-* `includes   sp: ` the procedures parameter classifcation, as set of datasets (of type `d`)
+* `includes   sp: ` the components parameter classifcation, as set of datasets (of type `d`)
 
-which may or may not be fullfilled by an implementation `impl` of `pr` the implementation `influences`.
+which may or may not be fullfilled by an implementation `impl` of `co` the implementation `influences`.
 \begin{code}
 data Specification p d = Specification {
     includes :: p -> (Set d),
@@ -50,7 +50,7 @@ data Specification p d = Specification {
 \begin{code}
 instance (Show p, Ord p, Enumerable p) =>  Show (Component p) where
   show (Component { input, output }) =
-    "Procedure { input = " ++ (show input) ++ ", output = " ++ (show output) ++  " }"
+    "Component { input = " ++ (show input) ++ ", output = " ++ (show output) ++  " }"
 
 instance (Show p, Ord p, Enumerable p) =>  Show (Implementation p) where
   show (Implementation { influences }) =

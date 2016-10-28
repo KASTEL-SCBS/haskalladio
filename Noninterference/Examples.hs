@@ -3,7 +3,7 @@ import Unicode
 import qualified Noninterference        as NI
 import qualified NoninterferenceGreiner as NIG
 import Noninterference.Util
-import Noninterference.Procedure
+import Noninterference.Component
 import Noninterference.Comparison
 
 import Data.Set as S
@@ -39,12 +39,12 @@ main = forM_ [(example1, example1Impl, example1Spec),
               (example5, example5Impl, example5Spec),
               (example6, example6Impl, example6Spec)
             ]
-        (\(pr,impl,sp) -> putStrLn $ toLatex pr impl sp)
+        (\(co,impl,sp) -> putStrLn $ toLatex co impl sp)
 
 
 
 toLatex :: Component Parameter -> Implementation Parameter -> Specification Parameter Datasets -> String
-toLatex pr@(Component { input, output }) impl@(Implementation { influences }) sp@(Specification { includes })
+toLatex co@(Component { input, output }) impl@(Implementation { influences }) sp@(Specification { includes })
   | output /= S.fromList [Return] = error "rofl"
   | otherwise          =
     unlines [
@@ -69,8 +69,8 @@ toLatex pr@(Component { input, output }) impl@(Implementation { influences }) sp
     ] ++ unlines [
      "\\sicherunsicher",
      "",
-     "\\securewrt{i }{" ++ (if (NI.secure  NI.key  pr impl sp) then "\\CheckedBox" else "\\Square") ++ "}",
-     "\\securewrt{ii}{" ++ (if (NIG.secure NIG.key pr impl sp) then "\\CheckedBox" else "\\Square") ++ "}",
+     "\\securewrt{i }{" ++ (if (NI.secure  NI.key  co impl sp) then "\\CheckedBox" else "\\Square") ++ "}",
+     "\\securewrt{ii}{" ++ (if (NIG.secure NIG.key co impl sp) then "\\CheckedBox" else "\\Square") ++ "}",
      "",
      "\\end{frame}",
      ""

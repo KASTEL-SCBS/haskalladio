@@ -1,6 +1,6 @@
 module Noninterference.TestComparison where
 
-import Noninterference.Procedure
+import Noninterference.Component
 import Noninterference.Testgen
 import Noninterference
 import Noninterference.Util

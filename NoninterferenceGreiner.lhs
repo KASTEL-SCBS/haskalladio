@@ -8,7 +8,7 @@
 module NoninterferenceGreiner where
 
 import Noninterference.Util
-import Noninterference.Procedure
+import Noninterference.Component
 import Noninterference.Testgen
 
 import Prelude as P
@@ -78,17 +78,17 @@ The approach for KeY is to translate the ifc-specification into several non-inte
 condition, each for the `LowHigh` lattice.
 \begin{code}
 key :: (Ord d, Ord p) => SpecificationInterpretation p d LowHigh
-key pr@(Specification { includes, datasets }) =
+key (Specification { includes, datasets }) =
     [ (lowhigh, (\p -> if (d ∈ includes p) then Low else High)) | d <- toList $ datasets ]
 \end{code}
 
 The approach for JOANA generates just one JOANA-Specification, using the reversed powerset-lattice of `d`.
 \begin{code}
 joana :: (Ord d, Ord p) => SpecificationInterpretation p d (Set d)
-joana pr@(Specification { includes, datasets }) = [((powerset datasets, (⊇)), includes )]
+joana (Specification { includes, datasets }) = [((powerset datasets, (⊇)), includes )]
 \end{code}
 
-In this simplified model, a procedures implementation is abstractly defined by its information-flow
+In this simplified model, a components implementation is abstractly defined by its information-flow
 between input and output variables, as defined by the function `influences`.
 Hence, a verification condition holds if this flow does not exceed that allowed by the flow lattice:
 \begin{code}
@@ -100,24 +100,24 @@ holds (Component { input, output }) (Implementation { influences }) ((l,(⊑)), 
 \end{code}
 
 Given an ifc-specification interpretation (e.g. `joana` or `key`),
-a procedure pr is secure iff all its verification conditions hold.
+a component co is secure iff all its verification conditions hold.
 \begin{code}
 secure :: (Ord p) => SpecificationInterpretation p d l -> Component p -> Implementation p -> Specification p d -> Bool
-secure interpretation pr impl sp = (∀) (interpretation sp) (\condition -> holds pr impl condition)
+secure interpretation co impl sp = (∀) (interpretation sp) (\condition -> holds co impl condition)
 \end{code}
 
 `joana` and `key` are equivalent! Otherwise, we couldn't use KeY and JOANA interchangably!!
 \begin{code}
 joanaIsKey :: (Ord d, Ord p) => Component p -> Implementation p -> Specification p d -> Bool
-joanaIsKey pr impl sp = secure joana pr impl sp ⇔ secure key pr impl sp
+joanaIsKey co impl sp = secure joana co impl sp ⇔ secure key co impl sp
 \end{code}
 
 
-Specifically, a procedure being secure is characerized as:
+Specifically, a component being secure is characerized as:
 \begin{code}
 secureCharactization :: forall d p. (Ord d, Ord p) => Component p -> Implementation p -> Specification p d -> Bool
-secureCharactization pr@(Component { input, output }) impl@(Implementation { influences }) sp@(Specification { includes }) =
-       (secure key pr impl sp)
+secureCharactization co@(Component { input, output }) impl@(Implementation { influences }) sp@(Specification { includes }) =
+       (secure key co impl sp)
    ⇔  (∀) input (\i ->  (∀) output (\o ->
           (o ∈ influences i) → (includes i ⊇ includes o)
        ))
@@ -134,28 +134,28 @@ we introduce the naive concept of "weak / strong" ifc-specifications:
 "weak / strong" IFC-Specifications  (naively)
 --------------------------------------------
 
-Given two different ifc specifications for the same procedure `pr` using the *same* datasets `d`,
+Given two different ifc specifications for the same component `co` using the *same* datasets `d`,
 i.e.: given specifications `sp`, `sp'` of type `Specification p d`,
-the ifc specification `sp` (for `pr`) is called "naively stronger" than the specification `sp'` (for `pr`) iff
+the ifc specification `sp` (for `co`) is called "naively stronger" than the specification `sp'` (for `co`) iff
 
-    sp `(isNaivelyStrongerThanFor pr)` sp'
+    sp `(isNaivelyStrongerThanFor co)` sp'
 
 as defined here:
 \begin{code}
 isNaivelyStrongerThanFor ::  (Ord d) => Component p -> Specification p d -> Specification p d -> Bool
-isNaivelyStrongerThanFor pr sp sp' =
-      (∀) (input pr)  (\i -> includes sp' i ⊇ includes sp i)
-  ∧   (∀) (output pr) (\o -> includes sp' o ⊆ includes sp o)
+isNaivelyStrongerThanFor co sp sp' =
+      (∀) (input co)  (\i -> includes sp' i ⊇ includes sp i)
+  ∧   (∀) (output co) (\o -> includes sp' o ⊆ includes sp o)
 \end{code}
 
 Secure implementations  remain secure if a specification is weakened:
 \begin{code}
 secureWeakeningsAreSecure :: (Enum d, Bounded d, Ord d, Ord p) => Component p -> Implementation p -> Specification p d -> Specification p d -> Property
-secureWeakeningsAreSecure pr impl sp sp' =
-  (secure joana pr impl sp) ∧ (sp `isNaivelyStrongerThan` sp')
+secureWeakeningsAreSecure co impl sp sp' =
+  (secure joana co impl sp) ∧ (sp `isNaivelyStrongerThan` sp')
   ==>
-  (secure joana pr impl sp')
- where isNaivelyStrongerThan = isNaivelyStrongerThanFor pr
+  (secure joana co impl sp')
+ where isNaivelyStrongerThan = isNaivelyStrongerThanFor co
 \end{code}
 
 
@@ -163,13 +163,13 @@ secureWeakeningsAreSecure pr impl sp sp' =
 unfortunately, naively checking this using QuickCheck is inefficient,
 
 Instead, we define the enumeration of all "weakenings" of a given ifc specification:
-"weakings pr sp" enumerates all weakenings of sp, i.e. all specifications sp' such that
-     sp `isNaivelyStrongerThanFor pr` sp'
+"weakings co sp" enumerates all weakenings of sp, i.e. all specifications sp' such that
+     sp `isNaivelyStrongerThanFor co` sp'
 \begin{code}
 weakenings :: (Ord d, Ord p, Enum d, Bounded d) => Component p -> Specification p d -> [Specification p d]
 \end{code}
 \begin{code}
-weakenings pr@(Component { input, output }) sp@(Specification { includes }) =
+weakenings co@(Component { input, output }) sp@(Specification { includes }) =
    [ sp { includes = \p -> fromJust $ lookup p choice } | choice <- choices ]
   where choices = chooseOneEach $    [(i, [d | d <- toList $ powerset $ fromList allValues, d ⊇ includes i]) | i <- toList $  input]
                                   ++ [(o, [d | d <- toList $ powerset $ fromList allValues, d ⊆ includes o]) | o <- toList $ output]
@@ -183,24 +183,24 @@ weakenings pr@(Component { input, output }) sp@(Specification { includes }) =
 Then, we check the following three properties:
 \begin{code}
 weakeningsAreWeaker :: (Enum d, Bounded d, Ord d, Ord p) => Component p -> Specification p d -> Bool
-weakeningsAreWeaker pr sp = (∀) (weakenings pr sp) (\sp' -> sp `isNaivelyStrongerThan` sp')
-    where isNaivelyStrongerThan = isNaivelyStrongerThanFor pr
+weakeningsAreWeaker co sp = (∀) (weakenings co sp) (\sp' -> sp `isNaivelyStrongerThan` sp')
+    where isNaivelyStrongerThan = isNaivelyStrongerThanFor co
 \end{code}
 
 \begin{code}
 weakerAreWeakenings :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Component p -> Specification p d -> Specification p d -> Property
-weakerAreWeakenings pr sp sp' =
+weakerAreWeakenings co sp sp' =
      sp `isNaivelyStrongerThan` sp'
- ==> (∃) (weakenings pr sp ) (\prw ->  (show $ prw) == (show $ sp')) -- TODO: dont use hacky string-comparison
-    where isNaivelyStrongerThan = isNaivelyStrongerThanFor pr
+ ==> (∃) (weakenings co sp ) (\spw ->  (show $ spw) == (show $ sp')) -- TODO: dont use hacky string-comparison
+    where isNaivelyStrongerThan = isNaivelyStrongerThanFor co
 
 \end{code}
 
 If impl fullfills the ifc requirement sp, then also all weakenings sp' of sp do
 \begin{code}
 weakeningsAreSafe :: (Enum d, Bounded d, Ord d, Ord p) => Component p -> Implementation p -> Specification p d -> Property
-weakeningsAreSafe pr impl sp = secure joana pr impl sp ==>
-  (∀) (weakenings pr sp) (\sp' -> secure joana pr impl sp')
+weakeningsAreSafe co impl sp = secure joana co impl sp ==>
+  (∀) (weakenings co sp) (\sp' -> secure joana co impl sp')
 \end{code}
 %endif
 
@@ -220,7 +220,7 @@ Assume moreover, that  we have
   * a  new    ifc specification `sp'` in terms of a set `d'` (of datasets)
   * a  "relabeling" `r`
 
-We are looking for a criterion `isConsistentRelabelingFor` such that when  `isConsistentRelabelingFor pr r sp sp'`
+We are looking for a criterion `isConsistentRelabelingFor` such that when  `isConsistentRelabelingFor co r sp sp'`
 for some relabeling `r`, then it is guaranteed that impl is also secure wrt. `sp'`.
 
 
@@ -242,8 +242,8 @@ the resulting ifc specification is "naively weaker" than `sp`.
 
 \begin{code}
 isConsistentRelabelingFor :: forall d d' p. Ord d => Component p -> (d' -> Set d)  -> Specification p d -> Specification p d' -> Bool
-isConsistentRelabelingFor pr g0 sp sp' =  sp `isNaivelyStrongerThan` (sp' `relabeledUsing` g0)
-    where isNaivelyStrongerThan = isNaivelyStrongerThanFor pr
+isConsistentRelabelingFor co g0 sp sp' =  sp `isNaivelyStrongerThan` (sp' `relabeledUsing` g0)
+    where isNaivelyStrongerThan = isNaivelyStrongerThanFor co
 \end{code}
 
 with the application of a relabeling defined as:
@@ -264,12 +264,12 @@ Unfortunately, this criterion is neither sound nor complete, i.e.:
 Neither does the following property hold ...
 \begin{code}
 existsConsistentRelabelingIsJustified ::  (Ord p, Ord d, Ord d') => Component p -> Implementation p -> Specification p d -> Specification p d' -> Property
-existsConsistentRelabelingIsJustified pr impl sp sp' =
+existsConsistentRelabelingIsJustified co impl sp sp' =
        (
-          (secure joana pr impl sp)
-        ∧ (∃) relabelings (\g0 -> isConsistentRelabelingFor pr g0 sp sp')
+          (secure joana co impl sp)
+        ∧ (∃) relabelings (\g0 -> isConsistentRelabelingFor co g0 sp sp')
        )
-   ==>    (secure joana pr impl sp')
+   ==>    (secure joana co impl sp')
 
   where relabelings = setFunctionsBetween (datasets sp) (datasets sp')
 \end{code}
@@ -277,12 +277,12 @@ existsConsistentRelabelingIsJustified pr impl sp sp' =
 .. nor does this:
 \begin{code}
 existsConsistentRelabelingIsComplete ::  (Ord p, Ord d, Ord d') => Component p -> Implementation p -> Specification p d  -> Specification p d' -> Property
-existsConsistentRelabelingIsComplete pr impl sp sp' =
+existsConsistentRelabelingIsComplete co impl sp sp' =
        (
-          (secure joana pr impl sp)
-        ∧ (secure joana pr impl sp')
+          (secure joana co impl sp)
+        ∧ (secure joana co impl sp')
        )
-   ==>    (∃) relabelings (\g0 -> isConsistentRelabelingFor pr g0 sp sp')
+   ==>    (∃) relabelings (\g0 -> isConsistentRelabelingFor co g0 sp sp')
 
   where relabelings = setFunctionsBetween (datasets sp) (datasets sp')
 \end{code}
@@ -324,8 +324,8 @@ The analogous Definition of `isConsistentRelabelingFor` reads:
 
 \begin{code}
 isConsistentRelabelingRevFor :: forall d d' p. Ord d' => Component p -> (d -> Set d')  -> Specification p d -> Specification p d' -> Bool
-isConsistentRelabelingRevFor pr f0 sp sp' =  (sp `relabeledRevUsing` f0) `isNaivelyStrongerThan` sp'
-    where isNaivelyStrongerThan = isNaivelyStrongerThanFor pr
+isConsistentRelabelingRevFor co f0 sp sp' =  (sp `relabeledRevUsing` f0) `isNaivelyStrongerThan` sp'
+    where isNaivelyStrongerThan = isNaivelyStrongerThanFor co
 \end{code}
 
 with the application of a relabeling defined as:
@@ -343,12 +343,12 @@ sp `relabeledRevUsing` f0 =  Specification {
 This criterion *is* Sound:
 \begin{code}
 existsConsistentRelabelingRevIsJustified ::  (Ord p, Ord d, Ord d') => Component p -> Implementation p -> Specification p d -> Specification p d' -> Property
-existsConsistentRelabelingRevIsJustified pr impl sp sp' =
+existsConsistentRelabelingRevIsJustified co impl sp sp' =
        (
-          (secure joana pr impl sp)
-        ∧ (∃) relabelings (\f0 -> isConsistentRelabelingRevFor pr f0 sp sp')
+          (secure joana co impl sp)
+        ∧ (∃) relabelings (\f0 -> isConsistentRelabelingRevFor co f0 sp sp')
        )
-   ==>    (secure joana pr impl sp')
+   ==>    (secure joana co impl sp')
 
   where relabelings = setFunctionsBetween (datasets sp') (datasets sp)
 \end{code}
@@ -356,12 +356,12 @@ existsConsistentRelabelingRevIsJustified pr impl sp sp' =
 .. but not complete, i.e., the following property does *not* hold:
 \begin{code}
 existsConsistentRelabelingRevIsComplete ::  (Ord p, Ord d, Ord d') => Component p -> Implementation p -> Specification p d  -> Specification p d' -> Property
-existsConsistentRelabelingRevIsComplete  pr impl sp sp' =
+existsConsistentRelabelingRevIsComplete  co impl sp sp' =
        (
-          (secure joana pr impl sp )
-        ∧ (secure joana pr impl sp')
+          (secure joana co impl sp )
+        ∧ (secure joana co impl sp')
        )
-   ==>    (∃) relabelings (\f0 -> isConsistentRelabelingRevFor pr f0 sp sp')
+   ==>    (∃) relabelings (\f0 -> isConsistentRelabelingRevFor co f0 sp sp')
 
   where relabelings = setFunctionsBetween (datasets sp') (datasets sp)
 \end{code}
@@ -371,10 +371,10 @@ Note that i'm currently don't know how to directly justify the soundness of this
 An indirect justifcation stems from the following property (see below for the definition of `isStrongerThan`).
 \begin{code}
 relabeleingsRevAreStrongerThan ::  (Ord p, Ord d, Ord d') => Set d' -> Component p -> Specification p d -> Bool
-relabeleingsRevAreStrongerThan ds' pr sp =
+relabeleingsRevAreStrongerThan ds' co sp =
    (∀) relabelings (\f0 -> sp `isStrongerThan` (sp `relabeledRevUsing` f0))
   where relabelings = setFunctionsBetween ds' (datasets sp)
-        isStrongerThan = isStrongerThanFor pr
+        isStrongerThan = isStrongerThanFor co
 \end{code}
 
 %if False
@@ -391,11 +391,11 @@ setFunctionsBetween ds ds' =
 
 \begin{code}
 existsConsistentRelabelingFor :: forall d d' p. (Ord d, Ord d', Ord p) => Component p -> Specification p d ->  Specification p d' -> Bool
-existsConsistentRelabelingFor pr sp sp' =  (∃) relabelings (\g0 -> isConsistentRelabelingFor pr g0 sp sp')
+existsConsistentRelabelingFor co sp sp' =  (∃) relabelings (\g0 -> isConsistentRelabelingFor co g0 sp sp')
   where relabelings = setFunctionsBetween (datasets sp) (datasets sp')
 
 existsConsistentRelabelingRevFor :: forall d d' p. (Ord d, Ord d', Ord p) => Component p -> Specification p d -> Specification p d' -> Bool
-existsConsistentRelabelingRevFor pr sp sp' =  (∃) relabelings (\g0 -> isConsistentRelabelingRevFor pr g0 sp sp')
+existsConsistentRelabelingRevFor co sp sp' =  (∃) relabelings (\g0 -> isConsistentRelabelingRevFor co g0 sp sp')
   where relabelings = setFunctionsBetween (datasets sp') (datasets sp)
 \end{code}
 %endif
@@ -409,7 +409,7 @@ Note that the sound (but not complete) relabeling-based criterion ("Option 2.") 
 
  1. let the user specifiy a relabeling candidate f0, and check whether
 
-        isConsistentRelabelingRevFor pr f0 sp sp'
+        isConsistentRelabelingRevFor co f0 sp sp'
 
     holds.
  2. Instead of letting the user specify the candidate, enumerate all possible relabeling candidates `f0` and check them.
@@ -427,25 +427,25 @@ is defined even if `sp` is stated in terms of a set `d` (of datasets) *different
 We will then have the soundness property:
 \begin{code}
 isStrongerThanIsJustified ::  (Ord p, Ord d, Ord d') => Component p -> Implementation p -> Specification p d ->  Specification p d' -> Property
-isStrongerThanIsJustified pr impl sp sp' =
+isStrongerThanIsJustified co impl sp sp' =
        (
-          (secure joana pr impl sp)
+          (secure joana co impl sp)
         ∧ (sp `isStrongerThan` sp')
        )
-   ==>    (secure joana pr impl sp')
-  where isStrongerThan = isStrongerThanFor pr
+   ==>    (secure joana co impl sp')
+  where isStrongerThan = isStrongerThanFor co
 \end{code}
 
 .. but still *not* the completeness Property:
 \begin{code}
 isStrongerThanIsComplete ::  (Ord p, Ord d, Ord d') => Component p -> Implementation p -> Specification p d  -> Specification p d' -> Property
-isStrongerThanIsComplete pr impl sp sp' =
+isStrongerThanIsComplete co impl sp sp' =
        (
-          (secure joana pr impl sp)
-        ∧ (secure joana pr impl sp')
+          (secure joana co impl sp)
+        ∧ (secure joana co impl sp')
        )
    ==>    (sp  `isStrongerThan` sp')
-  where isStrongerThan = isStrongerThanFor pr
+  where isStrongerThan = isStrongerThanFor co
 \end{code}
 
 In fact, Option 3.  will turn out to be strictly "better" than Option 2.:
@@ -453,29 +453,29 @@ In fact, Option 3.  will turn out to be strictly "better" than Option 2.:
 It will hold that:
 \begin{code}
 isStrongerThanBetterThanConsistentRelabelingRevFor ::  (Ord p, Ord d, Ord d') => Component p -> Specification p d  -> Specification p d' -> Property
-isStrongerThanBetterThanConsistentRelabelingRevFor pr sp sp' =
-          (∃) relabelings (\f0 -> isConsistentRelabelingRevFor pr f0 sp sp')
+isStrongerThanBetterThanConsistentRelabelingRevFor co sp sp' =
+          (∃) relabelings (\f0 -> isConsistentRelabelingRevFor co f0 sp sp')
    ==>    (sp  `isStrongerThan` sp')
   where relabelings = setFunctionsBetween (datasets sp') (datasets sp)
-        isStrongerThan = isStrongerThanFor pr
+        isStrongerThan = isStrongerThanFor co
 \end{code}
 
 
 ... but *not* that:
 \begin{code}
 consistentRelabelingRevForBetterThanIsStrongerThan ::  (Ord p, Ord d, Ord d') =>  Component p -> Specification p d  -> Specification p d' -> Property
-consistentRelabelingRevForBetterThanIsStrongerThan pr sp sp' =
+consistentRelabelingRevForBetterThanIsStrongerThan co sp sp' =
           (sp  `isStrongerThan` sp')
-   ==>    (∃) relabelings (\f0 -> isConsistentRelabelingRevFor pr f0 sp sp')
+   ==>    (∃) relabelings (\f0 -> isConsistentRelabelingRevFor co f0 sp sp')
   where relabelings = setFunctionsBetween (datasets sp') (datasets sp)
-        isStrongerThan = isStrongerThanFor pr
+        isStrongerThan = isStrongerThanFor co
 \end{code}
 
 
 Now the definition of `isStrongerThan`:
 
-Given two different ifc specifications for the same procedure using possibly different datasets `d` and `d'`, i.e.:
-given a procedure `pr`,  a specification `sp` of type `Specification p d` and a specification sp'` of type `Specification p d'`,
+Given two different ifc specifications for the same component using possibly different datasets `d` and `d'`, i.e.:
+given a component `co`,  a specification `sp` of type `Specification p d` and a specification sp'` of type `Specification p d'`,
 the ifc specification `sp` is called "stronger" than `sp'` iff
 for all input parameters `i`, the set of output parameters `o` that
 
@@ -487,7 +487,7 @@ is included in the set of output parameters `o` that
 
 \begin{code}
 isStrongerThanFor ::  (Ord p, Ord d, Ord d') => Component p -> Specification p d -> Specification p d' -> Bool
-isStrongerThanFor pr@(Component { input, output}) sp@(Specification { includes = includes }) sp'@(Specification { includes = includes' })  =
+isStrongerThanFor co@(Component { input, output}) sp@(Specification { includes = includes }) sp'@(Specification { includes = includes' })  =
   (∀) input  (\i ->
         fromList [ o | o <- toList output, includes  i ⊇ includes  o ]
         ⊆
@@ -501,16 +501,16 @@ Deriviation of this Criterion
 This Criterion can be derived from a few concept. Doing this,
 we will assume a fixed set of input and output parameters. I.e.: any
 
-    pr :: Component p
+    co :: Component p
 
-we consider in this section will have the same set `(input pr)` of input-,
-and the same set `(output pr)` of output-parameters.
+we consider in this section will have the same set `(input co)` of input-,
+and the same set `(output co)` of output-parameters.
 
-Concept I.:     One implementation of a procedure `pr`may have fewer flows than another:
+Concept I.:     One implementation of a component `co`may have fewer flows than another:
 \begin{code}
 hasFewerFlowsThanFor ::  (Ord p) => Component p -> Implementation p -> Implementation p -> Bool
-hasFewerFlowsThanFor pr impl impl' =
-      (∀) (input pr) (\i -> influences impl i ⊆ influences impl' i )
+hasFewerFlowsThanFor co impl impl' =
+      (∀) (input co) (\i -> influences impl i ⊆ influences impl' i )
 \end{code}
 
 
@@ -537,18 +537,18 @@ It is given by:
 We then say that a specification `sp` is stronger than a specification `sp'` if the most-leaking implementation of `sp`
 has fewer flows than the most-leaking implementation of `sp'`:
 
-    pr `isStrongerThan` pr' ⇔ (γ pr) `hasFewerFlowsThan` (γ pr')
+    co `isStrongerThan` co' ⇔ (γ co) `hasFewerFlowsThan` (γ co')
 
 Indeed, this is equivalent to the definition of `isStrongerThan` given above,
 which is easily shown by unfolding the definition of `γ`.
 
 \begin{code}
 isStrongerThanIsHasFewerFlowsThan ::  (Ord p, Ord d, Ord d') => Component p -> Specification p d  -> Specification p d' -> Bool
-isStrongerThanIsHasFewerFlowsThan pr sp sp' =
-      (γ pr sp) `hasFewerFlowsThan` (γ pr sp')
+isStrongerThanIsHasFewerFlowsThan co sp sp' =
+      (γ co sp) `hasFewerFlowsThan` (γ co sp')
   ⇔        sp  `isStrongerThan`          sp'
-  where isStrongerThan = isStrongerThanFor pr
-        hasFewerFlowsThan = hasFewerFlowsThanFor pr
+  where isStrongerThan = isStrongerThanFor co
+        hasFewerFlowsThan = hasFewerFlowsThanFor co
 \end{code}
 
 
@@ -558,11 +558,11 @@ But is it better than its relabeling counter-part `isConsistentRelabeling(Rev)Fo
 At the minimum, it is not worse, in the following sense:
 \begin{code}
 isStrongerThanIsBetterThanIsNaivelyStrongerThan ::  (Ord p, Ord d) => Component p -> Specification p d  -> Specification p d -> Property
-isStrongerThanIsBetterThanIsNaivelyStrongerThan pr sp sp' =
+isStrongerThanIsBetterThanIsNaivelyStrongerThan co sp sp' =
        sp  `isNaivelyStrongerThan` sp'
   ==>  sp  `isStrongerThan`        sp'
-   where isNaivelyStrongerThan = isNaivelyStrongerThanFor pr
-         isStrongerThan = isStrongerThanFor pr
+   where isNaivelyStrongerThan = isNaivelyStrongerThanFor co
+         isStrongerThan = isStrongerThanFor co
 \end{code}
 
 To see that it is better note that in the paper example, the generic ifc-specification in terms of datasets "Time" and "Data" *is*
@@ -587,7 +587,7 @@ all output parameter by the set of input parameters that influence it.
   where includes p
           | p ∈ input  = influences p
           | p ∈ output = fromList [p]
-          | otherwise  = fromList [] -- TODO: require some wellformedness for procedures
+          | otherwise  = fromList [] -- TODO: require some wellformedness for components
 \end{code}
 
 
@@ -595,32 +595,32 @@ all output parameter by the set of input parameters that influence it.
 
 \begin{code}
 αIsMonotone :: (Ord p) => Component p -> Implementation p -> Implementation p -> Property
-αIsMonotone pr impl impl' =
+αIsMonotone co impl impl' =
             impl  `hasFewerFlowsThan`       impl'
-  ==> (α pr impl) `isStrongerThan`    (α pr impl')
-  where isStrongerThan        = isStrongerThanFor pr
-        hasFewerFlowsThan     = hasFewerFlowsThanFor pr
+  ==> (α co impl) `isStrongerThan`    (α co impl')
+  where isStrongerThan        = isStrongerThanFor co
+        hasFewerFlowsThan     = hasFewerFlowsThanFor co
 \end{code}
 
 
 
 \begin{code}
 γIsMonotone :: (Ord p, Ord d, Ord d') => Component p -> Specification p d -> Specification p d' -> Property
-γIsMonotone pr sp sp' =
+γIsMonotone co sp sp' =
             sp  `isStrongerThan`          sp'
-  ==> (γ pr sp) `hasFewerFlowsThan` (γ pr sp)
-  where isStrongerThan        = isStrongerThanFor pr
-        hasFewerFlowsThan     = hasFewerFlowsThanFor pr
+  ==> (γ co sp) `hasFewerFlowsThan` (γ co sp)
+  where isStrongerThan        = isStrongerThanFor co
+        hasFewerFlowsThan     = hasFewerFlowsThanFor co
 \end{code}
 
 
 \begin{code}
 γIsMonotone' :: (Ord p, Ord d) => Component p -> Specification p d -> Specification p d  -> Property
-γIsMonotone' pr sp sp' =
+γIsMonotone' co sp sp' =
             sp  `isNaivelyStrongerThan`   sp'
-  ==> (γ pr sp) `hasFewerFlowsThan` (γ pr sp)
-  where isNaivelyStrongerThan = isNaivelyStrongerThanFor pr
-        hasFewerFlowsThan     = hasFewerFlowsThanFor pr
+  ==> (γ co sp) `hasFewerFlowsThan` (γ co sp)
+  where isNaivelyStrongerThan = isNaivelyStrongerThanFor co
+        hasFewerFlowsThan     = hasFewerFlowsThanFor co
 \end{code}
 
 
@@ -628,20 +628,20 @@ all output parameter by the set of input parameters that influence it.
 Formally, `α` and `γ` form a Galois-Connection (this, though is a rather weak statement, since `α` does not work for general datasets `d`):
 \begin{code}
 galoisAlphaGamma :: forall p d. (Ord p, Ord d, Bounded d, Enum d) => Component p -> Implementation p -> Specification p d -> Bool
-galoisAlphaGamma pr impl sp =
-     (α pr impl) `isStrongerThan`     sp
-  ⇔       impl  `hasFewerFlowsThan` (γ pr sp)
-  where isStrongerThan        = isStrongerThanFor pr
-        hasFewerFlowsThan     = hasFewerFlowsThanFor pr
+galoisAlphaGamma co impl sp =
+     (α co impl) `isStrongerThan`     sp
+  ⇔       impl  `hasFewerFlowsThan` (γ co sp)
+  where isStrongerThan        = isStrongerThanFor co
+        hasFewerFlowsThan     = hasFewerFlowsThanFor co
 \end{code}
 
 Trvially, an implementation `impl` is secure wrt. `sp` iff it is weaker that it's strongtes ifc specification `α(impl)`:
 \begin{code}
 weakerThanIffSecure  :: forall p d. (Ord p, Ord d) => Component p -> Implementation p -> Specification p d -> Bool
-weakerThanIffSecure pr impl sp =
-       (secure joana pr impl sp)
-   ⇔  (α pr impl) `isStrongerThan`     sp
-   where  isStrongerThan        = isStrongerThanFor pr
+weakerThanIffSecure co impl sp =
+       (secure joana co impl sp)
+   ⇔  (α co impl) `isStrongerThan`     sp
+   where  isStrongerThan        = isStrongerThanFor co
 \end{code}
 
 
@@ -662,29 +662,29 @@ One alternativ way to derive a  correct ifc-specification is to pick one of the 
     }
 
 β' :: forall p d. (Ord p, Ord d, Bounded d, Enum d) => Component p -> Implementation p -> Specification p d
-β' pr impl = last $ sortBy (comparing sumOfOutputDatasets) (β pr impl :: [Specification p d])
-  where sumOfOutputDatasets sp = sum [ size $ includes sp o | o <- toList $ output pr ]
+β' co impl = last $ sortBy (comparing sumOfOutputDatasets) (β co impl :: [Specification p d])
+  where sumOfOutputDatasets sp = sum [ size $ includes sp o | o <- toList $ output co ]
 
 β'' :: forall p d. (Ord p, Ord d, Bounded d, Enum d) => Component p -> Implementation p -> Specification p d
-β'' pr impl = last $                                       (β pr impl :: [Specification p d])
+β'' co impl = last $                                       (β co impl :: [Specification p d])
 
 
 β''' :: forall p d. (Ord p, Ord d, Bounded d, Enum d) => Component p -> Implementation p -> Specification p d
-β''' pr impl = last $ sortBy (comparing sumOfOutputDatasets) minimals
+β''' co impl = last $ sortBy (comparing sumOfOutputDatasets) minimals
   where minimals = [ sp | sp <- sps, (∀) sps (\sp' -> (not $ sp' `isStrongerThan` sp) ∨ (sp `isStrongerThan` sp'))]
-        sps = (β pr impl :: [Specification p d])
-        isStrongerThan = isStrongerThanFor pr
-        sumOfOutputDatasets sp = sum [ size $ includes sp o | o <- toList $ output pr ]
+        sps = (β co impl :: [Specification p d])
+        isStrongerThan = isStrongerThanFor co
+        sumOfOutputDatasets sp = sum [ size $ includes sp o | o <- toList $ output co ]
 \end{code}
 
 Unfortunataley, neither of these `β` form a galois connection with `γ`. It does *not* hold in genaral that:
 \begin{code}
 galoisBetaGamma :: forall p d. (Ord p, Ord d, Bounded d, Enum d) => Component p -> Implementation p -> Specification p d -> Bool
-galoisBetaGamma pr impl sp =
-     (β''' pr impl :: Specification p d) `isStrongerThan`     sp
-  ⇔                               impl  `hasFewerFlowsThan` (γ pr sp)
-  where isStrongerThan        = isStrongerThanFor pr
-        hasFewerFlowsThan     = hasFewerFlowsThanFor pr
+galoisBetaGamma co impl sp =
+     (β''' co impl :: Specification p d) `isStrongerThan`     sp
+  ⇔                               impl  `hasFewerFlowsThan` (γ co sp)
+  where isStrongerThan        = isStrongerThanFor co
+        hasFewerFlowsThan     = hasFewerFlowsThanFor co
 \end{code}
 
 
@@ -693,14 +693,14 @@ galoisBetaGamma pr impl sp =
 Every implementation `impl` does indeed fullfill the ifc-specification `α(impl)`:
 \begin{code}
 mostPreciseIsSecure :: (Ord p) => Component p -> Implementation p -> Bool
-mostPreciseIsSecure pr impl = secure joana pr impl (α pr impl)
+mostPreciseIsSecure co impl = secure joana co impl (α co impl)
 \end{code}
 
 Every implementation `impl` is equal to the the most-leaking implementation of it's most-precise ifc-specification
 \begin{code}
 γMostPreciseIsMostPrecuse :: (Ord p) => Component p -> Implementation p ->  Bool
-γMostPreciseIsMostPrecuse pr impl = impl `eqImpl` γ pr (α pr impl)
-  where impl `eqImpl` impl' = (∀) (input pr) (\p -> influences impl p == influences impl' p)
+γMostPreciseIsMostPrecuse co impl = impl `eqImpl` γ co (α co impl)
+  where impl `eqImpl` impl' = (∀) (input co) (\p -> influences impl p == influences impl' p)
 \end{code}
 
 An auxiliary property that demonstrate that the definitions above are all natural:
@@ -708,17 +708,17 @@ An auxiliary property that demonstrate that the definitions above are all natura
 An implementation `impl` is secure wrt. `sp` iff it has fewer flows than the most-leaking implementation of `sp`.
 \begin{code}
 fewerFlowsIffSecure  :: forall p d. (Ord p, Ord d) => Component p -> Implementation p -> Specification p d -> Bool
-fewerFlowsIffSecure pr impl sp =
-       (secure joana pr impl sp)
-   ⇔  (impl `hasFewerFlowsThan` (γ pr sp))
-  where hasFewerFlowsThan = hasFewerFlowsThanFor pr
+fewerFlowsIffSecure co impl sp =
+       (secure joana co impl sp)
+   ⇔  (impl `hasFewerFlowsThan` (γ co sp))
+  where hasFewerFlowsThan = hasFewerFlowsThanFor co
 \end{code}
 
 
 An alternative definition of γ
 \begin{code}
 γ' :: (Ord p, Ord d) => Component p -> Specification p d -> Implementation p
-γ' procedure@(Component { input, output}) sp@(Specification { includes }) =
+γ' component@(Component { input, output}) sp@(Specification { includes }) =
     Implementation { influences = \p ->
                 if (p ∈ input) then output ∖ fromList [ p' | p' <- toList output, ds <- toList $ includes p',
                                                                                   not $ ds ∈ includes p ]
@@ -726,7 +726,7 @@ An alternative definition of γ
             }
 
 γIsγ' :: (Show d, Show p, Enum p, Bounded p, Ord d, Ord p) => Component p -> Specification p d -> Bool
-γIsγ' pr sp = (show $ γ pr sp) == (show $ γ' pr sp) -- TODO: dont use hacky string-comparison
+γIsγ' co sp = (show $ γ co sp) == (show $ γ' co sp) -- TODO: dont use hacky string-comparison
 \end{code}
 
 
@@ -753,25 +753,25 @@ and
 to mean:
 \begin{code}
 makesWeakerAssumptionsThanFor ::  (Ord d) => Component p -> Specification p d -> Specification p d -> Bool
-makesWeakerAssumptionsThanFor pr sp sp'  =
-      (∀) (input pr)  (\i -> includes sp' i ⊇ includes sp i)
+makesWeakerAssumptionsThanFor co sp sp'  =
+      (∀) (input co)  (\i -> includes sp' i ⊇ includes sp i)
 
 makesStrongerGuaranteesThanFor ::  (Ord d) => Component p -> Specification p d -> Specification p d -> Bool
-makesStrongerGuaranteesThanFor pr sp sp'  =
-      (∀) (output pr) (\o -> includes sp' o ⊆ includes sp o)
+makesStrongerGuaranteesThanFor co sp sp'  =
+      (∀) (output co) (\o -> includes sp' o ⊆ includes sp o)
 \end{code}
 
 i.e. we have:
 \begin{code}
 weakerStongerIsNaively :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Component p -> Specification p d -> Specification p d -> Bool
-weakerStongerIsNaively  pr sp sp' =
+weakerStongerIsNaively  co sp sp' =
       sp `isNaivelyStrongerThan` sp'
   ⇔ (sp `makesWeakerAssumptionsThan`  sp'
     ∧ sp `makesStrongerGuaranteesThan` sp' )
 
-  where isNaivelyStrongerThan = isNaivelyStrongerThanFor pr
-        makesWeakerAssumptionsThan  = makesWeakerAssumptionsThanFor  pr
-        makesStrongerGuaranteesThan = makesStrongerGuaranteesThanFor pr
+  where isNaivelyStrongerThan = isNaivelyStrongerThanFor co
+        makesWeakerAssumptionsThan  = makesWeakerAssumptionsThanFor  co
+        makesStrongerGuaranteesThan = makesStrongerGuaranteesThanFor co
 \end{code}
 
 
@@ -779,36 +779,36 @@ Then, the strongest guarantee still valid given a weakening `sp'` of assumptions
 
 \begin{code}
 strongestValidGuarantee :: (Ord d, Ord p, Ord d', Bounded d', Enum d') => Component p -> Specification p d -> Specification p d' -> Specification p d'
-strongestValidGuarantee pr@(Component { input, output }) sp sp' = Specification {
+strongestValidGuarantee co@(Component { input, output }) sp sp' = Specification {
     includes = \p -> if (p ∈ input) then
                        (includes sp' p)
                      else
                        (⋂) [ includes sp' i  | i <- toList input, p ∈ (influences mostLeaking i)],
     datasets = datasets sp'
     }
-  where mostLeaking = γ pr sp
+  where mostLeaking = γ co sp
 \end{code}
 
 This is indeed valid:
 
 \begin{code}
 strongestValidGuaranteeIsValid :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Component p -> Implementation p -> Specification p d -> Specification p d -> Property
-strongestValidGuaranteeIsValid pr impl sp sp' =
-      secure joana pr impl sp
+strongestValidGuaranteeIsValid co impl sp sp' =
+      secure joana co impl sp
   ==>
-      secure joana pr impl $ strongestValidGuarantee pr sp sp'
+      secure joana co impl $ strongestValidGuarantee co sp sp'
 \end{code}
 
 Note that it is *not "extensive" in the following sense:
 
 \begin{code}
 strongestValidGuaranteeIsExtensive :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Component p -> Specification  p d -> Specification p d -> Property
-strongestValidGuaranteeIsExtensive pr sp sp' =
+strongestValidGuaranteeIsExtensive co sp sp' =
        sp' `makesWeakerAssumptionsThan` sp
   ==>
-       sp `makesStrongerGuaranteesThan` (strongestValidGuarantee pr sp sp')
-  where makesWeakerAssumptionsThan  = makesWeakerAssumptionsThanFor  pr
-        makesStrongerGuaranteesThan = makesStrongerGuaranteesThanFor pr
+       sp `makesStrongerGuaranteesThan` (strongestValidGuarantee co sp sp')
+  where makesWeakerAssumptionsThan  = makesWeakerAssumptionsThanFor  co
+        makesStrongerGuaranteesThan = makesStrongerGuaranteesThanFor co
 \end{code}
 
 since `sp` may include datasets in one of it's output parameters that are included in none of its input parameters.
@@ -818,14 +818,14 @@ Once can, of course, define an "extensive" operator like this:
 
 \begin{code}
 strongestValidGuaranteeExtensive :: (Ord d, Bounded d, Enum d, Ord p) => Component p -> Specification p d -> Specification p d -> Specification p d
-strongestValidGuaranteeExtensive pr@(Component { input, output }) sp sp' = Specification {
+strongestValidGuaranteeExtensive co@(Component { input, output }) sp sp' = Specification {
     includes = \p -> if (p ∈ input) then
                        (includes sp'' p) -- == includes sp' p
                      else
                        (includes sp'' p) ∩ (includes sp p),
     datasets = datasets sp -- == datasets sp''
     }
-  where sp'' = strongestValidGuarantee pr sp sp'
+  where sp'' = strongestValidGuarantee co sp sp'
 \end{code}
 
 
@@ -833,12 +833,12 @@ such that both:
 
 \begin{code}
 strongestValidGuaranteeExtensiveIsExtensive :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Component p -> Specification  p d -> Specification p d -> Property
-strongestValidGuaranteeExtensiveIsExtensive pr sp sp' =
+strongestValidGuaranteeExtensiveIsExtensive co sp sp' =
        sp' `makesWeakerAssumptionsThan` sp
   ==>
-       sp  `makesStrongerGuaranteesThan` (strongestValidGuaranteeExtensive pr sp sp')
-  where makesWeakerAssumptionsThan  = makesWeakerAssumptionsThanFor  pr
-        makesStrongerGuaranteesThan = makesStrongerGuaranteesThanFor pr
+       sp  `makesStrongerGuaranteesThan` (strongestValidGuaranteeExtensive co sp sp')
+  where makesWeakerAssumptionsThan  = makesWeakerAssumptionsThanFor  co
+        makesStrongerGuaranteesThan = makesStrongerGuaranteesThanFor co
 \end{code}
 
 
@@ -846,10 +846,10 @@ and:
 
 \begin{code}
 strongestValidGuaranteeExtensiveIsValid :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Component p -> Implementation p -> Specification  p d -> Specification p d -> Property
-strongestValidGuaranteeExtensiveIsValid pr impl sp sp' =
-      secure joana pr impl sp
+strongestValidGuaranteeExtensiveIsValid co impl sp sp' =
+      secure joana co impl sp
   ==>
-      secure joana pr impl $ strongestValidGuaranteeExtensive pr sp sp'
+      secure joana co impl $ strongestValidGuaranteeExtensive co sp sp'
 \end{code}
 
 
@@ -857,15 +857,15 @@ Both operator are idempotent:
 
 \begin{code}
 strongestValidGuaranteeExtensiveIsIdempotent :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Component p -> Specification p d -> Specification p d -> Bool
-strongestValidGuaranteeExtensiveIsIdempotent pr sp sp' =
-      (show $ strongestValidGuaranteeExtensive pr sp                                            sp') ==
-      (show $ strongestValidGuaranteeExtensive pr (strongestValidGuaranteeExtensive pr sp sp')  sp')      -- TODO: dont use hacky string-comparison
+strongestValidGuaranteeExtensiveIsIdempotent co sp sp' =
+      (show $ strongestValidGuaranteeExtensive co sp                                            sp') ==
+      (show $ strongestValidGuaranteeExtensive co (strongestValidGuaranteeExtensive co sp sp')  sp')      -- TODO: dont use hacky string-comparison
 \end{code}
 
 \begin{code}
 strongestValidGuaranteeIsIdempotent :: (Enum d, Enum p, Bounded p, Bounded d, Show d, Show p, Ord d, Ord p) => Component p -> Specification p d -> Specification p d -> Bool
-strongestValidGuaranteeIsIdempotent pr sp sp' =
-      (show $ strongestValidGuarantee pr sp                                   sp') ==
-      (show $ strongestValidGuarantee pr (strongestValidGuarantee pr sp sp')  sp')      -- TODO: dont use hacky string-comparison
+strongestValidGuaranteeIsIdempotent co sp sp' =
+      (show $ strongestValidGuarantee co sp                                   sp') ==
+      (show $ strongestValidGuarantee co (strongestValidGuarantee co sp sp')  sp')      -- TODO: dont use hacky string-comparison
 \end{code}
 

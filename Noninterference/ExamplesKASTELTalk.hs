@@ -3,7 +3,7 @@
 import Unicode
 import Noninterference
 import Noninterference.Util
-import Noninterference.Procedure
+import Noninterference.Component
 import Noninterference.Export
 
 
@@ -73,7 +73,7 @@ outputs = S.fromList [X,Y,Z]
 datasetss :: (Ord d, Enum d, Bounded d) => Set d
 datasetss = S.fromList $ allValues
 
-pr = Component {
+co = Component {
       input  = inputs,
       output = outputs
 }
@@ -164,7 +164,7 @@ example1Suggestion = Specification {
 
 
 example1StrongestGuarantee :: Specification Parameter Datasets
-example1StrongestGuarantee = strongestValidGuarantee pr example1 example1Weakening
+example1StrongestGuarantee = strongestValidGuarantee co example1 example1Weakening
 
 
 f Consumption  = S.fromList [Home]
@@ -356,51 +356,51 @@ spRight' = Specification {
 
 
 
-main = if (    (not $ isConsistentRelabelingRevFor pr f example1 example1Grob)
-           ||  (existsConsistentRelabelingRevFor pr example2 example2Grob)
-           ||  (existsConsistentRelabelingRevFor pr example3 example3Grob)
-           ||  (not $ secure joana pr example1Impl example1)
-           ||  (not $ secure joana pr smallImpl smallSpec1)
+main = if (    (not $ isConsistentRelabelingRevFor co f example1 example1Grob)
+           ||  (existsConsistentRelabelingRevFor co example2 example2Grob)
+           ||  (existsConsistentRelabelingRevFor co example3 example3Grob)
+           ||  (not $ secure joana co example1Impl example1)
+           ||  (not $ secure joana co smallImpl smallSpec1)
            ||  (not $ secure joana prRight (γ prRight spRightFine) spRight)
           ) then error "rofl" else do
        forM_ [
-              ("exampleOne",                    False, False, pr, noImpl,            example1),
-              ("exampleOneImpl",                False, False, pr, example1Impl,      example1),
-              ("exampleOneImplWithSpec",        True,  False, pr, example1Impl,      example1),
-              ("exampleOneImplWithSpecViol",    True,  False, pr, example1ImplViol,  example1),
+              ("exampleOne",                    False, False, co, noImpl,            example1),
+              ("exampleOneImpl",                False, False, co, example1Impl,      example1),
+              ("exampleOneImplWithSpec",        True,  False, co, example1Impl,      example1),
+              ("exampleOneImplWithSpecViol",    True,  False, co, example1ImplViol,  example1),
               ("smallSpecOne",                  True,  False, small, smallImpl, smallSpec1),
               ("smallSpecTwo",                  True,  False, small, smallImpl, smallSpec2),
 
-              ("exampleOneWithSpec",            True, True,  pr, noImpl,            example1),
-              ("exampleOneGammaWithSpec",       True, False, pr, γ pr example1,     example1),
-              ("exampleOneWithSpecWeakQM",      True, True,  pr, noImpl,            example1WeakeningQM),
-              ("exampleOneGammaWithSpecWeakQM", True, False, pr, γ pr example1,     example1WeakeningQM),
---              ("exampleOneWithSpecWeakMono",    True, True,  pr, noImpl,            strongestValidGuaranteeExtensive pr example1 example1Weakening),
---              ("exampleOneGammaWithSpecWeakMono",True,False, pr, γ pr example1,     strongestValidGuaranteeExtensive pr example1 example1Weakening),
-              ("exampleOneWithSpecWeak",        True, True,  pr, noImpl,            strongestValidGuarantee pr example1 example1Weakening),
-              ("exampleOneGammaWithSpecWeak",   True, False,  pr, γ pr example1,     strongestValidGuarantee pr example1 example1Weakening),
+              ("exampleOneWithSpec",            True, True,  co, noImpl,            example1),
+              ("exampleOneGammaWithSpec",       True, False, co, γ co example1,     example1),
+              ("exampleOneWithSpecWeakQM",      True, True,  co, noImpl,            example1WeakeningQM),
+              ("exampleOneGammaWithSpecWeakQM", True, False, co, γ co example1,     example1WeakeningQM),
+--              ("exampleOneWithSpecWeakMono",    True, True,  co, noImpl,            strongestValidGuaranteeExtensive co example1 example1Weakening),
+--              ("exampleOneGammaWithSpecWeakMono",True,False, co, γ co example1,     strongestValidGuaranteeExtensive co example1 example1Weakening),
+              ("exampleOneWithSpecWeak",        True, True,  co, noImpl,            strongestValidGuarantee co example1 example1Weakening),
+              ("exampleOneGammaWithSpecWeak",   True, False,  co, γ co example1,     strongestValidGuarantee co example1 example1Weakening),
 
-              ("exampleOneGammaWithSpecStrongQM", True, False,  pr, γ pr example1,   example1StrongQM),
-              ("exampleOneGammaWithSpecStrong",   True, False,  pr, γ pr example1,   strongestValidGuarantee pr example1 example1Strong),
+              ("exampleOneGammaWithSpecStrongQM", True, False,  co, γ co example1,   example1StrongQM),
+              ("exampleOneGammaWithSpecStrong",   True, False,  co, γ co example1,   strongestValidGuarantee co example1 example1Strong),
 
-              ("exampleTwoWithSpec",            True, True,  pr, noImpl,            example2),
-              ("exampleTwoGammaWithSpec",       True, False, pr, γ pr example2,     example2),
-              ("exampleThreeWithSpec",          True, True,  pr, noImpl,            example3),
+              ("exampleTwoWithSpec",            True, True,  co, noImpl,            example2),
+              ("exampleTwoGammaWithSpec",       True, False, co, γ co example2,     example2),
+              ("exampleThreeWithSpec",          True, True,  co, noImpl,            example3),
 
               ("spRightFine",                   True, False, prRight, (γ prRight spRightFine),        spRightFine)
              ]
-        (\(name,showSpec, questionmark,pr,impl,sp) -> putStrLn $ toTikzNamed name showSpec questionmark pr impl sp)
+        (\(name,showSpec, questionmark,co,impl,sp) -> putStrLn $ toTikzNamed name showSpec questionmark co impl sp)
        forM_ [
-              ("exampleOneGrobRelabeled",    True, True,  pr, noImpl,            example1Grob),
-              ("exampleOneGammaGrob",        True, False, pr, γ pr example1Grob, example1Grob),
-              ("exampleTwoWithSpecGrob",     True, True,  pr, noImpl,            example2Grob),
-              ("exampleTwoGammaWithSpecGrob",True, False, pr, γ pr example2Grob, example2Grob),
-              ("exampleThreeWithSpecGrob",   True, True,  pr, noImpl,            example3Grob),
+              ("exampleOneGrobRelabeled",    True, True,  co, noImpl,            example1Grob),
+              ("exampleOneGammaGrob",        True, False, co, γ co example1Grob, example1Grob),
+              ("exampleTwoWithSpecGrob",     True, True,  co, noImpl,            example2Grob),
+              ("exampleTwoGammaWithSpecGrob",True, False, co, γ co example2Grob, example2Grob),
+              ("exampleThreeWithSpecGrob",   True, True,  co, noImpl,            example3Grob),
 
               ("spLeft",                        True, True,  prLeft, noImpl,        spLeft),
               ("spLeftAssumed",                 True, True,  prLeft, noImpl,        spLeft'),
               ("spRight",                       True, False, prRight, (γ prRight spRightFine),        spRight),
               ("spRightThen",                   True, False, prRight, (γ prRight spRightFine),        (strongestValidGuarantee prRight spRightFine spRight' :: Specification Parameter DatasetsGrob))
              ]
-        (\(name,showSpec, questionmark,pr,impl,sp) -> putStrLn $ toTikzNamed name showSpec questionmark pr impl sp)
+        (\(name,showSpec, questionmark,co,impl,sp) -> putStrLn $ toTikzNamed name showSpec questionmark co impl sp)
 

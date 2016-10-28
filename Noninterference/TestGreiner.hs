@@ -1,6 +1,6 @@
 module Noninterference.TestGreiner where
 
-import Noninterference.Procedure
+import Noninterference.Component
 import Noninterference.Testgen
 import NoninterferenceGreiner
 import Noninterference.Util

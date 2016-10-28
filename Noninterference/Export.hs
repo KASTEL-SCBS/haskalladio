@@ -3,7 +3,7 @@
 module Noninterference.Export where
 
 import Noninterference.Util
-import Noninterference.Procedure
+import Noninterference.Component
 
 import Control.Monad.Random (getStdRandom, randomR)
 import System.Process (runInteractiveCommand, system)
@@ -71,17 +71,17 @@ toTikzQuestionMark showSpec questionMark (Component { input, output }) (Implemen
 
 
 toTikzNamed :: (Show p, Ord p, Show d) => String -> Bool -> Bool -> Component p -> Implementation p -> Specification p d -> String
-toTikzNamed name showSpec questionmark pr impl sp = unlines [
+toTikzNamed name showSpec questionmark co impl sp = unlines [
     "\\newcommand{\\" ++ name ++ "}{%"
   ]
   ++
-  (toTikzQuestionMark showSpec questionmark pr impl sp)
+  (toTikzQuestionMark showSpec questionmark co impl sp)
   ++ unlines [
     "}"
   ]
 
 toTikzComplete  :: (Show p, Ord p, Show d) => Component p -> Implementation p -> Specification p d -> String
-toTikzComplete pr impl sp = unlines [
+toTikzComplete co impl sp = unlines [
     "\\documentclass[a4paper,landscape]{article}",
     "\\usepackage{tikz}",
     "\\usetikzlibrary{arrows,positioning}",
@@ -93,14 +93,14 @@ toTikzComplete pr impl sp = unlines [
     "\\begin{document}"
   ]
   ++
-  (toTikz pr impl sp)
+  (toTikz co impl sp)
   ++ unlines [
     "\\end{document}"
   ]
 
 
-showComponent pr impl sp = do
-  let tex = toTikzComplete pr impl sp
+showComponent co impl sp = do
+  let tex = toTikzComplete co impl sp
   randomInt <- getStdRandom (randomR (1,65536)) :: IO Int
   let file = "tmpfile" ++ (show randomInt)
   writeFile (file ++ ".tex")  tex

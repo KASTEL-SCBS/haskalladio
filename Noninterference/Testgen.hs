@@ -5,7 +5,7 @@
 
 module Noninterference.Testgen where
 
-import Noninterference.Procedure
+import Noninterference.Component
 import Noninterference.Util
 
 import Algebra.Lattice
