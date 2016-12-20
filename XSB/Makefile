@@ -68,6 +68,11 @@ queries.result: $(XWAMS)
 queries-justify.result.pretty: Prettyprint.hs queries-justify.result
 	$(RUNGHC) $^ > $@
 
+
+queries-justify.result.pretty.simplified: Simplify.hs queries-justify.result
+	$(RUNGHC) $^ > $@
+
+
 queries-justify.result: all_jxm.xwam all.xwam
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[basics],[all_jxm],[all],justify6,halt." > $@
 

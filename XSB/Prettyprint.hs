@@ -52,7 +52,7 @@ type Atom = String
 data Assertion = Assertion Term
                | Not Assertion
                | NotEq [Term] [Term]
-
+     deriving (Eq)
 type Term = Tree Atom
 
 
@@ -74,6 +74,9 @@ type AnalysisResult = [Proof]
 prettyPrint :: String -> IO ()
 prettyPrint file =
   forM_ (fmap drawTree $  fmap (fmap show) (fromFile file)) putStrLn
+
+
+
 
 
 main = do
