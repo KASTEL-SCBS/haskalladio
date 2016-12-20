@@ -104,13 +104,13 @@ includes(parm(Service,ParameterName), Dataset, Context) :-
         hasParameter(Service, parm(Service,ParameterName)),
 	hasService(Interface,Service),
 	interfacesOn(_Container,Interface,Context),
-	not(ParameterName=sizeOf(_)),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
         member(*, ParameterNames),
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+	not(ParameterName=sizeOf(_)).
 
 % cases such as: parameterSources(6,[..,sizeOf(*),..]).
 includes(parm(Service,sizeOf(ParameterName)), Dataset,Context) :-
@@ -187,7 +187,6 @@ includes(parm(Service,ParameterName), Dataset, Context) :-
 	hasService(Interface,Service),
         connectorSpecificParametersAndDataPairs(Connector,Pairs),
         contextOfConnector(Connector, Context,Interface),
-        not(ParameterName=sizeOf(_)),
         member(Pair, Pairs),
         originalParametersAndDataPair(Pair,OriginalPair),
         parametersAndDataPairs(Service, OriginalPairs),
@@ -195,7 +194,9 @@ includes(parm(Service,ParameterName), Dataset, Context) :-
         parameterSources(Pair,ParameterNames),
         member(*, ParameterNames),
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+        not(ParameterName=sizeOf(_)).
+
 
 % cases such as: parameterSources(6,[..,sizeOf(*),..]).
 includes(parm(Service,sizeOf(ParameterName)), Dataset,Context) :-
@@ -285,8 +286,8 @@ furtherConnections(Container,Mode) :- connectionType(Container,[Mode]).
 
 sharingOf(Container,Mode) :- sharing(Container,[Mode]).
 sharingOf(Container,exclusive) :-
-        not(sharing(Container,_)),
-        resourceContainer(Container).
+        resourceContainer(Container),
+        not(sharing(Container,_)).
 sharingOf(Container,exclusive) :-
         sharing(Container,[]),
         resourceContainer(Container).
