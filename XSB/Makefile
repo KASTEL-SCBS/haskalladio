@@ -59,13 +59,16 @@ $(INSTANCE_SYMLINKS) : .force
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[justify],[$(<:.P=)],jxm($(<:.P=)),halt."
 
 
+descriptions.result: $(XWAMS)
+	$(XSB) $(XSB_OPTIONS_QUIET) -e "[descriptionInstance], itemDescription(Item, Description, InstanceDescription), write_canonical(itemDescription(Item, Description, InstanceDescription)), nl, fail, true. halt." > $@
+
 listFacts.result: $(XWAMS)
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[listFacts],listFacts,halt." > $@
 
 queries.result: $(XWAMS)
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[queries],nojustify6,halt." > $@
 
-queries-justify.result.pretty: Prettyprint.hs queries-justify.result
+queries-justify.result.pretty: Prettyprint.hs queries-justify.result descriptions.result
 	$(RUNGHC) $^ > $@
 
 
@@ -95,6 +98,7 @@ clean: clean-xwam
 	rm -f *_jxm.*
 	rm -f *.result
 	rm -f *.result.pretty
+	rm -f *.result.pretty.simplified
 	rm -f all.P
 	rm -f all-with-imports.P
 	find . -name '*~' -delete

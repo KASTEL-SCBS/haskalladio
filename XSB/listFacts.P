@@ -2,8 +2,8 @@
 :- import
            uiInterfaceOn/2,                         % uiInterfaceOn(ResourceContainer,Interface)
            mayknow/2,             % mayknow(Attacker,DataSet)
-           includes/2,                      % includes(Parameter,DataSet)
-           includesCall/2,                  % includesCall(Service,DataSet)
+           includes/3,                      % includes(Parameter,DataSet, Context)
+           includesCall/3,                  % includesCall(Service,DataSet, Context)
 
            tamperingAbilities/3,                    % tamperingAbilities(Attacker,Location,TamperingAbility)
            locationsAccessibleBy/2,                 % locationsAccessibleBy(Attacker,Location)
@@ -53,8 +53,8 @@
 listFacts :-
 	listFact('uiInterfaceOn/2:', uiInterfaceOn(ResourceContainer,Interface)),
 	listFact('mayknow/2:',       mayknow(Attacker,DataSet)),
-	listFact('includes/2:',      includes(Parameter,DataSet)),
-	listFact('includesCall/2:',  includesCall(Service,DataSet)),
+	listFact('includes/3:',      includes(Parameter,DataSet,Context)),
+	listFact('includesCall/2:',  includesCall(Service,DataSet,Context)),
 	listFact('tamperingAbilities/3:',    tamperingAbilities(Attacker,Location,TamperingAbility)),
 	listFact('locationsAccessibleBy/2:', locationsAccessibleBy(Attacker,Location)),
 	listFact('furtherConnections/2:',    furtherConnections(ResourceContainer,FurtherConnections)),
