@@ -1,2 +1,2 @@
 :- export  % Predicates
-           itemDescription(Item,Description).
+           itemDescription(Item,Description,InstanceName).
