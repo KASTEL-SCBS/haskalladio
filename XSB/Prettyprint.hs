@@ -14,7 +14,7 @@ import System.IO.Unsafe
 import System.Environment(getArgs)
 
 import Control.Monad
-import Control.Applicative ((<*))
+import Control.Applicative ((<*),(*>))
 import Text.ParserCombinators.Parsec
 import Text.ParserCombinators.Parsec.Expr
 import Text.ParserCombinators.Parsec.Language
