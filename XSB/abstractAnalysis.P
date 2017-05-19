@@ -28,9 +28,7 @@
 % BEGIN EXPORTS
 :- export  % Predicates
            accessibleParameters/3,               % accessibleParameters(Attacker,Parameter)
-           observableServices/3,                 % observableServices(Attacker,Parameter)
-           parameterAllowedToBeAccessedBy/2,     % parameterAllowedToBeAccessedBy(Attacker, Parameter)
-           serviceAllowedToBeObservedBy/2.       % parameterAllowedToBeAccessedBy(Attacker, Parameter)
+           observableServices/3.                 % observableServices(Attacker,Parameter)
 
 % END EXPORTS
 

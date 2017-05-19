@@ -36,6 +36,9 @@
            providedInterfacesAccessibleTo/3,        % providedInterfacesAccessibleTo(Attacker, Interface, AssemblyContext)
            requiredInterfacesAccessibleTo/3,        % requiredInterfacesAccessibleTo(Attacker, Interface, AssemblyContext)
 
+           parameterAllowedToBeAccessedBy/2,        % parameterAllowedToBeAccessedBy(Attacker, Parameter)
+           serviceAllowedToBeObservedBy/2,          % parameterAllowedToBeAccessedBy(Attacker, Parameter)
+
            % Used Functors
            % Sharing = OpenShared | ControlledExclusive
            shared/0, exclusive/0,
