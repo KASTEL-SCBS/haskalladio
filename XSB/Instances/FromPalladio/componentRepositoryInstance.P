@@ -5,8 +5,8 @@
            providedInterface/2,
            providedRoles/2,
            basicComponent/1,
-           dataType/2,
            parameters/2,
+	   serviceParameters/2,
            signatures/2,
            requiredInterface/2,
            requiredRoles/2
@@ -31,26 +31,47 @@ hasParameter(Service,parm(Service,ParameterName)) :-
         parameters(Service, Parameters),
         member(ParameterName, Parameters).
 
+hasParameter(Service,parm(Service,sizeOf(ParameterName))) :-
+        % operationSignature(Service),
+        parameters(Service, Parameters),
+        member(ParameterName, Parameters).
+
+hasParameter(Service,parm(Service,ServiceParamaterName)) :-
+	serviceParameters(Interface,ServiceParamaterNames),
+	member(ServiceParamaterName,ServiceParamaterNames),
+	hasService(Interface,Service).
+
+hasParameter(Service,parm(Service,sizeOf(ServiceParamaterName))) :-
+	serviceParameters(Interface,ServiceParamaterNames),
+	member(ServiceParamaterName,ServiceParamaterNames),
+	hasService(Interface,Service).
+
+
+
+
+
 returnParameter(Service,return(Service)) :-
         % operationSignature(Service),
-        returnType(Service,_Type).
+        returnType(Service,[_Type]).
 
 % TODO: this just cannot work with the current palladio fact export: if there are two different signatures with a common parameter name X,
 % *two* facts dataType(X,Type) are generated. Luckily, typeOf/2 isn't currently uses anywhere in the access analysis.
-typeOf(parm(Service,ParameterName),Type) :-
-        hasParameter(Service, parm(Service,ParameterName)), % make this work as a generator
-        once(dataType(ParameterName,Type)).                 % for the case that there are  two different signatures with a common parameter name X, pick the first only
-
+typeOf(parm(Service,sizeOf(ParameterName)), int) :- !,
+        hasParameter(Service, parm(Service,ParameterName)).
+typeOf(parm(Service,ParameterName), unknownType) :-
+        hasParameter(Service, parm(Service,ParameterName)).
 
 typeOf(return(Service),Type) :-
-        returnType(Service,Type).
+	returnParameter(Service, return(Service)),
+        returnType(Service,[Type]).
+
 
 provides(Component, Interface) :-
         basicComponent(Component),
         providedRoles(Component,Roles), member(Role,Roles),
-        providedInterface(Role,Interface).
+        providedInterface(Role,[Interface]).
 
 requires(Component, Interface) :-
         basicComponent(Component),
         requiredRoles(Component,Roles), member(Role,Roles),
-        requiredInterface(Role,Interface).
+        requiredInterface(Role,[Interface]).

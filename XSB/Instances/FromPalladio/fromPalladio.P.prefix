@@ -13,10 +13,18 @@ basicComponent(_) :- fail.
 unencryptedDataSets(_,_) :- fail.
 tamperProtections(_,_) :- fail.
 requiredDelegationConnector(_) :- fail.
-
+dataSetMapEntry(_) :- fail.
+sharing(_,_) :- fail. % see "default-rule" for sharingOf/2 in Instances/FromPalladio/securityInstance.P
+dataSetMap(_) :- fail.
+map(_,_) :- fail.
+compositeDataType(_) :- fail.
+connectorSpecificParametersAndDataPairs(_,_) :- fail.
+collectionDataType(_) :- fail.
 
 % Suppress warnings wrt unused predicates:
 fake_usage :-
+        addedServiceParameter(_),                    % addedServiceParameter(ServiceParamater)
+        addedServiceParameters(_,_),
         adversaries(_),
         adversaries(_,_),
         allocation(_),
@@ -24,21 +32,30 @@ fake_usage :-
         assemblyContexts(_,_),
         communicationLinkResourceSpecifications(_,_),
         components(_,_),
+	collectionDataType(_),
+        confidentialitySpecification(_),
         connectors(_,_),
-        dataSets(_,_),
+	compositeDataType(_),
+        dataIdentifier(_,_),
+        dataSetMap(_),
+        dataSetMaps(_,_),
         interfaces(_,_),
         linkingResources(_,_),
         locationsAndTamperProtectionsPair(_),
-        confidentialitySpecification(_),
+        map(_,_),
         operationInterface(_),
-        operationRequiredRole(_),
         operationSignature(_),
         parameter(_),
-        parametersAndDataSetsPair(_),
+        parametersAndDataPair(_),
+        parentInterfaces(_,_),
+        providedDelegationConnector(_),
         repository(_),
-        system(_),
         resourceEnvironment(_),
+        sizeOf(_,_),
+        sizeOfParameter(_),
+        system(_),
         tamperProtection(_),
+
         shared = shared, exclusive = exclusive,
         possible = possible, existing = existing, complete = complete,
         none = none.

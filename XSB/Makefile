@@ -1,11 +1,11 @@
 # modify this to run queries on different model instances,
 # or with a different linkModel.
-INSTANCE=Instances/PaperExample/ExampleOne
-# INSTANCE=Instances/FromPalladio
+# INSTANCE=Instances/PaperExample/ExampleOne
+INSTANCE=Instances/FromPalladio
 LINKMODEL=simpleLinkModel.P
 
 # if INSTANCE==Instances/FromPalladio, specify the path to the exported facts file fromPalladio.P to be used:
-FROMPALLADIO_FACTS=$(FROMPALLADIO_FACTS_EXAMPLE)
+FROMPALLADIO_FACTS=$(FROMPALLADIO_FACTS_CLOUDSCENRARIO)
 
 # path to the xsb binary, see http://xsb.sourceforge.net/
 # use version 3.5
@@ -19,24 +19,28 @@ RUNGHC=runghc
 
 
 # These shouldn't need to be changed
+FROMPALLADIO_FACTS_IFLOW_SIMON=Instances/FromPalladio/edu.kit.kastel.scbs.iflowexample-simonsdatasetsinterpretation/src-gen/fromPalladio.P
+FROMPALLADIO_FACTS_CLOUDSCENARIO=Instances/FromPalladio/edu.kit.kastel.scbs.cloudscenario/src-gen/fromPalladio.P
 FROMPALLADIO_FACTS_MINIMAL=Instances/FromPalladio/edu.kit.kastel.scbs.minimalexample/src-gen/fromPalladio.P
 FROMPALLADIO_FACTS_EXAMPLE=Instances/FromPalladio/edu.kit.kastel.scbs.paperexample/src-gen/fromPalladio.P
 FROMPALLADIO_FACTS_TRAVELPLANNER=Instances/FromPalladio/edu.kit.kastel.scbs.travelplanner/src-gen/fromPalladio.P
 FROMPALLADIO_FACTS_EMPTY=Instances/FromPalladio/empty.P
 FROMPALLADIO_PREFIX=Instances/FromPalladio/fromPalladio.P.prefix
-INSTANCE_SYMLINKS=componentRepositoryInstance.P palladioInstance.P securityInstance.P simpleLinkModelInstance.P
+INSTANCE_SYMLINKS=componentRepositoryInstance.P palladioInstance.P securityInstance.P simpleLinkModelInstance.P descriptionInstance.P
 LINKMODEL_SYMLINK=linkModel.P
 FROMPALLADIO=fromPalladio.P
 SOURCES=$(INSTANCE_SYMLINKS) $(LINKMODEL_SYMLINK) $(FROMPALLADIO) abstractAnalysis.P  queries.P  security.P palladio.P
 XWAMS=$(SOURCES:.P=.xwam)
 
-.PHONY: clean clean-xwam test-queries-justify force queries.result default dist
+.PHONY: clean clean-xwam test test-queries-justify force queries.result default dist symlinks
 
 default: queries-justify.result
 
 dist: accessanalysis-prolog.zip
 
 .force :
+
+symlinks : $(INSTANCE_SYMLINKS) $(LINKMODEL_SYMLINK) $(FROMPALLADIO)
 
 $(LINKMODEL_SYMLINK)  : .force
 	ln -f -s $(LINKMODEL) $@
@@ -53,20 +57,33 @@ $(INSTANCE_SYMLINKS) : .force
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[justify],[$(<:.P=)],jxm($(<:.P=)),halt."
 
 
+descriptions.result: $(XWAMS)
+	$(XSB) $(XSB_OPTIONS_QUIET) -e "[descriptionInstance], itemDescription(Item, Description, InstanceDescription), write_canonical(itemDescription(Item, Description, InstanceDescription)), nl, fail, true. halt." > $@
+
 listFacts.result: $(XWAMS)
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[listFacts],listFacts,halt." > $@
 
 queries.result: $(XWAMS)
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[queries],nojustify6,halt." > $@
 
-queries-justify.result.pretty: Prettyprint.hs queries-justify.result
+queries-justify.result.pretty: Prettyprint.hs queries-justify.result descriptions.result
 	$(RUNGHC) $^ > $@
+
+
+queries-justify.result.pretty.simplified: Simplify.hs queries-justify.result
+	$(RUNGHC) $^ > $@
+
 
 queries-justify.result: all_jxm.xwam all.xwam
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[basics],[all_jxm],[all],justify6,halt." > $@
 
 test-queries-justify: all_jxm.xwam all.xwam
 	rlwrap $(XSB) -e "[basics],[all_jxm],[all]."
+
+test: clean symlinks
+	rlwrap $(XSB) -e "[basics],[security],[securityInstance], [palladio], [componentRepositoryInstance], [abstractAnalysis],[descriptionInstance],[util],[fromPalladio]."
+
+
 
 all.P : $(SOURCES)
 	cat $^ | awk '/% BEGIN IMPORTS/{ignore=1}/% BEGIN EXPORTS/{ignore=1}{if (ignore==0) print }/% END IMPORTS/{ignore=0}/% END EXPORTS/{ignore=0};' > $@
@@ -79,6 +96,7 @@ clean: clean-xwam
 	rm -f *_jxm.*
 	rm -f *.result
 	rm -f *.result.pretty
+	rm -f *.result.pretty.simplified
 	rm -f all.P
 	rm -f all-with-imports.P
 	find . -name '*~' -delete

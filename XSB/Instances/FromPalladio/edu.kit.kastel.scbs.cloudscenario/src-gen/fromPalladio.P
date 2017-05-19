@@ -1,0 +1,6091 @@
+
+/** BEGIN informationFlowParameterAssignment, ID: '294', NAME: 'null' */
+description(294,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '294', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '295', NAME: 'null' */
+description(295,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '295', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '296', NAME: 'null' */
+description(296,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '296', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '297', NAME: 'null' */
+description(297,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '297', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterEquation, ID: '242', NAME: 'null' */
+description(242,'null','informationFlowParameterEquation').
+/** END informationFlowParameterEquation, ID: '242', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterEquation, ID: '243', NAME: 'null' */
+description(243,'null','informationFlowParameterEquation').
+/** END informationFlowParameterEquation, ID: '243', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterEquation, ID: '240', NAME: 'null' */
+description(240,'null','informationFlowParameterEquation').
+/** END informationFlowParameterEquation, ID: '240', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterEquation, ID: '248', NAME: 'null' */
+description(248,'null','informationFlowParameterEquation').
+/** END informationFlowParameterEquation, ID: '248', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterEquation, ID: '246', NAME: 'null' */
+description(246,'null','informationFlowParameterEquation').
+/** END informationFlowParameterEquation, ID: '246', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '306', NAME: 'null' */
+description(306,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '306', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '307', NAME: 'null' */
+description(307,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '307', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '265', NAME: 'null' */
+description(265,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '265', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '266', NAME: 'null' */
+description(266,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '266', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '267', NAME: 'null' */
+description(267,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '267', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '268', NAME: 'null' */
+description(268,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '268', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '276', NAME: 'null' */
+description(276,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '276', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '277', NAME: 'null' */
+description(277,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '277', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '278', NAME: 'null' */
+description(278,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '278', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '279', NAME: 'null' */
+description(279,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '279', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '281', NAME: 'null' */
+description(281,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '281', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '289', NAME: 'null' */
+description(289,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '289', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '288', NAME: 'null' */
+description(288,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '288', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '280', NAME: 'null' */
+description(280,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '280', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '286', NAME: 'null' */
+description(286,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '286', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '287', NAME: 'null' */
+description(287,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '287', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '261', NAME: 'null' */
+description(261,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '261', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '301', NAME: 'null' */
+description(301,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '301', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '303', NAME: 'null' */
+description(303,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '303', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '262', NAME: 'null' */
+description(262,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '262', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '269', NAME: 'null' */
+description(269,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '269', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '270', NAME: 'null' */
+description(270,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '270', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameterAssignment, ID: '275', NAME: 'null' */
+description(275,'null','informationFlowParameterAssignment').
+/** END informationFlowParameterAssignment, ID: '275', NAME: 'null' */
+
+
+/** BEGIN confidentialitySpecification, ID: '1', NAME: 'cloud confidentiality specification' */
+description(1,'cloud confidentiality specification','confidentialitySpecification').
+confidentialitySpecification(1).
+dataIdentifier(1,[2,3,4,5,6]).
+dataSetMaps(1,[7]).
+parametersAndDataPairs(1,[8,9,10,11,12,13,14]).
+addedServiceParameters(1,[15]).
+locations(1,[16,17,18,19,20,21]).
+tamperProtections(1,[22]).
+locationsAndTamperProtectionsPairs(1,[23,24,25,26,27,28,29,30,31,32,33]).
+
+/** BEGIN dataSet, ID: '2', NAME: 'LoadBalancerData' */
+description(2,'LoadBalancerData','dataSet').
+dataSet(2).
+/** END dataSet, ID: '2', NAME: 'LoadBalancerData' */
+
+
+/** BEGIN dataSet, ID: '3', NAME: 'LogData' */
+description(3,'LogData','dataSet').
+dataSet(3).
+/** END dataSet, ID: '3', NAME: 'LogData' */
+
+
+/** BEGIN dataSetMapEntry, ID: '4', NAME: 'A' */
+description(4,'A','dataSetMapEntry').
+dataSetMapEntry(4).
+map(4,[7]).
+/** END dataSetMapEntry, ID: '4', NAME: 'A' */
+
+
+/** BEGIN dataSetMapEntry, ID: '5', NAME: 'B' */
+description(5,'B','dataSetMapEntry').
+dataSetMapEntry(5).
+map(5,[7]).
+/** END dataSetMapEntry, ID: '5', NAME: 'B' */
+
+
+/** BEGIN dataSetMapEntry, ID: '6', NAME: 'Public' */
+description(6,'Public','dataSetMapEntry').
+dataSetMapEntry(6).
+map(6,[7]).
+/** END dataSetMapEntry, ID: '6', NAME: 'Public' */
+
+
+/** BEGIN dataSetMap, ID: '7', NAME: 'UserData' */
+description(7,'UserData','dataSetMap').
+dataSetMap(7).
+/** END dataSetMap, ID: '7', NAME: 'UserData' */
+
+
+/** BEGIN parametersAndDataPair, ID: '8', NAME: 'p=[*] - d=[UserData[Self]]' */
+description(8,'p=[*] - d=[UserData[Self]]','parametersAndDataPair').
+parametersAndDataPair(8).
+parameterSources(8,[*]).
+dataTargets(8,[]).
+/** END parametersAndDataPair, ID: '8', NAME: 'p=[*] - d=[UserData[Self]]' */
+
+
+/** BEGIN parametersAndDataPair, ID: '9', NAME: 'p=[sizeOf(*)] - d=[UserData[Public]]' */
+description(9,'p=[sizeOf(*)] - d=[UserData[Public]]','parametersAndDataPair').
+parametersAndDataPair(9).
+parameterSources(9,[sizeOf(*)]).
+dataTargets(9,[6]).
+/** END parametersAndDataPair, ID: '9', NAME: 'p=[sizeOf(*)] - d=[UserData[Public]]' */
+
+
+/** BEGIN parametersAndDataPair, ID: '10', NAME: 'p=[*] - d=[UserData[Friends]]' */
+description(10,'p=[*] - d=[UserData[Friends]]','parametersAndDataPair').
+parametersAndDataPair(10).
+parameterSources(10,[*]).
+dataTargets(10,[]).
+/** END parametersAndDataPair, ID: '10', NAME: 'p=[*] - d=[UserData[Friends]]' */
+
+
+/** BEGIN parametersAndDataPair, ID: '11', NAME: 'p=[*] - d=[UserData[Public]]' */
+description(11,'p=[*] - d=[UserData[Public]]','parametersAndDataPair').
+parametersAndDataPair(11).
+parameterSources(11,[*]).
+dataTargets(11,[6]).
+/** END parametersAndDataPair, ID: '11', NAME: 'p=[*] - d=[UserData[Public]]' */
+
+
+/** BEGIN parametersAndDataPair, ID: '12', NAME: 'p=[*] - d=[UserData[*]]' */
+description(12,'p=[*] - d=[UserData[*]]','parametersAndDataPair').
+parametersAndDataPair(12).
+parameterSources(12,[*]).
+dataTargets(12,[]).
+/** END parametersAndDataPair, ID: '12', NAME: 'p=[*] - d=[UserData[*]]' */
+
+
+/** BEGIN parametersAndDataPair, ID: '13', NAME: 'p=[*] - d=[LogData]' */
+description(13,'p=[*] - d=[LogData]','parametersAndDataPair').
+parametersAndDataPair(13).
+parameterSources(13,[*]).
+dataTargets(13,[3]).
+/** END parametersAndDataPair, ID: '13', NAME: 'p=[*] - d=[LogData]' */
+
+
+/** BEGIN parametersAndDataPair, ID: '14', NAME: 'p=[*] - d=[LoadBalancerData]' */
+description(14,'p=[*] - d=[LoadBalancerData]','parametersAndDataPair').
+parametersAndDataPair(14).
+parameterSources(14,[*]).
+dataTargets(14,[2]).
+/** END parametersAndDataPair, ID: '14', NAME: 'p=[*] - d=[LoadBalancerData]' */
+
+
+/** BEGIN addedServiceParameter, ID: '15', NAME: 's' */
+description(15,'s','addedServiceParameter').
+addedServiceParameter(15).
+/** END addedServiceParameter, ID: '15', NAME: 's' */
+
+
+/** BEGIN location, ID: '16', NAME: 'internet' */
+description(16,'internet','location').
+location(16).
+/** END location, ID: '16', NAME: 'internet' */
+
+
+/** BEGIN location, ID: '17', NAME: 'userAHome' */
+description(17,'userAHome','location').
+location(17).
+/** END location, ID: '17', NAME: 'userAHome' */
+
+
+/** BEGIN location, ID: '18', NAME: 'userBHome' */
+description(18,'userBHome','location').
+location(18).
+/** END location, ID: '18', NAME: 'userBHome' */
+
+
+/** BEGIN location, ID: '19', NAME: 'userGuestHome' */
+description(19,'userGuestHome','location').
+location(19).
+/** END location, ID: '19', NAME: 'userGuestHome' */
+
+
+/** BEGIN location, ID: '20', NAME: 'innerZone' */
+description(20,'innerZone','location').
+location(20).
+/** END location, ID: '20', NAME: 'innerZone' */
+
+
+/** BEGIN location, ID: '21', NAME: 'outerZone' */
+description(21,'outerZone','location').
+location(21).
+/** END location, ID: '21', NAME: 'outerZone' */
+
+
+/** BEGIN tamperProtection, ID: '22', NAME: 'perimeterProtection' */
+description(22,'perimeterProtection','tamperProtection').
+tamperProtection(22).
+/** END tamperProtection, ID: '22', NAME: 'perimeterProtection' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '23', NAME: 'l=[internet, userAHome] - t=[]' */
+description(23,'l=[internet, userAHome] - t=[]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(23).
+locations(23,[16,17]).
+tamperProtections(23,[]).
+/** END locationsAndTamperProtectionsPair, ID: '23', NAME: 'l=[internet, userAHome] - t=[]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '24', NAME: 'l=[internet, userBHome] - t=[]' */
+description(24,'l=[internet, userBHome] - t=[]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(24).
+locations(24,[16,18]).
+tamperProtections(24,[]).
+/** END locationsAndTamperProtectionsPair, ID: '24', NAME: 'l=[internet, userBHome] - t=[]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '25', NAME: 'l=[internet, userGuestHome] - t=[]' */
+description(25,'l=[internet, userGuestHome] - t=[]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(25).
+locations(25,[16,19]).
+tamperProtections(25,[]).
+/** END locationsAndTamperProtectionsPair, ID: '25', NAME: 'l=[internet, userGuestHome] - t=[]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '26', NAME: 'l=[internet] - t=[]' */
+description(26,'l=[internet] - t=[]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(26).
+locations(26,[16]).
+tamperProtections(26,[]).
+/** END locationsAndTamperProtectionsPair, ID: '26', NAME: 'l=[internet] - t=[]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '27', NAME: 'l=[innerZone, outerZone, internet] - t=[]' */
+description(27,'l=[innerZone, outerZone, internet] - t=[]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(27).
+locations(27,[20,21,16]).
+tamperProtections(27,[]).
+/** END locationsAndTamperProtectionsPair, ID: '27', NAME: 'l=[innerZone, outerZone, internet] - t=[]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '28', NAME: 'l=[innerZone, outerZone] - t=[perimeterProtection]' */
+description(28,'l=[innerZone, outerZone] - t=[perimeterProtection]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(28).
+locations(28,[20,21]).
+tamperProtections(28,[22]).
+/** END locationsAndTamperProtectionsPair, ID: '28', NAME: 'l=[innerZone, outerZone] - t=[perimeterProtection]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '29', NAME: 'l=[innerZone] - t=[perimeterProtection]' */
+description(29,'l=[innerZone] - t=[perimeterProtection]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(29).
+locations(29,[20]).
+tamperProtections(29,[22]).
+/** END locationsAndTamperProtectionsPair, ID: '29', NAME: 'l=[innerZone] - t=[perimeterProtection]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '30', NAME: 'l=[outerZone] - t=[perimeterProtection]' */
+description(30,'l=[outerZone] - t=[perimeterProtection]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(30).
+locations(30,[21]).
+tamperProtections(30,[22]).
+/** END locationsAndTamperProtectionsPair, ID: '30', NAME: 'l=[outerZone] - t=[perimeterProtection]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '31', NAME: 'l=[userAHome] - t=[]' */
+description(31,'l=[userAHome] - t=[]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(31).
+locations(31,[17]).
+tamperProtections(31,[]).
+/** END locationsAndTamperProtectionsPair, ID: '31', NAME: 'l=[userAHome] - t=[]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '32', NAME: 'l=[userBHome] - t=[]' */
+description(32,'l=[userBHome] - t=[]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(32).
+locations(32,[18]).
+tamperProtections(32,[]).
+/** END locationsAndTamperProtectionsPair, ID: '32', NAME: 'l=[userBHome] - t=[]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '33', NAME: 'l=[userGuestHome] - t=[]' */
+description(33,'l=[userGuestHome] - t=[]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(33).
+locations(33,[19]).
+tamperProtections(33,[]).
+/** END locationsAndTamperProtectionsPair, ID: '33', NAME: 'l=[userGuestHome] - t=[]' */
+
+/** END confidentialitySpecification, ID: '1', NAME: 'cloud confidentiality specification' */
+
+
+/** BEGIN adversaries, ID: '34', NAME: 'cloud adversaries' */
+description(34,'cloud adversaries','adversaries').
+adversaries(34).
+adversaries(34,[35,36,37,38,39,40]).
+
+/** BEGIN adversary, ID: '35', NAME: 'cloud end user A' */
+description(35,'cloud end user A','adversary').
+adversary(35).
+mayKnowData(35,[4,6]).
+locationsAndTamperProtectionsPairs(35,[23]).
+/** END adversary, ID: '35', NAME: 'cloud end user A' */
+
+
+/** BEGIN adversary, ID: '36', NAME: 'cloud end user B' */
+description(36,'cloud end user B','adversary').
+adversary(36).
+mayKnowData(36,[5,6]).
+locationsAndTamperProtectionsPairs(36,[24]).
+/** END adversary, ID: '36', NAME: 'cloud end user B' */
+
+
+/** BEGIN adversary, ID: '37', NAME: 'cloud end user guest' */
+description(37,'cloud end user guest','adversary').
+adversary(37).
+mayKnowData(37,[6]).
+locationsAndTamperProtectionsPairs(37,[25]).
+/** END adversary, ID: '37', NAME: 'cloud end user guest' */
+
+
+/** BEGIN adversary, ID: '38', NAME: 'cloud service administrator' */
+description(38,'cloud service administrator','adversary').
+adversary(38).
+mayKnowData(38,[2,3,6]).
+locationsAndTamperProtectionsPairs(38,[27]).
+/** END adversary, ID: '38', NAME: 'cloud service administrator' */
+
+
+/** BEGIN adversary, ID: '39', NAME: 'cloud service provider' */
+description(39,'cloud service provider','adversary').
+adversary(39).
+mayKnowData(39,[2,6]).
+locationsAndTamperProtectionsPairs(39,[28,26]).
+/** END adversary, ID: '39', NAME: 'cloud service provider' */
+
+
+/** BEGIN adversary, ID: '40', NAME: 'ChuckNorris' */
+description(40,'ChuckNorris','adversary').
+adversary(40).
+mayKnowData(40,[]).
+locationsAndTamperProtectionsPairs(40,[41]).
+/** END adversary, ID: '40', NAME: 'ChuckNorris' */
+
+/** END adversaries, ID: '34', NAME: 'cloud adversaries' */
+
+
+/** BEGIN allocation, ID: '494', NAME: 'defaultAllocation' */
+description(494,'defaultAllocation','allocation').
+allocation(494).
+allocationContexts(494,[495,496,497,498,499,500,501,502,503,504,505,506,507,508,509,510,511,512,513,514,515]).
+
+/** BEGIN allocationContext, ID: '495', NAME: 'Allocation_Database <Database>' */
+description(495,'Allocation_Database <Database>','allocationContext').
+allocationContext(495).
+resourceContainer(495,[486]).
+assemblyContext_AllocationContext(495,[242]).
+/** END allocationContext, ID: '495', NAME: 'Allocation_Database <Database>' */
+
+
+/** BEGIN allocationContext, ID: '496', NAME: 'Allocation_DBLogging <Logging>' */
+description(496,'Allocation_DBLogging <Logging>','allocationContext').
+allocationContext(496).
+resourceContainer(496,[486]).
+assemblyContext_AllocationContext(496,[241]).
+/** END allocationContext, ID: '496', NAME: 'Allocation_DBLogging <Logging>' */
+
+
+/** BEGIN allocationContext, ID: '497', NAME: 'Allocation_DBAdminTool <DBAdminTool>' */
+description(497,'Allocation_DBAdminTool <DBAdminTool>','allocationContext').
+allocationContext(497).
+resourceContainer(497,[486]).
+assemblyContext_AllocationContext(497,[250]).
+/** END allocationContext, ID: '497', NAME: 'Allocation_DBAdminTool <DBAdminTool>' */
+
+
+/** BEGIN allocationContext, ID: '498', NAME: 'Allocation_NetworkFilesystem <NetworkFilesystem>' */
+description(498,'Allocation_NetworkFilesystem <NetworkFilesystem>','allocationContext').
+allocationContext(498).
+resourceContainer(498,[487]).
+assemblyContext_AllocationContext(498,[243]).
+/** END allocationContext, ID: '498', NAME: 'Allocation_NetworkFilesystem <NetworkFilesystem>' */
+
+
+/** BEGIN allocationContext, ID: '499', NAME: 'Allocation_NWFSLogging <Logging>' */
+description(499,'Allocation_NWFSLogging <Logging>','allocationContext').
+allocationContext(499).
+resourceContainer(499,[487]).
+assemblyContext_AllocationContext(499,[244]).
+/** END allocationContext, ID: '499', NAME: 'Allocation_NWFSLogging <Logging>' */
+
+
+/** BEGIN allocationContext, ID: '500', NAME: 'Allocation_NWFSAdminTool <NWFSAdminTool>' */
+description(500,'Allocation_NWFSAdminTool <NWFSAdminTool>','allocationContext').
+allocationContext(500).
+resourceContainer(500,[487]).
+assemblyContext_AllocationContext(500,[251]).
+/** END allocationContext, ID: '500', NAME: 'Allocation_NWFSAdminTool <NWFSAdminTool>' */
+
+
+/** BEGIN allocationContext, ID: '501', NAME: 'Allocation_OwnCloudA <OwnCloud>' */
+description(501,'Allocation_OwnCloudA <OwnCloud>','allocationContext').
+allocationContext(501).
+resourceContainer(501,[488]).
+assemblyContext_AllocationContext(501,[240]).
+/** END allocationContext, ID: '501', NAME: 'Allocation_OwnCloudA <OwnCloud>' */
+
+
+/** BEGIN allocationContext, ID: '502', NAME: 'Allocation_OCALogging <Logging>' */
+description(502,'Allocation_OCALogging <Logging>','allocationContext').
+allocationContext(502).
+resourceContainer(502,[488]).
+assemblyContext_AllocationContext(502,[245]).
+/** END allocationContext, ID: '502', NAME: 'Allocation_OCALogging <Logging>' */
+
+
+/** BEGIN allocationContext, ID: '503', NAME: 'Allocation_OCAAdminTool <OCAdminTool>' */
+description(503,'Allocation_OCAAdminTool <OCAdminTool>','allocationContext').
+allocationContext(503).
+resourceContainer(503,[488]).
+assemblyContext_AllocationContext(503,[252]).
+/** END allocationContext, ID: '503', NAME: 'Allocation_OCAAdminTool <OCAdminTool>' */
+
+
+/** BEGIN allocationContext, ID: '504', NAME: 'Allocation_OwnCloudB <OwnCloud>' */
+description(504,'Allocation_OwnCloudB <OwnCloud>','allocationContext').
+allocationContext(504).
+resourceContainer(504,[489]).
+assemblyContext_AllocationContext(504,[248]).
+/** END allocationContext, ID: '504', NAME: 'Allocation_OwnCloudB <OwnCloud>' */
+
+
+/** BEGIN allocationContext, ID: '505', NAME: 'Allocation_OCBLogging <Logging>' */
+description(505,'Allocation_OCBLogging <Logging>','allocationContext').
+allocationContext(505).
+resourceContainer(505,[489]).
+assemblyContext_AllocationContext(505,[249]).
+/** END allocationContext, ID: '505', NAME: 'Allocation_OCBLogging <Logging>' */
+
+
+/** BEGIN allocationContext, ID: '506', NAME: 'Allocation_OCBAdminTool <OCAdminTool>' */
+description(506,'Allocation_OCBAdminTool <OCAdminTool>','allocationContext').
+allocationContext(506).
+resourceContainer(506,[489]).
+assemblyContext_AllocationContext(506,[253]).
+/** END allocationContext, ID: '506', NAME: 'Allocation_OCBAdminTool <OCAdminTool>' */
+
+
+/** BEGIN allocationContext, ID: '507', NAME: 'Allocation_LoadBalancer <LoadBalancer>' */
+description(507,'Allocation_LoadBalancer <LoadBalancer>','allocationContext').
+allocationContext(507).
+resourceContainer(507,[490]).
+assemblyContext_AllocationContext(507,[246]).
+/** END allocationContext, ID: '507', NAME: 'Allocation_LoadBalancer <LoadBalancer>' */
+
+
+/** BEGIN allocationContext, ID: '508', NAME: 'Allocation_LBAdminTool <LBAdminTool>' */
+description(508,'Allocation_LBAdminTool <LBAdminTool>','allocationContext').
+allocationContext(508).
+resourceContainer(508,[490]).
+assemblyContext_AllocationContext(508,[254]).
+/** END allocationContext, ID: '508', NAME: 'Allocation_LBAdminTool <LBAdminTool>' */
+
+
+/** BEGIN allocationContext, ID: '509', NAME: 'Allocation_LBLogging <Logging>' */
+description(509,'Allocation_LBLogging <Logging>','allocationContext').
+allocationContext(509).
+resourceContainer(509,[490]).
+assemblyContext_AllocationContext(509,[247]).
+/** END allocationContext, ID: '509', NAME: 'Allocation_LBLogging <Logging>' */
+
+
+/** BEGIN allocationContext, ID: '510', NAME: 'Allocation_FileManagerA <FileManager>' */
+description(510,'Allocation_FileManagerA <FileManager>','allocationContext').
+allocationContext(510).
+resourceContainer(510,[491]).
+assemblyContext_AllocationContext(510,[255]).
+/** END allocationContext, ID: '510', NAME: 'Allocation_FileManagerA <FileManager>' */
+
+
+/** BEGIN allocationContext, ID: '511', NAME: 'Allocation_CalendarA <Calendar>' */
+description(511,'Allocation_CalendarA <Calendar>','allocationContext').
+allocationContext(511).
+resourceContainer(511,[491]).
+assemblyContext_AllocationContext(511,[256]).
+/** END allocationContext, ID: '511', NAME: 'Allocation_CalendarA <Calendar>' */
+
+
+/** BEGIN allocationContext, ID: '512', NAME: 'Allocation_FileManagerB <FileManager>' */
+description(512,'Allocation_FileManagerB <FileManager>','allocationContext').
+allocationContext(512).
+resourceContainer(512,[492]).
+assemblyContext_AllocationContext(512,[257]).
+/** END allocationContext, ID: '512', NAME: 'Allocation_FileManagerB <FileManager>' */
+
+
+/** BEGIN allocationContext, ID: '513', NAME: 'Allocation_CalendarB <Calendar>' */
+description(513,'Allocation_CalendarB <Calendar>','allocationContext').
+allocationContext(513).
+resourceContainer(513,[492]).
+assemblyContext_AllocationContext(513,[258]).
+/** END allocationContext, ID: '513', NAME: 'Allocation_CalendarB <Calendar>' */
+
+
+/** BEGIN allocationContext, ID: '514', NAME: 'Allocation_FileManagerGuest <FileManager>' */
+description(514,'Allocation_FileManagerGuest <FileManager>','allocationContext').
+allocationContext(514).
+resourceContainer(514,[493]).
+assemblyContext_AllocationContext(514,[516]).
+/** END allocationContext, ID: '514', NAME: 'Allocation_FileManagerGuest <FileManager>' */
+
+
+/** BEGIN allocationContext, ID: '515', NAME: 'Allocation_CalendarGuest <Calendar>' */
+description(515,'Allocation_CalendarGuest <Calendar>','allocationContext').
+allocationContext(515).
+resourceContainer(515,[493]).
+assemblyContext_AllocationContext(515,[517]).
+/** END allocationContext, ID: '515', NAME: 'Allocation_CalendarGuest <Calendar>' */
+
+/** END allocation, ID: '494', NAME: 'defaultAllocation' */
+
+
+/** BEGIN repository, ID: '42', NAME: 'cloudRepository' */
+description(42,'cloudRepository','repository').
+repository(42).
+components(42,[43,44,45,46,47,48,49,50,51,52,53,54,55]).
+interfaces(42,[56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71]).
+
+/** BEGIN basicComponent, ID: '43', NAME: 'DBAdminTool' */
+description(43,'DBAdminTool','basicComponent').
+basicComponent(43).
+providedRoles(43,[72]).
+requiredRoles(43,[73,74,75]).
+
+/** BEGIN operationProvidedRole, ID: '72', NAME: 'Provided_IDBAdminTool_DBAdminTool' */
+description(72,'Provided_IDBAdminTool_DBAdminTool','operationProvidedRole').
+operationProvidedRole(72).
+providedInterface(72,[56]).
+/** END operationProvidedRole, ID: '72', NAME: 'Provided_IDBAdminTool_DBAdminTool' */
+
+
+/** BEGIN operationRequiredRole, ID: '73', NAME: 'Required_ISQL_AdminTool' */
+description(73,'Required_ISQL_AdminTool','operationRequiredRole').
+operationRequiredRole(73).
+requiredInterface(73,[57]).
+/** END operationRequiredRole, ID: '73', NAME: 'Required_ISQL_AdminTool' */
+
+
+/** BEGIN operationRequiredRole, ID: '74', NAME: 'Required_LogReader_AdminTool' */
+description(74,'Required_LogReader_AdminTool','operationRequiredRole').
+operationRequiredRole(74).
+requiredInterface(74,[58]).
+/** END operationRequiredRole, ID: '74', NAME: 'Required_LogReader_AdminTool' */
+
+
+/** BEGIN operationRequiredRole, ID: '75', NAME: 'Required_LogWriter_DBAdminTool' */
+description(75,'Required_LogWriter_DBAdminTool','operationRequiredRole').
+operationRequiredRole(75).
+requiredInterface(75,[59]).
+/** END operationRequiredRole, ID: '75', NAME: 'Required_LogWriter_DBAdminTool' */
+
+/** END basicComponent, ID: '43', NAME: 'DBAdminTool' */
+
+
+/** BEGIN basicComponent, ID: '44', NAME: 'Database' */
+description(44,'Database','basicComponent').
+basicComponent(44).
+providedRoles(44,[76]).
+requiredRoles(44,[77]).
+
+/** BEGIN operationProvidedRole, ID: '76', NAME: 'Provided_ISQL_Database' */
+description(76,'Provided_ISQL_Database','operationProvidedRole').
+operationProvidedRole(76).
+providedInterface(76,[57]).
+/** END operationProvidedRole, ID: '76', NAME: 'Provided_ISQL_Database' */
+
+
+/** BEGIN operationRequiredRole, ID: '77', NAME: 'Required_LogWriter_Database' */
+description(77,'Required_LogWriter_Database','operationRequiredRole').
+operationRequiredRole(77).
+requiredInterface(77,[59]).
+/** END operationRequiredRole, ID: '77', NAME: 'Required_LogWriter_Database' */
+
+/** END basicComponent, ID: '44', NAME: 'Database' */
+
+
+/** BEGIN basicComponent, ID: '45', NAME: 'Logging' */
+description(45,'Logging','basicComponent').
+basicComponent(45).
+providedRoles(45,[78,79]).
+requiredRoles(45,[]).
+
+/** BEGIN operationProvidedRole, ID: '78', NAME: 'Provided_LogReader_Logging' */
+description(78,'Provided_LogReader_Logging','operationProvidedRole').
+operationProvidedRole(78).
+providedInterface(78,[58]).
+/** END operationProvidedRole, ID: '78', NAME: 'Provided_LogReader_Logging' */
+
+
+/** BEGIN operationProvidedRole, ID: '79', NAME: 'Provided_LogWriter_Logging' */
+description(79,'Provided_LogWriter_Logging','operationProvidedRole').
+operationProvidedRole(79).
+providedInterface(79,[59]).
+/** END operationProvidedRole, ID: '79', NAME: 'Provided_LogWriter_Logging' */
+
+/** END basicComponent, ID: '45', NAME: 'Logging' */
+
+
+/** BEGIN basicComponent, ID: '46', NAME: 'OwnCloud' */
+description(46,'OwnCloud','basicComponent').
+basicComponent(46).
+providedRoles(46,[80,81]).
+requiredRoles(46,[82,83,84]).
+
+/** BEGIN operationProvidedRole, ID: '80', NAME: 'Provided_IWebDAV_OwnCloud' */
+description(80,'Provided_IWebDAV_OwnCloud','operationProvidedRole').
+operationProvidedRole(80).
+providedInterface(80,[61]).
+/** END operationProvidedRole, ID: '80', NAME: 'Provided_IWebDAV_OwnCloud' */
+
+
+/** BEGIN operationProvidedRole, ID: '81', NAME: 'Provided_ICalDAV_OwnCloud' */
+description(81,'Provided_ICalDAV_OwnCloud','operationProvidedRole').
+operationProvidedRole(81).
+providedInterface(81,[62]).
+/** END operationProvidedRole, ID: '81', NAME: 'Provided_ICalDAV_OwnCloud' */
+
+
+/** BEGIN operationRequiredRole, ID: '82', NAME: 'Required_ISQL_OwnCloud' */
+description(82,'Required_ISQL_OwnCloud','operationRequiredRole').
+operationRequiredRole(82).
+requiredInterface(82,[57]).
+/** END operationRequiredRole, ID: '82', NAME: 'Required_ISQL_OwnCloud' */
+
+
+/** BEGIN operationRequiredRole, ID: '83', NAME: 'Required_INetworkFilesystem_OwnCloud' */
+description(83,'Required_INetworkFilesystem_OwnCloud','operationRequiredRole').
+operationRequiredRole(83).
+requiredInterface(83,[60]).
+/** END operationRequiredRole, ID: '83', NAME: 'Required_INetworkFilesystem_OwnCloud' */
+
+
+/** BEGIN operationRequiredRole, ID: '84', NAME: 'Required_LogWriter_OwnCloud' */
+description(84,'Required_LogWriter_OwnCloud','operationRequiredRole').
+operationRequiredRole(84).
+requiredInterface(84,[59]).
+/** END operationRequiredRole, ID: '84', NAME: 'Required_LogWriter_OwnCloud' */
+
+/** END basicComponent, ID: '46', NAME: 'OwnCloud' */
+
+
+/** BEGIN basicComponent, ID: '47', NAME: 'NetworkFilesystem' */
+description(47,'NetworkFilesystem','basicComponent').
+basicComponent(47).
+providedRoles(47,[85]).
+requiredRoles(47,[86]).
+
+/** BEGIN operationProvidedRole, ID: '85', NAME: 'Provided_INetworkFilesystem_NetworkFilesystem' */
+description(85,'Provided_INetworkFilesystem_NetworkFilesystem','operationProvidedRole').
+operationProvidedRole(85).
+providedInterface(85,[60]).
+/** END operationProvidedRole, ID: '85', NAME: 'Provided_INetworkFilesystem_NetworkFilesystem' */
+
+
+/** BEGIN operationRequiredRole, ID: '86', NAME: 'Required_LogWriter_NetworkFilesystem' */
+description(86,'Required_LogWriter_NetworkFilesystem','operationRequiredRole').
+operationRequiredRole(86).
+requiredInterface(86,[59]).
+/** END operationRequiredRole, ID: '86', NAME: 'Required_LogWriter_NetworkFilesystem' */
+
+/** END basicComponent, ID: '47', NAME: 'NetworkFilesystem' */
+
+
+/** BEGIN basicComponent, ID: '48', NAME: 'LoadBalancer' */
+description(48,'LoadBalancer','basicComponent').
+basicComponent(48).
+providedRoles(48,[87,88,89,90,91]).
+requiredRoles(48,[92,93,94]).
+
+/** BEGIN operationProvidedRole, ID: '87', NAME: 'Provided_IWebDAV_LoadBalancer' */
+description(87,'Provided_IWebDAV_LoadBalancer','operationProvidedRole').
+operationProvidedRole(87).
+providedInterface(87,[61]).
+/** END operationProvidedRole, ID: '87', NAME: 'Provided_IWebDAV_LoadBalancer' */
+
+
+/** BEGIN operationProvidedRole, ID: '88', NAME: 'Provided_ICalDAV_LoadBalancer' */
+description(88,'Provided_ICalDAV_LoadBalancer','operationProvidedRole').
+operationProvidedRole(88).
+providedInterface(88,[62]).
+/** END operationProvidedRole, ID: '88', NAME: 'Provided_ICalDAV_LoadBalancer' */
+
+
+/** BEGIN operationProvidedRole, ID: '89', NAME: 'Provided_LoadBalancerMgmtAPI_LoadBalancer' */
+description(89,'Provided_LoadBalancerMgmtAPI_LoadBalancer','operationProvidedRole').
+operationProvidedRole(89).
+providedInterface(89,[63]).
+/** END operationProvidedRole, ID: '89', NAME: 'Provided_LoadBalancerMgmtAPI_LoadBalancer' */
+
+
+/** BEGIN operationProvidedRole, ID: '90', NAME: 'Provided_IPublicFileManGUI_LoadBalancer' */
+description(90,'Provided_IPublicFileManGUI_LoadBalancer','operationProvidedRole').
+operationProvidedRole(90).
+providedInterface(90,[70]).
+/** END operationProvidedRole, ID: '90', NAME: 'Provided_IPublicFileManGUI_LoadBalancer' */
+
+
+/** BEGIN operationProvidedRole, ID: '91', NAME: 'Provided_IPublicCalendarGUI_LoadBalancer' */
+description(91,'Provided_IPublicCalendarGUI_LoadBalancer','operationProvidedRole').
+operationProvidedRole(91).
+providedInterface(91,[71]).
+/** END operationProvidedRole, ID: '91', NAME: 'Provided_IPublicCalendarGUI_LoadBalancer' */
+
+
+/** BEGIN operationRequiredRole, ID: '92', NAME: 'Required_LogWriter_LoadBalancer' */
+description(92,'Required_LogWriter_LoadBalancer','operationRequiredRole').
+operationRequiredRole(92).
+requiredInterface(92,[59]).
+/** END operationRequiredRole, ID: '92', NAME: 'Required_LogWriter_LoadBalancer' */
+
+
+/** BEGIN operationRequiredRole, ID: '93', NAME: 'Required_ICalDAV_LoadBalancer' */
+description(93,'Required_ICalDAV_LoadBalancer','operationRequiredRole').
+operationRequiredRole(93).
+requiredInterface(93,[62]).
+/** END operationRequiredRole, ID: '93', NAME: 'Required_ICalDAV_LoadBalancer' */
+
+
+/** BEGIN operationRequiredRole, ID: '94', NAME: 'Required_IWebDAV_LoadBalancer' */
+description(94,'Required_IWebDAV_LoadBalancer','operationRequiredRole').
+operationRequiredRole(94).
+requiredInterface(94,[61]).
+/** END operationRequiredRole, ID: '94', NAME: 'Required_IWebDAV_LoadBalancer' */
+
+/** END basicComponent, ID: '48', NAME: 'LoadBalancer' */
+
+
+/** BEGIN basicComponent, ID: '49', NAME: 'FileManager' */
+description(49,'FileManager','basicComponent').
+basicComponent(49).
+providedRoles(49,[95]).
+requiredRoles(49,[96]).
+
+/** BEGIN operationProvidedRole, ID: '95', NAME: 'Provided_FileManGUI_FileManager' */
+description(95,'Provided_FileManGUI_FileManager','operationProvidedRole').
+operationProvidedRole(95).
+providedInterface(95,[64]).
+/** END operationProvidedRole, ID: '95', NAME: 'Provided_FileManGUI_FileManager' */
+
+
+/** BEGIN operationRequiredRole, ID: '96', NAME: 'Required_IWebDAV_FileManager' */
+description(96,'Required_IWebDAV_FileManager','operationRequiredRole').
+operationRequiredRole(96).
+requiredInterface(96,[61]).
+/** END operationRequiredRole, ID: '96', NAME: 'Required_IWebDAV_FileManager' */
+
+/** END basicComponent, ID: '49', NAME: 'FileManager' */
+
+
+/** BEGIN basicComponent, ID: '50', NAME: 'Calendar' */
+description(50,'Calendar','basicComponent').
+basicComponent(50).
+providedRoles(50,[97]).
+requiredRoles(50,[98]).
+
+/** BEGIN operationProvidedRole, ID: '97', NAME: 'Provided_CalendarGUI_Calendar' */
+description(97,'Provided_CalendarGUI_Calendar','operationProvidedRole').
+operationProvidedRole(97).
+providedInterface(97,[65]).
+/** END operationProvidedRole, ID: '97', NAME: 'Provided_CalendarGUI_Calendar' */
+
+
+/** BEGIN operationRequiredRole, ID: '98', NAME: 'Required_ICalDAV_Calendar' */
+description(98,'Required_ICalDAV_Calendar','operationRequiredRole').
+operationRequiredRole(98).
+requiredInterface(98,[62]).
+/** END operationRequiredRole, ID: '98', NAME: 'Required_ICalDAV_Calendar' */
+
+/** END basicComponent, ID: '50', NAME: 'Calendar' */
+
+
+/** BEGIN basicComponent, ID: '51', NAME: 'NWFSAdminTool' */
+description(51,'NWFSAdminTool','basicComponent').
+basicComponent(51).
+providedRoles(51,[99]).
+requiredRoles(51,[100,101,102]).
+
+/** BEGIN operationProvidedRole, ID: '99', NAME: 'Provided_INWFSAdminTool_NWFSAdminTool' */
+description(99,'Provided_INWFSAdminTool_NWFSAdminTool','operationProvidedRole').
+operationProvidedRole(99).
+providedInterface(99,[66]).
+/** END operationProvidedRole, ID: '99', NAME: 'Provided_INWFSAdminTool_NWFSAdminTool' */
+
+
+/** BEGIN operationRequiredRole, ID: '100', NAME: 'Required_INetworkFilesystem_NWFSAdminTool' */
+description(100,'Required_INetworkFilesystem_NWFSAdminTool','operationRequiredRole').
+operationRequiredRole(100).
+requiredInterface(100,[60]).
+/** END operationRequiredRole, ID: '100', NAME: 'Required_INetworkFilesystem_NWFSAdminTool' */
+
+
+/** BEGIN operationRequiredRole, ID: '101', NAME: 'Required_LogReader_NWFSAdminTool' */
+description(101,'Required_LogReader_NWFSAdminTool','operationRequiredRole').
+operationRequiredRole(101).
+requiredInterface(101,[58]).
+/** END operationRequiredRole, ID: '101', NAME: 'Required_LogReader_NWFSAdminTool' */
+
+
+/** BEGIN operationRequiredRole, ID: '102', NAME: 'Required_LogWriter_NWFSAdminTool' */
+description(102,'Required_LogWriter_NWFSAdminTool','operationRequiredRole').
+operationRequiredRole(102).
+requiredInterface(102,[59]).
+/** END operationRequiredRole, ID: '102', NAME: 'Required_LogWriter_NWFSAdminTool' */
+
+/** END basicComponent, ID: '51', NAME: 'NWFSAdminTool' */
+
+
+/** BEGIN basicComponent, ID: '52', NAME: 'OCAdminTool' */
+description(52,'OCAdminTool','basicComponent').
+basicComponent(52).
+providedRoles(52,[103]).
+requiredRoles(52,[104,105,106,107]).
+
+/** BEGIN operationProvidedRole, ID: '103', NAME: 'Provided_IOCAdminTool_OwnCloudAdminTool' */
+description(103,'Provided_IOCAdminTool_OwnCloudAdminTool','operationProvidedRole').
+operationProvidedRole(103).
+providedInterface(103,[68]).
+/** END operationProvidedRole, ID: '103', NAME: 'Provided_IOCAdminTool_OwnCloudAdminTool' */
+
+
+/** BEGIN operationRequiredRole, ID: '104', NAME: 'Required_IWebDAV_OwnCloudAdminTool' */
+description(104,'Required_IWebDAV_OwnCloudAdminTool','operationRequiredRole').
+operationRequiredRole(104).
+requiredInterface(104,[61]).
+/** END operationRequiredRole, ID: '104', NAME: 'Required_IWebDAV_OwnCloudAdminTool' */
+
+
+/** BEGIN operationRequiredRole, ID: '105', NAME: 'Required_ICalDAV_OwnCloudAdminTool' */
+description(105,'Required_ICalDAV_OwnCloudAdminTool','operationRequiredRole').
+operationRequiredRole(105).
+requiredInterface(105,[62]).
+/** END operationRequiredRole, ID: '105', NAME: 'Required_ICalDAV_OwnCloudAdminTool' */
+
+
+/** BEGIN operationRequiredRole, ID: '106', NAME: 'Required_LogReader_OwnCloudAdminTool' */
+description(106,'Required_LogReader_OwnCloudAdminTool','operationRequiredRole').
+operationRequiredRole(106).
+requiredInterface(106,[58]).
+/** END operationRequiredRole, ID: '106', NAME: 'Required_LogReader_OwnCloudAdminTool' */
+
+
+/** BEGIN operationRequiredRole, ID: '107', NAME: 'Required_LogWriter_OwnCloudAdminTool' */
+description(107,'Required_LogWriter_OwnCloudAdminTool','operationRequiredRole').
+operationRequiredRole(107).
+requiredInterface(107,[59]).
+/** END operationRequiredRole, ID: '107', NAME: 'Required_LogWriter_OwnCloudAdminTool' */
+
+/** END basicComponent, ID: '52', NAME: 'OCAdminTool' */
+
+
+/** BEGIN basicComponent, ID: '53', NAME: 'LBAdminTool' */
+description(53,'LBAdminTool','basicComponent').
+basicComponent(53).
+providedRoles(53,[108]).
+requiredRoles(53,[109,110,111]).
+
+/** BEGIN operationProvidedRole, ID: '108', NAME: 'Provided_ILBAdminTool_LBAdminTool' */
+description(108,'Provided_ILBAdminTool_LBAdminTool','operationProvidedRole').
+operationProvidedRole(108).
+providedInterface(108,[69]).
+/** END operationProvidedRole, ID: '108', NAME: 'Provided_ILBAdminTool_LBAdminTool' */
+
+
+/** BEGIN operationRequiredRole, ID: '109', NAME: 'Required_LoadBalancerMgmtAPI_LBAdminTool' */
+description(109,'Required_LoadBalancerMgmtAPI_LBAdminTool','operationRequiredRole').
+operationRequiredRole(109).
+requiredInterface(109,[63]).
+/** END operationRequiredRole, ID: '109', NAME: 'Required_LoadBalancerMgmtAPI_LBAdminTool' */
+
+
+/** BEGIN operationRequiredRole, ID: '110', NAME: 'Required_LogReader_LBAdminTool' */
+description(110,'Required_LogReader_LBAdminTool','operationRequiredRole').
+operationRequiredRole(110).
+requiredInterface(110,[58]).
+/** END operationRequiredRole, ID: '110', NAME: 'Required_LogReader_LBAdminTool' */
+
+
+/** BEGIN operationRequiredRole, ID: '111', NAME: 'Required_LogWriter_LBAdminTool' */
+description(111,'Required_LogWriter_LBAdminTool','operationRequiredRole').
+operationRequiredRole(111).
+requiredInterface(111,[59]).
+/** END operationRequiredRole, ID: '111', NAME: 'Required_LogWriter_LBAdminTool' */
+
+/** END basicComponent, ID: '53', NAME: 'LBAdminTool' */
+
+
+/** BEGIN basicComponent, ID: '54', NAME: 'PublicFileManager' */
+description(54,'PublicFileManager','basicComponent').
+basicComponent(54).
+providedRoles(54,[112]).
+requiredRoles(54,[113]).
+
+/** BEGIN operationProvidedRole, ID: '112', NAME: 'Provided_PublicFileManGUI_PublicFileManager' */
+description(112,'Provided_PublicFileManGUI_PublicFileManager','operationProvidedRole').
+operationProvidedRole(112).
+providedInterface(112,[70]).
+/** END operationProvidedRole, ID: '112', NAME: 'Provided_PublicFileManGUI_PublicFileManager' */
+
+
+/** BEGIN operationRequiredRole, ID: '113', NAME: 'Required_IWebDAV_PublicFileManager' */
+description(113,'Required_IWebDAV_PublicFileManager','operationRequiredRole').
+operationRequiredRole(113).
+requiredInterface(113,[61]).
+/** END operationRequiredRole, ID: '113', NAME: 'Required_IWebDAV_PublicFileManager' */
+
+/** END basicComponent, ID: '54', NAME: 'PublicFileManager' */
+
+
+/** BEGIN basicComponent, ID: '55', NAME: 'PublicCalendar' */
+description(55,'PublicCalendar','basicComponent').
+basicComponent(55).
+providedRoles(55,[114]).
+requiredRoles(55,[115]).
+
+/** BEGIN operationProvidedRole, ID: '114', NAME: 'Provided_PublicCalendarGUI_PublicCalendar' */
+description(114,'Provided_PublicCalendarGUI_PublicCalendar','operationProvidedRole').
+operationProvidedRole(114).
+providedInterface(114,[71]).
+/** END operationProvidedRole, ID: '114', NAME: 'Provided_PublicCalendarGUI_PublicCalendar' */
+
+
+/** BEGIN operationRequiredRole, ID: '115', NAME: 'Required_ICalDAV_PublicCalendar' */
+description(115,'Required_ICalDAV_PublicCalendar','operationRequiredRole').
+operationRequiredRole(115).
+requiredInterface(115,[62]).
+/** END operationRequiredRole, ID: '115', NAME: 'Required_ICalDAV_PublicCalendar' */
+
+/** END basicComponent, ID: '55', NAME: 'PublicCalendar' */
+
+
+/** BEGIN operationInterface, ID: '56', NAME: 'IDBAdminTool' */
+description(56,'IDBAdminTool','operationInterface').
+operationInterface(56).
+parentInterfaces(56,[67]).
+signatures(56,[116]).
+
+/** BEGIN operationSignature, ID: '116', NAME: 'doSQLDump' */
+description(116,'doSQLDump','operationSignature').
+operationSignature(116).
+parameters(116,[]).
+returnType(116,[117]).
+/** END operationSignature, ID: '116', NAME: 'doSQLDump' */
+
+/** END operationInterface, ID: '56', NAME: 'IDBAdminTool' */
+
+
+/** BEGIN operationInterface, ID: '57', NAME: 'ISQL' */
+description(57,'ISQL','operationInterface').
+operationInterface(57).
+parentInterfaces(57,[]).
+signatures(57,[118,119,120,121,122]).
+
+/** BEGIN operationSignature, ID: '118', NAME: 'query' */
+description(118,'query','operationSignature').
+operationSignature(118).
+parameters(118,[123]).
+returnType(118,[124]).
+
+/** BEGIN parameter, ID: '123', NAME: 'q' */
+description(123,'q','parameter').
+parameter(123).
+/** END parameter, ID: '123', NAME: 'q' */
+
+sizeOfParameter(125).
+sizeOf(125,123).
+/** END operationSignature, ID: '118', NAME: 'query' */
+
+
+/** BEGIN operationSignature, ID: '119', NAME: 'insertSelf' */
+description(119,'insertSelf','operationSignature').
+operationSignature(119).
+parameters(119,[126,127]).
+returnType(119,[128]).
+
+/** BEGIN parameter, ID: '126', NAME: 'table' */
+description(126,'table','parameter').
+parameter(126).
+/** END parameter, ID: '126', NAME: 'table' */
+
+sizeOfParameter(129).
+sizeOf(129,126).
+
+/** BEGIN parameter, ID: '127', NAME: 'data' */
+description(127,'data','parameter').
+parameter(127).
+/** END parameter, ID: '127', NAME: 'data' */
+
+sizeOfParameter(130).
+sizeOf(130,127).
+/** END operationSignature, ID: '119', NAME: 'insertSelf' */
+
+
+/** BEGIN operationSignature, ID: '120', NAME: 'insertFriends' */
+description(120,'insertFriends','operationSignature').
+operationSignature(120).
+parameters(120,[126,127,131]).
+returnType(120,[128]).
+
+/** BEGIN parameter, ID: '126', NAME: 'table' */
+description(126,'table','parameter').
+parameter(126).
+/** END parameter, ID: '126', NAME: 'table' */
+
+sizeOfParameter(129).
+sizeOf(129,126).
+
+/** BEGIN parameter, ID: '127', NAME: 'data' */
+description(127,'data','parameter').
+parameter(127).
+/** END parameter, ID: '127', NAME: 'data' */
+
+sizeOfParameter(130).
+sizeOf(130,127).
+
+/** BEGIN parameter, ID: '131', NAME: 'f' */
+description(131,'f','parameter').
+parameter(131).
+/** END parameter, ID: '131', NAME: 'f' */
+
+sizeOfParameter(132).
+sizeOf(132,131).
+/** END operationSignature, ID: '120', NAME: 'insertFriends' */
+
+
+/** BEGIN operationSignature, ID: '121', NAME: 'insertPublic' */
+description(121,'insertPublic','operationSignature').
+operationSignature(121).
+parameters(121,[126,127]).
+returnType(121,[128]).
+
+/** BEGIN parameter, ID: '126', NAME: 'table' */
+description(126,'table','parameter').
+parameter(126).
+/** END parameter, ID: '126', NAME: 'table' */
+
+sizeOfParameter(129).
+sizeOf(129,126).
+
+/** BEGIN parameter, ID: '127', NAME: 'data' */
+description(127,'data','parameter').
+parameter(127).
+/** END parameter, ID: '127', NAME: 'data' */
+
+sizeOfParameter(130).
+sizeOf(130,127).
+/** END operationSignature, ID: '121', NAME: 'insertPublic' */
+
+
+/** BEGIN operationSignature, ID: '122', NAME: 'delete' */
+description(122,'delete','operationSignature').
+operationSignature(122).
+parameters(122,[126,133]).
+returnType(122,[128]).
+
+/** BEGIN parameter, ID: '126', NAME: 'table' */
+description(126,'table','parameter').
+parameter(126).
+/** END parameter, ID: '126', NAME: 'table' */
+
+sizeOfParameter(129).
+sizeOf(129,126).
+
+/** BEGIN parameter, ID: '133', NAME: 'condition' */
+description(133,'condition','parameter').
+parameter(133).
+/** END parameter, ID: '133', NAME: 'condition' */
+
+sizeOfParameter(134).
+sizeOf(134,133).
+/** END operationSignature, ID: '122', NAME: 'delete' */
+
+/** END operationInterface, ID: '57', NAME: 'ISQL' */
+
+
+/** BEGIN operationInterface, ID: '58', NAME: 'LogReader' */
+description(58,'LogReader','operationInterface').
+operationInterface(58).
+parentInterfaces(58,[]).
+signatures(58,[135]).
+
+/** BEGIN operationSignature, ID: '135', NAME: 'getEntries' */
+description(135,'getEntries','operationSignature').
+operationSignature(135).
+parameters(135,[136]).
+returnType(135,[137]).
+
+/** BEGIN parameter, ID: '136', NAME: 'level' */
+description(136,'level','parameter').
+parameter(136).
+/** END parameter, ID: '136', NAME: 'level' */
+
+sizeOfParameter(138).
+sizeOf(138,136).
+/** END operationSignature, ID: '135', NAME: 'getEntries' */
+
+/** END operationInterface, ID: '58', NAME: 'LogReader' */
+
+
+/** BEGIN operationInterface, ID: '59', NAME: 'LogWriter' */
+description(59,'LogWriter','operationInterface').
+operationInterface(59).
+parentInterfaces(59,[]).
+signatures(59,[139]).
+
+/** BEGIN operationSignature, ID: '139', NAME: 'log' */
+description(139,'log','operationSignature').
+operationSignature(139).
+parameters(139,[136,140]).
+returnType(139,[128]).
+
+/** BEGIN parameter, ID: '136', NAME: 'level' */
+description(136,'level','parameter').
+parameter(136).
+/** END parameter, ID: '136', NAME: 'level' */
+
+sizeOfParameter(138).
+sizeOf(138,136).
+
+/** BEGIN parameter, ID: '140', NAME: 'text' */
+description(140,'text','parameter').
+parameter(140).
+/** END parameter, ID: '140', NAME: 'text' */
+
+sizeOfParameter(141).
+sizeOf(141,140).
+/** END operationSignature, ID: '139', NAME: 'log' */
+
+/** END operationInterface, ID: '59', NAME: 'LogWriter' */
+
+
+/** BEGIN operationInterface, ID: '60', NAME: 'INetworkFilesystem' */
+description(60,'INetworkFilesystem','operationInterface').
+operationInterface(60).
+parentInterfaces(60,[]).
+signatures(60,[142,143,144,145,146,147,148,149]).
+
+/** BEGIN operationSignature, ID: '142', NAME: 'open' */
+description(142,'open','operationSignature').
+operationSignature(142).
+parameters(142,[150,151]).
+returnType(142,[152]).
+
+/** BEGIN parameter, ID: '150', NAME: 'filepath' */
+description(150,'filepath','parameter').
+parameter(150).
+/** END parameter, ID: '150', NAME: 'filepath' */
+
+sizeOfParameter(153).
+sizeOf(153,150).
+
+/** BEGIN parameter, ID: '151', NAME: 'mode' */
+description(151,'mode','parameter').
+parameter(151).
+/** END parameter, ID: '151', NAME: 'mode' */
+
+sizeOfParameter(154).
+sizeOf(154,151).
+/** END operationSignature, ID: '142', NAME: 'open' */
+
+
+/** BEGIN operationSignature, ID: '143', NAME: 'close' */
+description(143,'close','operationSignature').
+operationSignature(143).
+parameters(143,[155]).
+returnType(143,[128]).
+
+/** BEGIN parameter, ID: '155', NAME: 'h' */
+description(155,'h','parameter').
+parameter(155).
+/** END parameter, ID: '155', NAME: 'h' */
+
+sizeOfParameter(156).
+sizeOf(156,155).
+/** END operationSignature, ID: '143', NAME: 'close' */
+
+
+/** BEGIN operationSignature, ID: '144', NAME: 'read' */
+description(144,'read','operationSignature').
+operationSignature(144).
+parameters(144,[155,157]).
+returnType(144,[117]).
+
+/** BEGIN parameter, ID: '155', NAME: 'h' */
+description(155,'h','parameter').
+parameter(155).
+/** END parameter, ID: '155', NAME: 'h' */
+
+sizeOfParameter(156).
+sizeOf(156,155).
+
+/** BEGIN parameter, ID: '157', NAME: 'size' */
+description(157,'size','parameter').
+parameter(157).
+/** END parameter, ID: '157', NAME: 'size' */
+
+sizeOfParameter(158).
+sizeOf(158,157).
+/** END operationSignature, ID: '144', NAME: 'read' */
+
+
+/** BEGIN operationSignature, ID: '145', NAME: 'writeSelf' */
+description(145,'writeSelf','operationSignature').
+operationSignature(145).
+parameters(145,[155,127]).
+returnType(145,[128]).
+
+/** BEGIN parameter, ID: '155', NAME: 'h' */
+description(155,'h','parameter').
+parameter(155).
+/** END parameter, ID: '155', NAME: 'h' */
+
+sizeOfParameter(156).
+sizeOf(156,155).
+
+/** BEGIN parameter, ID: '127', NAME: 'data' */
+description(127,'data','parameter').
+parameter(127).
+/** END parameter, ID: '127', NAME: 'data' */
+
+sizeOfParameter(130).
+sizeOf(130,127).
+/** END operationSignature, ID: '145', NAME: 'writeSelf' */
+
+
+/** BEGIN operationSignature, ID: '146', NAME: 'writeFriends' */
+description(146,'writeFriends','operationSignature').
+operationSignature(146).
+parameters(146,[155,127,159]).
+returnType(146,[128]).
+
+/** BEGIN parameter, ID: '155', NAME: 'h' */
+description(155,'h','parameter').
+parameter(155).
+/** END parameter, ID: '155', NAME: 'h' */
+
+sizeOfParameter(156).
+sizeOf(156,155).
+
+/** BEGIN parameter, ID: '127', NAME: 'data' */
+description(127,'data','parameter').
+parameter(127).
+/** END parameter, ID: '127', NAME: 'data' */
+
+sizeOfParameter(130).
+sizeOf(130,127).
+
+/** BEGIN parameter, ID: '159', NAME: 'token' */
+description(159,'token','parameter').
+parameter(159).
+/** END parameter, ID: '159', NAME: 'token' */
+
+sizeOfParameter(160).
+sizeOf(160,159).
+/** END operationSignature, ID: '146', NAME: 'writeFriends' */
+
+
+/** BEGIN operationSignature, ID: '147', NAME: 'writePublic' */
+description(147,'writePublic','operationSignature').
+operationSignature(147).
+parameters(147,[155,127]).
+returnType(147,[128]).
+
+/** BEGIN parameter, ID: '155', NAME: 'h' */
+description(155,'h','parameter').
+parameter(155).
+/** END parameter, ID: '155', NAME: 'h' */
+
+sizeOfParameter(156).
+sizeOf(156,155).
+
+/** BEGIN parameter, ID: '127', NAME: 'data' */
+description(127,'data','parameter').
+parameter(127).
+/** END parameter, ID: '127', NAME: 'data' */
+
+sizeOfParameter(130).
+sizeOf(130,127).
+/** END operationSignature, ID: '147', NAME: 'writePublic' */
+
+
+/** BEGIN operationSignature, ID: '148', NAME: 'seek' */
+description(148,'seek','operationSignature').
+operationSignature(148).
+parameters(148,[155,161]).
+returnType(148,[128]).
+
+/** BEGIN parameter, ID: '155', NAME: 'h' */
+description(155,'h','parameter').
+parameter(155).
+/** END parameter, ID: '155', NAME: 'h' */
+
+sizeOfParameter(156).
+sizeOf(156,155).
+
+/** BEGIN parameter, ID: '161', NAME: 'pos' */
+description(161,'pos','parameter').
+parameter(161).
+/** END parameter, ID: '161', NAME: 'pos' */
+
+sizeOfParameter(162).
+sizeOf(162,161).
+/** END operationSignature, ID: '148', NAME: 'seek' */
+
+
+/** BEGIN operationSignature, ID: '149', NAME: 'readdir' */
+description(149,'readdir','operationSignature').
+operationSignature(149).
+parameters(149,[155]).
+returnType(149,[163]).
+
+/** BEGIN parameter, ID: '155', NAME: 'h' */
+description(155,'h','parameter').
+parameter(155).
+/** END parameter, ID: '155', NAME: 'h' */
+
+sizeOfParameter(156).
+sizeOf(156,155).
+/** END operationSignature, ID: '149', NAME: 'readdir' */
+
+/** END operationInterface, ID: '60', NAME: 'INetworkFilesystem' */
+
+
+/** BEGIN operationInterface, ID: '61', NAME: 'IObjStore' */
+description(61,'IObjStore','operationInterface').
+operationInterface(61).
+parentInterfaces(61,[]).
+signatures(61,[164,165,166,167,168,169,170]).
+
+/** BEGIN operationSignature, ID: '164', NAME: 'get' */
+description(164,'get','operationSignature').
+operationSignature(164).
+parameters(164,[150]).
+returnType(164,[117]).
+
+/** BEGIN parameter, ID: '150', NAME: 'filepath' */
+description(150,'filepath','parameter').
+parameter(150).
+/** END parameter, ID: '150', NAME: 'filepath' */
+
+sizeOfParameter(153).
+sizeOf(153,150).
+/** END operationSignature, ID: '164', NAME: 'get' */
+
+
+/** BEGIN operationSignature, ID: '165', NAME: 'putSelf' */
+description(165,'putSelf','operationSignature').
+operationSignature(165).
+parameters(165,[171,127]).
+returnType(165,[128]).
+
+/** BEGIN parameter, ID: '171', NAME: 'file' */
+description(171,'file','parameter').
+parameter(171).
+/** END parameter, ID: '171', NAME: 'file' */
+
+sizeOfParameter(172).
+sizeOf(172,171).
+
+/** BEGIN parameter, ID: '127', NAME: 'data' */
+description(127,'data','parameter').
+parameter(127).
+/** END parameter, ID: '127', NAME: 'data' */
+
+sizeOfParameter(130).
+sizeOf(130,127).
+/** END operationSignature, ID: '165', NAME: 'putSelf' */
+
+
+/** BEGIN operationSignature, ID: '166', NAME: 'putFriends' */
+description(166,'putFriends','operationSignature').
+operationSignature(166).
+parameters(166,[171,127,131]).
+returnType(166,[128]).
+
+/** BEGIN parameter, ID: '171', NAME: 'file' */
+description(171,'file','parameter').
+parameter(171).
+/** END parameter, ID: '171', NAME: 'file' */
+
+sizeOfParameter(172).
+sizeOf(172,171).
+
+/** BEGIN parameter, ID: '127', NAME: 'data' */
+description(127,'data','parameter').
+parameter(127).
+/** END parameter, ID: '127', NAME: 'data' */
+
+sizeOfParameter(130).
+sizeOf(130,127).
+
+/** BEGIN parameter, ID: '131', NAME: 'f' */
+description(131,'f','parameter').
+parameter(131).
+/** END parameter, ID: '131', NAME: 'f' */
+
+sizeOfParameter(132).
+sizeOf(132,131).
+/** END operationSignature, ID: '166', NAME: 'putFriends' */
+
+
+/** BEGIN operationSignature, ID: '167', NAME: 'putPublic' */
+description(167,'putPublic','operationSignature').
+operationSignature(167).
+parameters(167,[171,127]).
+returnType(167,[128]).
+
+/** BEGIN parameter, ID: '171', NAME: 'file' */
+description(171,'file','parameter').
+parameter(171).
+/** END parameter, ID: '171', NAME: 'file' */
+
+sizeOfParameter(172).
+sizeOf(172,171).
+
+/** BEGIN parameter, ID: '127', NAME: 'data' */
+description(127,'data','parameter').
+parameter(127).
+/** END parameter, ID: '127', NAME: 'data' */
+
+sizeOfParameter(130).
+sizeOf(130,127).
+/** END operationSignature, ID: '167', NAME: 'putPublic' */
+
+
+/** BEGIN operationSignature, ID: '168', NAME: 'list' */
+description(168,'list','operationSignature').
+operationSignature(168).
+parameters(168,[150]).
+returnType(168,[173]).
+
+/** BEGIN parameter, ID: '150', NAME: 'filepath' */
+description(150,'filepath','parameter').
+parameter(150).
+/** END parameter, ID: '150', NAME: 'filepath' */
+
+sizeOfParameter(153).
+sizeOf(153,150).
+/** END operationSignature, ID: '168', NAME: 'list' */
+
+
+/** BEGIN operationSignature, ID: '169', NAME: 'mkcol' */
+description(169,'mkcol','operationSignature').
+operationSignature(169).
+parameters(169,[150,174]).
+returnType(169,[128]).
+
+/** BEGIN parameter, ID: '150', NAME: 'filepath' */
+description(150,'filepath','parameter').
+parameter(150).
+/** END parameter, ID: '150', NAME: 'filepath' */
+
+sizeOfParameter(153).
+sizeOf(153,150).
+
+/** BEGIN parameter, ID: '174', NAME: 'name' */
+description(174,'name','parameter').
+parameter(174).
+/** END parameter, ID: '174', NAME: 'name' */
+
+sizeOfParameter(175).
+sizeOf(175,174).
+/** END operationSignature, ID: '169', NAME: 'mkcol' */
+
+
+/** BEGIN operationSignature, ID: '170', NAME: 'delete' */
+description(170,'delete','operationSignature').
+operationSignature(170).
+parameters(170,[150]).
+returnType(170,[128]).
+
+/** BEGIN parameter, ID: '150', NAME: 'filepath' */
+description(150,'filepath','parameter').
+parameter(150).
+/** END parameter, ID: '150', NAME: 'filepath' */
+
+sizeOfParameter(153).
+sizeOf(153,150).
+/** END operationSignature, ID: '170', NAME: 'delete' */
+
+/** END operationInterface, ID: '61', NAME: 'IObjStore' */
+
+
+/** BEGIN operationInterface, ID: '62', NAME: 'ICalendar' */
+description(62,'ICalendar','operationInterface').
+operationInterface(62).
+parentInterfaces(62,[]).
+signatures(62,[176,177,178,179,180,181,182]).
+
+/** BEGIN operationSignature, ID: '176', NAME: 'get' */
+description(176,'get','operationSignature').
+operationSignature(176).
+parameters(176,[183]).
+returnType(176,[184]).
+
+/** BEGIN parameter, ID: '183', NAME: 'id' */
+description(183,'id','parameter').
+parameter(183).
+/** END parameter, ID: '183', NAME: 'id' */
+
+sizeOfParameter(185).
+sizeOf(185,183).
+/** END operationSignature, ID: '176', NAME: 'get' */
+
+
+/** BEGIN operationSignature, ID: '177', NAME: 'putSelf' */
+description(177,'putSelf','operationSignature').
+operationSignature(177).
+parameters(177,[183,127]).
+returnType(177,[128]).
+
+/** BEGIN parameter, ID: '183', NAME: 'id' */
+description(183,'id','parameter').
+parameter(183).
+/** END parameter, ID: '183', NAME: 'id' */
+
+sizeOfParameter(185).
+sizeOf(185,183).
+
+/** BEGIN parameter, ID: '127', NAME: 'data' */
+description(127,'data','parameter').
+parameter(127).
+/** END parameter, ID: '127', NAME: 'data' */
+
+sizeOfParameter(130).
+sizeOf(130,127).
+/** END operationSignature, ID: '177', NAME: 'putSelf' */
+
+
+/** BEGIN operationSignature, ID: '178', NAME: 'putFriends' */
+description(178,'putFriends','operationSignature').
+operationSignature(178).
+parameters(178,[183,127,131]).
+returnType(178,[128]).
+
+/** BEGIN parameter, ID: '183', NAME: 'id' */
+description(183,'id','parameter').
+parameter(183).
+/** END parameter, ID: '183', NAME: 'id' */
+
+sizeOfParameter(185).
+sizeOf(185,183).
+
+/** BEGIN parameter, ID: '127', NAME: 'data' */
+description(127,'data','parameter').
+parameter(127).
+/** END parameter, ID: '127', NAME: 'data' */
+
+sizeOfParameter(130).
+sizeOf(130,127).
+
+/** BEGIN parameter, ID: '131', NAME: 'f' */
+description(131,'f','parameter').
+parameter(131).
+/** END parameter, ID: '131', NAME: 'f' */
+
+sizeOfParameter(132).
+sizeOf(132,131).
+/** END operationSignature, ID: '178', NAME: 'putFriends' */
+
+
+/** BEGIN operationSignature, ID: '179', NAME: 'putPublic' */
+description(179,'putPublic','operationSignature').
+operationSignature(179).
+parameters(179,[183,127]).
+returnType(179,[128]).
+
+/** BEGIN parameter, ID: '183', NAME: 'id' */
+description(183,'id','parameter').
+parameter(183).
+/** END parameter, ID: '183', NAME: 'id' */
+
+sizeOfParameter(185).
+sizeOf(185,183).
+
+/** BEGIN parameter, ID: '127', NAME: 'data' */
+description(127,'data','parameter').
+parameter(127).
+/** END parameter, ID: '127', NAME: 'data' */
+
+sizeOfParameter(130).
+sizeOf(130,127).
+/** END operationSignature, ID: '179', NAME: 'putPublic' */
+
+
+/** BEGIN operationSignature, ID: '180', NAME: 'list' */
+description(180,'list','operationSignature').
+operationSignature(180).
+parameters(180,[186,187]).
+returnType(180,[188]).
+
+/** BEGIN parameter, ID: '186', NAME: 'start' */
+description(186,'start','parameter').
+parameter(186).
+/** END parameter, ID: '186', NAME: 'start' */
+
+sizeOfParameter(189).
+sizeOf(189,186).
+
+/** BEGIN parameter, ID: '187', NAME: 'end' */
+description(187,'end','parameter').
+parameter(187).
+/** END parameter, ID: '187', NAME: 'end' */
+
+sizeOfParameter(190).
+sizeOf(190,187).
+/** END operationSignature, ID: '180', NAME: 'list' */
+
+
+/** BEGIN operationSignature, ID: '181', NAME: 'delete' */
+description(181,'delete','operationSignature').
+operationSignature(181).
+parameters(181,[183]).
+returnType(181,[128]).
+
+/** BEGIN parameter, ID: '183', NAME: 'id' */
+description(183,'id','parameter').
+parameter(183).
+/** END parameter, ID: '183', NAME: 'id' */
+
+sizeOfParameter(185).
+sizeOf(185,183).
+/** END operationSignature, ID: '181', NAME: 'delete' */
+
+
+/** BEGIN operationSignature, ID: '182', NAME: 'setacl' */
+description(182,'setacl','operationSignature').
+operationSignature(182).
+parameters(182,[150,191]).
+returnType(182,[128]).
+
+/** BEGIN parameter, ID: '150', NAME: 'filepath' */
+description(150,'filepath','parameter').
+parameter(150).
+/** END parameter, ID: '150', NAME: 'filepath' */
+
+sizeOfParameter(153).
+sizeOf(153,150).
+
+/** BEGIN parameter, ID: '191', NAME: 'acl' */
+description(191,'acl','parameter').
+parameter(191).
+/** END parameter, ID: '191', NAME: 'acl' */
+
+sizeOfParameter(192).
+sizeOf(192,191).
+/** END operationSignature, ID: '182', NAME: 'setacl' */
+
+/** END operationInterface, ID: '62', NAME: 'ICalendar' */
+
+
+/** BEGIN operationInterface, ID: '63', NAME: 'LoadBalancerMgmtAPI' */
+description(63,'LoadBalancerMgmtAPI','operationInterface').
+operationInterface(63).
+parentInterfaces(63,[]).
+signatures(63,[193,194,195]).
+
+/** BEGIN operationSignature, ID: '193', NAME: 'addBackend' */
+description(193,'addBackend','operationSignature').
+operationSignature(193).
+parameters(193,[196,197]).
+returnType(193,[]).
+
+/** BEGIN parameter, ID: '196', NAME: 'host' */
+description(196,'host','parameter').
+parameter(196).
+/** END parameter, ID: '196', NAME: 'host' */
+
+sizeOfParameter(198).
+sizeOf(198,196).
+
+/** BEGIN parameter, ID: '197', NAME: 'state' */
+description(197,'state','parameter').
+parameter(197).
+/** END parameter, ID: '197', NAME: 'state' */
+
+sizeOfParameter(199).
+sizeOf(199,197).
+/** END operationSignature, ID: '193', NAME: 'addBackend' */
+
+
+/** BEGIN operationSignature, ID: '194', NAME: 'removeBackend' */
+description(194,'removeBackend','operationSignature').
+operationSignature(194).
+parameters(194,[196]).
+returnType(194,[]).
+
+/** BEGIN parameter, ID: '196', NAME: 'host' */
+description(196,'host','parameter').
+parameter(196).
+/** END parameter, ID: '196', NAME: 'host' */
+
+sizeOfParameter(198).
+sizeOf(198,196).
+/** END operationSignature, ID: '194', NAME: 'removeBackend' */
+
+
+/** BEGIN operationSignature, ID: '195', NAME: 'listBackends' */
+description(195,'listBackends','operationSignature').
+operationSignature(195).
+parameters(195,[]).
+returnType(195,[200]).
+/** END operationSignature, ID: '195', NAME: 'listBackends' */
+
+/** END operationInterface, ID: '63', NAME: 'LoadBalancerMgmtAPI' */
+
+
+/** BEGIN operationInterface, ID: '64', NAME: 'FileManGUI' */
+description(64,'FileManGUI','operationInterface').
+operationInterface(64).
+parentInterfaces(64,[]).
+signatures(64,[201,202,203,204,205,206,207]).
+
+/** BEGIN operationSignature, ID: '201', NAME: 'open' */
+description(201,'open','operationSignature').
+operationSignature(201).
+parameters(201,[150]).
+returnType(201,[208]).
+
+/** BEGIN parameter, ID: '150', NAME: 'filepath' */
+description(150,'filepath','parameter').
+parameter(150).
+/** END parameter, ID: '150', NAME: 'filepath' */
+
+sizeOfParameter(153).
+sizeOf(153,150).
+/** END operationSignature, ID: '201', NAME: 'open' */
+
+
+/** BEGIN operationSignature, ID: '202', NAME: 'connect' */
+description(202,'connect','operationSignature').
+operationSignature(202).
+parameters(202,[196]).
+returnType(202,[209]).
+
+/** BEGIN parameter, ID: '196', NAME: 'host' */
+description(196,'host','parameter').
+parameter(196).
+/** END parameter, ID: '196', NAME: 'host' */
+
+sizeOfParameter(198).
+sizeOf(198,196).
+/** END operationSignature, ID: '202', NAME: 'connect' */
+
+
+/** BEGIN operationSignature, ID: '203', NAME: 'list' */
+description(203,'list','operationSignature').
+operationSignature(203).
+parameters(203,[210]).
+returnType(203,[173]).
+
+/** BEGIN parameter, ID: '210', NAME: 'dir' */
+description(210,'dir','parameter').
+parameter(210).
+/** END parameter, ID: '210', NAME: 'dir' */
+
+sizeOfParameter(211).
+sizeOf(211,210).
+/** END operationSignature, ID: '203', NAME: 'list' */
+
+
+/** BEGIN operationSignature, ID: '204', NAME: 'copy' */
+description(204,'copy','operationSignature').
+operationSignature(204).
+parameters(204,[212,213]).
+returnType(204,[214]).
+
+/** BEGIN parameter, ID: '212', NAME: 'filepath1' */
+description(212,'filepath1','parameter').
+parameter(212).
+/** END parameter, ID: '212', NAME: 'filepath1' */
+
+sizeOfParameter(215).
+sizeOf(215,212).
+
+/** BEGIN parameter, ID: '213', NAME: 'filepath2' */
+description(213,'filepath2','parameter').
+parameter(213).
+/** END parameter, ID: '213', NAME: 'filepath2' */
+
+sizeOfParameter(216).
+sizeOf(216,213).
+/** END operationSignature, ID: '204', NAME: 'copy' */
+
+
+/** BEGIN operationSignature, ID: '205', NAME: 'delete' */
+description(205,'delete','operationSignature').
+operationSignature(205).
+parameters(205,[150]).
+returnType(205,[214]).
+
+/** BEGIN parameter, ID: '150', NAME: 'filepath' */
+description(150,'filepath','parameter').
+parameter(150).
+/** END parameter, ID: '150', NAME: 'filepath' */
+
+sizeOfParameter(153).
+sizeOf(153,150).
+/** END operationSignature, ID: '205', NAME: 'delete' */
+
+
+/** BEGIN operationSignature, ID: '206', NAME: 'shareFriends' */
+description(206,'shareFriends','operationSignature').
+operationSignature(206).
+parameters(206,[171,131]).
+returnType(206,[]).
+
+/** BEGIN parameter, ID: '171', NAME: 'file' */
+description(171,'file','parameter').
+parameter(171).
+/** END parameter, ID: '171', NAME: 'file' */
+
+sizeOfParameter(172).
+sizeOf(172,171).
+
+/** BEGIN parameter, ID: '131', NAME: 'f' */
+description(131,'f','parameter').
+parameter(131).
+/** END parameter, ID: '131', NAME: 'f' */
+
+sizeOfParameter(132).
+sizeOf(132,131).
+/** END operationSignature, ID: '206', NAME: 'shareFriends' */
+
+
+/** BEGIN operationSignature, ID: '207', NAME: 'sharePublic' */
+description(207,'sharePublic','operationSignature').
+operationSignature(207).
+parameters(207,[171]).
+returnType(207,[]).
+
+/** BEGIN parameter, ID: '171', NAME: 'file' */
+description(171,'file','parameter').
+parameter(171).
+/** END parameter, ID: '171', NAME: 'file' */
+
+sizeOfParameter(172).
+sizeOf(172,171).
+/** END operationSignature, ID: '207', NAME: 'sharePublic' */
+
+/** END operationInterface, ID: '64', NAME: 'FileManGUI' */
+
+
+/** BEGIN operationInterface, ID: '65', NAME: 'CalendarGUI' */
+description(65,'CalendarGUI','operationInterface').
+operationInterface(65).
+parentInterfaces(65,[]).
+signatures(65,[217,218,219,220,221,222]).
+
+/** BEGIN operationSignature, ID: '217', NAME: 'view' */
+description(217,'view','operationSignature').
+operationSignature(217).
+parameters(217,[183]).
+returnType(217,[214]).
+
+/** BEGIN parameter, ID: '183', NAME: 'id' */
+description(183,'id','parameter').
+parameter(183).
+/** END parameter, ID: '183', NAME: 'id' */
+
+sizeOfParameter(185).
+sizeOf(185,183).
+/** END operationSignature, ID: '217', NAME: 'view' */
+
+
+/** BEGIN operationSignature, ID: '218', NAME: 'edit' */
+description(218,'edit','operationSignature').
+operationSignature(218).
+parameters(218,[183,223]).
+returnType(218,[214]).
+
+/** BEGIN parameter, ID: '183', NAME: 'id' */
+description(183,'id','parameter').
+parameter(183).
+/** END parameter, ID: '183', NAME: 'id' */
+
+sizeOfParameter(185).
+sizeOf(185,183).
+
+/** BEGIN parameter, ID: '223', NAME: 'entry' */
+description(223,'entry','parameter').
+parameter(223).
+/** END parameter, ID: '223', NAME: 'entry' */
+
+sizeOfParameter(224).
+sizeOf(224,223).
+/** END operationSignature, ID: '218', NAME: 'edit' */
+
+
+/** BEGIN operationSignature, ID: '219', NAME: 'list' */
+description(219,'list','operationSignature').
+operationSignature(219).
+parameters(219,[186,187]).
+returnType(219,[188]).
+
+/** BEGIN parameter, ID: '186', NAME: 'start' */
+description(186,'start','parameter').
+parameter(186).
+/** END parameter, ID: '186', NAME: 'start' */
+
+sizeOfParameter(189).
+sizeOf(189,186).
+
+/** BEGIN parameter, ID: '187', NAME: 'end' */
+description(187,'end','parameter').
+parameter(187).
+/** END parameter, ID: '187', NAME: 'end' */
+
+sizeOfParameter(190).
+sizeOf(190,187).
+/** END operationSignature, ID: '219', NAME: 'list' */
+
+
+/** BEGIN operationSignature, ID: '220', NAME: 'delete' */
+description(220,'delete','operationSignature').
+operationSignature(220).
+parameters(220,[183]).
+returnType(220,[128]).
+
+/** BEGIN parameter, ID: '183', NAME: 'id' */
+description(183,'id','parameter').
+parameter(183).
+/** END parameter, ID: '183', NAME: 'id' */
+
+sizeOfParameter(185).
+sizeOf(185,183).
+/** END operationSignature, ID: '220', NAME: 'delete' */
+
+
+/** BEGIN operationSignature, ID: '221', NAME: 'shareFriends' */
+description(221,'shareFriends','operationSignature').
+operationSignature(221).
+parameters(221,[171,131]).
+returnType(221,[]).
+
+/** BEGIN parameter, ID: '171', NAME: 'file' */
+description(171,'file','parameter').
+parameter(171).
+/** END parameter, ID: '171', NAME: 'file' */
+
+sizeOfParameter(172).
+sizeOf(172,171).
+
+/** BEGIN parameter, ID: '131', NAME: 'f' */
+description(131,'f','parameter').
+parameter(131).
+/** END parameter, ID: '131', NAME: 'f' */
+
+sizeOfParameter(132).
+sizeOf(132,131).
+/** END operationSignature, ID: '221', NAME: 'shareFriends' */
+
+
+/** BEGIN operationSignature, ID: '222', NAME: 'sharePublic' */
+description(222,'sharePublic','operationSignature').
+operationSignature(222).
+parameters(222,[171,131]).
+returnType(222,[]).
+
+/** BEGIN parameter, ID: '171', NAME: 'file' */
+description(171,'file','parameter').
+parameter(171).
+/** END parameter, ID: '171', NAME: 'file' */
+
+sizeOfParameter(172).
+sizeOf(172,171).
+
+/** BEGIN parameter, ID: '131', NAME: 'f' */
+description(131,'f','parameter').
+parameter(131).
+/** END parameter, ID: '131', NAME: 'f' */
+
+sizeOfParameter(132).
+sizeOf(132,131).
+/** END operationSignature, ID: '222', NAME: 'sharePublic' */
+
+/** END operationInterface, ID: '65', NAME: 'CalendarGUI' */
+
+
+/** BEGIN operationInterface, ID: '66', NAME: 'INWFSAdminTool' */
+description(66,'INWFSAdminTool','operationInterface').
+operationInterface(66).
+parentInterfaces(66,[67]).
+signatures(66,[225]).
+
+/** BEGIN operationSignature, ID: '225', NAME: 'doFSBackup' */
+description(225,'doFSBackup','operationSignature').
+operationSignature(225).
+parameters(225,[]).
+returnType(225,[117]).
+/** END operationSignature, ID: '225', NAME: 'doFSBackup' */
+
+/** END operationInterface, ID: '66', NAME: 'INWFSAdminTool' */
+
+
+/** BEGIN operationInterface, ID: '67', NAME: 'IAdminTool' */
+description(67,'IAdminTool','operationInterface').
+operationInterface(67).
+parentInterfaces(67,[]).
+signatures(67,[226]).
+
+/** BEGIN operationSignature, ID: '226', NAME: 'readLogs' */
+description(226,'readLogs','operationSignature').
+operationSignature(226).
+parameters(226,[136]).
+returnType(226,[137]).
+
+/** BEGIN parameter, ID: '136', NAME: 'level' */
+description(136,'level','parameter').
+parameter(136).
+/** END parameter, ID: '136', NAME: 'level' */
+
+sizeOfParameter(138).
+sizeOf(138,136).
+/** END operationSignature, ID: '226', NAME: 'readLogs' */
+
+/** END operationInterface, ID: '67', NAME: 'IAdminTool' */
+
+
+/** BEGIN operationInterface, ID: '68', NAME: 'IOCAdminTool' */
+description(68,'IOCAdminTool','operationInterface').
+operationInterface(68).
+parentInterfaces(68,[67]).
+signatures(68,[227]).
+
+/** BEGIN operationSignature, ID: '227', NAME: 'doOCBackup' */
+description(227,'doOCBackup','operationSignature').
+operationSignature(227).
+parameters(227,[]).
+returnType(227,[117]).
+/** END operationSignature, ID: '227', NAME: 'doOCBackup' */
+
+/** END operationInterface, ID: '68', NAME: 'IOCAdminTool' */
+
+
+/** BEGIN operationInterface, ID: '69', NAME: 'ILBAdminTool' */
+description(69,'ILBAdminTool','operationInterface').
+operationInterface(69).
+parentInterfaces(69,[67]).
+signatures(69,[228]).
+
+/** BEGIN operationSignature, ID: '228', NAME: 'doLBBackup' */
+description(228,'doLBBackup','operationSignature').
+operationSignature(228).
+parameters(228,[]).
+returnType(228,[117]).
+/** END operationSignature, ID: '228', NAME: 'doLBBackup' */
+
+/** END operationInterface, ID: '69', NAME: 'ILBAdminTool' */
+
+
+/** BEGIN operationInterface, ID: '70', NAME: 'IPublicFileManGUI' */
+description(70,'IPublicFileManGUI','operationInterface').
+operationInterface(70).
+parentInterfaces(70,[]).
+signatures(70,[229,230,231]).
+
+/** BEGIN operationSignature, ID: '229', NAME: 'open' */
+description(229,'open','operationSignature').
+operationSignature(229).
+parameters(229,[150]).
+returnType(229,[208]).
+
+/** BEGIN parameter, ID: '150', NAME: 'filepath' */
+description(150,'filepath','parameter').
+parameter(150).
+/** END parameter, ID: '150', NAME: 'filepath' */
+
+sizeOfParameter(153).
+sizeOf(153,150).
+/** END operationSignature, ID: '229', NAME: 'open' */
+
+
+/** BEGIN operationSignature, ID: '230', NAME: 'connect' */
+description(230,'connect','operationSignature').
+operationSignature(230).
+parameters(230,[196]).
+returnType(230,[209]).
+
+/** BEGIN parameter, ID: '196', NAME: 'host' */
+description(196,'host','parameter').
+parameter(196).
+/** END parameter, ID: '196', NAME: 'host' */
+
+sizeOfParameter(198).
+sizeOf(198,196).
+/** END operationSignature, ID: '230', NAME: 'connect' */
+
+
+/** BEGIN operationSignature, ID: '231', NAME: 'list' */
+description(231,'list','operationSignature').
+operationSignature(231).
+parameters(231,[210]).
+returnType(231,[173]).
+
+/** BEGIN parameter, ID: '210', NAME: 'dir' */
+description(210,'dir','parameter').
+parameter(210).
+/** END parameter, ID: '210', NAME: 'dir' */
+
+sizeOfParameter(211).
+sizeOf(211,210).
+/** END operationSignature, ID: '231', NAME: 'list' */
+
+/** END operationInterface, ID: '70', NAME: 'IPublicFileManGUI' */
+
+
+/** BEGIN operationInterface, ID: '71', NAME: 'IPublicCalendarGUI' */
+description(71,'IPublicCalendarGUI','operationInterface').
+operationInterface(71).
+parentInterfaces(71,[]).
+signatures(71,[232,233]).
+
+/** BEGIN operationSignature, ID: '232', NAME: 'view' */
+description(232,'view','operationSignature').
+operationSignature(232).
+parameters(232,[183]).
+returnType(232,[214]).
+
+/** BEGIN parameter, ID: '183', NAME: 'id' */
+description(183,'id','parameter').
+parameter(183).
+/** END parameter, ID: '183', NAME: 'id' */
+
+sizeOfParameter(185).
+sizeOf(185,183).
+/** END operationSignature, ID: '232', NAME: 'view' */
+
+
+/** BEGIN operationSignature, ID: '233', NAME: 'list' */
+description(233,'list','operationSignature').
+operationSignature(233).
+parameters(233,[186,187]).
+returnType(233,[188]).
+
+/** BEGIN parameter, ID: '186', NAME: 'start' */
+description(186,'start','parameter').
+parameter(186).
+/** END parameter, ID: '186', NAME: 'start' */
+
+sizeOfParameter(189).
+sizeOf(189,186).
+
+/** BEGIN parameter, ID: '187', NAME: 'end' */
+description(187,'end','parameter').
+parameter(187).
+/** END parameter, ID: '187', NAME: 'end' */
+
+sizeOfParameter(190).
+sizeOf(190,187).
+/** END operationSignature, ID: '233', NAME: 'list' */
+
+/** END operationInterface, ID: '71', NAME: 'IPublicCalendarGUI' */
+
+
+/** BEGIN compositeDataType, ID: '234', NAME: 'token' */
+description(234,'token','compositeDataType').
+compositeDataType(234).
+/** END compositeDataType, ID: '234', NAME: 'token' */
+
+
+/** BEGIN compositeDataType, ID: '209', NAME: 'directory' */
+description(209,'directory','compositeDataType').
+compositeDataType(209).
+/** END compositeDataType, ID: '209', NAME: 'directory' */
+
+
+/** BEGIN collectionDataType, ID: '117', NAME: 'bytes' */
+description(117,'bytes','collectionDataType').
+collectionDataType(117).
+/** END collectionDataType, ID: '117', NAME: 'bytes' */
+
+
+/** BEGIN compositeDataType, ID: '235', NAME: 'logEntry' */
+description(235,'logEntry','compositeDataType').
+compositeDataType(235).
+/** END compositeDataType, ID: '235', NAME: 'logEntry' */
+
+
+/** BEGIN collectionDataType, ID: '137', NAME: 'log' */
+description(137,'log','collectionDataType').
+collectionDataType(137).
+/** END collectionDataType, ID: '137', NAME: 'log' */
+
+
+/** BEGIN collectionDataType, ID: '173', NAME: 'strings' */
+description(173,'strings','collectionDataType').
+collectionDataType(173).
+/** END collectionDataType, ID: '173', NAME: 'strings' */
+
+
+/** BEGIN collectionDataType, ID: '124', NAME: 'stringsList' */
+description(124,'stringsList','collectionDataType').
+collectionDataType(124).
+/** END collectionDataType, ID: '124', NAME: 'stringsList' */
+
+
+/** BEGIN compositeDataType, ID: '152', NAME: 'handle' */
+description(152,'handle','compositeDataType').
+compositeDataType(152).
+/** END compositeDataType, ID: '152', NAME: 'handle' */
+
+
+/** BEGIN compositeDataType, ID: '163', NAME: 'dirEntry' */
+description(163,'dirEntry','compositeDataType').
+compositeDataType(163).
+/** END compositeDataType, ID: '163', NAME: 'dirEntry' */
+
+
+/** BEGIN compositeDataType, ID: '184', NAME: 'calEntry' */
+description(184,'calEntry','compositeDataType').
+compositeDataType(184).
+/** END compositeDataType, ID: '184', NAME: 'calEntry' */
+
+
+/** BEGIN collectionDataType, ID: '188', NAME: 'ints' */
+description(188,'ints','collectionDataType').
+collectionDataType(188).
+/** END collectionDataType, ID: '188', NAME: 'ints' */
+
+
+/** BEGIN compositeDataType, ID: '236', NAME: 'datetime' */
+description(236,'datetime','compositeDataType').
+compositeDataType(236).
+/** END compositeDataType, ID: '236', NAME: 'datetime' */
+
+
+/** BEGIN compositeDataType, ID: '237', NAME: 'XML' */
+description(237,'XML','compositeDataType').
+compositeDataType(237).
+/** END compositeDataType, ID: '237', NAME: 'XML' */
+
+
+/** BEGIN compositeDataType, ID: '238', NAME: 'backend' */
+description(238,'backend','compositeDataType').
+compositeDataType(238).
+/** END compositeDataType, ID: '238', NAME: 'backend' */
+
+
+/** BEGIN collectionDataType, ID: '200', NAME: 'backends' */
+description(200,'backends','collectionDataType').
+collectionDataType(200).
+/** END collectionDataType, ID: '200', NAME: 'backends' */
+
+
+/** BEGIN compositeDataType, ID: '208', NAME: 'application' */
+description(208,'application','compositeDataType').
+compositeDataType(208).
+/** END compositeDataType, ID: '208', NAME: 'application' */
+
+/** END repository, ID: '42', NAME: 'cloudRepository' */
+
+
+/** BEGIN resourceEnvironment, ID: '482', NAME: 'aName' */
+description(482,'aName','resourceEnvironment').
+resourceEnvironment(482).
+linkingResources(482,[483,484,485]).
+resourceContainer(482,[486,487,488,489,490,491,492,493]).
+
+/** BEGIN linkingResource, ID: '483', NAME: 'Intranet inner' */
+description(483,'Intranet inner','linkingResource').
+linkingResource(483).
+connectedResourceContainers(483,[487,486,489,488]).
+communicationLinkResourceSpecifications(483,[]).
+/** END linkingResource, ID: '483', NAME: 'Intranet inner' */
+
+
+/** BEGIN linkingResource, ID: '484', NAME: 'Intranet outer' */
+description(484,'Intranet outer','linkingResource').
+linkingResource(484).
+connectedResourceContainers(484,[489,488,490]).
+communicationLinkResourceSpecifications(484,[]).
+/** END linkingResource, ID: '484', NAME: 'Intranet outer' */
+
+
+/** BEGIN linkingResource, ID: '485', NAME: 'Internet' */
+description(485,'Internet','linkingResource').
+linkingResource(485).
+connectedResourceContainers(485,[491,492,493,490]).
+communicationLinkResourceSpecifications(485,[]).
+/** END linkingResource, ID: '485', NAME: 'Internet' */
+
+
+/** BEGIN resourceContainer, ID: '486', NAME: 'VM A' */
+description(486,'VM A','resourceContainer').
+resourceContainer(486).
+/** END resourceContainer, ID: '486', NAME: 'VM A' */
+
+
+/** BEGIN resourceContainer, ID: '487', NAME: 'VM B' */
+description(487,'VM B','resourceContainer').
+resourceContainer(487).
+/** END resourceContainer, ID: '487', NAME: 'VM B' */
+
+
+/** BEGIN resourceContainer, ID: '488', NAME: 'VM C' */
+description(488,'VM C','resourceContainer').
+resourceContainer(488).
+/** END resourceContainer, ID: '488', NAME: 'VM C' */
+
+
+/** BEGIN resourceContainer, ID: '489', NAME: 'VM D' */
+description(489,'VM D','resourceContainer').
+resourceContainer(489).
+/** END resourceContainer, ID: '489', NAME: 'VM D' */
+
+
+/** BEGIN resourceContainer, ID: '490', NAME: 'VM E' */
+description(490,'VM E','resourceContainer').
+resourceContainer(490).
+/** END resourceContainer, ID: '490', NAME: 'VM E' */
+
+
+/** BEGIN resourceContainer, ID: '491', NAME: 'End User Machine A' */
+description(491,'End User Machine A','resourceContainer').
+resourceContainer(491).
+/** END resourceContainer, ID: '491', NAME: 'End User Machine A' */
+
+
+/** BEGIN resourceContainer, ID: '492', NAME: 'End User Machine B' */
+description(492,'End User Machine B','resourceContainer').
+resourceContainer(492).
+/** END resourceContainer, ID: '492', NAME: 'End User Machine B' */
+
+
+/** BEGIN resourceContainer, ID: '493', NAME: 'End User Machine Guest' */
+description(493,'End User Machine Guest','resourceContainer').
+resourceContainer(493).
+/** END resourceContainer, ID: '493', NAME: 'End User Machine Guest' */
+
+/** END resourceEnvironment, ID: '482', NAME: 'aName' */
+
+
+/** BEGIN serviceParameterAddition, ID: '57', NAME: 'null' */
+description(57,'null','serviceParameterAddition').
+serviceParameters(57,[15]).
+/** END serviceParameterAddition, ID: '57', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameter, ID: '57', NAME: 'null' */
+description(57,'null','informationFlowParameter').
+/** END informationFlowParameter, ID: '57', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '57', NAME: 'null' */
+parametersAndDataPairs(118,[8, 9]).
+parametersAndDataPairs(119,[8, 9]).
+parametersAndDataPairs(120,[8, 9]).
+parametersAndDataPairs(121,[8, 9]).
+parametersAndDataPairs(122,[8, 9]).
+/** END informationFlow, ID: '57', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '120', NAME: 'null' */
+description(120,'null','informationFlow').
+parametersAndDataPairs(120,[10]).
+/** END informationFlow, ID: '120', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '121', NAME: 'null' */
+description(121,'null','informationFlow').
+parametersAndDataPairs(121,[11]).
+/** END informationFlow, ID: '121', NAME: 'null' */
+
+
+/** BEGIN serviceParameterAddition, ID: '61', NAME: 'null' */
+description(61,'null','serviceParameterAddition').
+serviceParameters(61,[15]).
+/** END serviceParameterAddition, ID: '61', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '61', NAME: 'null' */
+parametersAndDataPairs(164,[8, 9]).
+parametersAndDataPairs(165,[8, 9]).
+parametersAndDataPairs(166,[8, 9]).
+parametersAndDataPairs(167,[8, 9]).
+parametersAndDataPairs(168,[8, 9]).
+parametersAndDataPairs(169,[8, 9]).
+parametersAndDataPairs(170,[8, 9]).
+/** END informationFlow, ID: '61', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameter, ID: '61', NAME: 'null' */
+description(61,'null','informationFlowParameter').
+/** END informationFlowParameter, ID: '61', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '166', NAME: 'null' */
+description(166,'null','informationFlow').
+parametersAndDataPairs(166,[10]).
+/** END informationFlow, ID: '166', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '167', NAME: 'null' */
+description(167,'null','informationFlow').
+parametersAndDataPairs(167,[11]).
+/** END informationFlow, ID: '167', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameter, ID: '56', NAME: 'null' */
+description(56,'null','informationFlowParameter').
+/** END informationFlowParameter, ID: '56', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '56', NAME: 'null' */
+parametersAndDataPairs(116,[12, 11]).
+/** END informationFlow, ID: '56', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '58', NAME: 'null' */
+parametersAndDataPairs(135,[13]).
+/** END informationFlow, ID: '58', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '67', NAME: 'null' */
+parametersAndDataPairs(226,[13]).
+/** END informationFlow, ID: '67', NAME: 'null' */
+
+
+/** BEGIN serviceParameterAddition, ID: '60', NAME: 'null' */
+description(60,'null','serviceParameterAddition').
+serviceParameters(60,[15]).
+/** END serviceParameterAddition, ID: '60', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '60', NAME: 'null' */
+parametersAndDataPairs(142,[8, 9]).
+parametersAndDataPairs(143,[8, 9]).
+parametersAndDataPairs(144,[8, 9]).
+parametersAndDataPairs(145,[8, 9]).
+parametersAndDataPairs(146,[8, 9]).
+parametersAndDataPairs(147,[8, 9]).
+parametersAndDataPairs(148,[8, 9]).
+parametersAndDataPairs(149,[8, 9]).
+/** END informationFlow, ID: '60', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameter, ID: '60', NAME: 'null' */
+description(60,'null','informationFlowParameter').
+/** END informationFlowParameter, ID: '60', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '146', NAME: 'null' */
+description(146,'null','informationFlow').
+parametersAndDataPairs(146,[10]).
+/** END informationFlow, ID: '146', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '147', NAME: 'null' */
+description(147,'null','informationFlow').
+parametersAndDataPairs(147,[11]).
+/** END informationFlow, ID: '147', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '59', NAME: 'null' */
+parametersAndDataPairs(139,[13]).
+/** END informationFlow, ID: '59', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '66', NAME: 'null' */
+parametersAndDataPairs(225,[12, 11]).
+/** END informationFlow, ID: '66', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '68', NAME: 'null' */
+parametersAndDataPairs(227,[12, 11]).
+/** END informationFlow, ID: '68', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '69', NAME: 'null' */
+parametersAndDataPairs(228,[12, 11]).
+/** END informationFlow, ID: '69', NAME: 'null' */
+
+
+/** BEGIN serviceParameterAddition, ID: '62', NAME: 'null' */
+description(62,'null','serviceParameterAddition').
+serviceParameters(62,[15]).
+/** END serviceParameterAddition, ID: '62', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '62', NAME: 'null' */
+parametersAndDataPairs(176,[8, 9]).
+parametersAndDataPairs(177,[8, 9]).
+parametersAndDataPairs(178,[8, 9]).
+parametersAndDataPairs(179,[8, 9]).
+parametersAndDataPairs(180,[8, 9]).
+parametersAndDataPairs(181,[8, 9]).
+parametersAndDataPairs(182,[8, 9]).
+/** END informationFlow, ID: '62', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameter, ID: '62', NAME: 'null' */
+description(62,'null','informationFlowParameter').
+/** END informationFlowParameter, ID: '62', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '179', NAME: 'null' */
+description(179,'null','informationFlow').
+parametersAndDataPairs(179,[11]).
+/** END informationFlow, ID: '179', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '178', NAME: 'null' */
+description(178,'null','informationFlow').
+parametersAndDataPairs(178,[10]).
+/** END informationFlow, ID: '178', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '63', NAME: 'null' */
+parametersAndDataPairs(193,[14]).
+parametersAndDataPairs(194,[14]).
+parametersAndDataPairs(195,[14]).
+/** END informationFlow, ID: '63', NAME: 'null' */
+
+
+/** BEGIN serviceParameterAddition, ID: '64', NAME: 'null' */
+description(64,'null','serviceParameterAddition').
+serviceParameters(64,[15]).
+/** END serviceParameterAddition, ID: '64', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '64', NAME: 'null' */
+parametersAndDataPairs(201,[8, 9]).
+parametersAndDataPairs(202,[8, 9]).
+parametersAndDataPairs(203,[8, 9]).
+parametersAndDataPairs(204,[8, 9]).
+parametersAndDataPairs(205,[8, 9]).
+parametersAndDataPairs(206,[8, 9]).
+parametersAndDataPairs(207,[8, 9]).
+/** END informationFlow, ID: '64', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameter, ID: '64', NAME: 'null' */
+description(64,'null','informationFlowParameter').
+/** END informationFlowParameter, ID: '64', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameter, ID: '66', NAME: 'null' */
+description(66,'null','informationFlowParameter').
+/** END informationFlowParameter, ID: '66', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameter, ID: '68', NAME: 'null' */
+description(68,'null','informationFlowParameter').
+/** END informationFlowParameter, ID: '68', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameter, ID: '69', NAME: 'null' */
+description(69,'null','informationFlowParameter').
+/** END informationFlowParameter, ID: '69', NAME: 'null' */
+
+
+/** BEGIN serviceParameterAddition, ID: '65', NAME: 'null' */
+description(65,'null','serviceParameterAddition').
+serviceParameters(65,[15]).
+/** END serviceParameterAddition, ID: '65', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '65', NAME: 'null' */
+parametersAndDataPairs(217,[8, 9]).
+parametersAndDataPairs(218,[8, 9]).
+parametersAndDataPairs(219,[8, 9]).
+parametersAndDataPairs(220,[8, 9]).
+parametersAndDataPairs(221,[8, 9]).
+parametersAndDataPairs(222,[8, 9]).
+/** END informationFlow, ID: '65', NAME: 'null' */
+
+
+/** BEGIN informationFlowParameter, ID: '65', NAME: 'null' */
+description(65,'null','informationFlowParameter').
+/** END informationFlowParameter, ID: '65', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '206', NAME: 'null' */
+description(206,'null','informationFlow').
+parametersAndDataPairs(206,[10]).
+/** END informationFlow, ID: '206', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '221', NAME: 'null' */
+description(221,'null','informationFlow').
+parametersAndDataPairs(221,[10]).
+/** END informationFlow, ID: '221', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '207', NAME: 'null' */
+description(207,'null','informationFlow').
+parametersAndDataPairs(207,[11]).
+/** END informationFlow, ID: '207', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '222', NAME: 'null' */
+description(222,'null','informationFlow').
+parametersAndDataPairs(222,[11]).
+/** END informationFlow, ID: '222', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '70', NAME: 'null' */
+parametersAndDataPairs(229,[11]).
+parametersAndDataPairs(230,[11]).
+parametersAndDataPairs(231,[11]).
+/** END informationFlow, ID: '70', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '71', NAME: 'null' */
+parametersAndDataPairs(232,[11]).
+parametersAndDataPairs(233,[11]).
+/** END informationFlow, ID: '71', NAME: 'null' */
+
+
+/** BEGIN furtherPhysicalConnections, ID: '486', NAME: 'null' */
+description(486,'null','furtherPhysicalConnections').
+connectionType(486,[possible]).
+/** END furtherPhysicalConnections, ID: '486', NAME: 'null' */
+
+
+/** BEGIN locationAndTamperProtection, ID: '486', NAME: 'null' */
+description(486,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(486,[29]).
+/** END locationAndTamperProtection, ID: '486', NAME: 'null' */
+
+
+/** BEGIN sharing, ID: '486', NAME: 'null' */
+description(486,'null','sharing').
+sharing(486,[exclusive]).
+/** END sharing, ID: '486', NAME: 'null' */
+
+
+/** BEGIN furtherPhysicalConnections, ID: '487', NAME: 'null' */
+description(487,'null','furtherPhysicalConnections').
+connectionType(487,[possible]).
+/** END furtherPhysicalConnections, ID: '487', NAME: 'null' */
+
+
+/** BEGIN locationAndTamperProtection, ID: '487', NAME: 'null' */
+description(487,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(487,[29]).
+/** END locationAndTamperProtection, ID: '487', NAME: 'null' */
+
+
+/** BEGIN sharing, ID: '487', NAME: 'null' */
+description(487,'null','sharing').
+sharing(487,[exclusive]).
+/** END sharing, ID: '487', NAME: 'null' */
+
+
+/** BEGIN furtherPhysicalConnections, ID: '488', NAME: 'null' */
+description(488,'null','furtherPhysicalConnections').
+connectionType(488,[possible]).
+/** END furtherPhysicalConnections, ID: '488', NAME: 'null' */
+
+
+/** BEGIN locationAndTamperProtection, ID: '488', NAME: 'null' */
+description(488,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(488,[30]).
+/** END locationAndTamperProtection, ID: '488', NAME: 'null' */
+
+
+/** BEGIN sharing, ID: '488', NAME: 'null' */
+description(488,'null','sharing').
+sharing(488,[exclusive]).
+/** END sharing, ID: '488', NAME: 'null' */
+
+
+/** BEGIN furtherPhysicalConnections, ID: '489', NAME: 'null' */
+description(489,'null','furtherPhysicalConnections').
+connectionType(489,[possible]).
+/** END furtherPhysicalConnections, ID: '489', NAME: 'null' */
+
+
+/** BEGIN locationAndTamperProtection, ID: '489', NAME: 'null' */
+description(489,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(489,[30]).
+/** END locationAndTamperProtection, ID: '489', NAME: 'null' */
+
+
+/** BEGIN sharing, ID: '489', NAME: 'null' */
+description(489,'null','sharing').
+sharing(489,[exclusive]).
+/** END sharing, ID: '489', NAME: 'null' */
+
+
+/** BEGIN furtherPhysicalConnections, ID: '490', NAME: 'null' */
+description(490,'null','furtherPhysicalConnections').
+connectionType(490,[possible]).
+/** END furtherPhysicalConnections, ID: '490', NAME: 'null' */
+
+
+/** BEGIN locationAndTamperProtection, ID: '490', NAME: 'null' */
+description(490,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(490,[30]).
+/** END locationAndTamperProtection, ID: '490', NAME: 'null' */
+
+
+/** BEGIN sharing, ID: '490', NAME: 'null' */
+description(490,'null','sharing').
+sharing(490,[exclusive]).
+/** END sharing, ID: '490', NAME: 'null' */
+
+
+/** BEGIN furtherPhysicalConnections, ID: '491', NAME: 'null' */
+description(491,'null','furtherPhysicalConnections').
+connectionType(491,[existing]).
+/** END furtherPhysicalConnections, ID: '491', NAME: 'null' */
+
+
+/** BEGIN locationAndTamperProtection, ID: '491', NAME: 'null' */
+description(491,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(491,[]).
+/** END locationAndTamperProtection, ID: '491', NAME: 'null' */
+
+
+/** BEGIN sharing, ID: '491', NAME: 'null' */
+description(491,'null','sharing').
+sharing(491,[shared]).
+/** END sharing, ID: '491', NAME: 'null' */
+
+
+/** BEGIN system, ID: '239', NAME: 'defaultSystem' */
+description(239,'defaultSystem','system').
+system(239).
+assemblyContexts(239,[240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260]).
+connectors(239,[261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307]).
+providedRoles(239,[308,309,310,311,312,313,314,315,316,317]).
+requiredRoles(239,[]).
+
+/** BEGIN assemblyContext, ID: '240', NAME: 'OwnCloudA' */
+description(240,'OwnCloudA','assemblyContext').
+assemblyContext(240).
+encapsulatedComponent(240,[46]).
+/** END assemblyContext, ID: '240', NAME: 'OwnCloudA' */
+
+
+/** BEGIN assemblyContext, ID: '241', NAME: 'DBLogging' */
+description(241,'DBLogging','assemblyContext').
+assemblyContext(241).
+encapsulatedComponent(241,[45]).
+/** END assemblyContext, ID: '241', NAME: 'DBLogging' */
+
+
+/** BEGIN assemblyContext, ID: '242', NAME: 'Database' */
+description(242,'Database','assemblyContext').
+assemblyContext(242).
+encapsulatedComponent(242,[44]).
+/** END assemblyContext, ID: '242', NAME: 'Database' */
+
+
+/** BEGIN assemblyContext, ID: '243', NAME: 'NetworkFilesystem' */
+description(243,'NetworkFilesystem','assemblyContext').
+assemblyContext(243).
+encapsulatedComponent(243,[47]).
+/** END assemblyContext, ID: '243', NAME: 'NetworkFilesystem' */
+
+
+/** BEGIN assemblyContext, ID: '244', NAME: 'NWFSLogging' */
+description(244,'NWFSLogging','assemblyContext').
+assemblyContext(244).
+encapsulatedComponent(244,[45]).
+/** END assemblyContext, ID: '244', NAME: 'NWFSLogging' */
+
+
+/** BEGIN assemblyContext, ID: '245', NAME: 'OCALogging' */
+description(245,'OCALogging','assemblyContext').
+assemblyContext(245).
+encapsulatedComponent(245,[45]).
+/** END assemblyContext, ID: '245', NAME: 'OCALogging' */
+
+
+/** BEGIN assemblyContext, ID: '246', NAME: 'LoadBalancer' */
+description(246,'LoadBalancer','assemblyContext').
+assemblyContext(246).
+encapsulatedComponent(246,[48]).
+/** END assemblyContext, ID: '246', NAME: 'LoadBalancer' */
+
+
+/** BEGIN assemblyContext, ID: '247', NAME: 'LBLogging' */
+description(247,'LBLogging','assemblyContext').
+assemblyContext(247).
+encapsulatedComponent(247,[45]).
+/** END assemblyContext, ID: '247', NAME: 'LBLogging' */
+
+
+/** BEGIN assemblyContext, ID: '248', NAME: 'OwnCloudB' */
+description(248,'OwnCloudB','assemblyContext').
+assemblyContext(248).
+encapsulatedComponent(248,[46]).
+/** END assemblyContext, ID: '248', NAME: 'OwnCloudB' */
+
+
+/** BEGIN assemblyContext, ID: '249', NAME: 'OCBLogging' */
+description(249,'OCBLogging','assemblyContext').
+assemblyContext(249).
+encapsulatedComponent(249,[45]).
+/** END assemblyContext, ID: '249', NAME: 'OCBLogging' */
+
+
+/** BEGIN assemblyContext, ID: '250', NAME: 'DBAdminTool' */
+description(250,'DBAdminTool','assemblyContext').
+assemblyContext(250).
+encapsulatedComponent(250,[43]).
+/** END assemblyContext, ID: '250', NAME: 'DBAdminTool' */
+
+
+/** BEGIN assemblyContext, ID: '251', NAME: 'NWFSAdminTool' */
+description(251,'NWFSAdminTool','assemblyContext').
+assemblyContext(251).
+encapsulatedComponent(251,[51]).
+/** END assemblyContext, ID: '251', NAME: 'NWFSAdminTool' */
+
+
+/** BEGIN assemblyContext, ID: '252', NAME: 'OCAAdminTool' */
+description(252,'OCAAdminTool','assemblyContext').
+assemblyContext(252).
+encapsulatedComponent(252,[52]).
+/** END assemblyContext, ID: '252', NAME: 'OCAAdminTool' */
+
+
+/** BEGIN assemblyContext, ID: '253', NAME: 'OCBAdminTool' */
+description(253,'OCBAdminTool','assemblyContext').
+assemblyContext(253).
+encapsulatedComponent(253,[52]).
+/** END assemblyContext, ID: '253', NAME: 'OCBAdminTool' */
+
+
+/** BEGIN assemblyContext, ID: '254', NAME: 'LBAdminTool' */
+description(254,'LBAdminTool','assemblyContext').
+assemblyContext(254).
+encapsulatedComponent(254,[53]).
+/** END assemblyContext, ID: '254', NAME: 'LBAdminTool' */
+
+
+/** BEGIN assemblyContext, ID: '255', NAME: 'FileManagerA' */
+description(255,'FileManagerA','assemblyContext').
+assemblyContext(255).
+encapsulatedComponent(255,[49]).
+/** END assemblyContext, ID: '255', NAME: 'FileManagerA' */
+
+
+/** BEGIN assemblyContext, ID: '256', NAME: 'CalendarA' */
+description(256,'CalendarA','assemblyContext').
+assemblyContext(256).
+encapsulatedComponent(256,[50]).
+/** END assemblyContext, ID: '256', NAME: 'CalendarA' */
+
+
+/** BEGIN assemblyContext, ID: '257', NAME: 'FileManagerB' */
+description(257,'FileManagerB','assemblyContext').
+assemblyContext(257).
+encapsulatedComponent(257,[49]).
+/** END assemblyContext, ID: '257', NAME: 'FileManagerB' */
+
+
+/** BEGIN assemblyContext, ID: '258', NAME: 'CalendarB' */
+description(258,'CalendarB','assemblyContext').
+assemblyContext(258).
+encapsulatedComponent(258,[50]).
+/** END assemblyContext, ID: '258', NAME: 'CalendarB' */
+
+
+/** BEGIN assemblyContext, ID: '259', NAME: 'PublicFileManager' */
+description(259,'PublicFileManager','assemblyContext').
+assemblyContext(259).
+encapsulatedComponent(259,[54]).
+/** END assemblyContext, ID: '259', NAME: 'PublicFileManager' */
+
+
+/** BEGIN assemblyContext, ID: '260', NAME: 'PublicCalendar' */
+description(260,'PublicCalendar','assemblyContext').
+assemblyContext(260).
+encapsulatedComponent(260,[55]).
+/** END assemblyContext, ID: '260', NAME: 'PublicCalendar' */
+
+
+/** BEGIN assemblyConnector, ID: '261', NAME: 'Connector LoadBalancer -> LBLogging' */
+description(261,'Connector LoadBalancer -> LBLogging','assemblyConnector').
+assemblyConnector(261).
+requiringAssemblyContext(261,[246]).
+providingAssemblyContext(261,[247]).
+providedRole(261,[79]).
+requiredRole(261,[92]).
+/** END assemblyConnector, ID: '261', NAME: 'Connector LoadBalancer -> LBLogging' */
+
+
+/** BEGIN assemblyConnector, ID: '262', NAME: 'Connector LBAdminTool -> LoadBalancer' */
+description(262,'Connector LBAdminTool -> LoadBalancer','assemblyConnector').
+assemblyConnector(262).
+requiringAssemblyContext(262,[254]).
+providingAssemblyContext(262,[246]).
+providedRole(262,[89]).
+requiredRole(262,[109]).
+/** END assemblyConnector, ID: '262', NAME: 'Connector LBAdminTool -> LoadBalancer' */
+
+
+/** BEGIN assemblyConnector, ID: '263', NAME: 'Connector LBAdminTool -> LBLogging' */
+description(263,'Connector LBAdminTool -> LBLogging','assemblyConnector').
+assemblyConnector(263).
+requiringAssemblyContext(263,[254]).
+providingAssemblyContext(263,[247]).
+providedRole(263,[78]).
+requiredRole(263,[110]).
+/** END assemblyConnector, ID: '263', NAME: 'Connector LBAdminTool -> LBLogging' */
+
+
+/** BEGIN assemblyConnector, ID: '264', NAME: 'Connector LBAdminTool -> LBLogging' */
+description(264,'Connector LBAdminTool -> LBLogging','assemblyConnector').
+assemblyConnector(264).
+requiringAssemblyContext(264,[254]).
+providingAssemblyContext(264,[247]).
+providedRole(264,[79]).
+requiredRole(264,[111]).
+/** END assemblyConnector, ID: '264', NAME: 'Connector LBAdminTool -> LBLogging' */
+
+
+/** BEGIN assemblyConnector, ID: '265', NAME: 'Connector LoadBalancer -> OwnCloudA' */
+description(265,'Connector LoadBalancer -> OwnCloudA','assemblyConnector').
+assemblyConnector(265).
+requiringAssemblyContext(265,[246]).
+providingAssemblyContext(265,[240]).
+providedRole(265,[80]).
+requiredRole(265,[94]).
+/** END assemblyConnector, ID: '265', NAME: 'Connector LoadBalancer -> OwnCloudA' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+
+parametersAndDataPair(320).
+
+parameterSources(320,[*]).
+
+dataTargets(320,[319]).
+
+
+originalParametersAndDataPair(320,10).
+
+
+parametersAndDataPair(321).
+
+parameterSources(321,[*]).
+
+dataTargets(321,[5]).
+
+
+originalParametersAndDataPair(321,8).
+
+
+parametersAndDataPair(322).
+
+parameterSources(322,[*]).
+
+dataTargets(322,[6]).
+
+
+originalParametersAndDataPair(322,8).
+
+
+parametersAndDataPair(323).
+
+parameterSources(323,[*]).
+
+dataTargets(323,[6]).
+
+
+originalParametersAndDataPair(323,10).
+
+
+parametersAndDataPair(324).
+
+parameterSources(324,[*]).
+
+dataTargets(324,[5]).
+
+
+originalParametersAndDataPair(324,10).
+
+
+parametersAndDataPair(325).
+
+parameterSources(325,[*]).
+
+dataTargets(325,[4]).
+
+
+originalParametersAndDataPair(325,10).
+
+
+parametersAndDataPair(326).
+
+parameterSources(326,[*]).
+
+dataTargets(326,[318]).
+
+
+originalParametersAndDataPair(326,8).
+
+
+parametersAndDataPair(327).
+
+parameterSources(327,[*]).
+
+dataTargets(327,[4]).
+
+
+originalParametersAndDataPair(327,8).
+
+
+connectorSpecificParametersAndDataPairs(265,[320, 321, 322, 323, 324, 325, 326, 327]).
+
+
+/** BEGIN assemblyConnector, ID: '266', NAME: 'Connector LoadBalancer -> OwnCloudA' */
+description(266,'Connector LoadBalancer -> OwnCloudA','assemblyConnector').
+assemblyConnector(266).
+requiringAssemblyContext(266,[246]).
+providingAssemblyContext(266,[240]).
+providedRole(266,[81]).
+requiredRole(266,[93]).
+/** END assemblyConnector, ID: '266', NAME: 'Connector LoadBalancer -> OwnCloudA' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+
+parametersAndDataPair(330).
+
+parameterSources(330,[*]).
+
+dataTargets(330,[5]).
+
+
+originalParametersAndDataPair(330,8).
+
+
+parametersAndDataPair(331).
+
+parameterSources(331,[*]).
+
+dataTargets(331,[6]).
+
+
+originalParametersAndDataPair(331,8).
+
+
+parametersAndDataPair(332).
+
+parameterSources(332,[*]).
+
+dataTargets(332,[328]).
+
+
+originalParametersAndDataPair(332,8).
+
+
+parametersAndDataPair(333).
+
+parameterSources(333,[*]).
+
+dataTargets(333,[329]).
+
+
+originalParametersAndDataPair(333,10).
+
+
+parametersAndDataPair(334).
+
+parameterSources(334,[*]).
+
+dataTargets(334,[6]).
+
+
+originalParametersAndDataPair(334,10).
+
+
+parametersAndDataPair(335).
+
+parameterSources(335,[*]).
+
+dataTargets(335,[5]).
+
+
+originalParametersAndDataPair(335,10).
+
+
+parametersAndDataPair(336).
+
+parameterSources(336,[*]).
+
+dataTargets(336,[4]).
+
+
+originalParametersAndDataPair(336,10).
+
+
+parametersAndDataPair(337).
+
+parameterSources(337,[*]).
+
+dataTargets(337,[4]).
+
+
+originalParametersAndDataPair(337,8).
+
+
+connectorSpecificParametersAndDataPairs(266,[330, 331, 332, 333, 334, 335, 336, 337]).
+
+
+/** BEGIN assemblyConnector, ID: '267', NAME: 'Connector OCAAdminTool -> OwnCloudA' */
+description(267,'Connector OCAAdminTool -> OwnCloudA','assemblyConnector').
+assemblyConnector(267).
+requiringAssemblyContext(267,[252]).
+providingAssemblyContext(267,[240]).
+providedRole(267,[80]).
+requiredRole(267,[104]).
+/** END assemblyConnector, ID: '267', NAME: 'Connector OCAAdminTool -> OwnCloudA' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+
+parametersAndDataPair(340).
+
+parameterSources(340,[*]).
+
+dataTargets(340,[5]).
+
+
+originalParametersAndDataPair(340,8).
+
+
+parametersAndDataPair(341).
+
+parameterSources(341,[*]).
+
+dataTargets(341,[338]).
+
+
+originalParametersAndDataPair(341,8).
+
+
+parametersAndDataPair(342).
+
+parameterSources(342,[*]).
+
+dataTargets(342,[6]).
+
+
+originalParametersAndDataPair(342,8).
+
+
+parametersAndDataPair(343).
+
+parameterSources(343,[*]).
+
+dataTargets(343,[6]).
+
+
+originalParametersAndDataPair(343,10).
+
+
+parametersAndDataPair(344).
+
+parameterSources(344,[*]).
+
+dataTargets(344,[5]).
+
+
+originalParametersAndDataPair(344,10).
+
+
+parametersAndDataPair(345).
+
+parameterSources(345,[*]).
+
+dataTargets(345,[4]).
+
+
+originalParametersAndDataPair(345,10).
+
+
+parametersAndDataPair(346).
+
+parameterSources(346,[*]).
+
+dataTargets(346,[339]).
+
+
+originalParametersAndDataPair(346,10).
+
+
+parametersAndDataPair(347).
+
+parameterSources(347,[*]).
+
+dataTargets(347,[4]).
+
+
+originalParametersAndDataPair(347,8).
+
+
+connectorSpecificParametersAndDataPairs(267,[340, 341, 342, 343, 344, 345, 346, 347]).
+
+
+/** BEGIN assemblyConnector, ID: '268', NAME: 'Connector OCAAdminTool -> OwnCloudA' */
+description(268,'Connector OCAAdminTool -> OwnCloudA','assemblyConnector').
+assemblyConnector(268).
+requiringAssemblyContext(268,[252]).
+providingAssemblyContext(268,[240]).
+providedRole(268,[81]).
+requiredRole(268,[105]).
+/** END assemblyConnector, ID: '268', NAME: 'Connector OCAAdminTool -> OwnCloudA' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+
+parametersAndDataPair(350).
+
+parameterSources(350,[*]).
+
+dataTargets(350,[5]).
+
+
+originalParametersAndDataPair(350,8).
+
+
+parametersAndDataPair(351).
+
+parameterSources(351,[*]).
+
+dataTargets(351,[6]).
+
+
+originalParametersAndDataPair(351,8).
+
+
+parametersAndDataPair(352).
+
+parameterSources(352,[*]).
+
+dataTargets(352,[348]).
+
+
+originalParametersAndDataPair(352,8).
+
+
+parametersAndDataPair(353).
+
+parameterSources(353,[*]).
+
+dataTargets(353,[6]).
+
+
+originalParametersAndDataPair(353,10).
+
+
+parametersAndDataPair(354).
+
+parameterSources(354,[*]).
+
+dataTargets(354,[5]).
+
+
+originalParametersAndDataPair(354,10).
+
+
+parametersAndDataPair(355).
+
+parameterSources(355,[*]).
+
+dataTargets(355,[349]).
+
+
+originalParametersAndDataPair(355,10).
+
+
+parametersAndDataPair(356).
+
+parameterSources(356,[*]).
+
+dataTargets(356,[4]).
+
+
+originalParametersAndDataPair(356,10).
+
+
+parametersAndDataPair(357).
+
+parameterSources(357,[*]).
+
+dataTargets(357,[4]).
+
+
+originalParametersAndDataPair(357,8).
+
+
+connectorSpecificParametersAndDataPairs(268,[350, 351, 352, 353, 354, 355, 356, 357]).
+
+
+/** BEGIN assemblyConnector, ID: '269', NAME: 'Connector OCBAdminTool -> OwnCloudB' */
+description(269,'Connector OCBAdminTool -> OwnCloudB','assemblyConnector').
+assemblyConnector(269).
+requiringAssemblyContext(269,[253]).
+providingAssemblyContext(269,[248]).
+providedRole(269,[80]).
+requiredRole(269,[104]).
+/** END assemblyConnector, ID: '269', NAME: 'Connector OCBAdminTool -> OwnCloudB' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+
+parametersAndDataPair(360).
+
+parameterSources(360,[*]).
+
+dataTargets(360,[5]).
+
+
+originalParametersAndDataPair(360,8).
+
+
+parametersAndDataPair(361).
+
+parameterSources(361,[*]).
+
+dataTargets(361,[6]).
+
+
+originalParametersAndDataPair(361,8).
+
+
+parametersAndDataPair(362).
+
+parameterSources(362,[*]).
+
+dataTargets(362,[359]).
+
+
+originalParametersAndDataPair(362,10).
+
+
+parametersAndDataPair(363).
+
+parameterSources(363,[*]).
+
+dataTargets(363,[6]).
+
+
+originalParametersAndDataPair(363,10).
+
+
+parametersAndDataPair(364).
+
+parameterSources(364,[*]).
+
+dataTargets(364,[5]).
+
+
+originalParametersAndDataPair(364,10).
+
+
+parametersAndDataPair(365).
+
+parameterSources(365,[*]).
+
+dataTargets(365,[358]).
+
+
+originalParametersAndDataPair(365,8).
+
+
+parametersAndDataPair(366).
+
+parameterSources(366,[*]).
+
+dataTargets(366,[4]).
+
+
+originalParametersAndDataPair(366,10).
+
+
+parametersAndDataPair(367).
+
+parameterSources(367,[*]).
+
+dataTargets(367,[4]).
+
+
+originalParametersAndDataPair(367,8).
+
+
+connectorSpecificParametersAndDataPairs(269,[360, 361, 362, 363, 364, 365, 366, 367]).
+
+
+/** BEGIN assemblyConnector, ID: '270', NAME: 'Connector OCBAdminTool -> OwnCloudB' */
+description(270,'Connector OCBAdminTool -> OwnCloudB','assemblyConnector').
+assemblyConnector(270).
+requiringAssemblyContext(270,[253]).
+providingAssemblyContext(270,[248]).
+providedRole(270,[81]).
+requiredRole(270,[105]).
+/** END assemblyConnector, ID: '270', NAME: 'Connector OCBAdminTool -> OwnCloudB' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+
+parametersAndDataPair(370).
+
+parameterSources(370,[*]).
+
+dataTargets(370,[5]).
+
+
+originalParametersAndDataPair(370,8).
+
+
+parametersAndDataPair(371).
+
+parameterSources(371,[*]).
+
+dataTargets(371,[6]).
+
+
+originalParametersAndDataPair(371,8).
+
+
+parametersAndDataPair(372).
+
+parameterSources(372,[*]).
+
+dataTargets(372,[369]).
+
+
+originalParametersAndDataPair(372,10).
+
+
+parametersAndDataPair(373).
+
+parameterSources(373,[*]).
+
+dataTargets(373,[6]).
+
+
+originalParametersAndDataPair(373,10).
+
+
+parametersAndDataPair(374).
+
+parameterSources(374,[*]).
+
+dataTargets(374,[5]).
+
+
+originalParametersAndDataPair(374,10).
+
+
+parametersAndDataPair(375).
+
+parameterSources(375,[*]).
+
+dataTargets(375,[4]).
+
+
+originalParametersAndDataPair(375,10).
+
+
+parametersAndDataPair(376).
+
+parameterSources(376,[*]).
+
+dataTargets(376,[368]).
+
+
+originalParametersAndDataPair(376,8).
+
+
+parametersAndDataPair(377).
+
+parameterSources(377,[*]).
+
+dataTargets(377,[4]).
+
+
+originalParametersAndDataPair(377,8).
+
+
+connectorSpecificParametersAndDataPairs(270,[370, 371, 372, 373, 374, 375, 376, 377]).
+
+
+/** BEGIN assemblyConnector, ID: '271', NAME: 'Connector OCBAdminTool -> OCBLogging' */
+description(271,'Connector OCBAdminTool -> OCBLogging','assemblyConnector').
+assemblyConnector(271).
+requiringAssemblyContext(271,[253]).
+providingAssemblyContext(271,[249]).
+providedRole(271,[79]).
+requiredRole(271,[107]).
+/** END assemblyConnector, ID: '271', NAME: 'Connector OCBAdminTool -> OCBLogging' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+
+/** BEGIN assemblyConnector, ID: '272', NAME: 'Connector OCBAdminTool -> OCBLogging' */
+description(272,'Connector OCBAdminTool -> OCBLogging','assemblyConnector').
+assemblyConnector(272).
+requiringAssemblyContext(272,[253]).
+providingAssemblyContext(272,[249]).
+providedRole(272,[78]).
+requiredRole(272,[106]).
+/** END assemblyConnector, ID: '272', NAME: 'Connector OCBAdminTool -> OCBLogging' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+
+/** BEGIN assemblyConnector, ID: '273', NAME: 'Connector OCAAdminTool -> OCALogging' */
+description(273,'Connector OCAAdminTool -> OCALogging','assemblyConnector').
+assemblyConnector(273).
+requiringAssemblyContext(273,[252]).
+providingAssemblyContext(273,[245]).
+providedRole(273,[79]).
+requiredRole(273,[107]).
+/** END assemblyConnector, ID: '273', NAME: 'Connector OCAAdminTool -> OCALogging' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+
+/** BEGIN assemblyConnector, ID: '274', NAME: 'Connector OCAAdminTool -> OCALogging' */
+description(274,'Connector OCAAdminTool -> OCALogging','assemblyConnector').
+assemblyConnector(274).
+requiringAssemblyContext(274,[252]).
+providingAssemblyContext(274,[245]).
+providedRole(274,[78]).
+requiredRole(274,[106]).
+/** END assemblyConnector, ID: '274', NAME: 'Connector OCAAdminTool -> OCALogging' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+
+/** BEGIN assemblyConnector, ID: '275', NAME: 'Connector OwnCloudB -> OCBLogging' */
+description(275,'Connector OwnCloudB -> OCBLogging','assemblyConnector').
+assemblyConnector(275).
+requiringAssemblyContext(275,[248]).
+providingAssemblyContext(275,[249]).
+providedRole(275,[79]).
+requiredRole(275,[84]).
+/** END assemblyConnector, ID: '275', NAME: 'Connector OwnCloudB -> OCBLogging' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+
+/** BEGIN assemblyConnector, ID: '276', NAME: 'Connector OwnCloudA -> OCALogging' */
+description(276,'Connector OwnCloudA -> OCALogging','assemblyConnector').
+assemblyConnector(276).
+requiringAssemblyContext(276,[240]).
+providingAssemblyContext(276,[245]).
+providedRole(276,[79]).
+requiredRole(276,[84]).
+/** END assemblyConnector, ID: '276', NAME: 'Connector OwnCloudA -> OCALogging' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+
+/** BEGIN assemblyConnector, ID: '277', NAME: 'Connector OwnCloudA -> Database' */
+description(277,'Connector OwnCloudA -> Database','assemblyConnector').
+assemblyConnector(277).
+requiringAssemblyContext(277,[240]).
+providingAssemblyContext(277,[242]).
+providedRole(277,[76]).
+requiredRole(277,[82]).
+/** END assemblyConnector, ID: '277', NAME: 'Connector OwnCloudA -> Database' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+
+parametersAndDataPair(380).
+
+parameterSources(380,[*]).
+
+dataTargets(380,[5]).
+
+
+originalParametersAndDataPair(380,8).
+
+
+parametersAndDataPair(381).
+
+parameterSources(381,[*]).
+
+dataTargets(381,[6]).
+
+
+originalParametersAndDataPair(381,8).
+
+
+parametersAndDataPair(382).
+
+parameterSources(382,[*]).
+
+dataTargets(382,[6]).
+
+
+originalParametersAndDataPair(382,10).
+
+
+parametersAndDataPair(383).
+
+parameterSources(383,[*]).
+
+dataTargets(383,[5]).
+
+
+originalParametersAndDataPair(383,10).
+
+
+parametersAndDataPair(384).
+
+parameterSources(384,[*]).
+
+dataTargets(384,[4]).
+
+
+originalParametersAndDataPair(384,10).
+
+
+parametersAndDataPair(385).
+
+parameterSources(385,[*]).
+
+dataTargets(385,[379]).
+
+
+originalParametersAndDataPair(385,10).
+
+
+parametersAndDataPair(386).
+
+parameterSources(386,[*]).
+
+dataTargets(386,[4]).
+
+
+originalParametersAndDataPair(386,8).
+
+
+parametersAndDataPair(387).
+
+parameterSources(387,[*]).
+
+dataTargets(387,[378]).
+
+
+originalParametersAndDataPair(387,8).
+
+
+connectorSpecificParametersAndDataPairs(277,[380, 381, 382, 383, 384, 385, 386, 387]).
+
+
+/** BEGIN assemblyConnector, ID: '278', NAME: 'Connector OwnCloudA -> NetworkFilesystem' */
+description(278,'Connector OwnCloudA -> NetworkFilesystem','assemblyConnector').
+assemblyConnector(278).
+requiringAssemblyContext(278,[240]).
+providingAssemblyContext(278,[243]).
+providedRole(278,[85]).
+requiredRole(278,[83]).
+/** END assemblyConnector, ID: '278', NAME: 'Connector OwnCloudA -> NetworkFilesystem' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+
+parametersAndDataPair(390).
+
+parameterSources(390,[*]).
+
+dataTargets(390,[5]).
+
+
+originalParametersAndDataPair(390,8).
+
+
+parametersAndDataPair(391).
+
+parameterSources(391,[*]).
+
+dataTargets(391,[6]).
+
+
+originalParametersAndDataPair(391,8).
+
+
+parametersAndDataPair(392).
+
+parameterSources(392,[*]).
+
+dataTargets(392,[6]).
+
+
+originalParametersAndDataPair(392,10).
+
+
+parametersAndDataPair(393).
+
+parameterSources(393,[*]).
+
+dataTargets(393,[389]).
+
+
+originalParametersAndDataPair(393,10).
+
+
+parametersAndDataPair(394).
+
+parameterSources(394,[*]).
+
+dataTargets(394,[5]).
+
+
+originalParametersAndDataPair(394,10).
+
+
+parametersAndDataPair(395).
+
+parameterSources(395,[*]).
+
+dataTargets(395,[4]).
+
+
+originalParametersAndDataPair(395,10).
+
+
+parametersAndDataPair(396).
+
+parameterSources(396,[*]).
+
+dataTargets(396,[388]).
+
+
+originalParametersAndDataPair(396,8).
+
+
+parametersAndDataPair(397).
+
+parameterSources(397,[*]).
+
+dataTargets(397,[4]).
+
+
+originalParametersAndDataPair(397,8).
+
+
+connectorSpecificParametersAndDataPairs(278,[390, 391, 392, 393, 394, 395, 396, 397]).
+
+
+/** BEGIN assemblyConnector, ID: '279', NAME: 'Connector OwnCloudB -> Database' */
+description(279,'Connector OwnCloudB -> Database','assemblyConnector').
+assemblyConnector(279).
+requiringAssemblyContext(279,[248]).
+providingAssemblyContext(279,[242]).
+providedRole(279,[76]).
+requiredRole(279,[82]).
+/** END assemblyConnector, ID: '279', NAME: 'Connector OwnCloudB -> Database' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+
+parametersAndDataPair(400).
+
+parameterSources(400,[*]).
+
+dataTargets(400,[5]).
+
+
+originalParametersAndDataPair(400,8).
+
+
+parametersAndDataPair(401).
+
+parameterSources(401,[*]).
+
+dataTargets(401,[6]).
+
+
+originalParametersAndDataPair(401,8).
+
+
+parametersAndDataPair(402).
+
+parameterSources(402,[*]).
+
+dataTargets(402,[398]).
+
+
+originalParametersAndDataPair(402,8).
+
+
+parametersAndDataPair(403).
+
+parameterSources(403,[*]).
+
+dataTargets(403,[399]).
+
+
+originalParametersAndDataPair(403,10).
+
+
+parametersAndDataPair(404).
+
+parameterSources(404,[*]).
+
+dataTargets(404,[6]).
+
+
+originalParametersAndDataPair(404,10).
+
+
+parametersAndDataPair(405).
+
+parameterSources(405,[*]).
+
+dataTargets(405,[5]).
+
+
+originalParametersAndDataPair(405,10).
+
+
+parametersAndDataPair(406).
+
+parameterSources(406,[*]).
+
+dataTargets(406,[4]).
+
+
+originalParametersAndDataPair(406,10).
+
+
+parametersAndDataPair(407).
+
+parameterSources(407,[*]).
+
+dataTargets(407,[4]).
+
+
+originalParametersAndDataPair(407,8).
+
+
+connectorSpecificParametersAndDataPairs(279,[400, 401, 402, 403, 404, 405, 406, 407]).
+
+
+/** BEGIN assemblyConnector, ID: '280', NAME: 'Connector OwnCloudB -> NetworkFilesystem' */
+description(280,'Connector OwnCloudB -> NetworkFilesystem','assemblyConnector').
+assemblyConnector(280).
+requiringAssemblyContext(280,[248]).
+providingAssemblyContext(280,[243]).
+providedRole(280,[85]).
+requiredRole(280,[83]).
+/** END assemblyConnector, ID: '280', NAME: 'Connector OwnCloudB -> NetworkFilesystem' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+
+parametersAndDataPair(410).
+
+parameterSources(410,[*]).
+
+dataTargets(410,[5]).
+
+
+originalParametersAndDataPair(410,8).
+
+
+parametersAndDataPair(411).
+
+parameterSources(411,[*]).
+
+dataTargets(411,[6]).
+
+
+originalParametersAndDataPair(411,8).
+
+
+parametersAndDataPair(412).
+
+parameterSources(412,[*]).
+
+dataTargets(412,[408]).
+
+
+originalParametersAndDataPair(412,8).
+
+
+parametersAndDataPair(413).
+
+parameterSources(413,[*]).
+
+dataTargets(413,[6]).
+
+
+originalParametersAndDataPair(413,10).
+
+
+parametersAndDataPair(414).
+
+parameterSources(414,[*]).
+
+dataTargets(414,[5]).
+
+
+originalParametersAndDataPair(414,10).
+
+
+parametersAndDataPair(415).
+
+parameterSources(415,[*]).
+
+dataTargets(415,[4]).
+
+
+originalParametersAndDataPair(415,10).
+
+
+parametersAndDataPair(416).
+
+parameterSources(416,[*]).
+
+dataTargets(416,[409]).
+
+
+originalParametersAndDataPair(416,10).
+
+
+parametersAndDataPair(417).
+
+parameterSources(417,[*]).
+
+dataTargets(417,[4]).
+
+
+originalParametersAndDataPair(417,8).
+
+
+connectorSpecificParametersAndDataPairs(280,[410, 411, 412, 413, 414, 415, 416, 417]).
+
+
+/** BEGIN assemblyConnector, ID: '281', NAME: 'Connector DBAdminTool -> Database' */
+description(281,'Connector DBAdminTool -> Database','assemblyConnector').
+assemblyConnector(281).
+requiringAssemblyContext(281,[250]).
+providingAssemblyContext(281,[242]).
+providedRole(281,[76]).
+requiredRole(281,[73]).
+/** END assemblyConnector, ID: '281', NAME: 'Connector DBAdminTool -> Database' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+
+parametersAndDataPair(420).
+
+parameterSources(420,[*]).
+
+dataTargets(420,[5]).
+
+
+originalParametersAndDataPair(420,8).
+
+
+parametersAndDataPair(421).
+
+parameterSources(421,[*]).
+
+dataTargets(421,[6]).
+
+
+originalParametersAndDataPair(421,8).
+
+
+parametersAndDataPair(422).
+
+parameterSources(422,[*]).
+
+dataTargets(422,[419]).
+
+
+originalParametersAndDataPair(422,10).
+
+
+parametersAndDataPair(423).
+
+parameterSources(423,[*]).
+
+dataTargets(423,[6]).
+
+
+originalParametersAndDataPair(423,10).
+
+
+parametersAndDataPair(424).
+
+parameterSources(424,[*]).
+
+dataTargets(424,[418]).
+
+
+originalParametersAndDataPair(424,8).
+
+
+parametersAndDataPair(425).
+
+parameterSources(425,[*]).
+
+dataTargets(425,[5]).
+
+
+originalParametersAndDataPair(425,10).
+
+
+parametersAndDataPair(426).
+
+parameterSources(426,[*]).
+
+dataTargets(426,[4]).
+
+
+originalParametersAndDataPair(426,10).
+
+
+parametersAndDataPair(427).
+
+parameterSources(427,[*]).
+
+dataTargets(427,[4]).
+
+
+originalParametersAndDataPair(427,8).
+
+
+connectorSpecificParametersAndDataPairs(281,[420, 421, 422, 423, 424, 425, 426, 427]).
+
+
+/** BEGIN assemblyConnector, ID: '282', NAME: 'Connector DBAdminTool -> DBLogging' */
+description(282,'Connector DBAdminTool -> DBLogging','assemblyConnector').
+assemblyConnector(282).
+requiringAssemblyContext(282,[250]).
+providingAssemblyContext(282,[241]).
+providedRole(282,[79]).
+requiredRole(282,[75]).
+/** END assemblyConnector, ID: '282', NAME: 'Connector DBAdminTool -> DBLogging' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+
+/** BEGIN assemblyConnector, ID: '283', NAME: 'Connector DBAdminTool -> DBLogging' */
+description(283,'Connector DBAdminTool -> DBLogging','assemblyConnector').
+assemblyConnector(283).
+requiringAssemblyContext(283,[250]).
+providingAssemblyContext(283,[241]).
+providedRole(283,[78]).
+requiredRole(283,[74]).
+/** END assemblyConnector, ID: '283', NAME: 'Connector DBAdminTool -> DBLogging' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+
+/** BEGIN assemblyConnector, ID: '284', NAME: 'Connector NWFSAdminTool -> NWFSLogging' */
+description(284,'Connector NWFSAdminTool -> NWFSLogging','assemblyConnector').
+assemblyConnector(284).
+requiringAssemblyContext(284,[251]).
+providingAssemblyContext(284,[244]).
+providedRole(284,[78]).
+requiredRole(284,[101]).
+/** END assemblyConnector, ID: '284', NAME: 'Connector NWFSAdminTool -> NWFSLogging' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+
+/** BEGIN assemblyConnector, ID: '285', NAME: 'Connector NWFSAdminTool -> NWFSLogging' */
+description(285,'Connector NWFSAdminTool -> NWFSLogging','assemblyConnector').
+assemblyConnector(285).
+requiringAssemblyContext(285,[251]).
+providingAssemblyContext(285,[244]).
+providedRole(285,[79]).
+requiredRole(285,[102]).
+/** END assemblyConnector, ID: '285', NAME: 'Connector NWFSAdminTool -> NWFSLogging' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+
+/** BEGIN assemblyConnector, ID: '286', NAME: 'Connector NWFSAdminTool -> NetworkFilesystem' */
+description(286,'Connector NWFSAdminTool -> NetworkFilesystem','assemblyConnector').
+assemblyConnector(286).
+requiringAssemblyContext(286,[251]).
+providingAssemblyContext(286,[243]).
+providedRole(286,[85]).
+requiredRole(286,[100]).
+/** END assemblyConnector, ID: '286', NAME: 'Connector NWFSAdminTool -> NetworkFilesystem' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+dataSetMapEntry(428).
+dataIdentifier(1,428).
+dataSetMapEntry(429).
+dataIdentifier(1,429).
+
+parametersAndDataPair(430).
+
+parameterSources(430,[*]).
+
+dataTargets(430,[5]).
+
+
+originalParametersAndDataPair(430,8).
+
+
+parametersAndDataPair(431).
+
+parameterSources(431,[*]).
+
+dataTargets(431,[6]).
+
+
+originalParametersAndDataPair(431,8).
+
+
+parametersAndDataPair(432).
+
+parameterSources(432,[*]).
+
+dataTargets(432,[6]).
+
+
+originalParametersAndDataPair(432,10).
+
+
+parametersAndDataPair(433).
+
+parameterSources(433,[*]).
+
+dataTargets(433,[5]).
+
+
+originalParametersAndDataPair(433,10).
+
+
+parametersAndDataPair(434).
+
+parameterSources(434,[*]).
+
+dataTargets(434,[4]).
+
+
+originalParametersAndDataPair(434,10).
+
+
+parametersAndDataPair(435).
+
+parameterSources(435,[*]).
+
+dataTargets(435,[429]).
+
+
+originalParametersAndDataPair(435,10).
+
+
+parametersAndDataPair(436).
+
+parameterSources(436,[*]).
+
+dataTargets(436,[4]).
+
+
+originalParametersAndDataPair(436,8).
+
+
+parametersAndDataPair(437).
+
+parameterSources(437,[*]).
+
+dataTargets(437,[428]).
+
+
+originalParametersAndDataPair(437,8).
+
+
+connectorSpecificParametersAndDataPairs(286,[430, 431, 432, 433, 434, 435, 436, 437]).
+
+
+/** BEGIN assemblyConnector, ID: '287', NAME: 'Connector NetworkFilesystem -> NWFSLogging' */
+description(287,'Connector NetworkFilesystem -> NWFSLogging','assemblyConnector').
+assemblyConnector(287).
+requiringAssemblyContext(287,[243]).
+providingAssemblyContext(287,[244]).
+providedRole(287,[79]).
+requiredRole(287,[86]).
+/** END assemblyConnector, ID: '287', NAME: 'Connector NetworkFilesystem -> NWFSLogging' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+dataSetMapEntry(428).
+dataIdentifier(1,428).
+dataSetMapEntry(429).
+dataIdentifier(1,429).
+
+/** BEGIN assemblyConnector, ID: '288', NAME: 'Connector Database -> DBLogging' */
+description(288,'Connector Database -> DBLogging','assemblyConnector').
+assemblyConnector(288).
+requiringAssemblyContext(288,[242]).
+providingAssemblyContext(288,[241]).
+providedRole(288,[79]).
+requiredRole(288,[77]).
+/** END assemblyConnector, ID: '288', NAME: 'Connector Database -> DBLogging' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+dataSetMapEntry(428).
+dataIdentifier(1,428).
+dataSetMapEntry(429).
+dataIdentifier(1,429).
+
+/** BEGIN providedDelegationConnector, ID: '289', NAME: 'ProvDelegation Provided_IDBAdminTool -> Provided_ISQL_Database' */
+description(289,'ProvDelegation Provided_IDBAdminTool -> Provided_ISQL_Database','providedDelegationConnector').
+providedDelegationConnector(289).
+innerProvidedRole(289,[72]).
+outerProvidedRole(289,[311]).
+assemblyContext(289,[242]).
+/** END providedDelegationConnector, ID: '289', NAME: 'ProvDelegation Provided_IDBAdminTool -> Provided_ISQL_Database' */
+
+
+/** BEGIN providedDelegationConnector, ID: '290', NAME: 'ProvDelegation Provided_INWFSAdminTool -> Provided_INWFSAdminTool_NWFSAdminTool' */
+description(290,'ProvDelegation Provided_INWFSAdminTool -> Provided_INWFSAdminTool_NWFSAdminTool','providedDelegationConnector').
+providedDelegationConnector(290).
+innerProvidedRole(290,[99]).
+outerProvidedRole(290,[310]).
+assemblyContext(290,[251]).
+/** END providedDelegationConnector, ID: '290', NAME: 'ProvDelegation Provided_INWFSAdminTool -> Provided_INWFSAdminTool_NWFSAdminTool' */
+
+
+/** BEGIN providedDelegationConnector, ID: '291', NAME: 'ProvDelegation Provided_IOCAdminTool -> Provided_IOCAdminTool_OwnCloudAdminTool' */
+description(291,'ProvDelegation Provided_IOCAdminTool -> Provided_IOCAdminTool_OwnCloudAdminTool','providedDelegationConnector').
+providedDelegationConnector(291).
+innerProvidedRole(291,[103]).
+outerProvidedRole(291,[309]).
+assemblyContext(291,[252]).
+/** END providedDelegationConnector, ID: '291', NAME: 'ProvDelegation Provided_IOCAdminTool -> Provided_IOCAdminTool_OwnCloudAdminTool' */
+
+
+/** BEGIN providedDelegationConnector, ID: '292', NAME: 'ProvDelegation Provided_ILBAdminTool -> Provided_ILBAdminTool_LBAdminTool' */
+description(292,'ProvDelegation Provided_ILBAdminTool -> Provided_ILBAdminTool_LBAdminTool','providedDelegationConnector').
+providedDelegationConnector(292).
+innerProvidedRole(292,[108]).
+outerProvidedRole(292,[308]).
+assemblyContext(292,[254]).
+/** END providedDelegationConnector, ID: '292', NAME: 'ProvDelegation Provided_ILBAdminTool -> Provided_ILBAdminTool_LBAdminTool' */
+
+
+/** BEGIN providedDelegationConnector, ID: '293', NAME: 'ProvDelegation Provided_IOCAdminTool -> Provided_IOCAdminTool_OwnCloudAdminTool' */
+description(293,'ProvDelegation Provided_IOCAdminTool -> Provided_IOCAdminTool_OwnCloudAdminTool','providedDelegationConnector').
+providedDelegationConnector(293).
+innerProvidedRole(293,[103]).
+outerProvidedRole(293,[309]).
+assemblyContext(293,[253]).
+/** END providedDelegationConnector, ID: '293', NAME: 'ProvDelegation Provided_IOCAdminTool -> Provided_IOCAdminTool_OwnCloudAdminTool' */
+
+
+/** BEGIN assemblyConnector, ID: '294', NAME: 'Connector FileManagerA -> LoadBalancer' */
+description(294,'Connector FileManagerA -> LoadBalancer','assemblyConnector').
+assemblyConnector(294).
+requiringAssemblyContext(294,[255]).
+providingAssemblyContext(294,[246]).
+providedRole(294,[87]).
+requiredRole(294,[96]).
+/** END assemblyConnector, ID: '294', NAME: 'Connector FileManagerA -> LoadBalancer' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+dataSetMapEntry(428).
+dataIdentifier(1,428).
+dataSetMapEntry(429).
+dataIdentifier(1,429).
+dataSetMapEntry(438).
+dataIdentifier(1,438).
+
+parametersAndDataPair(439).
+
+parameterSources(439,[*]).
+
+dataTargets(439,[438]).
+
+
+originalParametersAndDataPair(439,10).
+
+
+parametersAndDataPair(440).
+
+parameterSources(440,[*]).
+
+dataTargets(440,[6]).
+
+
+originalParametersAndDataPair(440,10).
+
+
+parametersAndDataPair(441).
+
+parameterSources(441,[*]).
+
+dataTargets(441,[5]).
+
+
+originalParametersAndDataPair(441,10).
+
+
+parametersAndDataPair(442).
+
+parameterSources(442,[*]).
+
+dataTargets(442,[4]).
+
+
+originalParametersAndDataPair(442,10).
+
+
+parametersAndDataPair(443).
+
+parameterSources(443,[*]).
+
+dataTargets(443,[4]).
+
+
+originalParametersAndDataPair(443,8).
+
+
+connectorSpecificParametersAndDataPairs(294,[439, 440, 441, 442, 443]).
+
+
+/** BEGIN assemblyConnector, ID: '295', NAME: 'Connector CalendarA -> LoadBalancer' */
+description(295,'Connector CalendarA -> LoadBalancer','assemblyConnector').
+assemblyConnector(295).
+requiringAssemblyContext(295,[256]).
+providingAssemblyContext(295,[246]).
+providedRole(295,[88]).
+requiredRole(295,[98]).
+/** END assemblyConnector, ID: '295', NAME: 'Connector CalendarA -> LoadBalancer' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+dataSetMapEntry(428).
+dataIdentifier(1,428).
+dataSetMapEntry(429).
+dataIdentifier(1,429).
+dataSetMapEntry(438).
+dataIdentifier(1,438).
+dataSetMapEntry(444).
+dataIdentifier(1,444).
+
+parametersAndDataPair(445).
+
+parameterSources(445,[*]).
+
+dataTargets(445,[444]).
+
+
+originalParametersAndDataPair(445,10).
+
+
+parametersAndDataPair(446).
+
+parameterSources(446,[*]).
+
+dataTargets(446,[6]).
+
+
+originalParametersAndDataPair(446,10).
+
+
+parametersAndDataPair(447).
+
+parameterSources(447,[*]).
+
+dataTargets(447,[5]).
+
+
+originalParametersAndDataPair(447,10).
+
+
+parametersAndDataPair(448).
+
+parameterSources(448,[*]).
+
+dataTargets(448,[4]).
+
+
+originalParametersAndDataPair(448,10).
+
+
+parametersAndDataPair(449).
+
+parameterSources(449,[*]).
+
+dataTargets(449,[4]).
+
+
+originalParametersAndDataPair(449,8).
+
+
+connectorSpecificParametersAndDataPairs(295,[445, 446, 447, 448, 449]).
+
+
+/** BEGIN assemblyConnector, ID: '296', NAME: 'Connector FileManagerB -> LoadBalancer' */
+description(296,'Connector FileManagerB -> LoadBalancer','assemblyConnector').
+assemblyConnector(296).
+requiringAssemblyContext(296,[257]).
+providingAssemblyContext(296,[246]).
+providedRole(296,[87]).
+requiredRole(296,[96]).
+/** END assemblyConnector, ID: '296', NAME: 'Connector FileManagerB -> LoadBalancer' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+dataSetMapEntry(428).
+dataIdentifier(1,428).
+dataSetMapEntry(429).
+dataIdentifier(1,429).
+dataSetMapEntry(438).
+dataIdentifier(1,438).
+dataSetMapEntry(444).
+dataIdentifier(1,444).
+dataSetMapEntry(450).
+dataIdentifier(1,450).
+
+parametersAndDataPair(451).
+
+parameterSources(451,[*]).
+
+dataTargets(451,[5]).
+
+
+originalParametersAndDataPair(451,8).
+
+
+parametersAndDataPair(452).
+
+parameterSources(452,[*]).
+
+dataTargets(452,[6]).
+
+
+originalParametersAndDataPair(452,10).
+
+
+parametersAndDataPair(453).
+
+parameterSources(453,[*]).
+
+dataTargets(453,[5]).
+
+
+originalParametersAndDataPair(453,10).
+
+
+parametersAndDataPair(454).
+
+parameterSources(454,[*]).
+
+dataTargets(454,[450]).
+
+
+originalParametersAndDataPair(454,10).
+
+
+parametersAndDataPair(455).
+
+parameterSources(455,[*]).
+
+dataTargets(455,[4]).
+
+
+originalParametersAndDataPair(455,10).
+
+
+connectorSpecificParametersAndDataPairs(296,[451, 452, 453, 454, 455]).
+
+
+/** BEGIN assemblyConnector, ID: '297', NAME: 'Connector CalendarB -> LoadBalancer' */
+description(297,'Connector CalendarB -> LoadBalancer','assemblyConnector').
+assemblyConnector(297).
+requiringAssemblyContext(297,[258]).
+providingAssemblyContext(297,[246]).
+providedRole(297,[88]).
+requiredRole(297,[98]).
+/** END assemblyConnector, ID: '297', NAME: 'Connector CalendarB -> LoadBalancer' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+dataSetMapEntry(428).
+dataIdentifier(1,428).
+dataSetMapEntry(429).
+dataIdentifier(1,429).
+dataSetMapEntry(438).
+dataIdentifier(1,438).
+dataSetMapEntry(444).
+dataIdentifier(1,444).
+dataSetMapEntry(450).
+dataIdentifier(1,450).
+dataSetMapEntry(456).
+dataIdentifier(1,456).
+
+parametersAndDataPair(457).
+
+parameterSources(457,[*]).
+
+dataTargets(457,[5]).
+
+
+originalParametersAndDataPair(457,8).
+
+
+parametersAndDataPair(458).
+
+parameterSources(458,[*]).
+
+dataTargets(458,[456]).
+
+
+originalParametersAndDataPair(458,10).
+
+
+parametersAndDataPair(459).
+
+parameterSources(459,[*]).
+
+dataTargets(459,[6]).
+
+
+originalParametersAndDataPair(459,10).
+
+
+parametersAndDataPair(460).
+
+parameterSources(460,[*]).
+
+dataTargets(460,[5]).
+
+
+originalParametersAndDataPair(460,10).
+
+
+parametersAndDataPair(461).
+
+parameterSources(461,[*]).
+
+dataTargets(461,[4]).
+
+
+originalParametersAndDataPair(461,10).
+
+
+connectorSpecificParametersAndDataPairs(297,[457, 458, 459, 460, 461]).
+
+
+/** BEGIN providedDelegationConnector, ID: '298', NAME: 'ProvDelegation Provided_ICalDAVA -> Provided_CalendarGUI_Calendar' */
+description(298,'ProvDelegation Provided_ICalDAVA -> Provided_CalendarGUI_Calendar','providedDelegationConnector').
+providedDelegationConnector(298).
+innerProvidedRole(298,[97]).
+outerProvidedRole(298,[315]).
+assemblyContext(298,[256]).
+/** END providedDelegationConnector, ID: '298', NAME: 'ProvDelegation Provided_ICalDAVA -> Provided_CalendarGUI_Calendar' */
+
+
+/** BEGIN providedDelegationConnector, ID: '299', NAME: 'ProvDelegation Provided_ICalDAVB -> Provided_CalendarGUI_Calendar' */
+description(299,'ProvDelegation Provided_ICalDAVB -> Provided_CalendarGUI_Calendar','providedDelegationConnector').
+providedDelegationConnector(299).
+innerProvidedRole(299,[97]).
+outerProvidedRole(299,[314]).
+assemblyContext(299,[258]).
+/** END providedDelegationConnector, ID: '299', NAME: 'ProvDelegation Provided_ICalDAVB -> Provided_CalendarGUI_Calendar' */
+
+
+/** BEGIN providedDelegationConnector, ID: '300', NAME: 'ProvDelegation Provided_IWebDAVB -> Provided_FileManGUI_FileManager' */
+description(300,'ProvDelegation Provided_IWebDAVB -> Provided_FileManGUI_FileManager','providedDelegationConnector').
+providedDelegationConnector(300).
+innerProvidedRole(300,[95]).
+outerProvidedRole(300,[313]).
+assemblyContext(300,[257]).
+/** END providedDelegationConnector, ID: '300', NAME: 'ProvDelegation Provided_IWebDAVB -> Provided_FileManGUI_FileManager' */
+
+
+/** BEGIN assemblyConnector, ID: '301', NAME: 'Connector LoadBalancer -> OwnCloudB' */
+description(301,'Connector LoadBalancer -> OwnCloudB','assemblyConnector').
+assemblyConnector(301).
+requiringAssemblyContext(301,[246]).
+providingAssemblyContext(301,[248]).
+providedRole(301,[81]).
+requiredRole(301,[93]).
+/** END assemblyConnector, ID: '301', NAME: 'Connector LoadBalancer -> OwnCloudB' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+dataSetMapEntry(428).
+dataIdentifier(1,428).
+dataSetMapEntry(429).
+dataIdentifier(1,429).
+dataSetMapEntry(438).
+dataIdentifier(1,438).
+dataSetMapEntry(444).
+dataIdentifier(1,444).
+dataSetMapEntry(450).
+dataIdentifier(1,450).
+dataSetMapEntry(456).
+dataIdentifier(1,456).
+dataSetMapEntry(462).
+dataIdentifier(1,462).
+dataSetMapEntry(463).
+dataIdentifier(1,463).
+
+parametersAndDataPair(464).
+
+parameterSources(464,[*]).
+
+dataTargets(464,[5]).
+
+
+originalParametersAndDataPair(464,8).
+
+
+parametersAndDataPair(465).
+
+parameterSources(465,[*]).
+
+dataTargets(465,[6]).
+
+
+originalParametersAndDataPair(465,8).
+
+
+parametersAndDataPair(466).
+
+parameterSources(466,[*]).
+
+dataTargets(466,[463]).
+
+
+originalParametersAndDataPair(466,10).
+
+
+parametersAndDataPair(467).
+
+parameterSources(467,[*]).
+
+dataTargets(467,[462]).
+
+
+originalParametersAndDataPair(467,8).
+
+
+parametersAndDataPair(468).
+
+parameterSources(468,[*]).
+
+dataTargets(468,[6]).
+
+
+originalParametersAndDataPair(468,10).
+
+
+parametersAndDataPair(469).
+
+parameterSources(469,[*]).
+
+dataTargets(469,[5]).
+
+
+originalParametersAndDataPair(469,10).
+
+
+parametersAndDataPair(470).
+
+parameterSources(470,[*]).
+
+dataTargets(470,[4]).
+
+
+originalParametersAndDataPair(470,10).
+
+
+parametersAndDataPair(471).
+
+parameterSources(471,[*]).
+
+dataTargets(471,[4]).
+
+
+originalParametersAndDataPair(471,8).
+
+
+connectorSpecificParametersAndDataPairs(301,[464, 465, 466, 467, 468, 469, 470, 471]).
+
+
+/** BEGIN providedDelegationConnector, ID: '302', NAME: 'ProvDelegation Provided_IWebDAVA -> Provided_FileManGUI_FileManager' */
+description(302,'ProvDelegation Provided_IWebDAVA -> Provided_FileManGUI_FileManager','providedDelegationConnector').
+providedDelegationConnector(302).
+innerProvidedRole(302,[95]).
+outerProvidedRole(302,[312]).
+assemblyContext(302,[255]).
+/** END providedDelegationConnector, ID: '302', NAME: 'ProvDelegation Provided_IWebDAVA -> Provided_FileManGUI_FileManager' */
+
+
+/** BEGIN assemblyConnector, ID: '303', NAME: 'Connector LoadBalancer -> OwnCloudB' */
+description(303,'Connector LoadBalancer -> OwnCloudB','assemblyConnector').
+assemblyConnector(303).
+requiringAssemblyContext(303,[246]).
+providingAssemblyContext(303,[248]).
+providedRole(303,[80]).
+requiredRole(303,[94]).
+/** END assemblyConnector, ID: '303', NAME: 'Connector LoadBalancer -> OwnCloudB' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+dataSetMapEntry(428).
+dataIdentifier(1,428).
+dataSetMapEntry(429).
+dataIdentifier(1,429).
+dataSetMapEntry(438).
+dataIdentifier(1,438).
+dataSetMapEntry(444).
+dataIdentifier(1,444).
+dataSetMapEntry(450).
+dataIdentifier(1,450).
+dataSetMapEntry(456).
+dataIdentifier(1,456).
+dataSetMapEntry(462).
+dataIdentifier(1,462).
+dataSetMapEntry(463).
+dataIdentifier(1,463).
+dataSetMapEntry(472).
+dataIdentifier(1,472).
+dataSetMapEntry(473).
+dataIdentifier(1,473).
+
+parametersAndDataPair(474).
+
+parameterSources(474,[*]).
+
+dataTargets(474,[5]).
+
+
+originalParametersAndDataPair(474,8).
+
+
+parametersAndDataPair(475).
+
+parameterSources(475,[*]).
+
+dataTargets(475,[6]).
+
+
+originalParametersAndDataPair(475,8).
+
+
+parametersAndDataPair(476).
+
+parameterSources(476,[*]).
+
+dataTargets(476,[6]).
+
+
+originalParametersAndDataPair(476,10).
+
+
+parametersAndDataPair(477).
+
+parameterSources(477,[*]).
+
+dataTargets(477,[472]).
+
+
+originalParametersAndDataPair(477,8).
+
+
+parametersAndDataPair(478).
+
+parameterSources(478,[*]).
+
+dataTargets(478,[5]).
+
+
+originalParametersAndDataPair(478,10).
+
+
+parametersAndDataPair(479).
+
+parameterSources(479,[*]).
+
+dataTargets(479,[4]).
+
+
+originalParametersAndDataPair(479,10).
+
+
+parametersAndDataPair(480).
+
+parameterSources(480,[*]).
+
+dataTargets(480,[473]).
+
+
+originalParametersAndDataPair(480,10).
+
+
+parametersAndDataPair(481).
+
+parameterSources(481,[*]).
+
+dataTargets(481,[4]).
+
+
+originalParametersAndDataPair(481,8).
+
+
+connectorSpecificParametersAndDataPairs(303,[474, 475, 476, 477, 478, 479, 480, 481]).
+
+
+/** BEGIN providedDelegationConnector, ID: '304', NAME: 'ProvDelegation Provided_IPublicCalendarGUI -> Provided_PublicCalendarGUI_PublicCalendar' */
+description(304,'ProvDelegation Provided_IPublicCalendarGUI -> Provided_PublicCalendarGUI_PublicCalendar','providedDelegationConnector').
+providedDelegationConnector(304).
+innerProvidedRole(304,[114]).
+outerProvidedRole(304,[317]).
+assemblyContext(304,[260]).
+/** END providedDelegationConnector, ID: '304', NAME: 'ProvDelegation Provided_IPublicCalendarGUI -> Provided_PublicCalendarGUI_PublicCalendar' */
+
+
+/** BEGIN providedDelegationConnector, ID: '305', NAME: 'ProvDelegation Provided_IPublicFileManGUI -> Provided_PublicFileManGUI_PublicFileManager' */
+description(305,'ProvDelegation Provided_IPublicFileManGUI -> Provided_PublicFileManGUI_PublicFileManager','providedDelegationConnector').
+providedDelegationConnector(305).
+innerProvidedRole(305,[112]).
+outerProvidedRole(305,[316]).
+assemblyContext(305,[259]).
+/** END providedDelegationConnector, ID: '305', NAME: 'ProvDelegation Provided_IPublicFileManGUI -> Provided_PublicFileManGUI_PublicFileManager' */
+
+
+/** BEGIN assemblyConnector, ID: '306', NAME: 'Connector PublicFileManager -> LoadBalancer' */
+description(306,'Connector PublicFileManager -> LoadBalancer','assemblyConnector').
+assemblyConnector(306).
+requiringAssemblyContext(306,[259]).
+providingAssemblyContext(306,[246]).
+providedRole(306,[90]).
+requiredRole(306,[113]).
+/** END assemblyConnector, ID: '306', NAME: 'Connector PublicFileManager -> LoadBalancer' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+dataSetMapEntry(428).
+dataIdentifier(1,428).
+dataSetMapEntry(429).
+dataIdentifier(1,429).
+dataSetMapEntry(438).
+dataIdentifier(1,438).
+dataSetMapEntry(444).
+dataIdentifier(1,444).
+dataSetMapEntry(450).
+dataIdentifier(1,450).
+dataSetMapEntry(456).
+dataIdentifier(1,456).
+dataSetMapEntry(462).
+dataIdentifier(1,462).
+dataSetMapEntry(463).
+dataIdentifier(1,463).
+dataSetMapEntry(472).
+dataIdentifier(1,472).
+dataSetMapEntry(473).
+dataIdentifier(1,473).
+
+/** BEGIN assemblyConnector, ID: '307', NAME: 'Connector PublicCalendar -> LoadBalancer' */
+description(307,'Connector PublicCalendar -> LoadBalancer','assemblyConnector').
+assemblyConnector(307).
+requiringAssemblyContext(307,[260]).
+providingAssemblyContext(307,[246]).
+providedRole(307,[91]).
+requiredRole(307,[115]).
+/** END assemblyConnector, ID: '307', NAME: 'Connector PublicCalendar -> LoadBalancer' */
+
+dataSetMapEntry(318).
+dataIdentifier(1,318).
+dataSetMapEntry(319).
+dataIdentifier(1,319).
+dataSetMapEntry(328).
+dataIdentifier(1,328).
+dataSetMapEntry(329).
+dataIdentifier(1,329).
+dataSetMapEntry(338).
+dataIdentifier(1,338).
+dataSetMapEntry(339).
+dataIdentifier(1,339).
+dataSetMapEntry(348).
+dataIdentifier(1,348).
+dataSetMapEntry(349).
+dataIdentifier(1,349).
+dataSetMapEntry(358).
+dataIdentifier(1,358).
+dataSetMapEntry(359).
+dataIdentifier(1,359).
+dataSetMapEntry(368).
+dataIdentifier(1,368).
+dataSetMapEntry(369).
+dataIdentifier(1,369).
+dataSetMapEntry(378).
+dataIdentifier(1,378).
+dataSetMapEntry(379).
+dataIdentifier(1,379).
+dataSetMapEntry(388).
+dataIdentifier(1,388).
+dataSetMapEntry(389).
+dataIdentifier(1,389).
+dataSetMapEntry(398).
+dataIdentifier(1,398).
+dataSetMapEntry(399).
+dataIdentifier(1,399).
+dataSetMapEntry(408).
+dataIdentifier(1,408).
+dataSetMapEntry(409).
+dataIdentifier(1,409).
+dataSetMapEntry(418).
+dataIdentifier(1,418).
+dataSetMapEntry(419).
+dataIdentifier(1,419).
+dataSetMapEntry(428).
+dataIdentifier(1,428).
+dataSetMapEntry(429).
+dataIdentifier(1,429).
+dataSetMapEntry(438).
+dataIdentifier(1,438).
+dataSetMapEntry(444).
+dataIdentifier(1,444).
+dataSetMapEntry(450).
+dataIdentifier(1,450).
+dataSetMapEntry(456).
+dataIdentifier(1,456).
+dataSetMapEntry(462).
+dataIdentifier(1,462).
+dataSetMapEntry(463).
+dataIdentifier(1,463).
+dataSetMapEntry(472).
+dataIdentifier(1,472).
+dataSetMapEntry(473).
+dataIdentifier(1,473).
+
+/** BEGIN operationProvidedRole, ID: '308', NAME: 'Provided_ILBAdminTool' */
+description(308,'Provided_ILBAdminTool','operationProvidedRole').
+operationProvidedRole(308).
+providedInterface(308,[69]).
+/** END operationProvidedRole, ID: '308', NAME: 'Provided_ILBAdminTool' */
+
+
+/** BEGIN operationProvidedRole, ID: '309', NAME: 'Provided_IOCAdminTool' */
+description(309,'Provided_IOCAdminTool','operationProvidedRole').
+operationProvidedRole(309).
+providedInterface(309,[68]).
+/** END operationProvidedRole, ID: '309', NAME: 'Provided_IOCAdminTool' */
+
+
+/** BEGIN operationProvidedRole, ID: '310', NAME: 'Provided_INWFSAdminTool' */
+description(310,'Provided_INWFSAdminTool','operationProvidedRole').
+operationProvidedRole(310).
+providedInterface(310,[66]).
+/** END operationProvidedRole, ID: '310', NAME: 'Provided_INWFSAdminTool' */
+
+
+/** BEGIN operationProvidedRole, ID: '311', NAME: 'Provided_IDBAdminTool' */
+description(311,'Provided_IDBAdminTool','operationProvidedRole').
+operationProvidedRole(311).
+providedInterface(311,[56]).
+/** END operationProvidedRole, ID: '311', NAME: 'Provided_IDBAdminTool' */
+
+
+/** BEGIN operationProvidedRole, ID: '312', NAME: 'Provided_IWebDAVA' */
+description(312,'Provided_IWebDAVA','operationProvidedRole').
+operationProvidedRole(312).
+providedInterface(312,[61]).
+/** END operationProvidedRole, ID: '312', NAME: 'Provided_IWebDAVA' */
+
+
+/** BEGIN operationProvidedRole, ID: '313', NAME: 'Provided_IWebDAVB' */
+description(313,'Provided_IWebDAVB','operationProvidedRole').
+operationProvidedRole(313).
+providedInterface(313,[61]).
+/** END operationProvidedRole, ID: '313', NAME: 'Provided_IWebDAVB' */
+
+
+/** BEGIN operationProvidedRole, ID: '314', NAME: 'Provided_ICalDAVB' */
+description(314,'Provided_ICalDAVB','operationProvidedRole').
+operationProvidedRole(314).
+providedInterface(314,[62]).
+/** END operationProvidedRole, ID: '314', NAME: 'Provided_ICalDAVB' */
+
+
+/** BEGIN operationProvidedRole, ID: '315', NAME: 'Provided_ICalDAVA' */
+description(315,'Provided_ICalDAVA','operationProvidedRole').
+operationProvidedRole(315).
+providedInterface(315,[62]).
+/** END operationProvidedRole, ID: '315', NAME: 'Provided_ICalDAVA' */
+
+
+/** BEGIN operationProvidedRole, ID: '316', NAME: 'Provided_IPublicFileManGUI' */
+description(316,'Provided_IPublicFileManGUI','operationProvidedRole').
+operationProvidedRole(316).
+providedInterface(316,[70]).
+/** END operationProvidedRole, ID: '316', NAME: 'Provided_IPublicFileManGUI' */
+
+
+/** BEGIN operationProvidedRole, ID: '317', NAME: 'Provided_IPublicCalendarGUI' */
+description(317,'Provided_IPublicCalendarGUI','operationProvidedRole').
+operationProvidedRole(317).
+providedInterface(317,[71]).
+/** END operationProvidedRole, ID: '317', NAME: 'Provided_IPublicCalendarGUI' */
+
+/** END system, ID: '239', NAME: 'defaultSystem' */
+

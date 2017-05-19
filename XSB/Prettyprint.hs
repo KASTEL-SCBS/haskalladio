@@ -5,13 +5,16 @@ import Prelude
 import Data.Maybe (fromJust)
 import Data.List (find, intercalate)
 import Data.Tree
+import qualified Data.Map (lookup, fromList) 
+
+import Text.Read (readMaybe)
 
 import System.IO
 import System.IO.Unsafe
 import System.Environment(getArgs)
 
 import Control.Monad
-import Control.Applicative ((<*))
+import Control.Applicative ((<*),(*>))
 import Text.ParserCombinators.Parsec
 import Text.ParserCombinators.Parsec.Expr
 import Text.ParserCombinators.Parsec.Language
@@ -52,7 +55,7 @@ type Atom = String
 data Assertion = Assertion Term
                | Not Assertion
                | NotEq [Term] [Term]
-
+     deriving (Eq)
 type Term = Tree Atom
 
 
@@ -71,14 +74,39 @@ instance Show Assertion where
 type Proof = Tree Assertion
 type AnalysisResult = [Proof]
 
-prettyPrint :: String -> IO ()
-prettyPrint file =
-  forM_ (fmap drawTree $  fmap (fmap show) (fromFile file)) putStrLn
+prettyPrint :: String -> String -> IO ()
+prettyPrint file descsFile =
+  forM_ (fmap drawTree $  fmap (fmap show) (fmap (insertDescriptions descs) $ fromFile file)) putStrLn
+ where descs = descriptionFromFile descsFile
+
+insertDescriptions :: [Term] -> Proof -> Proof
+insertDescriptions descs proof = fmap f proof
+  where f (Assertion t)   = Assertion ((>>=) t g)
+        f (Not a)         = Not (f a)
+        f (NotEq ts1 ts2) = NotEq (fmap ((=<<) g) ts1) (fmap ((=<<) g) ts2)
+
+        g :: Atom -> Tree Atom
+        g atom = case (readMaybe atom :: Maybe Integer) of
+          Just x ->
+            case Data.Map.lookup x idMap of 
+              Just (desc, instanceDesc) -> Node instanceDesc [Node atom [], Node desc []]
+              Nothing                   -> Node atom []
+          _      -> Node atom []
+
+        idMap = Data.Map.fromList [ (read id, (desc,instanceDesc)) | Node "itemDescription" [Node id [], Node desc [], Node instanceDesc [] ] <- descs]
+
+
 
 
 main = do
-       [file] <- getArgs
-       prettyPrint file
+       [file, descriptionFile] <- getArgs
+       prettyPrint file descriptionFile
+
+
+descriptionParser :: Parser [ Term ]
+descriptionParser = many lineParser
+  where lineParser = term
+  
 
 resultParser :: Parser AnalysisResult
 resultParser = do
@@ -123,7 +151,7 @@ assertion =  parens $ try simple <|> notSimple
 term :: Parser Term
 term = try normal <|> list
   where normal = do
-                   f   <- identifier <|> (liftM show integer)
+                   f   <- identifier <|> (liftM show integer) <|> (char '\'' *> (many $ noneOf ['\'']) <* char '\'')
                    xs  <- option [] $ parens $ term `sepBy` comma
                    return $ Node f xs
         list   = do
@@ -147,5 +175,13 @@ fromFile :: String -> AnalysisResult
 fromFile file = unsafePerformIO $ 
   do result  <- readFile file
      case parse resultParser "" result of
+       Left e  -> print e >> fail "parse error"
+       Right r -> return r
+
+
+descriptionFromFile :: String -> [Term]
+descriptionFromFile file = unsafePerformIO $ 
+  do result  <- readFile file
+     case parse descriptionParser "" result of
        Left e  -> print e >> fail "parse error"
        Right r -> return r

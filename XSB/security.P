@@ -18,8 +18,8 @@
            observableServices/2
            from abstractAnalysis.
 
-:- import  providedInterfacesOn/2,
-           requiredInterfacesOn/2
+:- import  providedInterfacesOn/3,
+           requiredInterfacesOn/3
            from palladio.
 % END IMPORTS
 
@@ -33,8 +33,8 @@
            linkAccessibleBy/3,             % linkAccessibleBy(Attacker,Link,Location)
            containersPhysicalAccessibleBy/3,        % containersPhysicalAccessibleBy(Attacker,Container,Location)
 
-           providedInterfacesAccessibleTo/2,        % providedInterfacesAccessibleTo(Attacker, Interface)
-           requiredInterfacesAccessibleTo/2,        % requiredInterfacesAccessibleTo(Attacker, Interface)
+           providedInterfacesAccessibleTo/3,        % providedInterfacesAccessibleTo(Attacker, Interface, AssemblyContext)
+           requiredInterfacesAccessibleTo/3,        % requiredInterfacesAccessibleTo(Attacker, Interface, AssemblyContext)
 
            % Used Functors
            % Sharing = OpenShared | ControlledExclusive
@@ -50,8 +50,8 @@ justify_pred(containersFullyAccessibleBy(_,_)).
 justify_pred(linksDataAccessibleBy(_,_,_)).
 justify_pred(linkAccessibleBy(_,_,_)).
 justify_pred(containersPhysicalAccessibleBy(_,_,_)).
-justify_pred(providedInterfacesAccessibleTo(_,_)).
-justify_pred(requiredInterfacesAccessibleTo(_,_)).
+justify_pred(providedInterfacesAccessibleTo(_,_,_)).
+justify_pred(requiredInterfacesAccessibleTo(_,_,_)).
 justify_pred(serviceAllowedToBeObservedBy(_,_)).
 justify_pred(parameterAllowedToBeAccessedBy(_,_)).
 
@@ -102,12 +102,12 @@ containersPhysicalAccessibleBy(Attacker,Container,Location) :-
     location(Container,Location,_),
     locationsAccessibleBy(Attacker,Location).
 
-providedInterfacesAccessibleTo(Attacker, Interface) :-
+providedInterfacesAccessibleTo(Attacker, Interface, Context) :-
     containersPhysicalAccessibleBy(Attacker,Container,_),
-    providedInterfacesOn(Container, Interface),
+    providedInterfacesOn(Container, Interface, Context),
     uiInterfaceOn(Container, Interface).
 
-requiredInterfacesAccessibleTo(Attacker, Interface) :-
+requiredInterfacesAccessibleTo(Attacker, Interface, Context) :-
     containersPhysicalAccessibleBy(Attacker,Container,_),
-    requiredInterfacesOn(Container, Interface),
+    requiredInterfacesOn(Container, Interface, Context),
     uiInterfaceOn(Container, Interface).

@@ -1,12 +1,13 @@
 % BEGIN IMPORTS
 :- import  none/0
            from security.
-:- import  return/1
+:- import  return/1,
+	   interfacesOn/3
            from palladio.
 :- import  member/2
            from lists.
 
-:- import  mayKnowDataSets/2,
+:- import  mayKnowData/2,
            location/1,
            locations/2,
            locationsAndTamperProtectionsPairs/2,
@@ -14,9 +15,12 @@
            tamperProtections/2,
            connectionType/2,
            resourceContainer/1,
-           dataSetTargets/2,
+           dataTargets/2,
+           dataSetMapEntry/1,
            parameterSources/2,
-           parametersAndDataSetsPairs/2,
+           parametersAndDataPairs/2,
+           providedRole/2,
+           requiredRole/2,
            requiredInterface/2,
            resourceContainer/2,
            assemblyContext/2,
@@ -26,17 +30,25 @@
            outerProvidedRole/2,
            linkingResource/1,
            sharing/2,
-           dataSet/1
+           dataSet/1,
+	   connectorSpecificParametersAndDataPairs/2,
+	   originalParametersAndDataPair/2,
+           requiringAssemblyContext/2,
+	   providingAssemblyContext/2,
+
+	   call/0,
+	   return/0
            from fromPalladio.
 
 :- import  returnParameter/2,
+	   hasService/2,
            hasParameter/2
            from componentRepositoryInstance.
 % END IMPORTS
 
 justify_pred(mayknow(_,_)).
-justify_pred(includes(_,_)).
-justify_pred(includesCall(_,_)).
+justify_pred(includes(_,_,_)).
+justify_pred(includesCall(_,_,_)).
 justify_pred(tamperingAbilities(_,_,_)).
 justify_pred(locationsAccessibleBy(_,_)).
 justify_pred(furtherConnections(_,_)).
@@ -51,54 +63,201 @@ isLocation(Location) :- location(Location).
 % TODO: there currently appears to be no palladio stereotype corresponding to uiInterfaceOn, as was required in the paper submission.
 % Instead, i consider every interface provided by the system as an uiInterface. Isn't this what we want?
 uiInterfaceOn(Container,Interface) :-
-        outerProvidedRole(Connector,ProvidedRole),
-        assemblyContext(Connector,        AssemblyContext),
-        assemblyContext_AllocationContext(AllocationContext,AssemblyContext),
-        resourceContainer(AllocationContext,Container),
-        providedInterface(ProvidedRole,Interface).
+        outerProvidedRole(Connector,[ProvidedRole]),
+        assemblyContext(Connector, [AssemblyContext]),
+        assemblyContext_AllocationContext(AllocationContext,[AssemblyContext]),
+        resourceContainer(AllocationContext,[Container]),
+        providedInterface(ProvidedRole,[Interface]).
 uiInterfaceOn(Container,Interface) :-
-        outerRequiredRole(Connector,ProvidedRole),
-        assemblyContext(Connector,        AssemblyContext),
-        assemblyContext_AllocationContext(AllocationContext,AssemblyContext),
-        resourceContainer(AllocationContext,Container),
-        requiredInterface(ProvidedRole,Interface).
+        outerRequiredRole(Connector,[ProvidedRole]),
+        assemblyContext(Connector,        [AssemblyContext]),
+        assemblyContext_AllocationContext(AllocationContext,[AssemblyContext]),
+        resourceContainer(AllocationContext,[Container]),
+        requiredInterface(ProvidedRole,[Interface]).
 
 
 dataset(Dataset) :- dataSet(Dataset).
+dataset(DatasetMapEntry) :- dataSetMapEntry(DatasetMapEntry).
 
 attacker(Attacker) :- adversary(Attacker).
 
 mayknow(Attacker,Dataset) :-
-        mayKnowDataSets(Attacker, Datasets),
+        mayKnowData(Attacker, Datasets),
         member(Dataset, Datasets).
 
-includes(parm(Service,ParameterName), Dataset) :-
+% First: non-connection-specific paramatersAndDataPairs
+% cases such as: parameterSources(6,[..,x,..]).
+%    as well as: parameterSources(6,[..,sizeOf(x),..]).
+includes(parm(Service,ParameterName), Dataset, Context) :-
         hasParameter(Service, parm(Service,ParameterName)),
-        parametersAndDataSetsPairs(Service, Pairs),
+	hasService(Interface,Service),
+	interfacesOn(_Container,Interface,Context),
+        parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
         member(ParameterName, ParameterNames),
-        dataSetTargets(Pair, Datasets),
+        dataTargets(Pair, Datasets),
         member(Dataset, Datasets).
 
-includes(return(Service), Dataset) :-
+% cases such as: parameterSources(6,[..,*,..]).
+includes(parm(Service,ParameterName), Dataset, Context) :-
+        hasParameter(Service, parm(Service,ParameterName)),
+	hasService(Interface,Service),
+	interfacesOn(_Container,Interface,Context),
+        parametersAndDataPairs(Service, Pairs),
+        member(Pair, Pairs),
+        parameterSources(Pair,ParameterNames),
+        member(*, ParameterNames),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets),
+	not(ParameterName=sizeOf(_)).
+
+% cases such as: parameterSources(6,[..,sizeOf(*),..]).
+includes(parm(Service,sizeOf(ParameterName)), Dataset,Context) :-
+        hasParameter(Service, parm(Service,sizeOf(ParameterName))),
+	hasService(Interface,Service),
+	interfacesOn(_Container,Interface,Context),
+        parametersAndDataPairs(Service, Pairs),
+        member(Pair, Pairs),
+        parameterSources(Pair,ParameterNames),
+        member(sizeOf(*), ParameterNames),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets).
+
+
+
+includes(return(Service), Dataset, Context) :-
         returnParameter(Service, return(Service)),
-        parametersAndDataSetsPairs(Service, Pairs),
+	hasService(Interface,Service),
+	interfacesOn(_Container,Interface,Context),
+        parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
-        member(\return, ParameterNames),
-        dataSetTargets(Pair, Datasets),
+        member(return, ParameterNames),
+        dataTargets(Pair, Datasets),
         member(Dataset, Datasets).
 
-% TODO MAX check that a backslash is always followed by return or call and implement other well-formedness checks for specification
 % TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
-includesCall(Service, Dataset) :-
-        parametersAndDataSetsPairs(Service, Pairs),
+includesCall(Service, Dataset,Context) :-
+        hasService(Interface,Service),
+        interfacesOn(_Container,Interface,Context),
+
+        parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
-        member(\call, ParameterNames),
-        dataSetTargets(Pair, Datasets),
+        member(call, ParameterNames),
+        dataTargets(Pair, Datasets),
         member(Dataset, Datasets).
+
+
+
+contextOfConnector(Connector, Context, Interface) :-
+	requiringAssemblyContext(Connector,[Context]),
+        requiredRole(Connector, [RequiredRole]),
+        requiredInterface(RequiredRole, [Interface]).
+contextOfConnector(Connector, Context, Interface) :-
+	providingAssemblyContext(Connector,[Context]),
+        providedRole(Connector, [ProvidedRole]),
+        providedInterface(ProvidedRole, [Interface]).
+
+% 2nd: connection-specific paramatersAndDataPairs
+% cases such as: parameterSources(6,[..,x,..]).
+%    as well as: parameterSources(6,[..,sizeOf(x),..]).
+includes(parm(Service,ParameterName), Dataset, Context) :-
+        hasParameter(Service, parm(Service,ParameterName)),
+        hasService(Interface,Service),
+
+        connectorSpecificParametersAndDataPairs(Connector,Pairs),
+        contextOfConnector(Connector, Context,Interface),
+
+        member(Pair, Pairs),
+
+        originalParametersAndDataPair(Pair,OriginalPair),
+        parametersAndDataPairs(Service, OriginalPairs),
+        member(OriginalPair,OriginalPairs),
+
+        parameterSources(Pair,ParameterNames),
+        member(ParameterName, ParameterNames),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets).
+
+% cases such as: parameterSources(6,[..,*,..]).
+includes(parm(Service,ParameterName), Dataset, Context) :-
+        hasParameter(Service, parm(Service,ParameterName)),
+	hasService(Interface,Service),
+        connectorSpecificParametersAndDataPairs(Connector,Pairs),
+        contextOfConnector(Connector, Context,Interface),
+        member(Pair, Pairs),
+        originalParametersAndDataPair(Pair,OriginalPair),
+        parametersAndDataPairs(Service, OriginalPairs),
+        member(OriginalPair,OriginalPairs),
+        parameterSources(Pair,ParameterNames),
+        member(*, ParameterNames),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets),
+        not(ParameterName=sizeOf(_)).
+
+
+% cases such as: parameterSources(6,[..,sizeOf(*),..]).
+includes(parm(Service,sizeOf(ParameterName)), Dataset,Context) :-
+        hasParameter(Service, parm(Service,sizeOf(ParameterName))),
+	hasService(Interface,Service),
+
+        connectorSpecificParametersAndDataPairs(Connector,Pairs),
+        contextOfConnector(Connector, Context,Interface),
+
+        member(Pair, Pairs),
+
+        originalParametersAndDataPair(Pair,OriginalPair),
+        parametersAndDataPairs(Service, OriginalPairs),
+        member(OriginalPair,OriginalPairs),
+
+	parameterSources(Pair,ParameterNames),
+        member(sizeOf(*), ParameterNames),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets).
+
+
+
+includes(return(Service), Dataset, Context) :-
+        returnParameter(Service, return(Service)),
+	hasService(Interface,Service),
+
+        connectorSpecificParametersAndDataPairs(Connector,Pairs),
+        contextOfConnector(Connector, Context,Interface),
+
+        member(Pair, Pairs),
+
+        originalParametersAndDataPair(Pair,OriginalPair),
+        parametersAndDataPairs(Service, OriginalPairs),
+        member(OriginalPair,OriginalPairs),
+
+        parameterSources(Pair,ParameterNames),
+        member(return, ParameterNames),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets).
+
+% TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
+includesCall(Service, Dataset,Context) :-
+        hasService(Interface,Service),
+
+        connectorSpecificParametersAndDataPairs(Connector,Pairs),
+        contextOfConnector(Connector, Context,Interface),
+
+        member(Pair, Pairs),
+
+        originalParametersAndDataPair(Pair,OriginalPair),
+        parametersAndDataPairs(Service, OriginalPairs),
+        member(OriginalPair,OriginalPairs),
+
+        parameterSources(Pair,ParameterNames),
+        member(call, ParameterNames),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets).
+
+
+
+
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
 tamperingAbilities(Attacker, Location, TamperProtection) :-
@@ -123,9 +282,16 @@ locationsAccessibleBy(Attacker, Location) :-
         once(tamperingAbilities(Attacker, Location, _TamperProtection)).
 
 
-furtherConnections(Container,Mode) :- connectionType(Container,Mode).
+furtherConnections(Container,Mode) :- connectionType(Container,[Mode]).
 
-sharingOf(Container,Mode) :- sharing(Container,Mode).
+sharingOf(Container,Mode) :- sharing(Container,[Mode]).
+sharingOf(Container,exclusive) :-
+        resourceContainer(Container),
+        not(sharing(Container,_)).
+sharingOf(Container,exclusive) :-
+        sharing(Container,[]),
+        resourceContainer(Container).
+
 
 
 % TODO: this differs somewhat from the description in the paper, owing to the different specification via tamper/location pairs.
@@ -143,7 +309,7 @@ location(Container,Location, none) :-
         locationWithOrWithoutSpecifiedTamperProtection(Container,Location,Pair),
         not((
           tamperProtections(Pair, TamperProptections),
-          member(TamperProtection, TamperProptections)
+          member(_TamperProtection, TamperProptections)
         )).
 
 
@@ -164,6 +330,6 @@ linkLocation(LinkingResource,Location, none) :-
         linkLocationWithOrWithoutSpecifiedTamperProtection(LinkingResource,Location, Pair),
         not((
           tamperProtections(Pair, TamperProptections),
-          member(TamperProtection, TamperProptections)
+          member(_TamperProtection, TamperProptections)
         )).
 

@@ -5,7 +5,6 @@
 module Noninterference.Util where
 
 import Algebra.Lattice
-import Unicode
 
 import Data.Set as S
 import Data.Set.Unicode
@@ -43,3 +42,7 @@ upperAdjoint :: (Bounded d, Enum d, Ord d', Ord d) => (Set d -> Set d') -> (Set 
 upperAdjoint f ds' = unions [ ds | ds <- toList $ powerset (fromList allValues), f ds ⊆ ds' ]
 
 gFrom g0 ds' = unions [ g0 d' | d' <- toList ds']
+
+rotate :: Int -> [a] -> [a]
+rotate _ [] = []
+rotate n xs = zipWith const (drop n (cycle xs)) xs

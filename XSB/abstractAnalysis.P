@@ -11,52 +11,52 @@
            byAssembly/1
            from palladioInstance.
 
-:- import  interfacesOn/2,
+:- import  interfacesOn/3,
            parametersOf/2
            from palladio.
 
 :- import  linksDataAccessibleBy/3,
            containersFullyAccessibleBy/2,
-           providedInterfacesAccessibleTo/2,
-           requiredInterfacesAccessibleTo/2
+           providedInterfacesAccessibleTo/3,
+           requiredInterfacesAccessibleTo/3
            from security.
 
-:- import  includesCall/2,
-           includes/2
+:- import  includesCall/3,
+           includes/3
            from securityInstance.
 % END IMPORTS
 % BEGIN EXPORTS
 :- export  % Predicates
-           accessibleParameters/2,               % accessibleParameters(Attacker,Parameter)
-           observableServices/2,                 % observableServices(Attacker,Parameter)
+           accessibleParameters/3,               % accessibleParameters(Attacker,Parameter)
+           observableServices/3,                 % observableServices(Attacker,Parameter)
            parameterAllowedToBeAccessedBy/2,     % parameterAllowedToBeAccessedBy(Attacker, Parameter)
            serviceAllowedToBeObservedBy/2.       % parameterAllowedToBeAccessedBy(Attacker, Parameter)
 
 % END EXPORTS
 
-justify_pred(accessibleParameters(_,_)).
-justify_pred(observableServices(_,_)).
+justify_pred(accessibleParameters(_,_,_)).
+justify_pred(observableServices(_,_,_)).
 
-accessibleParameters(Attacker,Parameter) :-
+accessibleParameters(Attacker,Parameter,Context) :-
   % Ausgabe-Parameter, auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat
-  providedInterfacesAccessibleTo(Attacker,Interface),
+  providedInterfacesAccessibleTo(Attacker,Interface,Context),
   hasService(Interface,Service),
   returnParameter(Service, Parameter).
 
-accessibleParameters(Attacker,Parameter) :-
+accessibleParameters(Attacker,Parameter,Context) :-
   % Eingabe-Parameter,auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat, weil er vom System Aufgerufen wird.
-  requiredInterfacesAccessibleTo(Attacker,Interface),
+  requiredInterfacesAccessibleTo(Attacker,Interface,Context),
   hasService(Interface,Service),
   hasParameter(Service, Parameter).
 
-accessibleParameters(Attacker,Parameter) :-
+accessibleParameters(Attacker,Parameter,Context) :-
   % Parameter, auf die der Angreifer Zugriff hat, weil er einen entsprechenden ResourceContainer angreifen konnte.
   containersFullyAccessibleBy(Attacker, Container),
-  interfacesOn(Container,Interface),
+  interfacesOn(Container,Interface,Context),
   hasService(Interface,Service),
   parametersOf(Service,Parameter).
 
-accessibleParameters(Attacker,Parameter) :-
+accessibleParameters(Attacker,Parameter,Left) :-
   % Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
   linksDataAccessibleBy(Attacker, Link, DataSet),
   connects(Link,ContainerLeft,ContainerRight),
@@ -67,21 +67,21 @@ accessibleParameters(Attacker,Parameter) :-
   runsOn(Right,ContainerRight),
   hasService(Interface, Service),
   parametersOf(Service,Parameter),
-  includes(Parameter,DataSet).
+  includes(Parameter,DataSet,Left).
 
 
-observableServices(Attacker, Service) :-
+observableServices(Attacker, Service, Context) :-
   % Services, deren Aufrufe der Angreifer als regulärer "Benutzer" des Systems beobachten kann
-  requiredInterfacesAccessibleTo(Attacker,Interface),
+  requiredInterfacesAccessibleTo(Attacker,Interface,Context),
   hasService(Interface, Service).
 
-observableServices(Attacker,Service) :-
+observableServices(Attacker,Service,Context) :-
   % Services, deren Aufrufe der Angreifer beobachten kann, weil er einen entsprechenden ResourceContainer angreifen konnte.
   containersFullyAccessibleBy(Attacker,Container),
-  interfacesOn(Container,Interface),
+  interfacesOn(Container,Interface, Context),
   hasService(Interface,Service).
 
-observableServices(Attacker, Service) :-
+observableServices(Attacker, Service, Left) :-
   % Services, deren Aufrufe der Angreifer beobachten kann, weil er eine entsprechende LinkResource angreifen konnte.
   linksDataAccessibleBy(Attacker, Link, DataSet),
   connects(Link,ContainerLeft, ContainerRight),
@@ -91,4 +91,5 @@ observableServices(Attacker, Service) :-
   systemAssembledTo(Left,Interface,byAssembly(Right)),
   runsOn(Right,ContainerRight),
   hasService(Interface,Service),
-  includesCall(Service,DataSet).
+  includesCall(Service,DataSet, Left).
+

@@ -1,227 +1,580 @@
-adversary(2).
-adversary(3).
-adversary(4).
 
-parametersAndDataSetsPair(28).
-parametersAndDataSetsPair(29).
-parametersAndDataSetsPair(30).
-parametersAndDataSetsPair(31).
-parametersAndDataSetsPair(32).
-parametersAndDataSetsPair(33).
+/** BEGIN resourceEnvironment, ID: '63', NAME: 'aName' */
+description(63,'aName','resourceEnvironment').
+resourceEnvironment(63).
+linkingResources(63,[64]).
+resourceContainer(63,[65,66]).
 
-providedDelegationConnector(62).
+/** BEGIN linkingResource, ID: '64', NAME: 'Wireless' */
+description(64,'Wireless','linkingResource').
+linkingResource(64).
+connectedResourceContainers(64,[66,65]).
+communicationLinkResourceSpecifications(64,[]).
+/** END linkingResource, ID: '64', NAME: 'Wireless' */
 
-allocation(11).
 
-tamperProtection(27).
+/** BEGIN resourceContainer, ID: '65', NAME: 'Energy Visualization' */
+description(65,'Energy Visualization','resourceContainer').
+resourceContainer(65).
+/** END resourceContainer, ID: '65', NAME: 'Energy Visualization' */
 
-requiringAssemblyContext(63,16).
-requiringAssemblyContext(64,16).
 
-locations(20,[24,25,26]).
-locations(8,[24,25,26]).
-locations(9,[25,26]).
-locations(10,[26]).
-locations(21,[24,25,26]).
-locations(22,[24]).
-locations(23,[25]).
+/** BEGIN resourceContainer, ID: '66', NAME: 'Energy Meter' */
+description(66,'Energy Meter','resourceContainer').
+resourceContainer(66).
+/** END resourceContainer, ID: '66', NAME: 'Energy Meter' */
 
-providingAssemblyContext(63,17).
-providingAssemblyContext(64,19).
+/** END resourceEnvironment, ID: '63', NAME: 'aName' */
 
-operationInterface(42).
-operationInterface(43).
-operationInterface(44).
-operationInterface(45).
 
-operationRequiredRole(47).
-operationRequiredRole(48).
+/** BEGIN informationFlow, ID: '43', NAME: 'null' */
+description(43,'null','informationFlow').
+parametersAndDataPairs(43,[6]).
+/** END informationFlow, ID: '43', NAME: 'null' */
 
-requiredRole(63,47).
-requiredRole(64,48).
 
-resourceContainer(12,15).
-resourceContainer(13,15).
-resourceContainer(14,18).
-resourceContainer(58,[15,18]).
+/** BEGIN informationFlow, ID: '45', NAME: 'null' */
+description(45,'null','informationFlow').
+parametersAndDataPairs(45,[5]).
+/** END informationFlow, ID: '45', NAME: 'null' */
 
-location(24).
-location(25).
-location(26).
 
-parametersAndDataSetsPairs(20,[28,29,30,31,32,33]).
-parametersAndDataSetsPairs(52,[29]).
-parametersAndDataSetsPairs(53,[28]).
-parametersAndDataSetsPairs(54,[30]).
-parametersAndDataSetsPairs(55,[31]).
-parametersAndDataSetsPairs(56,[32]).
-parametersAndDataSetsPairs(57,[33]).
+/** BEGIN informationFlow, ID: '46', NAME: 'null' */
+description(46,'null','informationFlow').
+parametersAndDataPairs(46,[7]).
+/** END informationFlow, ID: '46', NAME: 'null' */
 
-encapsulatedComponent(16,39).
-encapsulatedComponent(17,41).
-encapsulatedComponent(19,40).
 
-dataSetTargets(28,[7]).
-dataSetTargets(29,[7]).
-dataSetTargets(30,[7]).
-dataSetTargets(31,[7]).
-dataSetTargets(32,[5]).
-dataSetTargets(33,[7]).
+/** BEGIN informationFlow, ID: '52', NAME: 'null' */
+description(52,'null','informationFlow').
+parametersAndDataPairs(52,[8]).
+/** END informationFlow, ID: '52', NAME: 'null' */
 
-basicComponent(39).
-basicComponent(40).
-basicComponent(41).
 
-interfaces(38,[42,43,44,45]).
+/** BEGIN informationFlow, ID: '53', NAME: 'null' */
+description(53,'null','informationFlow').
+parametersAndDataPairs(53,[9]).
+/** END informationFlow, ID: '53', NAME: 'null' */
 
-linkingResources(58,[59]).
 
-repository(38).
+/** BEGIN informationFlow, ID: '54', NAME: 'null' */
+description(54,'null','informationFlow').
+parametersAndDataPairs(54,[10]).
+/** END informationFlow, ID: '54', NAME: 'null' */
 
-requiredInterface(47,43).
-requiredInterface(48,44).
 
-signatures(42,[52]).
-signatures(43,[53,54]).
-signatures(44,[55,56]).
-signatures(45,[57]).
+/** BEGIN locationAndTamperProtection, ID: '64', NAME: 'null' */
+description(64,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(64,[18]).
+/** END locationAndTamperProtection, ID: '64', NAME: 'null' */
 
-parameter(34).
-parameter(35).
-parameter(36).
-parameter(37).
-parameter(37).
 
-adversaries(1).
+/** BEGIN locationAndTamperProtection, ID: '65', NAME: 'null' */
+description(65,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(65,[20]).
+/** END locationAndTamperProtection, ID: '65', NAME: 'null' */
 
-components(38,[39,40,41]).
 
-connectionType(15,possible).
-connectionType(18,complete).
+/** BEGIN locationAndTamperProtection, ID: '66', NAME: 'null' */
+description(66,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(66,[19]).
+/** END locationAndTamperProtection, ID: '66', NAME: 'null' */
 
-innerProvidedRole(62,46).
 
-assemblyContexts(61,[16,17,19]).
+/** BEGIN sharing, ID: '65', NAME: 'null' */
+description(65,'null','sharing').
+sharing(65,[shared]).
+/** END sharing, ID: '65', NAME: 'null' */
 
-assemblyContext(62,16).
 
-confidentialitySpecification(20).
+/** BEGIN furtherPhysicalConnections, ID: '65', NAME: 'null' */
+description(65,'null','furtherPhysicalConnections').
+connectionType(65,[possible]).
+/** END furtherPhysicalConnections, ID: '65', NAME: 'null' */
 
-dataSets(20,[7,5,6]).
 
-system(61).
+/** BEGIN furtherPhysicalConnections, ID: '66', NAME: 'null' */
+description(66,'null','furtherPhysicalConnections').
+connectionType(66,[complete]).
+/** END furtherPhysicalConnections, ID: '66', NAME: 'null' */
 
-mayKnowDataSets(2,[5,6,7]).
-mayKnowDataSets(3,[7,6]).
-mayKnowDataSets(4,[6]).
 
-providedRoles(39,[46]).
-providedRoles(40,[49,50]).
-providedRoles(41,[51]).
-providedRoles(61,[65]).
+/** BEGIN sharing, ID: '66', NAME: 'null' */
+description(66,'null','sharing').
+sharing(66,[exclusive]).
+/** END sharing, ID: '66', NAME: 'null' */
 
-requiredRoles(39,[47,48]).
 
-adversaries(1,[2,3,4]).
+/** BEGIN system, ID: '55', NAME: 'ExampleScenario' */
+description(55,'ExampleScenario','system').
+system(55).
+assemblyContexts(55,[56,57,58]).
+connectors(55,[59,60,61]).
+providedRoles(55,[62]).
+requiredRoles(55,[]).
 
-connectors(61,[62,63,64]).
+/** BEGIN assemblyContext, ID: '56', NAME: 'Energy Visualization' */
+description(56,'Energy Visualization','assemblyContext').
+assemblyContext(56).
+encapsulatedComponent(56,[30]).
+/** END assemblyContext, ID: '56', NAME: 'Energy Visualization' */
 
-assemblyContext_AllocationContext(12,16).
-assemblyContext_AllocationContext(13,17).
-assemblyContext_AllocationContext(14,19).
 
-locationsAndTamperProtectionsPairs(2,[8]).
-locationsAndTamperProtectionsPairs(3,[9]).
-locationsAndTamperProtectionsPairs(4,[10]).
-locationsAndTamperProtectionsPairs(20,[8,9,10,21,22,23]).
-locationsAndTamperProtectionsPairs(59,[21]).
-locationsAndTamperProtectionsPairs(15,[23]).
-locationsAndTamperProtectionsPairs(18,[22]).
+/** BEGIN assemblyContext, ID: '57', NAME: 'Database' */
+description(57,'Database','assemblyContext').
+assemblyContext(57).
+encapsulatedComponent(57,[32]).
+/** END assemblyContext, ID: '57', NAME: 'Database' */
 
-sharing(15,shared).
-sharing(18,exclusive).
 
-resourceEnvironment(58).
+/** BEGIN assemblyContext, ID: '58', NAME: 'Energy Meter Assembly Context' */
+description(58,'Energy Meter Assembly Context','assemblyContext').
+assemblyContext(58).
+encapsulatedComponent(58,[31]).
+/** END assemblyContext, ID: '58', NAME: 'Energy Meter Assembly Context' */
 
-communicationLinkResourceSpecifications(59,60).
 
-operationProvidedRole(46).
-operationProvidedRole(49).
-operationProvidedRole(50).
-operationProvidedRole(51).
-operationProvidedRole(65).
+/** BEGIN providedDelegationConnector, ID: '59', NAME: 'ProvDelegation Provided_AnInterface -> Provided_AnInterface_AComponent' */
+description(59,'ProvDelegation Provided_AnInterface -> Provided_AnInterface_AComponent','providedDelegationConnector').
+providedDelegationConnector(59).
+innerProvidedRole(59,[37]).
+outerProvidedRole(59,[62]).
+assemblyContext(59,[56]).
+/** END providedDelegationConnector, ID: '59', NAME: 'ProvDelegation Provided_AnInterface -> Provided_AnInterface_AComponent' */
 
-returnType(52,"INT").
-returnType(53,"STRING").
-returnType(55,"INT").
-returnType(56,"INT").
 
-parameters(53,[34,35]).
-parameters(54,[36,37]).
-parameters(57,[37]).
+/** BEGIN assemblyConnector, ID: '60', NAME: 'Connector Energy Visualization -> Database' */
+description(60,'Connector Energy Visualization -> Database','assemblyConnector').
+assemblyConnector(60).
+requiringAssemblyContext(60,[56]).
+providingAssemblyContext(60,[57]).
+providedRole(60,[42]).
+requiredRole(60,[38]).
+/** END assemblyConnector, ID: '60', NAME: 'Connector Energy Visualization -> Database' */
 
-parameterSources(28,[34,35,\return]).
-parameterSources(29,[\return]).
-parameterSources(30,[36,37]).
-parameterSources(31,[\return]).
-parameterSources(32,[\return]).
-parameterSources(33,[37]).
 
-dataType(34,"INT").
-dataType(35,"INT").
-dataType(36,"INT").
-dataType(37,"INT").
-dataType(37,"INT").
+/** BEGIN assemblyConnector, ID: '61', NAME: 'Connector Energy Visualization -> Energy Meter Assembly Context' */
+description(61,'Connector Energy Visualization -> Energy Meter Assembly Context','assemblyConnector').
+assemblyConnector(61).
+requiringAssemblyContext(61,[56]).
+providingAssemblyContext(61,[58]).
+providedRole(61,[40]).
+requiredRole(61,[39]).
+/** END assemblyConnector, ID: '61', NAME: 'Connector Energy Visualization -> Energy Meter Assembly Context' */
 
-allocationContext(12).
-allocationContext(13).
-allocationContext(14).
 
-resourceContainer(15).
-resourceContainer(18).
+/** BEGIN operationProvidedRole, ID: '62', NAME: 'Provided_EnegeryVisualization' */
+description(62,'Provided_EnegeryVisualization','operationProvidedRole').
+operationProvidedRole(62).
+providedInterface(62,[33]).
+/** END operationProvidedRole, ID: '62', NAME: 'Provided_EnegeryVisualization' */
 
-assemblyConnector(63).
-assemblyConnector(64).
+/** END system, ID: '55', NAME: 'ExampleScenario' */
 
-allocationContexts(11,[12,13,14]).
 
-connectedResourceContainers(59,[18,15]).
+/** BEGIN confidentialitySpecification, ID: '1', NAME: 'paper example confidentiality specification' */
+description(1,'paper example confidentiality specification','confidentialitySpecification').
+confidentialitySpecification(1).
+dataIdentifier(1,[2,3,4]).
+dataSetMaps(1,[]).
+parametersAndDataPairs(1,[5,6,7,8,9,10]).
+addedServiceParameters(1,[]).
+locations(1,[11,12,13]).
+tamperProtections(1,[14]).
+locationsAndTamperProtectionsPairs(1,[15,16,17,18,19,20]).
 
+/** BEGIN dataSet, ID: '2', NAME: 'consumptiondata' */
+description(2,'consumptiondata','dataSet').
+dataSet(2).
+/** END dataSet, ID: '2', NAME: 'consumptiondata' */
+
+
+/** BEGIN dataSet, ID: '3', NAME: 'billingdata' */
+description(3,'billingdata','dataSet').
+dataSet(3).
+/** END dataSet, ID: '3', NAME: 'billingdata' */
+
+
+/** BEGIN dataSet, ID: '4', NAME: 'public' */
+description(4,'public','dataSet').
+dataSet(4).
+/** END dataSet, ID: '4', NAME: 'public' */
+
+
+/** BEGIN parametersAndDataPair, ID: '5', NAME: 'p=[start, end, \return] - d=[consumptiondata]' */
+description(5,'p=[start, end, \return] - d=[consumptiondata]','parametersAndDataPair').
+parametersAndDataPair(5).
+parameterSources(5,[21,22,return]).
+dataTargets(5,[2]).
+/** END parametersAndDataPair, ID: '5', NAME: 'p=[start, end, \return] - d=[consumptiondata]' */
+
+
+/** BEGIN parametersAndDataPair, ID: '6', NAME: 'p=[\return] - d=[consumptiondata]' */
+description(6,'p=[\return] - d=[consumptiondata]','parametersAndDataPair').
+parametersAndDataPair(6).
+parameterSources(6,[return]).
+dataTargets(6,[2]).
+/** END parametersAndDataPair, ID: '6', NAME: 'p=[\return] - d=[consumptiondata]' */
+
+
+/** BEGIN parametersAndDataPair, ID: '7', NAME: 'p=[timestamp, value] - d=[consumptiondata]' */
+description(7,'p=[timestamp, value] - d=[consumptiondata]','parametersAndDataPair').
+parametersAndDataPair(7).
+parameterSources(7,[23,24]).
+dataTargets(7,[2]).
+/** END parametersAndDataPair, ID: '7', NAME: 'p=[timestamp, value] - d=[consumptiondata]' */
+
+
+/** BEGIN parametersAndDataPair, ID: '8', NAME: 'p=[\return] - d=[consumptiondata]' */
+description(8,'p=[\return] - d=[consumptiondata]','parametersAndDataPair').
+parametersAndDataPair(8).
+parameterSources(8,[return]).
+dataTargets(8,[2]).
+/** END parametersAndDataPair, ID: '8', NAME: 'p=[\return] - d=[consumptiondata]' */
+
+
+/** BEGIN parametersAndDataPair, ID: '9', NAME: 'p=[\return] - d=[billingdata]' */
+description(9,'p=[\return] - d=[billingdata]','parametersAndDataPair').
+parametersAndDataPair(9).
+parameterSources(9,[return]).
+dataTargets(9,[3]).
+/** END parametersAndDataPair, ID: '9', NAME: 'p=[\return] - d=[billingdata]' */
+
+
+/** BEGIN parametersAndDataPair, ID: '10', NAME: 'p=[value] - d=[consumptiondata]' */
+description(10,'p=[value] - d=[consumptiondata]','parametersAndDataPair').
+parametersAndDataPair(10).
+parameterSources(10,[24]).
+dataTargets(10,[2]).
+/** END parametersAndDataPair, ID: '10', NAME: 'p=[value] - d=[consumptiondata]' */
+
+
+/** BEGIN location, ID: '11', NAME: 'utilityroom' */
+description(11,'utilityroom','location').
+location(11).
+/** END location, ID: '11', NAME: 'utilityroom' */
+
+
+/** BEGIN location, ID: '12', NAME: 'livingroom' */
+description(12,'livingroom','location').
+location(12).
+/** END location, ID: '12', NAME: 'livingroom' */
+
+
+/** BEGIN location, ID: '13', NAME: 'outdoors' */
+description(13,'outdoors','location').
+location(13).
+/** END location, ID: '13', NAME: 'outdoors' */
+
+
+/** BEGIN tamperProtection, ID: '14', NAME: 'seal' */
+description(14,'seal','tamperProtection').
+tamperProtection(14).
+/** END tamperProtection, ID: '14', NAME: 'seal' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '15', NAME: 'l=[utilityroom, livingroom, outdoors] - t=[]' */
+description(15,'l=[utilityroom, livingroom, outdoors] - t=[]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(15).
+locations(15,[11,12,13]).
+tamperProtections(15,[]).
+/** END locationsAndTamperProtectionsPair, ID: '15', NAME: 'l=[utilityroom, livingroom, outdoors] - t=[]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '16', NAME: 'l=[livingroom, outdoors] - t=[]' */
+description(16,'l=[livingroom, outdoors] - t=[]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(16).
+locations(16,[12,13]).
+tamperProtections(16,[]).
+/** END locationsAndTamperProtectionsPair, ID: '16', NAME: 'l=[livingroom, outdoors] - t=[]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '17', NAME: 'l=[outdoors] - t=[seal]' */
+description(17,'l=[outdoors] - t=[seal]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(17).
+locations(17,[13]).
+tamperProtections(17,[14]).
+/** END locationsAndTamperProtectionsPair, ID: '17', NAME: 'l=[outdoors] - t=[seal]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '18', NAME: 'l=[utilityroom, livingroom, outdoors] - t=[]' */
+description(18,'l=[utilityroom, livingroom, outdoors] - t=[]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(18).
+locations(18,[11,12,13]).
+tamperProtections(18,[]).
+/** END locationsAndTamperProtectionsPair, ID: '18', NAME: 'l=[utilityroom, livingroom, outdoors] - t=[]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '19', NAME: 'l=[utilityroom] - t=[seal]' */
+description(19,'l=[utilityroom] - t=[seal]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(19).
+locations(19,[11]).
+tamperProtections(19,[14]).
+/** END locationsAndTamperProtectionsPair, ID: '19', NAME: 'l=[utilityroom] - t=[seal]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '20', NAME: 'l=[livingroom] - t=[]' */
+description(20,'l=[livingroom] - t=[]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(20).
+locations(20,[12]).
+tamperProtections(20,[]).
+/** END locationsAndTamperProtectionsPair, ID: '20', NAME: 'l=[livingroom] - t=[]' */
+
+/** END confidentialitySpecification, ID: '1', NAME: 'paper example confidentiality specification' */
+
+
+/** BEGIN adversaries, ID: '25', NAME: 'paper example adversaries' */
+description(25,'paper example adversaries','adversaries').
+adversaries(25).
+adversaries(25,[26,27,28]).
+
+/** BEGIN adversary, ID: '26', NAME: 'inhabitant' */
+description(26,'inhabitant','adversary').
+adversary(26).
+mayKnowData(26,[3,4,2]).
+locationsAndTamperProtectionsPairs(26,[15]).
+/** END adversary, ID: '26', NAME: 'inhabitant' */
+
+
+/** BEGIN adversary, ID: '27', NAME: 'guest' */
+description(27,'guest','adversary').
+adversary(27).
+mayKnowData(27,[2,4]).
+locationsAndTamperProtectionsPairs(27,[16]).
+/** END adversary, ID: '27', NAME: 'guest' */
+
+
+/** BEGIN adversary, ID: '28', NAME: 'passer-by-adversary' */
+description(28,'passer-by-adversary','adversary').
+adversary(28).
+mayKnowData(28,[4]).
+locationsAndTamperProtectionsPairs(28,[17]).
+/** END adversary, ID: '28', NAME: 'passer-by-adversary' */
+
+/** END adversaries, ID: '25', NAME: 'paper example adversaries' */
+
+
+/** BEGIN allocation, ID: '67', NAME: 'defaultAllocation' */
+description(67,'defaultAllocation','allocation').
+allocation(67).
+allocationContexts(67,[68,69,70]).
+
+/** BEGIN allocationContext, ID: '68', NAME: 'Allocation_Energy Visualization' */
+description(68,'Allocation_Energy Visualization','allocationContext').
+allocationContext(68).
+resourceContainer(68,[65]).
+assemblyContext_AllocationContext(68,[56]).
+/** END allocationContext, ID: '68', NAME: 'Allocation_Energy Visualization' */
+
+
+/** BEGIN allocationContext, ID: '69', NAME: 'Allocation_Database <DBMS>' */
+description(69,'Allocation_Database <DBMS>','allocationContext').
+allocationContext(69).
+resourceContainer(69,[65]).
+assemblyContext_AllocationContext(69,[57]).
+/** END allocationContext, ID: '69', NAME: 'Allocation_Database <DBMS>' */
+
+
+/** BEGIN allocationContext, ID: '70', NAME: 'Allocation_Energy Meter' */
+description(70,'Allocation_Energy Meter','allocationContext').
+allocationContext(70).
+resourceContainer(70,[66]).
+assemblyContext_AllocationContext(70,[58]).
+/** END allocationContext, ID: '70', NAME: 'Allocation_Energy Meter' */
+
+/** END allocation, ID: '67', NAME: 'defaultAllocation' */
+
+
+/** BEGIN repository, ID: '29', NAME: 'defaultRepository' */
+description(29,'defaultRepository','repository').
+repository(29).
+components(29,[30,31,32]).
+interfaces(29,[33,34,35,36]).
+
+/** BEGIN basicComponent, ID: '30', NAME: 'Energy Visualization' */
+description(30,'Energy Visualization','basicComponent').
+basicComponent(30).
+providedRoles(30,[37]).
+requiredRoles(30,[38,39]).
+
+/** BEGIN operationProvidedRole, ID: '37', NAME: 'Provided_EnergyVisualization' */
+description(37,'Provided_EnergyVisualization','operationProvidedRole').
+operationProvidedRole(37).
+providedInterface(37,[33]).
+/** END operationProvidedRole, ID: '37', NAME: 'Provided_EnergyVisualization' */
+
+
+/** BEGIN operationRequiredRole, ID: '38', NAME: 'Required_DatabaseInterface_Energy Visualization' */
+description(38,'Required_DatabaseInterface_Energy Visualization','operationRequiredRole').
+operationRequiredRole(38).
+requiredInterface(38,[34]).
+/** END operationRequiredRole, ID: '38', NAME: 'Required_DatabaseInterface_Energy Visualization' */
+
+
+/** BEGIN operationRequiredRole, ID: '39', NAME: 'Required_EnergyMeasurement_Energy Visualization' */
+description(39,'Required_EnergyMeasurement_Energy Visualization','operationRequiredRole').
+operationRequiredRole(39).
+requiredInterface(39,[35]).
+/** END operationRequiredRole, ID: '39', NAME: 'Required_EnergyMeasurement_Energy Visualization' */
+
+/** END basicComponent, ID: '30', NAME: 'Energy Visualization' */
+
+
+/** BEGIN basicComponent, ID: '31', NAME: 'Energy Meter' */
+description(31,'Energy Meter','basicComponent').
+basicComponent(31).
+providedRoles(31,[40,41]).
+requiredRoles(31,[]).
+
+/** BEGIN operationProvidedRole, ID: '40', NAME: 'Provided_DatabaseInterface_Energy Meter' */
+description(40,'Provided_DatabaseInterface_Energy Meter','operationProvidedRole').
+operationProvidedRole(40).
+providedInterface(40,[35]).
+/** END operationProvidedRole, ID: '40', NAME: 'Provided_DatabaseInterface_Energy Meter' */
+
+
+/** BEGIN operationProvidedRole, ID: '41', NAME: 'Provided_MeasurementAcquisition_Energy Meter' */
+description(41,'Provided_MeasurementAcquisition_Energy Meter','operationProvidedRole').
+operationProvidedRole(41).
+providedInterface(41,[36]).
+/** END operationProvidedRole, ID: '41', NAME: 'Provided_MeasurementAcquisition_Energy Meter' */
+
+/** END basicComponent, ID: '31', NAME: 'Energy Meter' */
+
+
+/** BEGIN basicComponent, ID: '32', NAME: 'DBMS' */
+description(32,'DBMS','basicComponent').
+basicComponent(32).
+providedRoles(32,[42]).
+requiredRoles(32,[]).
+
+/** BEGIN operationProvidedRole, ID: '42', NAME: 'Provided_DatabaseInterface_DBMS' */
+description(42,'Provided_DatabaseInterface_DBMS','operationProvidedRole').
+operationProvidedRole(42).
+providedInterface(42,[34]).
+/** END operationProvidedRole, ID: '42', NAME: 'Provided_DatabaseInterface_DBMS' */
+
+/** END basicComponent, ID: '32', NAME: 'DBMS' */
+
+
+/** BEGIN operationInterface, ID: '33', NAME: 'EnergyVisualization' */
+description(33,'EnergyVisualization','operationInterface').
+operationInterface(33).
+parentInterfaces(33,[]).
+signatures(33,[43]).
+
+/** BEGIN operationSignature, ID: '43', NAME: 'drawEnergyConsumptionGraph' */
+description(43,'drawEnergyConsumptionGraph','operationSignature').
+operationSignature(43).
+parameters(43,[]).
+returnType(43,[44]).
+/** END operationSignature, ID: '43', NAME: 'drawEnergyConsumptionGraph' */
+
+/** END operationInterface, ID: '33', NAME: 'EnergyVisualization' */
+
+
+/** BEGIN operationInterface, ID: '34', NAME: 'DatabaseInterface' */
+description(34,'DatabaseInterface','operationInterface').
+operationInterface(34).
+parentInterfaces(34,[]).
+signatures(34,[45,46]).
+
+/** BEGIN operationSignature, ID: '45', NAME: 'getValues' */
+description(45,'getValues','operationSignature').
+operationSignature(45).
+parameters(45,[21,22]).
+returnType(45,[47]).
+
+/** BEGIN parameter, ID: '21', NAME: 'start' */
+description(21,'start','parameter').
+parameter(21).
+/** END parameter, ID: '21', NAME: 'start' */
+
+sizeOfParameter(48).
+sizeOf(48,21).
+
+/** BEGIN parameter, ID: '22', NAME: 'end' */
+description(22,'end','parameter').
+parameter(22).
+/** END parameter, ID: '22', NAME: 'end' */
+
+sizeOfParameter(49).
+sizeOf(49,22).
+/** END operationSignature, ID: '45', NAME: 'getValues' */
+
+
+/** BEGIN operationSignature, ID: '46', NAME: 'storeValue' */
+description(46,'storeValue','operationSignature').
+operationSignature(46).
+parameters(46,[23,24]).
+returnType(46,[]).
+
+/** BEGIN parameter, ID: '23', NAME: 'timestamp' */
+description(23,'timestamp','parameter').
+parameter(23).
+/** END parameter, ID: '23', NAME: 'timestamp' */
+
+sizeOfParameter(50).
+sizeOf(50,23).
+
+/** BEGIN parameter, ID: '24', NAME: 'value' */
+description(24,'value','parameter').
+parameter(24).
+/** END parameter, ID: '24', NAME: 'value' */
+
+sizeOfParameter(51).
+sizeOf(51,24).
+/** END operationSignature, ID: '46', NAME: 'storeValue' */
+
+/** END operationInterface, ID: '34', NAME: 'DatabaseInterface' */
+
+
+/** BEGIN operationInterface, ID: '35', NAME: 'EnergyMeasurement' */
+description(35,'EnergyMeasurement','operationInterface').
+operationInterface(35).
+parentInterfaces(35,[]).
+signatures(35,[52,53]).
+
+/** BEGIN operationSignature, ID: '52', NAME: 'getEnergyValue' */
+description(52,'getEnergyValue','operationSignature').
 operationSignature(52).
+parameters(52,[]).
+returnType(52,[44]).
+/** END operationSignature, ID: '52', NAME: 'getEnergyValue' */
+
+
+/** BEGIN operationSignature, ID: '53', NAME: 'getCustomerId' */
+description(53,'getCustomerId','operationSignature').
 operationSignature(53).
+parameters(53,[]).
+returnType(53,[44]).
+/** END operationSignature, ID: '53', NAME: 'getCustomerId' */
+
+/** END operationInterface, ID: '35', NAME: 'EnergyMeasurement' */
+
+
+/** BEGIN operationInterface, ID: '36', NAME: 'MeasurementAcquisition' */
+description(36,'MeasurementAcquisition','operationInterface').
+operationInterface(36).
+parentInterfaces(36,[]).
+signatures(36,[54]).
+
+/** BEGIN operationSignature, ID: '54', NAME: 'setEnergyValue' */
+description(54,'setEnergyValue','operationSignature').
 operationSignature(54).
-operationSignature(55).
-operationSignature(56).
-operationSignature(57).
+parameters(54,[24]).
+returnType(54,[]).
 
-dataSet(7).
-dataSet(5).
-dataSet(6).
+/** BEGIN parameter, ID: '24', NAME: 'value' */
+description(24,'value','parameter').
+parameter(24).
+/** END parameter, ID: '24', NAME: 'value' */
 
-providedInterface(46,42).
-providedInterface(49,44).
-providedInterface(50,45).
-providedInterface(51,43).
-providedInterface(65,42).
+sizeOfParameter(51).
+sizeOf(51,24).
+/** END operationSignature, ID: '54', NAME: 'setEnergyValue' */
 
-linkingResource(59).
+/** END operationInterface, ID: '36', NAME: 'MeasurementAcquisition' */
 
-providedRole(63,51).
-providedRole(64,49).
+/** END repository, ID: '29', NAME: 'defaultRepository' */
 
-locationsAndTamperProtectionsPair(8).
-locationsAndTamperProtectionsPair(9).
-locationsAndTamperProtectionsPair(10).
-locationsAndTamperProtectionsPair(21).
-locationsAndTamperProtectionsPair(22).
-locationsAndTamperProtectionsPair(23).
-
-tamperProtections(20,[27]).
-tamperProtections(10,[27]).
-tamperProtections(22,[27]).
-
-assemblyContext(16).
-assemblyContext(17).
-assemblyContext(19).
-
-outerProvidedRole(62,65).

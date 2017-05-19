@@ -1,0 +1,5 @@
+count(X,P,N) :- setof(X, P, All), length(All,N).
+twice(X,[X|L]) :- member(X,L).
+twice(X,[_|L]) :- twice(X,L).
+
+

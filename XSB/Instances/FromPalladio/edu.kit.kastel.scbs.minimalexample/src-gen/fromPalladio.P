@@ -1,168 +1,440 @@
-adversary(2).
-adversary(3).
 
-parametersAndDataSetsPair(16).
-parametersAndDataSetsPair(17).
+/** BEGIN repository, ID: '23', NAME: 'repo' */
+description(23,'repo','repository').
+repository(23).
+components(23,[24,25]).
+interfaces(23,[26,27]).
 
-providedDelegationConnector(45).
+/** BEGIN basicComponent, ID: '24', NAME: 'bc2' */
+description(24,'bc2','basicComponent').
+basicComponent(24).
+providedRoles(24,[28]).
+requiredRoles(24,[]).
 
-unencryptedDataSets(40,[4,5]).
+/** BEGIN operationProvidedRole, ID: '28', NAME: 'bc2ProvidesIface' */
+description(28,'bc2ProvidesIface','operationProvidedRole').
+operationProvidedRole(28).
+providedInterface(28,[26]).
+/** END operationProvidedRole, ID: '28', NAME: 'bc2ProvidesIface' */
 
-allocation(21).
+/** END basicComponent, ID: '24', NAME: 'bc2' */
 
-tamperProtection(13).
-tamperProtection(14).
-tamperProtection(15).
 
-requiringAssemblyContext(44,25).
+/** BEGIN basicComponent, ID: '25', NAME: 'bc1' */
+description(25,'bc1','basicComponent').
+basicComponent(25).
+providedRoles(25,[29]).
+requiredRoles(25,[30]).
 
-locations(8,[10,11,12]).
-locations(9,[10,11,12]).
-locations(6,[10,11]).
-locations(7,[11]).
+/** BEGIN operationProvidedRole, ID: '29', NAME: 'bc1ProvidesSysIface' */
+description(29,'bc1ProvidesSysIface','operationProvidedRole').
+operationProvidedRole(29).
+providedInterface(29,[27]).
+/** END operationProvidedRole, ID: '29', NAME: 'bc1ProvidesSysIface' */
 
-providingAssemblyContext(44,27).
 
-operationInterface(31).
-operationInterface(32).
+/** BEGIN operationRequiredRole, ID: '30', NAME: 'bc1RequiresIface' */
+description(30,'bc1RequiresIface','operationRequiredRole').
+operationRequiredRole(30).
+requiredInterface(30,[26]).
+/** END operationRequiredRole, ID: '30', NAME: 'bc1RequiresIface' */
 
-operationRequiredRole(35).
+/** END basicComponent, ID: '25', NAME: 'bc1' */
 
-location(10).
-location(11).
-location(12).
 
-resourceContainer(22,24).
-resourceContainer(23,26).
-resourceContainer(39,[24,26,41]).
+/** BEGIN operationInterface, ID: '26', NAME: 'iface' */
+description(26,'iface','operationInterface').
+operationInterface(26).
+parentInterfaces(26,[]).
+signatures(26,[31,32]).
 
-parametersAndDataSetsPairs(8,[16,17]).
-parametersAndDataSetsPairs(36,[16,17]).
-parametersAndDataSetsPairs(38,[17]).
+/** BEGIN operationSignature, ID: '31', NAME: 'sig' */
+description(31,'sig','operationSignature').
+operationSignature(31).
+parameters(31,[33,19]).
+returnType(31,[34]).
 
-encapsulatedComponent(27,29).
-encapsulatedComponent(25,30).
+/** BEGIN parameter, ID: '33', NAME: 'param0' */
+description(33,'param0','parameter').
+parameter(33).
+/** END parameter, ID: '33', NAME: 'param0' */
 
-dataSetTargets(16,[18,5]).
-dataSetTargets(17,[5]).
+sizeOfParameter(35).
+sizeOf(35,33).
 
-basicComponent(29).
-basicComponent(30).
-
-interfaces(28,[31,32]).
-
-linkingResources(39,[40]).
-
-repository(28).
-
-requiredInterface(35,31).
-
-signatures(31,[36]).
-signatures(32,[38]).
-
-parameter(37).
+/** BEGIN parameter, ID: '19', NAME: 'p1' */
+description(19,'p1','parameter').
 parameter(19).
-parameter(20).
+/** END parameter, ID: '19', NAME: 'p1' */
 
-adversaries(1).
+sizeOfParameter(36).
+sizeOf(36,19).
+/** END operationSignature, ID: '31', NAME: 'sig' */
 
-components(28,[29,30]).
 
-connectionType(24,possible).
+/** BEGIN operationSignature, ID: '32', NAME: 'sig2' */
+description(32,'sig2','operationSignature').
+operationSignature(32).
+parameters(32,[18,37]).
+returnType(32,[]).
 
-innerProvidedRole(45,34).
+/** BEGIN parameter, ID: '18', NAME: 'p0' */
+description(18,'p0','parameter').
+parameter(18).
+/** END parameter, ID: '18', NAME: 'p0' */
 
-assemblyContext(22,25).
-assemblyContext(23,27).
-assemblyContext(45,25).
+sizeOfParameter(38).
+sizeOf(38,18).
 
-assemblyContexts(43,[27,25]).
+/** BEGIN parameter, ID: '37', NAME: 'param1' */
+description(37,'param1','parameter').
+parameter(37).
+/** END parameter, ID: '37', NAME: 'param1' */
 
-confidentialitySpecification(8).
+sizeOfParameter(39).
+sizeOf(39,37).
+/** END operationSignature, ID: '32', NAME: 'sig2' */
 
-dataSets(8,[18,4,5]).
+/** END operationInterface, ID: '26', NAME: 'iface' */
 
-system(43).
 
-mayKnowDataSets(2,[4,5]).
-mayKnowDataSets(3,[4,5]).
+/** BEGIN operationInterface, ID: '27', NAME: 'sysIface' */
+description(27,'sysIface','operationInterface').
+operationInterface(27).
+parentInterfaces(27,[]).
+signatures(27,[40]).
 
-providedRoles(29,[33]).
-providedRoles(30,[34]).
-providedRoles(43,[46]).
+/** BEGIN operationSignature, ID: '40', NAME: 'sysSig' */
+description(40,'sysSig','operationSignature').
+operationSignature(40).
+parameters(40,[18,19]).
+returnType(40,[41]).
 
-requiredRoles(30,[35]).
+/** BEGIN parameter, ID: '18', NAME: 'p0' */
+description(18,'p0','parameter').
+parameter(18).
+/** END parameter, ID: '18', NAME: 'p0' */
 
-adversaries(1,[2,3]).
+sizeOfParameter(38).
+sizeOf(38,18).
 
-connectors(43,[44,45]).
+/** BEGIN parameter, ID: '19', NAME: 'p1' */
+description(19,'p1','parameter').
+parameter(19).
+/** END parameter, ID: '19', NAME: 'p1' */
 
-locationsAndTamperProtectionsPairs(2,[6]).
-locationsAndTamperProtectionsPairs(3,[6,7]).
-locationsAndTamperProtectionsPairs(8,[9,6,7]).
-locationsAndTamperProtectionsPairs(40,[9]).
-locationsAndTamperProtectionsPairs(24,[6]).
-locationsAndTamperProtectionsPairs(41,[9]).
+sizeOfParameter(36).
+sizeOf(36,19).
+/** END operationSignature, ID: '40', NAME: 'sysSig' */
 
-sharing(24,exclusive).
+/** END operationInterface, ID: '27', NAME: 'sysIface' */
 
-resourceEnvironment(39).
+/** END repository, ID: '23', NAME: 'repo' */
 
-communicationLinkResourceSpecifications(40,42).
 
-operationProvidedRole(33).
-operationProvidedRole(34).
-operationProvidedRole(46).
+/** BEGIN resourceEnvironment, ID: '48', NAME: 'resEnv' */
+description(48,'resEnv','resourceEnvironment').
+resourceEnvironment(48).
+linkingResources(48,[49]).
+resourceContainer(48,[50,51,52]).
 
-returnType(36,"INT").
-returnType(38,"DOUBLE").
+/** BEGIN linkingResource, ID: '49', NAME: 'rc1rc2link' */
+description(49,'rc1rc2link','linkingResource').
+linkingResource(49).
+connectedResourceContainers(49,[50,51]).
+communicationLinkResourceSpecifications(49,[]).
+/** END linkingResource, ID: '49', NAME: 'rc1rc2link' */
 
-parameters(36,[37]).
-parameters(38,[19,20]).
 
-parameterSources(16,[19,20]).
-parameterSources(17,[\return]).
+/** BEGIN resourceContainer, ID: '50', NAME: 'rc1' */
+description(50,'rc1','resourceContainer').
+resourceContainer(50).
+/** END resourceContainer, ID: '50', NAME: 'rc1' */
 
-dataType(37,"STRING").
-dataType(19,"INT").
-dataType(20,"INT").
 
-allocationContext(22).
-allocationContext(23).
+/** BEGIN resourceContainer, ID: '51', NAME: 'rc2' */
+description(51,'rc2','resourceContainer').
+resourceContainer(51).
+/** END resourceContainer, ID: '51', NAME: 'rc2' */
 
-resourceContainer(24).
-resourceContainer(26).
-resourceContainer(41).
 
-assemblyConnector(44).
+/** BEGIN resourceContainer, ID: '52', NAME: 'rc3' */
+description(52,'rc3','resourceContainer').
+resourceContainer(52).
+/** END resourceContainer, ID: '52', NAME: 'rc3' */
 
-allocationContexts(21,[22,23]).
+/** END resourceEnvironment, ID: '48', NAME: 'resEnv' */
 
-connectedResourceContainers(40,[24,26]).
 
-operationSignature(36).
-operationSignature(38).
+/** BEGIN informationFlow, ID: '31', NAME: 'null' */
+description(31,'null','informationFlow').
+parametersAndDataPairs(31,[5,6]).
+/** END informationFlow, ID: '31', NAME: 'null' */
 
-dataSet(18).
+
+/** BEGIN informationFlow, ID: '40', NAME: 'null' */
+description(40,'null','informationFlow').
+parametersAndDataPairs(40,[6,7]).
+/** END informationFlow, ID: '40', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '26', NAME: 'null' */
+parametersAndDataPairs(31,[8]).
+parametersAndDataPairs(32,[8]).
+/** END informationFlow, ID: '26', NAME: 'null' */
+
+
+/** BEGIN encryption, ID: '49', NAME: 'null' */
+description(49,'null','encryption').
+unencryptedData(49,[3,4]).
+/** END encryption, ID: '49', NAME: 'null' */
+
+
+/** BEGIN locationAndTamperProtection, ID: '49', NAME: 'null' */
+description(49,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(49,[15]).
+/** END locationAndTamperProtection, ID: '49', NAME: 'null' */
+
+
+/** BEGIN furtherPhysicalConnections, ID: '50', NAME: 'null' */
+description(50,'null','furtherPhysicalConnections').
+connectionType(50,[possible]).
+/** END furtherPhysicalConnections, ID: '50', NAME: 'null' */
+
+
+/** BEGIN locationAndTamperProtection, ID: '50', NAME: 'null' */
+description(50,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(50,[16]).
+/** END locationAndTamperProtection, ID: '50', NAME: 'null' */
+
+
+/** BEGIN sharing, ID: '50', NAME: 'null' */
+description(50,'null','sharing').
+sharing(50,[exclusive]).
+/** END sharing, ID: '50', NAME: 'null' */
+
+
+/** BEGIN locationAndTamperProtection, ID: '52', NAME: 'null' */
+description(52,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(52,[15]).
+/** END locationAndTamperProtection, ID: '52', NAME: 'null' */
+
+
+/** BEGIN system, ID: '42', NAME: 'defaultSystem' */
+description(42,'defaultSystem','system').
+system(42).
+assemblyContexts(42,[43,44]).
+connectors(42,[45,46]).
+providedRoles(42,[47]).
+requiredRoles(42,[]).
+
+/** BEGIN assemblyContext, ID: '43', NAME: 'Assembly_bc2 <bc2>' */
+description(43,'Assembly_bc2 <bc2>','assemblyContext').
+assemblyContext(43).
+encapsulatedComponent(43,[24]).
+/** END assemblyContext, ID: '43', NAME: 'Assembly_bc2 <bc2>' */
+
+
+/** BEGIN assemblyContext, ID: '44', NAME: 'Assembly_bc1 <bc1>' */
+description(44,'Assembly_bc1 <bc1>','assemblyContext').
+assemblyContext(44).
+encapsulatedComponent(44,[25]).
+/** END assemblyContext, ID: '44', NAME: 'Assembly_bc1 <bc1>' */
+
+
+/** BEGIN assemblyConnector, ID: '45', NAME: 'Connector Assembly_bc1 <bc1> -> Assembly_bc2 <bc2>' */
+description(45,'Connector Assembly_bc1 <bc1> -> Assembly_bc2 <bc2>','assemblyConnector').
+assemblyConnector(45).
+requiringAssemblyContext(45,[44]).
+providingAssemblyContext(45,[43]).
+providedRole(45,[28]).
+requiredRole(45,[30]).
+/** END assemblyConnector, ID: '45', NAME: 'Connector Assembly_bc1 <bc1> -> Assembly_bc2 <bc2>' */
+
+
+/** BEGIN providedDelegationConnector, ID: '46', NAME: 'ProvDelegation Provided_sysIface -> bc1ProvidesSysIface' */
+description(46,'ProvDelegation Provided_sysIface -> bc1ProvidesSysIface','providedDelegationConnector').
+providedDelegationConnector(46).
+innerProvidedRole(46,[29]).
+outerProvidedRole(46,[47]).
+assemblyContext(46,[44]).
+/** END providedDelegationConnector, ID: '46', NAME: 'ProvDelegation Provided_sysIface -> bc1ProvidesSysIface' */
+
+
+/** BEGIN operationProvidedRole, ID: '47', NAME: 'Provided_sysIface' */
+description(47,'Provided_sysIface','operationProvidedRole').
+operationProvidedRole(47).
+providedInterface(47,[27]).
+/** END operationProvidedRole, ID: '47', NAME: 'Provided_sysIface' */
+
+/** END system, ID: '42', NAME: 'defaultSystem' */
+
+
+/** BEGIN allocation, ID: '53', NAME: 'defaultAllocation' */
+description(53,'defaultAllocation','allocation').
+allocation(53).
+allocationContexts(53,[54,55]).
+
+/** BEGIN allocationContext, ID: '54', NAME: 'Allocation_Assembly_bc1 <bc1> <bc1>' */
+description(54,'Allocation_Assembly_bc1 <bc1> <bc1>','allocationContext').
+allocationContext(54).
+resourceContainer(54,[50]).
+assemblyContext_AllocationContext(54,[44]).
+/** END allocationContext, ID: '54', NAME: 'Allocation_Assembly_bc1 <bc1> <bc1>' */
+
+
+/** BEGIN allocationContext, ID: '55', NAME: 'Allocation_Assembly_bc2 <bc2> <bc2>' */
+description(55,'Allocation_Assembly_bc2 <bc2> <bc2>','allocationContext').
+allocationContext(55).
+resourceContainer(55,[51]).
+assemblyContext_AllocationContext(55,[43]).
+/** END allocationContext, ID: '55', NAME: 'Allocation_Assembly_bc2 <bc2> <bc2>' */
+
+/** END allocation, ID: '53', NAME: 'defaultAllocation' */
+
+
+/** BEGIN confidentialitySpecification, ID: '1', NAME: 'minimal confidentiality specification' */
+description(1,'minimal confidentiality specification','confidentialitySpecification').
+confidentialitySpecification(1).
+dataIdentifier(1,[2,3,4]).
+dataSetMaps(1,[]).
+parametersAndDataPairs(1,[5,6,7,8]).
+addedServiceParameters(1,[]).
+locations(1,[9,10,11]).
+tamperProtections(1,[12,13,14]).
+locationsAndTamperProtectionsPairs(1,[15,16,17]).
+
+/** BEGIN dataSet, ID: '2', NAME: 'd1' */
+description(2,'d1','dataSet').
+dataSet(2).
+/** END dataSet, ID: '2', NAME: 'd1' */
+
+
+/** BEGIN dataSet, ID: '3', NAME: 'd2' */
+description(3,'d2','dataSet').
+dataSet(3).
+/** END dataSet, ID: '3', NAME: 'd2' */
+
+
+/** BEGIN dataSet, ID: '4', NAME: 'd3' */
+description(4,'d3','dataSet').
 dataSet(4).
-dataSet(5).
+/** END dataSet, ID: '4', NAME: 'd3' */
 
-providedInterface(33,31).
-providedInterface(34,32).
-providedInterface(46,32).
 
-linkingResource(40).
+/** BEGIN parametersAndDataPair, ID: '5', NAME: 'p=[p0, p1] - d=[d1, d3]' */
+description(5,'p=[p0, p1] - d=[d1, d3]','parametersAndDataPair').
+parametersAndDataPair(5).
+parameterSources(5,[18,19]).
+dataTargets(5,[2,4]).
+/** END parametersAndDataPair, ID: '5', NAME: 'p=[p0, p1] - d=[d1, d3]' */
 
-locationsAndTamperProtectionsPair(9).
-locationsAndTamperProtectionsPair(6).
-locationsAndTamperProtectionsPair(7).
 
-tamperProtections(8,[13,14,15]).
-tamperProtections(9,[13,14,15]).
-tamperProtections(6,[13,14]).
-tamperProtections(7,[15]).
+/** BEGIN parametersAndDataPair, ID: '6', NAME: 'pds' */
+description(6,'pds','parametersAndDataPair').
+parametersAndDataPair(6).
+parameterSources(6,[return]).
+dataTargets(6,[4]).
+/** END parametersAndDataPair, ID: '6', NAME: 'pds' */
 
-assemblyContext(27).
-assemblyContext(25).
 
-outerProvidedRole(45,46).
+/** BEGIN parametersAndDataPair, ID: '7', NAME: 'wSo' */
+description(7,'wSo','parametersAndDataPair').
+parametersAndDataPair(7).
+parameterSources(7,[18,sizeOf(18),19]).
+dataTargets(7,[3,4]).
+/** END parametersAndDataPair, ID: '7', NAME: 'wSo' */
+
+
+/** BEGIN parametersAndDataPair, ID: '8', NAME: 'wWildCard' */
+description(8,'wWildCard','parametersAndDataPair').
+parametersAndDataPair(8).
+parameterSources(8,[*]).
+dataTargets(8,[3]).
+/** END parametersAndDataPair, ID: '8', NAME: 'wWildCard' */
+
+
+/** BEGIN location, ID: '9', NAME: 'l1' */
+description(9,'l1','location').
+location(9).
+/** END location, ID: '9', NAME: 'l1' */
+
+
+/** BEGIN location, ID: '10', NAME: 'l2' */
+description(10,'l2','location').
+location(10).
+/** END location, ID: '10', NAME: 'l2' */
+
+
+/** BEGIN location, ID: '11', NAME: 'l3' */
+description(11,'l3','location').
+location(11).
+/** END location, ID: '11', NAME: 'l3' */
+
+
+/** BEGIN tamperProtection, ID: '12', NAME: 'tp1' */
+description(12,'tp1','tamperProtection').
+tamperProtection(12).
+/** END tamperProtection, ID: '12', NAME: 'tp1' */
+
+
+/** BEGIN tamperProtection, ID: '13', NAME: 'tp2' */
+description(13,'tp2','tamperProtection').
+tamperProtection(13).
+/** END tamperProtection, ID: '13', NAME: 'tp2' */
+
+
+/** BEGIN tamperProtection, ID: '14', NAME: 'tp3' */
+description(14,'tp3','tamperProtection').
+tamperProtection(14).
+/** END tamperProtection, ID: '14', NAME: 'tp3' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '15', NAME: 'a' */
+description(15,'a','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(15).
+locations(15,[9,10,11]).
+tamperProtections(15,[12,13,14]).
+/** END locationsAndTamperProtectionsPair, ID: '15', NAME: 'a' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '16', NAME: 'l=[l1, l2] - t=[tp1, tp2]' */
+description(16,'l=[l1, l2] - t=[tp1, tp2]','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(16).
+locations(16,[9,10]).
+tamperProtections(16,[12,13]).
+/** END locationsAndTamperProtectionsPair, ID: '16', NAME: 'l=[l1, l2] - t=[tp1, tp2]' */
+
+
+/** BEGIN locationsAndTamperProtectionsPair, ID: '17', NAME: 'c' */
+description(17,'c','locationsAndTamperProtectionsPair').
+locationsAndTamperProtectionsPair(17).
+locations(17,[10]).
+tamperProtections(17,[14]).
+/** END locationsAndTamperProtectionsPair, ID: '17', NAME: 'c' */
+
+/** END confidentialitySpecification, ID: '1', NAME: 'minimal confidentiality specification' */
+
+
+/** BEGIN adversaries, ID: '20', NAME: 'as' */
+description(20,'as','adversaries').
+adversaries(20).
+adversaries(20,[21,22]).
+
+/** BEGIN adversary, ID: '21', NAME: 'a1' */
+description(21,'a1','adversary').
+adversary(21).
+mayKnowData(21,[3,4]).
+locationsAndTamperProtectionsPairs(21,[16]).
+/** END adversary, ID: '21', NAME: 'a1' */
+
+
+/** BEGIN adversary, ID: '22', NAME: 'a2' */
+description(22,'a2','adversary').
+adversary(22).
+mayKnowData(22,[3,4]).
+locationsAndTamperProtectionsPairs(22,[16,17]).
+/** END adversary, ID: '22', NAME: 'a2' */
+
+/** END adversaries, ID: '20', NAME: 'as' */
+

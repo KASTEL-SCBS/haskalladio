@@ -61,8 +61,6 @@ assemblyContexts(_,[_,_]) :- fail.
 
 confidentialitySpecification(_) :- fail.
 
-dataSets(_,_) :- fail.
-
 system(_) :- fail.
 
 mayKnowDataSets(_,_) :- fail.

@@ -1,0 +1,572 @@
+%% LaTeX-Beamer template for KIT design
+%% by Erik Burger, Christian Hammer
+%% title picture by Klaus Krogmann
+%%
+%% version 2.1
+%%
+%% mostly compatible to KIT corporate design v2.0
+%% http://intranet.kit.edu/gestaltungsrichtlinien.php
+%%
+%% Problems, bugs and comments to
+%% burger@kit.edu
+
+\documentclass[18pt]{beamer}
+
+%% SLIDE FORMAT
+
+% use 'beamerthemekit' for standard 4:3 ratio
+% for widescreen slides (16:9), use 'beamerthemekitwide'
+
+\usepackage{templates/beamerthemekit}
+%\usepackage{templates/beamerthemekitblack}
+%\usepackage{templates/beamerthemekitwide}
+
+\usepackage{xspace}
+% \usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{ulem}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows.meta}
+\usepackage{relsize}
+\usepackage{adjustbox}
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@verbatim}
+  {\verbatim@font}
+  {\verbatim@font\tiny}
+  {}{}
+\makeatother
+
+% \usetikzlibrary{decorations.pathmorphing}
+% \usetikzlibrary{fit}
+% \usetikzlibrary{shapes}
+% \usetikzlibrary{calc}
+\usepackage{csquotes}
+\usepackage{fontspec}
+\setmainfont{FreeSerif}
+\setmonofont{FreeMono}
+
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{invisible}
+
+%% TITLE PICTURE
+
+% if a custom picture is to be used on the title page, copy it into the 'logos'
+% directory, in the line below, replace 'mypicture' with the 
+% filename (without extension) and uncomment the following line
+% (picture proportions: 63 : 20 for standard, 169 : 40 for wide
+% *.eps format if you use latex+dvips+ps2pdf, 
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+\titleimage{Castel0}
+
+% (*.eps format if you use latex+dvips+ps2pdf,
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+%% TikZ INTEGRATION
+
+% use these packages for PCM symbols and UML classes
+% \usepackage{templates/tikzkit}
+% \usepackage{templates/tikzuml}
+
+% the presentation starts here
+
+\newcommand{\kit}[1]{\textcolor{kit-green100}{#1}}
+\tikzset{fontscale/.style = {font=\relsize{#1}}}
+
+
+\title{Weiterverwendung von IFC-Spezifikationen}
+\subtitle{Verteilte Systeme}
+\author{Martin Hecker}
+
+\institute{Kompetenzzentrum für angewandte Sicherheitstechnologie}
+
+% Bibliography
+
+%\usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=biber]{biblatex}
+%\addbibresource{templates/example.bib}
+%\bibhang1em
+
+\definecolor{kit}{RGB}{0,150,130}
+
+
+\begin{document}
+
+% change the following line to "ngerman" for German style date and logos
+%\selectlanguage{english}
+\selectlanguage{ngerman}
+
+
+\AtBeginSection{\frame{\sectionpage}}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Weiterverwendung von IFC-Spez.}
+\begin{center}
+\begin{minipage}{8cm}
+  \includegraphics[width=\columnwidth]{img/IoE_UP_7_1_Evolution_36.pdf}
+  \begin{itemize}
+    \item \enquote{Wir glauben, dass das geht}
+    \item Ja!
+  \end{itemize}
+\end{minipage}
+\end{center}
+\end{frame}
+
+\include{KASTELTalk-examples-include}
+
+\begin{frame}[fragile,t]{Meta-Modell}
+
+\begin{overprint}
+\providecommand{\exheight}{4cm}
+\onslide<1>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOne}}
+\end{center}
+\onslide<2>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneImpl}}
+\end{center}
+\onslide<3>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneImplWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+\onslide<4>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneImplWithSpecViol}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/failmark.pdf}}
+\end{center}
+\onslide<5>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneImplWithSpecViol}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/failmark.pdf}}
+\end{center}
+\end{overprint}
+
+\vfill
+
+\begin{overprint}
+\onslide<1>
+\kit{Komponente:} 
+
+\begin{minipage}[t]{5cm}
+\begin{verbatim}
+data Component p = Component {
+    input :: Set p,
+    output :: Set p
+  }
+\end{verbatim}
+\end{minipage}
+\begin{minipage}[t]{6cm}
+\begin{itemize}
+  \item Erweiterungen: Dienste, Interfaces,
+\end{itemize}
+\end{minipage}
+\onslide<2>
+\kit{Implementierung:}
+
+\begin{minipage}[t]{5cm}
+\begin{verbatim}
+data Implementation p = Implementation {
+    influences :: p -> Set p
+  }
+\end{verbatim}
+\end{minipage}
+\begin{minipage}[t]{6cm}
+\begin{itemize}
+  \item Erweiterungen: Komponenteweiter Zustand (symbolisch)
+\end{itemize}
+\end{minipage}
+\onslide<3,4>
+\kit{Spezifikation:}
+\begin{minipage}[t]{8cm}
+\begin{verbatim}
+data Specification p d = Specification {
+    includes :: p -> Set d,
+    datasets :: Set d
+  }
+\end{verbatim}
+\end{minipage}
+
+\kit{Sicherheit:}
+\begin{minipage}[t]{8cm}
+\begin{verbatim}
+secure ⇔ (∀) input (\i ->  (∀) output (\o ->
+                (o ∈ influences i) → (includes i ⊆ includes o)
+          ))
+\end{verbatim}
+\end{minipage}
+\begin{itemize}
+  \item $\approx$ non-interference mit Teilmengenverband \hfill ($\mathcal{P}$\texttt{(datasets),⊆})
+  \item Alles ginge analog für \hfill ($\mathcal{P}$\texttt{(datasets),⊇})
+\end{itemize}
+\onslide<5>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{.6cm}{\smallSpecOne}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=.5cm]{img/svg/checkmark.pdf}}
+
+  \adjustbox{valign=t}{\resizebox{!}{.6cm}{\smallSpecTwo}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=.5cm]{img/svg/failmark.pdf}}
+\end{center}
+\end{overprint}
+
+\end{frame}
+
+\begin{frame}[fragile]{Auswirkung von Änderungen}
+\providecommand{\exheight}{2.1cm}
+\begin{overprint}
+\onslide<1->
+\kit{Bestehende Komponente:} verifiziert in \includegraphics[height=0.5\baselineskip]{img/key-color.png} \ für 20.000€
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+\end{overprint}
+
+\vfill
+
+\begin{overprint}
+\onslide<1>
+\kit{Änderung in Spezifikation:} Hinzufügen von \texttt{Passwords} zu \texttt{A}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpecWeakQM}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<2>
+\kit{Tatsächlich gilt noch:} \vphantom{Änderung}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpecWeak}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\kit{Gegeben:} Späzifikation \texttt{sp}, Änderungen der Annahmen von \texttt{sp} \\
+\kit{Gesucht:} \enquote{stärksten} Garantien \texttt{sp''} sodaß für alle \texttt{impl}:
+\begin{verbatim}
+              secure impl sp    ⟹    secure impl sp''
+\end{verbatim}
+
+\end{overprint}
+
+\end{frame}
+
+\begin{frame}[fragile]{Halbordnungen}
+\kit{Spezifikationen:}
+\begin{verbatim}
+sp `makesWeakerAssumptionsThan` sp'  ⇔
+      (∀) (input pr)  (\i -> includes sp' i ⊇ includes sp i)
+
+sp `makesStrongerGuaranteesThanFor` sp'  ⇔
+      (∀) (output pr) (\o -> includes sp' o ⊆ includes sp o)
+
+sp  ≤ sp'  ⇔
+   sp `makesStrongerGuaranteesThanFor` sp'
+∧  sp `makesWeakerAssumptionsThan`     sp'
+\end{verbatim}
+\begin{itemize}
+   \item \texttt{sp  ≤ sp'  ⇔ } \\
+         \enquote{\ \texttt{sp} erlaubt weniger Informationsfluss als \texttt{sp'} \ }
+   \item Nur definiert für \texttt{sp} und \texttt{sp'} mit gleichen \texttt{datasets}
+\end{itemize}
+
+\vfill
+
+\kit{Implementierungen:}
+\begin{verbatim}
+impl ⊑ impl' ⇔
+      (∀) (input pr) (\i -> influences impl i ⊆ influences impl' i )
+\end{verbatim}
+\begin{itemize}
+   \item (Impl,\texttt{⊑}) ist Verband
+   \item \texttt{impl ⊑ impl'  ⇔}  \\
+         \enquote{\ \texttt{impl} läßt weniger Informationen fließen als \texttt{impl'}\ }
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Spezifikationen als Abstraktion}
+\begin{center}
+\includegraphics[width=0.6\columnwidth]{img/svg/abstraction.pdf}
+\end{center}
+\kit{Ansatz:}
+\begin{itemize}
+  \item Spezifikation \texttt{sp} ist Abstraktion aller ihrer sicheren Implementierungen
+  \item Unter diesen gibt es eine \enquote{größte} Spezifikation \texttt{γ(sp)}: die mit den \emph{meisten} Flüssen
+\end{itemize}
+\kit{Es gilt:}
+\begin{verbatim}
+γ sp@(Specification { includes }) =
+  Implementation { influences = \p ->
+                if (p ∈ input) then [ p' | p' <- toList output, includes p ⊇ includes p' ]
+                               else []
+            }
+\end{verbatim}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+\begin{frame}[fragile]{Auswirkung von Änderungen}
+\providecommand{\exheight}{2.1cm}
+\begin{overprint}
+\onslide<1>
+\kit{Bestehende Komponente:} verifiziert in \includegraphics[height=0.5\baselineskip]{img/key-color.png} \ für 20.000€
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+\kit{Implementierung:} \enquote{unbekannt}
+\onslide<2->
+\kit{Bestehende Komponente:} verifiziert in \includegraphics[height=0.5\baselineskip]{img/key-color.png} \ für 20.000€
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+\kit{Implementierung:} \enquote{unbekannt}, aber wir betrachten: \texttt{γ(sp)}
+\end{overprint}
+
+\vfill
+
+\begin{overprint}
+\onslide<1>
+\kit{Änderung in Spezifikation:} Hinzufügen von \texttt{Passwords} zu \texttt{A}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpecWeakQM}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<2>
+\kit{Änderung in Spezifikation:} Hinzufügen von \texttt{Passwords} zu \texttt{A}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpecWeakQM}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+
+
+\onslide<3>
+\kit{Tatsächlich gilt noch:} \vphantom{Änderung}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpecWeak}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<4>
+\kit{Änderung in Spezifikation:} Entfernen von \texttt{Billing} aus \texttt{A}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpecStrongQM}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/questionmark.pdf}}
+\end{center}
+
+\onslide<5>
+\kit{Es gilt lediglich:} \vphantom{Änderung}
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpecStrong}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+
+
+\end{overprint}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}[fragile]{Andere Datasets}
+\providecommand{\exheight}{2.1cm}
+\begin{overprint}
+\onslide<1,2>
+\kit{Bestehende Komponente:} eingekauft,  generisch, 20.000€
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<3>
+\kit{Andere Komponente:} eingekauft,  generisch, 100.000€
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleTwoWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<4>
+\kit{Andere Komponente:} eingekauft,  generisch, 100.000€
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleTwoGammaWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<5>
+\kit{Bestehende Komponente:} eingekauft,  generisch, 20.000€
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaWithSpec}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+
+\end{overprint}
+
+\vfill
+
+\kit{Anwendung:} \texttt{Datasets' = \{ Money, Home\}}
+
+\begin{overprint}
+\onslide<1>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGrobRelabeled}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/questionmark.pdf}}
+\end{center}
+
+\onslide<2>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGrobRelabeled}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+\onslide<3>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleTwoWithSpecGrob}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/questionmark.pdf}}
+\end{center}
+
+\onslide<4>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleTwoGammaWithSpecGrob}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+
+\onslide<5>
+\begin{center}
+  \adjustbox{valign=t}{\resizebox{!}{\exheight}{\exampleOneGammaGrob}}
+  \adjustbox{valign=t,rlap}{\includegraphics[width=1cm]{img/svg/checkmark.pdf}}
+\end{center}
+
+
+\end{overprint}
+
+\begin{overprint}
+\onslide<2>
+\begin{itemize}
+  \item denn \texttt{f :: Datasets -> Set Datasets' }: mit
+\begin{verbatim}
+f Consumption  = [Home]          f Billing      = [Money]
+f DeviceStatus = [Home]          f Passwords    = [Home]
+\end{verbatim}
+        ist konsistent mit Spezifikation: \texttt{f (sp) ≤ sp'}
+\end{itemize}
+
+\onslide<3>
+\begin{itemize}
+  \item Problem: nicht alle gültigen Spezifikationen via \texttt{Datasets'} haben \enquote{Zeugen} \texttt{f}
+  \item selbst wenn: wie bestimmt man Zeugen? Benutzer?
+\end{itemize}
+
+\onslide<4->
+\begin{itemize}
+  \item Vergleiche \texttt{γ}: \ \texttt{sp  ⊑ sp'  ⇔ (γ sp) ⊑ (γ sp')}
+  \item \texttt{sp  ⊑ sp'  ⇔ } \  \enquote{\ \texttt{sp} erlaubt weniger Informationsfluss als \texttt{sp'} \ }
+  \item Definiert auch dann, wenn \texttt{sp} und \texttt{sp'} mittels  \emph{unterschiedlichen} Mengen \texttt{Datasets, Datasets'} definiert sind!
+\end{itemize}
+\end{overprint}
+
+\end{frame}
+
+
+
+
+
+
+
+
+\begin{frame}[fragile]{\small Kontextbezogene Vertraulichkeitswahrung}
+\providecommand{\exheight}{1.5cm}
+\providecommand{\markwidth}{0.5cm}
+
+
+
+\begin{columns}
+  \begin{column}{6cm}
+  \end{column}
+  \begin{column}{6cm}
+    \kit{Repository:}
+    \adjustbox{valign=t}{\resizebox{!}{\exheight}{\spRightFine}}
+    \adjustbox{valign=t,rlap}{\includegraphics[width=\markwidth]{img/svg/checkmark.pdf}}
+  \end{column}
+\end{columns}
+
+\vfill
+
+\begin{columns}
+  \begin{column}{6cm}
+    \adjustbox{valign=t}{\resizebox{!}{\exheight}{\spLeft}}
+    \adjustbox{valign=t,rlap}{\includegraphics[width=\markwidth]{img/svg/checkmark.pdf}}
+  \end{column}
+  \begin{column}{6cm}
+    \adjustbox{valign=t}{\resizebox{!}{\exheight}{\spRight}}
+    \adjustbox{valign=t,rlap}{\includegraphics[width=\markwidth]{img/svg/checkmark.pdf}}
+  \end{column}
+\end{columns}
+
+\vfill
+
+\pause
+
+\begin{columns}
+  \begin{column}{6cm}
+    \enquote{benötigte Dienste auch folgende Datenklassen isolieren...} \\
+    \adjustbox{valign=t}{\resizebox{!}{\exheight}{\spLeftAssumed}}
+    \adjustbox{valign=t,rlap}{\includegraphics[width=\markwidth]{img/svg/checkmark.pdf}}
+  \end{column}
+  \begin{column}{6cm}
+    \enquote{... dann trennt dieser Dienst auch jene Datenklassen} \\
+    \adjustbox{valign=t}{\resizebox{!}{\exheight}{\spRightThen}}
+    \adjustbox{valign=t,rlap}{\includegraphics[width=\markwidth]{img/svg/checkmark.pdf}}
+  \end{column}
+\end{columns}
+
+
+\end{frame}
+
+
+
+
+
+
+
+
+\appendix
+\beginbackup
+
+%\begin{frame}[allowframebreaks]{References}
+%\printbibliography
+%\end{frame}
+
+\backupend
+
+\end{document}

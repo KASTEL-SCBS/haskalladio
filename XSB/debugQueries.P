@@ -1,0 +1,21 @@
+Service = 118, ParameterName = 123, Dataset = 6, Context = 242,
+        hasParameter(Service, parm(Service,ParameterName)),
+	hasService(Interface,Service),
+        connectorSpecificParametersAndDataPairs(Connector,Pairs),
+	contextOfConnector(Connector, Context,Interface),
+	not(ParameterName=sizeOf(_)),
+        member(Pair, Pairs),
+	originalParametersAndDataPair(Pair,OriginalPair),
+	parametersAndDataPairs(Service, OriginalPairs),
+	member(OriginalPair,OriginalPairs),
+        parameterSources(Pair,ParameterNames),
+        member(*, ParameterNames),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets),
+once(itemDescription(Connector,ConnectorD)),
+once(itemDescription(Service,ServiceD)),  once(itemDescription(ParameterName,ParameternameD)),  once(itemDescription(Context,ContextD)), once(itemDescription(Dataset,DatasetD)).
+
+
+Service = 118, ParameterName = 123, Dataset = 6, Context = 242,
+includes(parm(Service,ParameterName), Dataset, Context),
+once(itemDescription(Service,ServiceD)),  once(itemDescription(ParameterName,ParameternameD)),  once(itemDescription(Context,ContextD)), once(itemDescription(Dataset,DatasetD)).
