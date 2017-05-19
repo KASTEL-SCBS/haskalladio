@@ -36,8 +36,8 @@
            providedInterfacesAccessibleTo/3,        % providedInterfacesAccessibleTo(Attacker, Interface, AssemblyContext)
            requiredInterfacesAccessibleTo/3,        % requiredInterfacesAccessibleTo(Attacker, Interface, AssemblyContext)
 
-           parameterAllowedToBeAccessedBy/2,        % parameterAllowedToBeAccessedBy(Attacker, Parameter)
-           serviceAllowedToBeObservedBy/2,          % parameterAllowedToBeAccessedBy(Attacker, Parameter)
+           parameterAllowedToBeAccessedBy/3,        % parameterAllowedToBeAccessedBy(Attacker, Parameter)
+           serviceAllowedToBeObservedBy/3,          % parameterAllowedToBeAccessedBy(Attacker, Parameter)
 
            % Used Functors
            % Sharing = OpenShared | ControlledExclusive
@@ -55,8 +55,8 @@ justify_pred(linkAccessibleBy(_,_,_)).
 justify_pred(containersPhysicalAccessibleBy(_,_,_)).
 justify_pred(providedInterfacesAccessibleTo(_,_,_)).
 justify_pred(requiredInterfacesAccessibleTo(_,_,_)).
-justify_pred(serviceAllowedToBeObservedBy(_,_)).
-justify_pred(parameterAllowedToBeAccessedBy(_,_)).
+justify_pred(serviceAllowedToBeObservedBy(_,_,_)).
+justify_pred(parameterAllowedToBeAccessedBy(_,_,_)).
 
 isInSecureWithRespectTo(Attacker) :-
         accessibleParameters(Attacker,Parameter, Context),

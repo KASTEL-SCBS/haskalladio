@@ -27,7 +27,7 @@ languageDef =
             , Token.commentLine     = "//"
             , Token.identStart      = letter <|> char '_' <|> char '\\'
             , Token.identLetter     = alphaNum
-            , Token.reservedNames   = [ "length", "justify6","not"]
+            , Token.reservedNames   = [ "length", "justify6","not", "*"]
             , Token.reservedOpNames = ["','", "=" ]
             }
 
@@ -148,10 +148,15 @@ assertion :: Parser Proof
 assertion =  parens $ try simple <|> notSimple
 
 
+star :: Parser String
+star = do
+  reserved "*"
+  return "*"
+
 term :: Parser Term
 term = try normal <|> list
   where normal = do
-                   f   <- identifier <|> (liftM show integer) <|> (char '\'' *> (many $ noneOf ['\'']) <* char '\'')
+                   f   <- identifier <|> (liftM show integer) <|> (char '\'' *> (many $ noneOf ['\'']) <* char '\'') <|> star
                    xs  <- option [] $ parens $ term `sepBy` comma
                    return $ Node f xs
         list   = do
