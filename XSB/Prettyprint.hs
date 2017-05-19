@@ -74,9 +74,21 @@ instance Show Assertion where
 type Proof = Tree Assertion
 type AnalysisResult = [Proof]
 
+
+tFilter :: (a -> Bool) -> Tree a -> Tree a
+tFilter f (Node x ts)
+ | f x = Node x (fmap (tFilter f) ts)
+ | otherwise = (Node x [])
+
+
+interestingOnly :: Proof -> Proof
+interestingOnly = tFilter noFreeIncludesNots
+  where noFreeIncludesNots node@(Not (Assertion (Node "includes" [Node _ _, Node ('_':_) _, Node _ _]))) = False
+        noFreeIncludesNots _ = True
+
 prettyPrint :: String -> String -> IO ()
 prettyPrint file descsFile =
-  forM_ (fmap drawTree $  fmap (fmap show) (fmap (insertDescriptions descs) $ fromFile file)) putStrLn
+  forM_ (fmap drawTree $  fmap (fmap show) (fmap (insertDescriptions descs) $ fmap interestingOnly $ fromFile file)) putStrLn
  where descs = descriptionFromFile descsFile
 
 insertDescriptions :: [Term] -> Proof -> Proof
