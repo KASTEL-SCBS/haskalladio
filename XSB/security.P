@@ -7,15 +7,15 @@
            furtherConnections/2,
            sharingOf/2,
            location/3,
-           includesCall/2,
-           includes/2,
+           includesCall/3,
+           includes/3,
            uiInterfaceOn/2,
            linkLocation/3
            from securityInstance.
 
 
-:- import  accessibleParameters/2,
-           observableServices/2
+:- import  accessibleParameters/3,
+           observableServices/3
            from abstractAnalysis.
 
 :- import  providedInterfacesOn/3,
@@ -59,21 +59,21 @@ justify_pred(serviceAllowedToBeObservedBy(_,_)).
 justify_pred(parameterAllowedToBeAccessedBy(_,_)).
 
 isInSecureWithRespectTo(Attacker) :-
-        accessibleParameters(Attacker,Parameter),
-        not(parameterAllowedToBeAccessedBy(Attacker,Parameter)).
+        accessibleParameters(Attacker,Parameter, Context),
+        not(parameterAllowedToBeAccessedBy(Attacker,Parameter, Context)).
 
 isInSecureWithRespectTo(Attacker) :-
-        observableServices(Attacker,Service),
-        not(serviceAllowedToBeObservedBy(Attacker,Service)).
+        observableServices(Attacker,Service, Context),
+        not(serviceAllowedToBeObservedBy(Attacker,Service, Context)).
 
 
-serviceAllowedToBeObservedBy(Attacker, Service) :-
-        includesCall(Service, DataSet),
+serviceAllowedToBeObservedBy(Attacker, Service, Context) :-
+        includesCall(Service, DataSet, Context),
         mayknow(Attacker, DataSet).
 
 
-parameterAllowedToBeAccessedBy(Attacker, Parameter) :-
-        includes(Parameter, DataSet),
+parameterAllowedToBeAccessedBy(Attacker, Parameter, Context) :-
+        includes(Parameter, DataSet, Context),
         mayknow(Attacker, DataSet).
 
 

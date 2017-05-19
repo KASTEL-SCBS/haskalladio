@@ -27,8 +27,8 @@
 % END IMPORTS
 % BEGIN EXPORTS
 :- export  % Predicates
-           accessibleParameters/3,               % accessibleParameters(Attacker,Parameter)
-           observableServices/3.                 % observableServices(Attacker,Parameter)
+           accessibleParameters/3,               % accessibleParameters(Attacker,Parameter, Context)
+           observableServices/3.                 % observableServices(Attacker,Parameter, Context)
 
 % END EXPORTS
 
