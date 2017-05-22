@@ -3,7 +3,7 @@ module Prettyprint where
 
 import Prelude
 import Data.Maybe (fromJust)
-import Data.List (find, intercalate)
+import Data.List (find, intercalate, nub)
 import Data.Tree
 import qualified Data.Map (lookup, fromList) 
 
@@ -69,6 +69,63 @@ instance Show Assertion where
   show (NotEq left right) = "not [" ++ (intercalate "," $ fmap showTerm left)  ++ "] = ["
                                     ++ (intercalate "," $ fmap showTerm right) ++ "]"
 
+
+toNthLevel :: Integer -> Tree a -> Tree a
+toNthLevel 0 (Node x  _)  = Node x []
+toNthLevel n (Node x ts) = Node x $ fmap (toNthLevel (n-1)) ts
+
+
+
+-- Funtcions for interactive proof exploration in the ghci repl.
+-- Example:
+-- λ> let { root = Node (Assertion $ Node "x" []) trees ; trees = take 53 $ fromFile "queries-justify.result" ; descs = descriptionFromFile "descriptions.result" }
+-- λ> showNode descs [] trees
+-- x
+-- |
+-- `- adversary(35,cloud end user A)
+--
+-- x
+-- |
+-- `- adversary(36,cloud end user B)
+--
+-- λ> showNode descs [(0,0),(0,1),(0,0)] trees
+-- x
+-- |
+-- `- adversary(35,cloud end user A)
+--    |
+--    +- attacker(adversary(35,cloud end user A))
+--    |
+--    `- isInSecureWithRespectTo(adversary(35,cloud end user A))
+--       |
+--       +- accessibleParameters(adversary(35,cloud end user A),return(operationSignature(201,open)),assemblyContext(255,FileManagerA))
+--       |  |
+--       |  +- containersFullyAccessibleBy(adversary(35,cloud end user A),resourceContainer(491,End User Machine A))
+--       |  |
+--       |  +- interfacesOn(resourceContainer(491,End User Machine A),operationInterface(64,FileManGUI),assemblyContext(255,FileManagerA))
+--       |  |
+--       |  `- parametersOf(operationSignature(201,open),return(operationSignature(201,open)))
+--       |
+--       `- not parameterAllowedToBeAccessedBy(adversary(35,cloud end user A),return(operationSignature(201,open)),assemblyContext(255,FileManagerA))
+
+
+selectNode :: [(Int,Int)] -> [Proof] -> [Proof]
+selectNode []     proofs = nub $ fmap (toNthLevel 1) proofs
+selectNode ((proofIndex, subGoalIndex):is) proofs = [ Node x (pre ++ [subproof] ++ post) | subproof <- selectNode is [ subproofs !! subGoalIndex |  (Node _ subproofs)  <- relevantProofs] ]
+  where proofIndexRepresentant@(Node x ps) = (nub (fmap (toNthLevel 1) proofs)) !! proofIndex
+        pre  = take subGoalIndex ps
+        post = reverse $ take (length ps - subGoalIndex - 1) (reverse ps)
+        relevantProofs                      = [ proof | proof <- proofs, toNthLevel 1 proof == proofIndexRepresentant]
+
+showNode :: [Term] -> [(Int,Int)] -> [Proof] -> IO ()
+showNode descs ns proofs = do
+   forM_ (fmap drawTree $  fmap (fmap show) (fmap (insertDescriptions descs) $ fmap interestingOnly $ selected)) putStrLn
+  where selected = selectNode ns (fmap (\p -> Node (Assertion $ Node "x" []) [p]) proofs)
+
+
+
+showNodeFull :: [Term] ->  Proof -> IO ()
+showNodeFull descs root = do
+    putStrLn $ drawTree $ (fmap show) $ (insertDescriptions descs $ interestingOnly $ root)
 
 
 type Proof = Tree Assertion
