@@ -14,6 +14,8 @@ XSB_OPTIONS_QUIET=--noprompt --quietload --nobanner --nofeedback
 
 # path to runghc, required for pretty-printed proofs
 RUNGHC=runghc
+# path to ghci, required for interactive proof exploration
+GHCI=ghci
 
 
 
@@ -70,6 +72,8 @@ queries.result: $(XWAMS)
 queries-justify.result.pretty: Prettyprint.hs queries-justify.result descriptions.result
 	$(RUNGHC) $^ > $@
 
+explore: Explore.hs Prettyprint.hs queries-justify.result descriptions.result
+	$(GHCI) $^
 
 queries-justify.result.pretty.simplified: Simplify.hs queries-justify.result
 	$(RUNGHC) $^ > $@
