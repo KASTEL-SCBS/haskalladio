@@ -53,6 +53,7 @@ colon         = Token.colon   lexer
 
 type Atom = String
 data Assertion = Assertion Term
+               | AbbreviatedProof Term Int
                | Not Assertion
                | NotEq [Term] [Term]
      deriving (Eq)
@@ -65,6 +66,7 @@ showTerm (Node f xs) = f ++ "(" ++ (intercalate "," (fmap showTerm xs)) ++ ")"
 
 instance Show Assertion where
   show (Assertion t) = showTerm t
+  show (AbbreviatedProof t n) = "(" ++ (show n) ++ " proofs) " ++ showTerm t
   show (Not a)       = "not " ++ (show a)
   show (NotEq left right) = "not [" ++ (intercalate "," $ fmap showTerm left)  ++ "] = ["
                                     ++ (intercalate "," $ fmap showTerm right) ++ "]"
@@ -78,38 +80,62 @@ toNthLevel n (Node x ts) = Node x $ fmap (toNthLevel (n-1)) ts
 
 -- Funtcions for interactive proof exploration in the ghci repl.
 -- Example:
--- λ> let { root = Node (Assertion $ Node "x" []) trees ; trees = take 53 $ fromFile "queries-justify.result" ; descs = descriptionFromFile "descriptions.result" }
+-- λ> let { root = Node (Assertion $ Node "x" []) trees ; trees = fromFile "queries-justify.result" ; descs = descriptionFromFile "descriptions.result" }
+--
 -- λ> showNode descs [] trees
--- x
+-- [0] (50 proofs) x
 -- |
--- `- adversary(35,cloud end user A)
---
--- x
--- |
--- `- adversary(36,cloud end user B)
---
--- λ> showNode descs [(0,0),(0,1),(0,0)] trees
--- x
--- |
--- `- adversary(35,cloud end user A)
---    |
---    +- attacker(adversary(35,cloud end user A))
---    |
---    `- isInSecureWithRespectTo(adversary(35,cloud end user A))
---       |
---       +- accessibleParameters(adversary(35,cloud end user A),return(operationSignature(201,open)),assemblyContext(255,FileManagerA))
---       |  |
---       |  +- containersFullyAccessibleBy(adversary(35,cloud end user A),resourceContainer(491,End User Machine A))
---       |  |
---       |  +- interfacesOn(resourceContainer(491,End User Machine A),operationInterface(64,FileManGUI),assemblyContext(255,FileManagerA))
---       |  |
---       |  `- parametersOf(operationSignature(201,open),return(operationSignature(201,open)))
---       |
---       `- not parameterAllowedToBeAccessedBy(adversary(35,cloud end user A),return(operationSignature(201,open)),assemblyContext(255,FileManagerA))
+-- `- [0] (50 proofs) adversary(35,cloud end user A)
 
+-- [1] (75 proofs) x
+-- |
+-- `- [0] (75 proofs) adversary(36,cloud end user B)
 
-selectNode :: [(Int,Int)] -> [Proof] -> [Proof]
-selectNode []     proofs = nub $ fmap (toNthLevel 1) proofs
+-- [2] (75 proofs) x
+-- |
+-- `- [0] (75 proofs) adversary(37,cloud end user guest)
+
+-- [3] (80 proofs) x
+-- |
+-- `- [0] (80 proofs) adversary(38,cloud service administrator)
+
+-- [4] (345 proofs) x
+-- |
+-- `- [0] (345 proofs) adversary(39,cloud service provider)
+
+-- [5] (165 proofs) x
+-- |
+-- `- [0] (165 proofs) adversary(40,ChuckNorris)
+--
+-- λ> showNode descs [(4,0),(0,1),(325,0),(0,2)] trees
+-- [0] x
+-- |
+-- `- adversary(39,cloud service provider)
+--    |
+--    +- attacker(adversary(39,cloud service provider))
+--    |
+--    `- isInSecureWithRespectTo(adversary(39,cloud service provider))
+--       |
+--       +- accessibleParameters(adversary(39,cloud service provider),parm(operationSignature(139,log),parameter(140,text)),assemblyContext(254,LBAdminTool))
+--       |  |
+--       |  +- containersFullyAccessibleBy(adversary(39,cloud service provider),resourceContainer(490,VM E))
+--       |  |
+--       |  +- interfacesOn(resourceContainer(490,VM E),operationInterface(59,LogWriter),assemblyContext(254,LBAdminTool))
+--       |  |
+--       |  `- (1 proofs) parametersOf(operationSignature(139,log),parm(operationSignature(139,log),parameter(140,text)))
+--       |     |
+--       |     `- [0] (1 proofs) hasParameter(operationSignature(139,log),parm(operationSignature(139,log),parameter(140,text)))
+--       |
+--       `- not parameterAllowedToBeAccessedBy(adversary(39,cloud service provider),parm(operationSignature(139,log),parameter(140,text)),assemblyContext(254,LBAdminTool))
+
+selectNode []     proofs = [ Node (withCount n x)
+                                      [ Node (withCount m y) [] | pp@(Node y []) <- ps, let m =  length $ nub $ [ ps'' | ps' <- cutProofs2, (Node y' ps'' ) <- ps', y == y' ]
+                                     ]
+                              | Node x ps <- nub cutProofs, let n = length $ filter (== Node x ps) cutProofs, let cutProofs2 = cutProofs2For ps ]
+  where withCount n (Assertion a) = AbbreviatedProof a n
+        withCount n a                            = a
+        cutProofs  = fmap (toNthLevel 1) proofs
+        cutProofs2For ps = [ ps' | (Node _ ps')  <- proofs, fmap (toNthLevel 0) ps' == ps]
 selectNode ((proofIndex, subGoalIndex):is) proofs = [ Node x (pre ++ [subproof] ++ post) | subproof <- selectNode is [ subproofs !! subGoalIndex |  (Node _ subproofs)  <- relevantProofs] ]
   where proofIndexRepresentant@(Node x ps) = (nub (fmap (toNthLevel 1) proofs)) !! proofIndex
         pre  = take subGoalIndex ps
@@ -118,8 +144,21 @@ selectNode ((proofIndex, subGoalIndex):is) proofs = [ Node x (pre ++ [subproof] 
 
 showNode :: [Term] -> [(Int,Int)] -> [Proof] -> IO ()
 showNode descs ns proofs = do
-   forM_ (fmap drawTree $  fmap (fmap show) (fmap (insertDescriptions descs) $ fmap interestingOnly $ selected)) putStrLn
+   forM_ (fmap drawTree $ fmap withLeafIndices $ zipWith withIndex [0..] $ fmap (fmap show) $  (fmap (insertDescriptions descs) $ fmap interestingOnly $ selected)) putStrLn
   where selected = selectNode ns (fmap (\p -> Node (Assertion $ Node "x" []) [p]) proofs)
+        withIndex i (Node x xs) = Node ("[" ++ show i ++ "] " ++ x) xs
+
+        withLeafIndices (Node x xs)
+            | all isLeaf xs = Node x $ zipWith withLeafIndex [0..] xs
+            | otherwise     = Node x $ fmap withLeafIndices xs
+
+        withLeafIndex i (Node x []) = Node ("[" ++ show i ++ "] " ++ x) []
+        withLeafIndex i (Node x xs)
+            | all isLeaf xs = Node x $ zipWith withLeafIndex [0..] xs
+            | otherwise     = Node x $ fmap withLeafIndices xs
+
+        isLeaf (Node _ []) = True
+        isLeaf _           = False
 
 
 
@@ -150,7 +189,8 @@ prettyPrint file descsFile =
 
 insertDescriptions :: [Term] -> Proof -> Proof
 insertDescriptions descs proof = fmap f proof
-  where f (Assertion t)   = Assertion ((>>=) t g)
+  where f (Assertion t)            = Assertion ((>>=) t g)
+        f (AbbreviatedProof t n)   = AbbreviatedProof ((>>=) t g) n
         f (Not a)         = Not (f a)
         f (NotEq ts1 ts2) = NotEq (fmap ((=<<) g) ts1) (fmap ((=<<) g) ts2)
 
