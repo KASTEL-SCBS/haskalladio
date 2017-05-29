@@ -73,7 +73,12 @@ queries-justify.result.pretty: Prettyprint.hs queries-justify.result description
 	$(RUNGHC) $^ > $@
 
 explore: Explore.hs Prettyprint.hs queries-justify.result descriptions.result
-	$(GHCI) $^
+	@echo "\n\n\n\n"
+	@echo "Use\n"
+	@echo "    \"*Explore> main\"\n"
+	@echo to get started!
+	@echo "\n\n\n\n"
+	$(GHCI) $<
 
 queries-justify.result.pretty.simplified: Simplify.hs queries-justify.result
 	$(RUNGHC) $^ > $@
