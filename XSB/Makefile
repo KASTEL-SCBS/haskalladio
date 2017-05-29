@@ -5,7 +5,7 @@ INSTANCE=Instances/FromPalladio
 LINKMODEL=simpleLinkModel.P
 
 # if INSTANCE==Instances/FromPalladio, specify the path to the exported facts file fromPalladio.P to be used:
-FROMPALLADIO_FACTS=$(FROMPALLADIO_FACTS_MINIMALCLOUD)
+FROMPALLADIO_FACTS=$(FROMPALLADIO_FACTS_CLOUDSCENARIO_MINIMIZED)
 
 # path to the xsb binary, see http://xsb.sourceforge.net/
 # use version 3.5
@@ -23,7 +23,7 @@ GHCI=ghci
 # These shouldn't need to be changed
 FROMPALLADIO_FACTS_IFLOW_SIMON=Instances/FromPalladio/edu.kit.kastel.scbs.iflowexample-simonsdatasetsinterpretation/src-gen/fromPalladio.P
 FROMPALLADIO_FACTS_CLOUDSCENARIO=Instances/FromPalladio/edu.kit.kastel.scbs.cloudscenario/src-gen/fromPalladio.P
-FROMPALLADIO_FACTS_MINIMALCLOUD=Instances/FromPalladio/edu.kit.kastel.scbs.cloudscenario/src-gen/fromPalladio.P
+FROMPALLADIO_FACTS_CLOUDSCENARIO_MINIMIZED=Instances/FromPalladio/edu.kit.kastel.scbs.cloudscenario-minimized/src-gen/fromPalladio.P
 FROMPALLADIO_FACTS_MINIMAL=Instances/FromPalladio/edu.kit.kastel.scbs.minimalexample/src-gen/fromPalladio.P
 FROMPALLADIO_FACTS_EXAMPLE=Instances/FromPalladio/edu.kit.kastel.scbs.paperexample/src-gen/fromPalladio.P
 FROMPALLADIO_FACTS_TRAVELPLANNER=Instances/FromPalladio/edu.kit.kastel.scbs.travelplanner/src-gen/fromPalladio.P
