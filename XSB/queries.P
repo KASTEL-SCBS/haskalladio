@@ -4,6 +4,9 @@
 :- import length/2 from lists.
 :- import dataset/1 from securityInstance.
 % END IMPORTS
+
+:- set_xsb_flag(write_depth, 9999).
+
 justify_pred(query6(_)).
 
 query6(Attacker) :- attacker(Attacker), isInSecureWithRespectTo(Attacker).

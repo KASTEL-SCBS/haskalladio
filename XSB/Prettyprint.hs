@@ -231,7 +231,7 @@ resultParser = do
 simple :: Parser Proof
 simple = do
   t <- term
-  reservedOp "','"
+  reservedOp "','" <|> void comma
   subproofs <- brackets $ assertion `sepBy` comma
   return $ Node (Assertion t) subproofs
 
@@ -239,17 +239,17 @@ notSimple :: Parser Proof
 notSimple = do
   reserved "not"
   t <- term
-  reservedOp "','"
+  reservedOp "','" <|> void comma
   subproofs <- brackets $ (try notComplex <|> assertion) `sepBy` comma
   return $ Node (Not $ Assertion t) subproofs
 
 notComplex :: Parser Proof
 notComplex = parens $ do
   reserved "not"
-  left <- parens $ term `sepBy` (reserved "','")
+  left <- parens $ term `sepBy` (reserved "','" <|> void comma)
   reservedOp "="
-  right <- parens $ term `sepBy` (reserved "','")
-  reservedOp "','"
+  right <- parens $ term `sepBy` (reserved "','" <|> void comma)
+  reservedOp "','" <|> void comma
   brackets $ return ()
   return $ Node (NotEq left right) []
 
