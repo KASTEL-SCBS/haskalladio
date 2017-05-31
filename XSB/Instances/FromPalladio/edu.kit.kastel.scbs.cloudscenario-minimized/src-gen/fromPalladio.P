@@ -463,7 +463,7 @@ parametersAndDataPair(48).
 
 parameterSources(48,[*]).
 
-dataTargets(48,2).
+dataTargets(48,[2]).
 
 
 originalParametersAndDataPair(48,6).
