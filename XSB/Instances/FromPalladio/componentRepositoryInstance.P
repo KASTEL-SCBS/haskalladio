@@ -54,6 +54,10 @@ returnParameter(Service,return(Service)) :-
         % operationSignature(Service),
         returnType(Service,[_Type]).
 
+returnParameter(Service,sizeof(return(Service))) :-
+        % operationSignature(Service),
+        returnType(Service,[_Type]).
+
 % TODO: this just cannot work with the current palladio fact export: if there are two different signatures with a common parameter name X,
 % *two* facts dataType(X,Type) are generated. Luckily, typeOf/2 isn't currently uses anywhere in the access analysis.
 typeOf(parm(Service,sizeOf(ParameterName)), int) :- !,
