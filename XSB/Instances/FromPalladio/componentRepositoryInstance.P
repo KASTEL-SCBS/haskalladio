@@ -9,7 +9,9 @@
 	   serviceParameters/2,
            signatures/2,
            requiredInterface/2,
-           requiredRoles/2
+           requiredRoles/2,
+
+           sizeOf/1
            from fromPalladio.
 :- import  member/2
            from lists.
@@ -54,7 +56,7 @@ returnParameter(Service,return(Service)) :-
         % operationSignature(Service),
         returnType(Service,[_Type]).
 
-returnParameter(Service,sizeof(return(Service))) :-
+returnParameter(Service,sizeOf(return(Service))) :-
         % operationSignature(Service),
         returnType(Service,[_Type]).
 

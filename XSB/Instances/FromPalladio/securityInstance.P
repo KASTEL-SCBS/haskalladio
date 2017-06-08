@@ -36,6 +36,7 @@
            requiringAssemblyContext/2,
 	   providingAssemblyContext/2,
 
+	   sizeOf/1,
 	   call/0,
 	   return/0
            from fromPalladio.
@@ -120,8 +121,8 @@ includes(return(Service), Dataset, Context) :-
         member(*, ParameterNames),
         dataTargets(Pair, Datasets),
         member(Dataset, Datasets).
-includes(sizeof(return(Service)), Dataset, Context) :-
-        returnParameter(Service, sizeof(return(Service))),
+includes(sizeOf(return(Service)), Dataset, Context) :-
+        returnParameter(Service, sizeOf(return(Service))),
 	hasService(Interface,Service),
 	interfacesOn(_Container,Interface,Context),
         parametersAndDataPairs(Service, Pairs),
@@ -130,7 +131,6 @@ includes(sizeof(return(Service)), Dataset, Context) :-
         member(*, ParameterNames),
         dataTargets(Pair, Datasets),
         member(Dataset, Datasets).
-
 
 
 % cases such as: parameterSources(6,[..,sizeOf(*),..]).
@@ -144,8 +144,8 @@ includes(parm(Service,sizeOf(ParameterName)), Dataset,Context) :-
         member(sizeOf(*), ParameterNames),
         dataTargets(Pair, Datasets),
         member(Dataset, Datasets).
-include(sizeof(return(Service)), Dataset,Context) :-
-        returnParameter(Service, sizeof(return(Service))),
+include(sizeOf(return(Service)), Dataset,Context) :-
+        returnParameter(Service, sizeOf(return(Service))),
 	hasService(Interface,Service),
 	interfacesOn(_Container,Interface,Context),
         parametersAndDataPairs(Service, Pairs),
@@ -247,8 +247,8 @@ includes(return(Service), Dataset, Context) :-
         member(*, ParameterNames),
         dataTargets(Pair, Datasets),
         member(Dataset, Datasets).
-includes(sizeof(return(Service)), Dataset, Context) :-
-	returnParameter(Service, sizeof(return(Service))),
+includes(sizeOf(return(Service)), Dataset, Context) :-
+	returnParameter(Service, sizeOf(return(Service))),
 	hasService(Interface,Service),
         connectorSpecificParametersAndDataPairs(Connector,Pairs),
         contextOfConnector(Connector, Context,Interface),
@@ -280,8 +280,8 @@ includes(parm(Service,sizeOf(ParameterName)), Dataset,Context) :-
         member(sizeOf(*), ParameterNames),
         dataTargets(Pair, Datasets),
         member(Dataset, Datasets).
-includes(sizeof(return(Service)), Dataset,Context) :-
-	returnParameter(Service, sizeof(return(Service))),
+includes(sizeOf(return(Service)), Dataset,Context) :-
+	returnParameter(Service, sizeOf(return(Service))),
 	hasService(Interface,Service),
 
         connectorSpecificParametersAndDataPairs(Connector,Pairs),

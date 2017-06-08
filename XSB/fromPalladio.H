@@ -47,6 +47,7 @@
         unencryptedDataSets/2,                      % unencryptedDataSets(Link, Datasets)
         outerRequiredRole/2,                        % outerRequiredRole(Connector,ProvidedRole)
 
+        sizeOf/1,
 	call/0,
 	return/0,
         fake_usage/0.
@@ -65,9 +66,6 @@
 %       resourceContainer/2,                        % resourceContainer(ResourceEnvironment, Containers) TODO: this 2nd meaning  of resourceContainer/2 is currently exported from Palladio, but not used in inference rules
         sizeOfParameter/1, 	                    % sizeOfParameter(SizeOfParameterName)
         sizeOf/2,                                   % sizeOf(SizeOfParameterName, ParameterName)
-
-	% Constants
-	sizeOf/1,
 
 
 	dataIdentifier/2,
