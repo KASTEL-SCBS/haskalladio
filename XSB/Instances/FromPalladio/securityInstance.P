@@ -91,104 +91,133 @@ mayknow(Attacker,Dataset) :-
 %    as well as: parameterSources(6,[..,sizeOf(x),..]).
 includes(parm(Service,ParameterName), Dataset, Context) :-
         hasParameter(Service, parm(Service,ParameterName)),
-	hasService(Interface,Service),
-	interfacesOn(_Container,Interface,Context),
-        parametersAndDataPairs(Service, Pairs),
-        member(Pair, Pairs),
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-        parameterSources(Pair,ParameterNames),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames),
         member(ParameterName, ParameterNames).
 
 % cases such as: parameterSources(6,[..,*,..]).
 includes(parm(Service,ParameterName), Dataset, Context) :-
         hasParameter(Service, parm(Service,ParameterName)),
-	hasService(Interface,Service),
-	interfacesOn(_Container,Interface,Context),
-        parametersAndDataPairs(Service, Pairs),
-        member(Pair, Pairs),
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-        parameterSources(Pair,ParameterNames),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames),
         member(*, ParameterNames).
 includes(return(Service), Dataset, Context) :-
         returnParameter(Service, return(Service)),
-	hasService(Interface,Service),
-	interfacesOn(_Container,Interface,Context),
-        parametersAndDataPairs(Service, Pairs),
-        member(Pair, Pairs),
-        parameterSources(Pair,ParameterNames),
-        member(*, ParameterNames),
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames),
+        member(*, ParameterNames).
 includes(sizeOf(return(Service)), Dataset, Context) :-
         returnParameter(Service, sizeOf(return(Service))),
-	hasService(Interface,Service),
-	interfacesOn(_Container,Interface,Context),
-        parametersAndDataPairs(Service, Pairs),
-        member(Pair, Pairs),
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-        parameterSources(Pair,ParameterNames),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames),
         member(*, ParameterNames).
 
 
 % cases such as: parameterSources(6,[..,sizeOf(*),..]).
 includes(parm(Service,sizeOf(ParameterName)), Dataset,Context) :-
         hasParameter(Service, parm(Service,sizeOf(ParameterName))),
-	hasService(Interface,Service),
-	interfacesOn(_Container,Interface,Context),
-        parametersAndDataPairs(Service, Pairs),
-        member(Pair, Pairs),
-        parameterSources(Pair,ParameterNames),
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames),
         member(sizeOf(*), ParameterNames).
 
 includes(sizeOf(return(Service)), Dataset,Context) :-
         returnParameter(Service, sizeOf(return(Service))),
-	hasService(Interface,Service),
-	interfacesOn(_Container,Interface,Context),
-        parametersAndDataPairs(Service, Pairs),
-        member(Pair, Pairs),
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-        parameterSources(Pair,ParameterNames),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames),
         member(sizeOf(*), ParameterNames).
 
 
 % cases such as: parameterSources(6,[..,return,..]).
 includes(return(Service), Dataset, Context) :-
         returnParameter(Service, return(Service)),
-	hasService(Interface,Service),
-	interfacesOn(_Container,Interface,Context),
-        parametersAndDataPairs(Service, Pairs),
-        member(Pair, Pairs),
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-        parameterSources(Pair,ParameterNames),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames),
         member(return, ParameterNames).
 
 % TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
 includesCall(Service, Dataset,Context) :-
-        hasService(Interface,Service),
-        interfacesOn(_Container,Interface,Context),
-        parametersAndDataPairs(Service, Pairs),
-        member(Pair, Pairs),
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-        parameterSources(Pair,ParameterNames),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames),
         member(call, ParameterNames).
 includesCall(Service, Dataset,Context) :-
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames),
+        member(*, ParameterNames).
+
+
+
+
+lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames) :-
         hasService(Interface,Service),
         interfacesOn(_Container,Interface,Context),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         dataTargets(Pair, Datasets),
         member(Dataset, Datasets),
-        parameterSources(Pair,ParameterNames),
+        parameterSources(Pair,ParameterNames).
+
+
+% 2nd: connection-specific paramatersAndDataPairs
+% cases such as: parameterSources(6,[..,x,..]).
+%    as well as: parameterSources(6,[..,sizeOf(x),..]).
+includes(parm(Service,ParameterName), Dataset, Context) :-
+        hasParameter(Service, parm(Service,ParameterName)),
+        lookupDataSetParameterNamesConnectorSpecific(Context, Service, Dataset, ParameterNames),
+        member(ParameterName, ParameterNames).
+
+% cases such as: parameterSources(6,[..,*,..]).
+includes(parm(Service,ParameterName), Dataset, Context) :-
+        hasParameter(Service, parm(Service,ParameterName)),
+        lookupDataSetParameterNamesConnectorSpecific(Context, Service, Dataset, ParameterNames),
         member(*, ParameterNames).
 
+includes(return(Service), Dataset, Context) :-
+	returnParameter(Service, return(Service)),
+        lookupDataSetParameterNamesConnectorSpecific(Context, Service, Dataset, ParameterNames),
+        member(*, ParameterNames).
+	
+includes(sizeOf(return(Service)), Dataset, Context) :-
+	returnParameter(Service, sizeOf(return(Service))),
+        lookupDataSetParameterNamesConnectorSpecific(Context, Service, Dataset, ParameterNames),
+        member(*, ParameterNames).
+
+
+
+% cases such as: parameterSources(6,[..,sizeOf(*),..]).
+includes(parm(Service,sizeOf(ParameterName)), Dataset,Context) :-
+        hasParameter(Service, parm(Service,sizeOf(ParameterName))),
+        lookupDataSetParameterNamesConnectorSpecific(Context, Service, Dataset, ParameterNames),
+        member(sizeOf(*), ParameterNames).
+	
+includes(sizeOf(return(Service)), Dataset,Context) :-
+	returnParameter(Service, sizeOf(return(Service))),
+        lookupDataSetParameterNamesConnectorSpecific(Context, Service, Dataset, ParameterNames),
+        member(sizeOf(*), ParameterNames).
+
+
+% cases such as: parameterSources(6,[..,return,..]).
+includes(return(Service), Dataset, Context) :-
+        returnParameter(Service, return(Service)),
+        lookupDataSetParameterNamesConnectorSpecific(Context, Service, Dataset, ParameterNames),
+        member(return, ParameterNames).
+	
+
+% TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
+includesCall(Service, Dataset,Context) :-
+        lookupDataSetParameterNamesConnectorSpecific(Context, Service, Dataset, ParameterNames),
+        member(call, ParameterNames).
+	
+includesCall(Service, Dataset,Context) :-
+        lookupDataSetParameterNamesConnectorSpecific(Context, Service, Dataset, ParameterNames),
+        member(*, ParameterNames).
+
+
+
+lookupDataSetParameterNamesConnectorSpecific(Context, Service, Dataset, ParameterNames) :-
+        hasService(Interface,Service),
+        connectorSpecificParametersAndDataPairs(Connector,Pairs),
+        contextOfConnector(Connector, Context,Interface),
+
+        member(Pair, Pairs),
+
+        originalParametersAndDataPair(Pair,OriginalPair),
+        parametersAndDataPairs(Service, OriginalPairs),
+        member(OriginalPair,OriginalPairs),
+
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets),
+        parameterSources(Pair,ParameterNames).
 
 
 contextOfConnector(Connector, Context, Interface) :-
@@ -199,187 +228,6 @@ contextOfConnector(Connector, Context, Interface) :-
 	providingAssemblyContext(Connector,[Context]),
         providedRole(Connector, [ProvidedRole]),
         providedInterface(ProvidedRole, [Interface]).
-
-% 2nd: connection-specific paramatersAndDataPairs
-% cases such as: parameterSources(6,[..,x,..]).
-%    as well as: parameterSources(6,[..,sizeOf(x),..]).
-includes(parm(Service,ParameterName), Dataset, Context) :-
-        hasParameter(Service, parm(Service,ParameterName)),
-        hasService(Interface,Service),
-
-        connectorSpecificParametersAndDataPairs(Connector,Pairs),
-        contextOfConnector(Connector, Context,Interface),
-
-        member(Pair, Pairs),
-
-        originalParametersAndDataPair(Pair,OriginalPair),
-        parametersAndDataPairs(Service, OriginalPairs),
-        member(OriginalPair,OriginalPairs),
-
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-	
-        parameterSources(Pair,ParameterNames),
-        member(ParameterName, ParameterNames).
-
-% cases such as: parameterSources(6,[..,*,..]).
-includes(parm(Service,ParameterName), Dataset, Context) :-
-        hasParameter(Service, parm(Service,ParameterName)),
-	hasService(Interface,Service),
-	
-        connectorSpecificParametersAndDataPairs(Connector,Pairs),
-        contextOfConnector(Connector, Context,Interface),
-	
-        member(Pair, Pairs),
-	
-        originalParametersAndDataPair(Pair,OriginalPair),
-        parametersAndDataPairs(Service, OriginalPairs),
-        member(OriginalPair,OriginalPairs),
-	
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-	
-        parameterSources(Pair,ParameterNames),
-        member(*, ParameterNames).
-
-includes(return(Service), Dataset, Context) :-
-	returnParameter(Service, return(Service)),
-	hasService(Interface,Service),
-	
-        connectorSpecificParametersAndDataPairs(Connector,Pairs),
-        contextOfConnector(Connector, Context,Interface),
-	
-        member(Pair, Pairs),
-	
-        originalParametersAndDataPair(Pair,OriginalPair),
-        parametersAndDataPairs(Service, OriginalPairs),
-        member(OriginalPair,OriginalPairs),
-	
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-	
-        parameterSources(Pair,ParameterNames),
-        member(*, ParameterNames).
-	
-includes(sizeOf(return(Service)), Dataset, Context) :-
-	returnParameter(Service, sizeOf(return(Service))),
-	hasService(Interface,Service),
-	
-        connectorSpecificParametersAndDataPairs(Connector,Pairs),
-        contextOfConnector(Connector, Context,Interface),
-	
-        member(Pair, Pairs),
-	
-        originalParametersAndDataPair(Pair,OriginalPair),
-        parametersAndDataPairs(Service, OriginalPairs),
-        member(OriginalPair,OriginalPairs),
-	
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-	
-        parameterSources(Pair,ParameterNames),
-        member(*, ParameterNames).
-
-
-
-% cases such as: parameterSources(6,[..,sizeOf(*),..]).
-includes(parm(Service,sizeOf(ParameterName)), Dataset,Context) :-
-        hasParameter(Service, parm(Service,sizeOf(ParameterName))),
-	hasService(Interface,Service),
-
-        connectorSpecificParametersAndDataPairs(Connector,Pairs),
-        contextOfConnector(Connector, Context,Interface),
-
-        member(Pair, Pairs),
-
-        originalParametersAndDataPair(Pair,OriginalPair),
-        parametersAndDataPairs(Service, OriginalPairs),
-        member(OriginalPair,OriginalPairs),
-	
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-
-	parameterSources(Pair,ParameterNames),
-        member(sizeOf(*), ParameterNames).
-	
-includes(sizeOf(return(Service)), Dataset,Context) :-
-	returnParameter(Service, sizeOf(return(Service))),
-	hasService(Interface,Service),
-
-        connectorSpecificParametersAndDataPairs(Connector,Pairs),
-        contextOfConnector(Connector, Context,Interface),
-
-        member(Pair, Pairs),
-
-        originalParametersAndDataPair(Pair,OriginalPair),
-        parametersAndDataPairs(Service, OriginalPairs),
-        member(OriginalPair,OriginalPairs),
-	
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-
-	parameterSources(Pair,ParameterNames),
-        member(sizeOf(*), ParameterNames).
-
-
-% cases such as: parameterSources(6,[..,return,..]).
-includes(return(Service), Dataset, Context) :-
-        returnParameter(Service, return(Service)),
-	hasService(Interface,Service),
-
-        connectorSpecificParametersAndDataPairs(Connector,Pairs),
-        contextOfConnector(Connector, Context,Interface),
-
-        member(Pair, Pairs),
-
-        originalParametersAndDataPair(Pair,OriginalPair),
-        parametersAndDataPairs(Service, OriginalPairs),
-        member(OriginalPair,OriginalPairs),
-
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-
-        parameterSources(Pair,ParameterNames),
-        member(return, ParameterNames).
-	
-
-% TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
-includesCall(Service, Dataset,Context) :-
-        hasService(Interface,Service),
-
-        connectorSpecificParametersAndDataPairs(Connector,Pairs),
-        contextOfConnector(Connector, Context,Interface),
-
-        member(Pair, Pairs),
-
-        originalParametersAndDataPair(Pair,OriginalPair),
-        parametersAndDataPairs(Service, OriginalPairs),
-        member(OriginalPair,OriginalPairs),
-	
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-
-        parameterSources(Pair,ParameterNames),
-        member(call, ParameterNames).
-	
-includesCall(Service, Dataset,Context) :-
-        hasService(Interface,Service),
-
-        connectorSpecificParametersAndDataPairs(Connector,Pairs),
-        contextOfConnector(Connector, Context,Interface),
-
-        member(Pair, Pairs),
-
-        originalParametersAndDataPair(Pair,OriginalPair),
-        parametersAndDataPairs(Service, OriginalPairs),
-        member(OriginalPair,OriginalPairs),
-
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets),
-
-        parameterSources(Pair,ParameterNames),
-        member(*, ParameterNames).
-
 
 
 
