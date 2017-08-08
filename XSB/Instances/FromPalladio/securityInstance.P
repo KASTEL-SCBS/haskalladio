@@ -95,10 +95,10 @@ includes(parm(Service,ParameterName), Dataset, Context) :-
 	interfacesOn(_Container,Interface,Context),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
-        parameterSources(Pair,ParameterNames),
-        member(ParameterName, ParameterNames),
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+        parameterSources(Pair,ParameterNames),
+        member(ParameterName, ParameterNames).
 
 % cases such as: parameterSources(6,[..,*,..]).
 includes(parm(Service,ParameterName), Dataset, Context) :-
@@ -107,10 +107,10 @@ includes(parm(Service,ParameterName), Dataset, Context) :-
 	interfacesOn(_Container,Interface,Context),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
-        parameterSources(Pair,ParameterNames),
-        member(*, ParameterNames),
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+        parameterSources(Pair,ParameterNames),
+        member(*, ParameterNames).
 includes(return(Service), Dataset, Context) :-
         returnParameter(Service, return(Service)),
 	hasService(Interface,Service),
@@ -127,10 +127,10 @@ includes(sizeOf(return(Service)), Dataset, Context) :-
 	interfacesOn(_Container,Interface,Context),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
-        parameterSources(Pair,ParameterNames),
-        member(*, ParameterNames),
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+        parameterSources(Pair,ParameterNames),
+        member(*, ParameterNames).
 
 
 % cases such as: parameterSources(6,[..,sizeOf(*),..]).
@@ -141,19 +141,20 @@ includes(parm(Service,sizeOf(ParameterName)), Dataset,Context) :-
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),
-        member(sizeOf(*), ParameterNames),
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
-include(sizeOf(return(Service)), Dataset,Context) :-
+        member(Dataset, Datasets),
+        member(sizeOf(*), ParameterNames).
+
+includes(sizeOf(return(Service)), Dataset,Context) :-
         returnParameter(Service, sizeOf(return(Service))),
 	hasService(Interface,Service),
 	interfacesOn(_Container,Interface,Context),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
-        parameterSources(Pair,ParameterNames),
-        member(sizeOf(*), ParameterNames),
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+        parameterSources(Pair,ParameterNames),
+        member(sizeOf(*), ParameterNames).
 
 
 % cases such as: parameterSources(6,[..,return,..]).
@@ -163,10 +164,10 @@ includes(return(Service), Dataset, Context) :-
 	interfacesOn(_Container,Interface,Context),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
-        parameterSources(Pair,ParameterNames),
-        member(return, ParameterNames),
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+        parameterSources(Pair,ParameterNames),
+        member(return, ParameterNames).
 
 % TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
 includesCall(Service, Dataset,Context) :-
@@ -174,19 +175,19 @@ includesCall(Service, Dataset,Context) :-
         interfacesOn(_Container,Interface,Context),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
-        parameterSources(Pair,ParameterNames),
-        member(call, ParameterNames),
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+        parameterSources(Pair,ParameterNames),
+        member(call, ParameterNames).
 includesCall(Service, Dataset,Context) :-
         hasService(Interface,Service),
         interfacesOn(_Container,Interface,Context),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
-        parameterSources(Pair,ParameterNames),
-        member(*, ParameterNames),
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+        parameterSources(Pair,ParameterNames),
+        member(*, ParameterNames).
 
 
 
@@ -215,51 +216,70 @@ includes(parm(Service,ParameterName), Dataset, Context) :-
         parametersAndDataPairs(Service, OriginalPairs),
         member(OriginalPair,OriginalPairs),
 
-        parameterSources(Pair,ParameterNames),
-        member(ParameterName, ParameterNames),
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+	
+        parameterSources(Pair,ParameterNames),
+        member(ParameterName, ParameterNames).
 
 % cases such as: parameterSources(6,[..,*,..]).
 includes(parm(Service,ParameterName), Dataset, Context) :-
         hasParameter(Service, parm(Service,ParameterName)),
 	hasService(Interface,Service),
+	
         connectorSpecificParametersAndDataPairs(Connector,Pairs),
         contextOfConnector(Connector, Context,Interface),
+	
         member(Pair, Pairs),
+	
         originalParametersAndDataPair(Pair,OriginalPair),
         parametersAndDataPairs(Service, OriginalPairs),
         member(OriginalPair,OriginalPairs),
-        parameterSources(Pair,ParameterNames),
-        member(*, ParameterNames),
+	
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+	
+        parameterSources(Pair,ParameterNames),
+        member(*, ParameterNames).
+
 includes(return(Service), Dataset, Context) :-
 	returnParameter(Service, return(Service)),
 	hasService(Interface,Service),
+	
         connectorSpecificParametersAndDataPairs(Connector,Pairs),
         contextOfConnector(Connector, Context,Interface),
+	
         member(Pair, Pairs),
+	
         originalParametersAndDataPair(Pair,OriginalPair),
         parametersAndDataPairs(Service, OriginalPairs),
         member(OriginalPair,OriginalPairs),
-        parameterSources(Pair,ParameterNames),
-        member(*, ParameterNames),
+	
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+	
+        parameterSources(Pair,ParameterNames),
+        member(*, ParameterNames).
+	
 includes(sizeOf(return(Service)), Dataset, Context) :-
 	returnParameter(Service, sizeOf(return(Service))),
 	hasService(Interface,Service),
+	
         connectorSpecificParametersAndDataPairs(Connector,Pairs),
         contextOfConnector(Connector, Context,Interface),
+	
         member(Pair, Pairs),
+	
         originalParametersAndDataPair(Pair,OriginalPair),
         parametersAndDataPairs(Service, OriginalPairs),
         member(OriginalPair,OriginalPairs),
-        parameterSources(Pair,ParameterNames),
-        member(*, ParameterNames),
+	
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+	
+        parameterSources(Pair,ParameterNames),
+        member(*, ParameterNames).
+
 
 
 % cases such as: parameterSources(6,[..,sizeOf(*),..]).
@@ -275,11 +295,13 @@ includes(parm(Service,sizeOf(ParameterName)), Dataset,Context) :-
         originalParametersAndDataPair(Pair,OriginalPair),
         parametersAndDataPairs(Service, OriginalPairs),
         member(OriginalPair,OriginalPairs),
+	
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets),
 
 	parameterSources(Pair,ParameterNames),
-        member(sizeOf(*), ParameterNames),
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(sizeOf(*), ParameterNames).
+	
 includes(sizeOf(return(Service)), Dataset,Context) :-
 	returnParameter(Service, sizeOf(return(Service))),
 	hasService(Interface,Service),
@@ -292,11 +314,12 @@ includes(sizeOf(return(Service)), Dataset,Context) :-
         originalParametersAndDataPair(Pair,OriginalPair),
         parametersAndDataPairs(Service, OriginalPairs),
         member(OriginalPair,OriginalPairs),
+	
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets),
 
 	parameterSources(Pair,ParameterNames),
-        member(sizeOf(*), ParameterNames),
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(sizeOf(*), ParameterNames).
 
 
 % cases such as: parameterSources(6,[..,return,..]).
@@ -313,10 +336,12 @@ includes(return(Service), Dataset, Context) :-
         parametersAndDataPairs(Service, OriginalPairs),
         member(OriginalPair,OriginalPairs),
 
-        parameterSources(Pair,ParameterNames),
-        member(return, ParameterNames),
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+
+        parameterSources(Pair,ParameterNames),
+        member(return, ParameterNames).
+	
 
 % TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
 includesCall(Service, Dataset,Context) :-
@@ -330,11 +355,13 @@ includesCall(Service, Dataset,Context) :-
         originalParametersAndDataPair(Pair,OriginalPair),
         parametersAndDataPairs(Service, OriginalPairs),
         member(OriginalPair,OriginalPairs),
+	
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets),
 
         parameterSources(Pair,ParameterNames),
-        member(call, ParameterNames),
-        dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(call, ParameterNames).
+	
 includesCall(Service, Dataset,Context) :-
         hasService(Interface,Service),
 
@@ -347,10 +374,11 @@ includesCall(Service, Dataset,Context) :-
         parametersAndDataPairs(Service, OriginalPairs),
         member(OriginalPair,OriginalPairs),
 
-        parameterSources(Pair,ParameterNames),
-        member(*, ParameterNames),
         dataTargets(Pair, Datasets),
-        member(Dataset, Datasets).
+        member(Dataset, Datasets),
+
+        parameterSources(Pair,ParameterNames),
+        member(*, ParameterNames).
 
 
 
