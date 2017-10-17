@@ -1,8 +1,17 @@
 :- export  % Predicates
+           withVar/2,
+           specificationParameterEquivalences/1,
+           specificationParameterEquivalencesWithAssignments/1,
+           equal/2,
+           specificationParametersAt/3,             % specificationParametersAt(AssemblyContext, Interface, SpecificationParameter).
+           assigned/2,                              % assigned((AssemblyContext, Interface, SpecificationParameter), Key)
            uiInterfaceOn/2,                         % uiInterfaceOn(ResourceContainer,Interface)
            mayknow/2,             % mayknow(Attacker,DataSet)
            includes/3,                      % includes(Parameter,DataSet)
            includesCall/3,                  % includesCall(Service,DataSet m)
+           mylookup/3,
+           unifyAll/2,
+           lookupDataSets/3,
 
            tamperingAbilities/3,                    % tamperingAbilities(Attacker,Location,TamperingAbility)
            locationsAccessibleBy/2,                 % locationsAccessibleBy(Attacker,Location)

@@ -1,6 +1,6 @@
 :- export  % Predicates
         assignments/2,                              % assignements(informationFlowParameterAssignment, [DataSetMapParameter2KeyAssignment])
-        assignedKey/2,                              % assignedKey(dataSetMapParameter2KeyAssignment,[A]).
+        assignedKey/2,                              % assignedKey(dataSetMapParameter2KeyAssignment,["A"]).
         adversary/1,                                % adversary(Attacker)
         allocationContext/1,                        % allocationContext(AllocationContext)
         assemblyConnector/1,                        % assemblyConnector(Connector)
@@ -17,13 +17,15 @@
         dataSetMapParameter2KeyAssignment/1,        % dataSetMapParameter2KeyAssignment(DataSetMapParameter2KeyAssignment).
 	description/3,
         encapsulatedComponent/2,                    % encapsulatedComponent(AssemblyContext,[Component])
-        equations/2,                                % equations(InformationFlowParameterEquation, [SpecificationParameterEquation]),
+        equations/2,                                % equations(AssemblyContext, [SpecificationParameterEquation]),
         innerProvidedRole/2,                        % innerProvidedRole(Connector,[InnerProvidedRole])
         linkingResource/1,                          % linkingResource(LinkingResource)
+        leftInterfaces/2,                           % leftInterfaces(SpecificationParameterEquation, [Interface])
         location/1,                                 % location(Location)
         locations/2,                                % locations(LocationsAndTamperProtectionsPair,Locations),
         locationsAndTamperProtectionsPairs/2,       % locationsAndTamperProtectionsPairs(LinkingResource,LocationsAndTamperProtectionsPairs),
         mayKnowData/2,                              % mayKnowData(Attacker, Datasets)
+	nameFor/2,                                  % nameFor(DatasetMapEntry, ["A"]).
         operationProvidedRole/1,                    % operationProvidedRole(InnerProvidedRole)
         operationRequiredRole/1,                    % operationRequiredRole(InnerRequiredRole)
 	originalParametersAndDataPair/2,            % originalParametersAndDataPair(ConnectorSpecificPair, OriginalPair)
@@ -38,19 +40,21 @@
         providedRole/2,                             % providedRole(Connector, [ProvidedRole]),
         providedRoles/2,                            % providedRoles(Component,Roles)
         providingAssemblyContext/2,                 % providingAssemblyContext(Connector, [ProvidingContext])
-        providedSpecificationParameter/2,           % providedSpecificationParameter(SpecificationParameterEquation, [SpecificationParameter]).
+        leftSpecificationParameter/2,               % leftSpecificationParameter(SpecificationParameterEquation, [SpecificationParameter]).
         requiredDelegationConnector/1,              % providedDelegationConnector(Connector)
         requiredInterface/2,                        % requiredInterface(Role,Interface)
         requiredRole/2,                             % requiredRole(Connector, [RequiredRole])
         requiredRoles/2,                            % requiredRoles(Component,Roles)
         requiringAssemblyContext/2,                 % requiringAssemblyContext(Connector, [RequiringContext])
-        requiredSpecificationParameter/2,           % requiredSpecificationParameter(SpecificationParameterEquation, [SpecificationParameter]).
+        rightSpecificationParameter/2,              % rightSpecificationParameter(SpecificationParameterEquation, [SpecificationParameter]).
         resourceContainer/1,                        % resourceContainer(Container)
         resourceContainer/2,                        % resourceContainer(AllocationContext,Container)
         returnType/2,	                            % returnType(Service,Type)
+        rightInterfaces/2,                          % rightInterfaces(SpecificationParameterEquation, [Interface])
 	serviceParameters/2,                        % serviceParameters(Interface,ServiceParameters)
         specificationParameterEquation/1,           % specificationParameterEquation(SpecificationParameterEquation)
         specificationParameter/1,                   % specificationParameter(SpecificationParameter)
+        specificationParameters/2,                  % specificationParameters(Interface,[SpecificationParameter]).
         specificationParametersToReplace/2,         % specificationParametersToReplace(DataSetMapParameter2KeyAssignment, [SpecificationParameter])
         signatures/2,                               % signatures(Interface,Services)
         sharing/2,                                  % sharing(Container,[Mode]) % TODO: fix the situation where a predicate sharing/2 is also defined elsewhere
@@ -71,7 +75,6 @@
         addedServiceParameters/2,
 	collectionDataType/1,                       %
 	compositeDataType/1,                        %
-        confidentialitySpecification/2,             %
 %         dataType/2,                                 % dataType(Parameter,Type)
 %         innerRequiredRole/2,                        % innerProvidedRole(Connector,InnerRequiredRole)
         parameter/1,                                % parameter(ParameterName)

@@ -54,6 +54,8 @@ fake_usage :-
         sizeOf(_,_),
         sizeOfParameter(_),
         system(_),
+        specificationParameterEquations(_,_),
+        specificationParameterAssignments(_,_),
         tamperProtection(_),
 
         shared = shared, exclusive = exclusive,

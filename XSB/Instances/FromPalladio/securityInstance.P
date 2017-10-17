@@ -31,11 +31,26 @@
            linkingResource/1,
            sharing/2,
            dataSet/1,
+           leftInterfaces/2,
+           rightInterfaces/2,
+           rightSpecificationParameter/2,
+           leftSpecificationParameter/2,
+           specificationParametersToReplace/2,
+           assignedKey/2,
+           equations/2,
 	   connectorSpecificParametersAndDataPairs/2,
 	   originalParametersAndDataPair/2,
            requiringAssemblyContext/2,
 	   providingAssemblyContext/2,
+           innerRequiredRole/2,
+           requiredDelegationConnector/1,
+           innerProvidedRole/2,
+           providedDelegationConnector/1,
+           assignments/2,
+           assemblyConnector/1,
 
+	   parameterizedDataSetMapEntry/1,
+	   parameter/2,
 	   sizeOf/1,
 	   call/0,
 	   return/0
@@ -60,6 +75,126 @@ justify_pred(dataset(_)).
 justify_pred(attacker(_)).
 
 isLocation(Location) :- location(Location).
+
+
+lookupDataSets(Context, Interface, Dataset) :-
+        hasService(Interface,Service),
+        interfacesOn(_Container,Interface,Context),
+        parametersAndDataPairs(Service, Pairs),
+        member(Pair, Pairs),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets).
+
+
+
+% specificationParametersAt(AssemblyContext,SpecificationParameter).
+specificationParametersAt(AssemblyContext, Interface, SpecificationParameter) :-
+	parameterizedDataSetMapEntry(DataSet),
+	lookupDataSets(AssemblyContext, Interface, DataSet),
+	parameter(DataSet,SpecificationParameters),
+	member(SpecificationParameter, SpecificationParameters).
+
+withVar([],[]).
+withVar([X|XS], [(X,_Y)|WV]) :- withVar(XS, WV).
+
+equal((AssemblyContext, Interface1,  SpecificationParameter1), (AssemblyContext, Interface2,  SpecificationParameter2)) :-
+	equations(AssemblyContext, Equations),
+	member(Equation, Equations),
+	% specificationParameterEquation(Equation),
+	leftSpecificationParameter(Equation, [SpecificationParameter1]),
+	rightSpecificationParameter(Equation, [SpecificationParameter2]),
+	leftInterfaces(Equation,LeftInterfaces),
+	member(Interface1, LeftInterfaces),
+	rightInterfaces(Equation,RightInterfaces),
+	member(Interface2, RightInterfaces).
+equal((AssemblyContext1, Interface,  SpecificationParameter), (AssemblyContext2, Interface,  SpecificationParameter)) :-
+	assemblyConnector(Connector),
+	requiringAssemblyContext(Connector, AssemblyContexts1),
+	member(AssemblyContext1,  AssemblyContexts1),
+	requiredRole(Connector, Roles1), member(Role1, Roles1), requiredInterface(Role1, Interfaces1), member(Interface, Interfaces1),
+	providingAssemblyContext(Connector, AssemblyContexts2),
+	member(AssemblyContext2,  AssemblyContexts2),
+	providedRole(Connector, Roles2), member(Role2, Roles2), providedInterface(Role2, Interfaces2), member(Interface, Interfaces2),
+	specificationParametersAt(AssemblyContext1, Interface, SpecificationParameter),
+	specificationParametersAt(AssemblyContext2, Interface, SpecificationParameter).
+	
+assigned((AssemblyContext, Interface, SpecificationParameter), Key) :-
+	(  assemblyConnector(Connector)
+	;  providedDelegationConnector(Connector)
+	;  requiredDelegationConnector(Connector)
+	),
+	assignments(Connector, Assignments),
+	member(Assignment, Assignments),
+	% dataSetMapParameter2KeyAssignment(Assignment),
+	assignedKey(Assignment, Key),
+	specificationParametersToReplace(Assignment,SpecificationParameters),
+	member(SpecificationParameter, SpecificationParameters),
+	(  (requiringAssemblyContext(Connector, Contexts), requiredRole(Connector, Roles),      member(Role, Roles), requiredInterface(Role, Interfaces))
+	;  (providingAssemblyContext(Connector, Contexts), providedRole(Connector, Roles),      member(Role, Roles), providedInterface(Role, Interfaces))
+	;  (providedDelegationConnector(Connector),
+	             assemblyContext(Connector, Contexts), innerProvidedRole(Connector, Roles), member(Role, Roles), providedInterface(Role, Interfaces)
+	          % ,                                      outerProvidedRole(Connector, Roles), member(Role, Roles), providedInterface(Role, Interfaces)
+	   )
+	;  (requiredDelegationConnector(Connector),
+	             assemblyContext(Connector, Contexts), innerRequiredRole(Connector, Roles), member(Role, Roles), requiredInterface(Role, Interfaces)
+	          % ,                                      outerRequiredRole(Connector, Roles), member(Role, Roles), requiredInterface(Role, Interfaces)
+	   )
+	),
+	member(AssemblyContext, Contexts),
+	member(Interface, Interfaces),
+	specificationParametersAt(AssemblyContext, Interface, SpecificationParameter).
+
+
+mylookup(K,[(K,V)|_], V) :- !.
+mylookup(K,[_|KVS], V) :- mylookup(K,KVS,V).
+
+
+specificationParameterEquivalences(WithVars) :-
+	setof((_AssemblyContext, _Interface, _SpecificationParameter), specificationParametersAt(_AssemblyContext, _Interface, _SpecificationParameter), _Parameters),
+	withVar(_Parameters, WithVars),
+	bagof(     (Left, Right),  equal(Left, Right), Equals),
+	unifyAll(WithVars, Equals).
+
+
+
+specificationParameterEquivalencesWithAssignments(WithVars) :-
+	specificationParameterEquivalences(WithVars),
+	bagof((Left, Key), assigned(Left, Key), Assignments),
+	assignAll(WithVars, Assignments).
+	
+
+unifyAll(_, []).
+unifyAll(WithVars, [(Left,Right)|Rest]) :-
+	mylookup(Left,  WithVars, Var1),
+	mylookup(Right, WithVars, Var2),
+	Var1 = Var2,
+	!,
+	unifyAll(WithVars, Rest).
+unifyAll(WithVars, [(_,_)|Rest]) :-
+	unifyAll(WithVars, Rest).
+
+
+assignAll(_, []).
+assignAll(WithVars, [(Left,Key)|Rest]) :-
+	mylookup(Left,  WithVars, Var),
+	Var = Key,
+	!,
+	assignAll(WithVars, Rest).
+assignAll(WithVars, [(_,_)|Rest]) :-
+	assignAll(WithVars, Rest).
+
+
+% unifyAll(WithVars, Var1, Var2) :-
+% 	% equal((AssemblyContext, Interface1,  SpecificationParameter1), (AssemblyContext, Interface2,  SpecificationParameter2)),
+% 	mylookup((AssemblyContext, Interface1,  SpecificationParameter1), WithVars, Var1),
+% 	mylookup((AssemblyContext, Interface2,  SpecificationParameter2), WithVars, Var2),
+% 	Var1 = Var2.
+% 	% unify(((AssemblyContext, Interface1,  SpecificationParameter1), Var1),
+% 	%       ((AssemblyContext, Interface2,  SpecificationParameter2), Var2)).
+
+
+
+
 
 % TODO: there currently appears to be no palladio stereotype corresponding to uiInterfaceOn, as was required in the paper submission.
 % Instead, i consider every interface provided by the system as an uiInterface. Isn't this what we want?
