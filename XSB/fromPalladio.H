@@ -25,6 +25,7 @@
         locations/2,                                % locations(LocationsAndTamperProtectionsPair,Locations),
         locationsAndTamperProtectionsPairs/2,       % locationsAndTamperProtectionsPairs(LinkingResource,LocationsAndTamperProtectionsPairs),
         mayKnowData/2,                              % mayKnowData(Attacker, Datasets)
+	map/2,                                      % map(ParameterizedDataSetMapEntry, DataSetMap)
 	nameFor/2,                                  % nameFor(DatasetMapEntry, ["A"]).
         operationProvidedRole/1,                    % operationProvidedRole(InnerProvidedRole)
         operationRequiredRole/1,                    % operationRequiredRole(InnerRequiredRole)
@@ -97,7 +98,6 @@
         linkingResources/2,
         locationsAndTamperProtectionsPair/1,
         confidentialitySpecification/1,
-	map/2,                                      % map(ParameterizedDataSetMapEntry, DataSetMap)
         operationInterface/1,
         operationSignature/1,
         parameter/1,

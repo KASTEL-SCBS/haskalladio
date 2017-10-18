@@ -29,7 +29,7 @@ FROMPALLADIO_FACTS_EXAMPLE=Instances/FromPalladio/edu.kit.kastel.scbs.paperexamp
 FROMPALLADIO_FACTS_TRAVELPLANNER=Instances/FromPalladio/edu.kit.kastel.scbs.travelplanner/src-gen/fromPalladio.P
 FROMPALLADIO_FACTS_EMPTY=Instances/FromPalladio/empty.P
 FROMPALLADIO_PREFIX=Instances/FromPalladio/fromPalladio.P.prefix
-INSTANCE_SYMLINKS=componentRepositoryInstance.P palladioInstance.P securityInstance.P simpleLinkModelInstance.P descriptionInstance.P
+INSTANCE_SYMLINKS=componentRepositoryInstance.P palladioInstance.P securityInstance.P simpleLinkModelInstance.P descriptionInstance.P worldInstance.P
 LINKMODEL_SYMLINK=linkModel.P
 FROMPALLADIO=fromPalladio.P
 SOURCES=$(INSTANCE_SYMLINKS) $(LINKMODEL_SYMLINK) $(FROMPALLADIO) abstractAnalysis.P  queries.P  security.P palladio.P
@@ -67,7 +67,7 @@ listFacts.result: $(XWAMS)
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[listFacts],listFacts,halt." > $@
 
 queries.result: $(XWAMS)
-	$(XSB) $(XSB_OPTIONS_QUIET) -e "[queries],nojustify6,halt." > $@
+	$(XSB) $(XSB_OPTIONS_QUIET) -e "[queries],(nojustify6 ; halt)." > $@
 
 queries-justify.result.pretty: Prettyprint.hs queries-justify.result descriptions.result
 	$(RUNGHC) $^ > $@
@@ -85,13 +85,13 @@ queries-justify.result.pretty.simplified: Simplify.hs queries-justify.result
 
 
 queries-justify.result: all_jxm.xwam all.xwam
-	$(XSB) $(XSB_OPTIONS_QUIET) -e "[basics],[all_jxm],[all],justify6,halt." > $@
+	$(XSB) $(XSB_OPTIONS_QUIET) -e "[basics],[all_jxm],[all],(justify6 ; halt)." > $@
 
 test-queries-justify: all_jxm.xwam all.xwam
 	rlwrap $(XSB) -e "[basics],[all_jxm],[all]."
 
 test: clean symlinks
-	rlwrap $(XSB) -e "[basics],[security],[securityInstance], [palladio], [componentRepositoryInstance], [abstractAnalysis],[descriptionInstance],[util],[fromPalladio]."
+	rlwrap $(XSB) -e "[basics],[security],[securityInstance], [palladio], [componentRepositoryInstance], [abstractAnalysis],[descriptionInstance],[util],[fromPalladio],[worldInstance]."
 
 
 

@@ -16,6 +16,7 @@ requiredDelegationConnector(_) :- fail.
 dataSetMapEntry(_) :- fail.
 sharing(_,_) :- fail. % see "default-rule" for sharingOf/2 in Instances/FromPalladio/securityInstance.P
 dataSetMap(_) :- fail.
+dataSet(_) :- fail.
 map(_,_) :- fail.
 compositeDataType(_) :- fail.
 connectorSpecificParametersAndDataPairs(_,_) :- fail.

@@ -1,7 +1,9 @@
+{-# LANGUAGE ScopedTypeVariables #-}
 module Prettyprint where 
 
 
 import Prelude
+import Data.Char(chr)
 import Data.Maybe (fromJust)
 import Data.List (find, intercalate, nub)
 import Data.Tree
@@ -27,7 +29,7 @@ languageDef =
             , Token.commentLine     = "//"
             , Token.identStart      = letter <|> char '_' <|> char '\\'
             , Token.identLetter     = alphaNum
-            , Token.reservedNames   = [ "length", "justify6","not", "*"]
+            , Token.reservedNames   = [ "length", "justify6","not", "*", "WORLD"]
             , Token.reservedOpNames = ["','", "=" ]
             }
 
@@ -56,6 +58,7 @@ data Assertion = Assertion Term
                | AbbreviatedProof Term Int
                | Not Assertion
                | NotEq [Term] [Term]
+               | World World
      deriving (Eq)
 type Term = Tree Atom
 
@@ -65,6 +68,7 @@ showTerm (Node f []) = f
 showTerm (Node f xs) = f ++ "(" ++ (intercalate "," (fmap showTerm xs)) ++ ")"
 
 instance Show Assertion where
+  show (World world) = showWorld world
   show (Assertion t) = showTerm t
   show (AbbreviatedProof t n) = "(" ++ (show n) ++ " proofs) " ++ showTerm t
   show (Not a)       = "not " ++ (show a)
@@ -168,7 +172,10 @@ showNodeFull descs root = do
 
 
 type Proof = Tree Assertion
-type AnalysisResult = [Proof]
+
+type AnalysisResult = [(World,[Proof])]
+type World = Term
+
 
 
 tFilter :: (a -> Bool) -> Tree a -> Tree a
@@ -176,20 +183,51 @@ tFilter f (Node x ts)
  | f x = Node x (fmap (tFilter f) ts)
  | otherwise = (Node x [])
 
+termFilter :: (Atom -> Bool) -> Proof -> Proof
+termFilter f (Node (World world)               ns) = Node (World world                          ) (fmap (termFilter f) ns)
+termFilter f (Node (Assertion        term    ) ns) = Node (Assertion        (tFilter f term))     (fmap (termFilter f) ns)
+termFilter f (Node (AbbreviatedProof term int) ns) = Node (AbbreviatedProof (tFilter f term) int) (fmap (termFilter f) ns)
+termFilter f (Node (Not assertion            ) ns) =let (Node result ns') = termFilter f (Node assertion ns) in
+                                                     Node (Not result) ns'
+termFilter f (Node (NotEq terms1 terms2      ) ns) = Node (NotEq (fmap (tFilter f) terms1)
+                                                                 (fmap (tFilter f) terms2)
+                                                          )                                       (fmap (termFilter f) ns)
 
 interestingOnly :: Proof -> Proof
-interestingOnly = tFilter noFreeIncludesNots
+interestingOnly = (tFilter noFreeIncludesNots) . (termFilter noWorlds)
   where noFreeIncludesNots node@(Not (Assertion (Node "includes" [Node _ _, Node ('_':_) _, Node _ _]))) = False
         noFreeIncludesNots _ = True
+        noWorlds "world" = False
+        noWorlds _       = True
 
 prettyPrint :: String -> String -> IO ()
 prettyPrint file descsFile =
-  forM_ (fmap drawTree $  fmap (fmap show) (fmap (insertDescriptions descs) $ fmap interestingOnly $ fromFile file)) putStrLn
+  forM_ worlds (\(world,proofs) -> do
+      -- putStrLn $ "WORLD: " ++ (drawTree $  fmap show  $ world)
+      putStrLn $ "WORLD:" ++ (showWorld world)
+      forM_ proofs (\proof -> do
+          putStrLn $ drawTree $  fmap show  $ insertDescriptions descs $ interestingOnly proof
+       )
+   )
  where descs = descriptionFromFile descsFile
+       worlds = fromFile file
+
+showWorld :: Term -> String
+showWorld (Node "world" [Node "list" subs]) = intercalate ", " $ fmap showSub subs
+  where showSub (Node "tuple"
+                  [Node "tuple" [Node context [], Node interface [], Node parameter []],
+                   Node "list" letters
+                  ]
+                ) = "(" ++ context ++ ", " ++ interface ++ ", " ++ parameter ++ ") ↦ " ++ (fmap toLetter letters)
+          where -- toLetter (Node "list" [Node letter []]) = chr (read letter :: Int)
+                toLetter (Node letter [])               = chr (read letter :: Int)
+                toLetter  x                             = error (show x)
+        showSub x = error (show x)
 
 insertDescriptions :: [Term] -> Proof -> Proof
 insertDescriptions descs proof = fmap f proof
-  where f (Assertion t)            = Assertion ((>>=) t g)
+  where f (World world)            = World world -- World ((>>=) world g)
+        f (Assertion t)            = Assertion ((>>=) t g)
         f (AbbreviatedProof t n)   = AbbreviatedProof ((>>=) t g) n
         f (Not a)         = Not (f a)
         f (NotEq ts1 ts2) = NotEq (fmap ((=<<) g) ts1) (fmap ((=<<) g) ts2)
@@ -217,15 +255,22 @@ descriptionParser = many lineParser
   where lineParser = term
   
 
-resultParser :: Parser AnalysisResult
-resultParser = do
-    reserved "justify6"
+worldParser :: Parser (World, [Proof])
+worldParser = do
+    reserved "WORLD"
     colon
+    world <- term
     result <- brackets $ do assertion `sepBy` (reservedOp ",")
     reserved "length"
     colon
     integer
-    return result
+    return (world, result)
+
+resultParser :: Parser AnalysisResult
+resultParser = do
+    reserved "justify6"
+    colon
+    many worldParser
 
 
 simple :: Parser Proof
@@ -263,7 +308,7 @@ star = do
   return "*"
 
 term :: Parser Term
-term = try normal <|> list
+term = try normal <|> (try list <|> tuple)
   where normal = do
                    f   <- identifier <|> (liftM show integer) <|> (char '\'' *> (many $ noneOf ['\'']) <* char '\'') <|> star
                    xs  <- option [] $ parens $ term `sepBy` comma
@@ -271,6 +316,9 @@ term = try normal <|> list
         list   = do
                    terms <- brackets $ term `sepBy` comma
                    return $ Node "list" terms
+        tuple  = do
+                   terms <- parens $ term `sepBy` (reserved "','" <|> void comma)
+                   return $ Node "tuple" terms
 
 parseString :: String -> AnalysisResult
 parseString str =

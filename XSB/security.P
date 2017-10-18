@@ -7,8 +7,8 @@
            furtherConnections/2,
            sharingOf/2,
            location/3,
-           includesCall/3,
-           includes/3,
+           includesCall/4,
+           includes/4,
            uiInterfaceOn/2,
            linkLocation/3
            from securityInstance.
@@ -25,7 +25,7 @@
 
 % BEGIN EXPORTS
 :- export  % Predicates
-           isInSecureWithRespectTo/1,               % isInSecureWithRespectTo(Attacker)
+           isInSecureWithRespectTo/2,               % isInSecureWithRespectTo(Attacker,World)
 
            containersFullyAccessibleBy/2,           % containersFullyAccessibleBy(Attacker,ResourceContainer)
            linksDataAccessibleBy/3,                 % linksDataAccessibleBy(Attacker,LinkingResource, Dataset)
@@ -36,8 +36,8 @@
            providedInterfacesAccessibleTo/3,        % providedInterfacesAccessibleTo(Attacker, Interface, AssemblyContext)
            requiredInterfacesAccessibleTo/3,        % requiredInterfacesAccessibleTo(Attacker, Interface, AssemblyContext)
 
-           parameterAllowedToBeAccessedBy/3,        % parameterAllowedToBeAccessedBy(Attacker, Parameter)
-           serviceAllowedToBeObservedBy/3,          % parameterAllowedToBeAccessedBy(Attacker, Parameter)
+           parameterAllowedToBeAccessedBy/4,        % parameterAllowedToBeAccessedBy(Attacker, Parameter, World)
+           serviceAllowedToBeObservedBy/4,          % parameterAllowedToBeAccessedBy(Attacker, Parameter, World)
 
            % Used Functors
            % Sharing = OpenShared | ControlledExclusive
@@ -48,32 +48,32 @@
            none/0.
 % END EXPORTS
 
-justify_pred(isInSecureWithRespectTo(_)).
+justify_pred(isInSecureWithRespectTo(_,_)).
 justify_pred(containersFullyAccessibleBy(_,_)).
 justify_pred(linksDataAccessibleBy(_,_,_)).
 justify_pred(linkAccessibleBy(_,_,_)).
 justify_pred(containersPhysicalAccessibleBy(_,_,_)).
 justify_pred(providedInterfacesAccessibleTo(_,_,_)).
 justify_pred(requiredInterfacesAccessibleTo(_,_,_)).
-justify_pred(serviceAllowedToBeObservedBy(_,_,_)).
-justify_pred(parameterAllowedToBeAccessedBy(_,_,_)).
+justify_pred(serviceAllowedToBeObservedBy(_,_,_,_)).
+justify_pred(parameterAllowedToBeAccessedBy(_,_,_,_)).
 
-isInSecureWithRespectTo(Attacker) :-
+isInSecureWithRespectTo(Attacker, World) :-
         accessibleParameters(Attacker,Parameter, Context),
-        not(parameterAllowedToBeAccessedBy(Attacker,Parameter, Context)).
+        not(parameterAllowedToBeAccessedBy(Attacker,Parameter, Context, World)).
 
-isInSecureWithRespectTo(Attacker) :-
+isInSecureWithRespectTo(Attacker, World) :-
         observableServices(Attacker,Service, Context),
-        not(serviceAllowedToBeObservedBy(Attacker,Service, Context)).
+        not(serviceAllowedToBeObservedBy(Attacker,Service, Context, World)).
 
 
-serviceAllowedToBeObservedBy(Attacker, Service, Context) :-
-        includesCall(Service, DataSet, Context),
+serviceAllowedToBeObservedBy(Attacker, Service, Context, World) :-
+        includesCall(Service, DataSet, Context, World),
         mayknow(Attacker, DataSet).
 
 
-parameterAllowedToBeAccessedBy(Attacker, Parameter, Context) :-
-        includes(Parameter, DataSet, Context),
+parameterAllowedToBeAccessedBy(Attacker, Parameter, Context, World) :-
+        includes(Parameter, DataSet, Context, World),
         mayknow(Attacker, DataSet).
 
 

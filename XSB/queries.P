@@ -1,28 +1,35 @@
 % BEGIN IMPORTS
 :- import attacker/1 from securityInstance.
-:- import isInSecureWithRespectTo/1 from security.
+:- import isInSecureWithRespectTo/2 from security.
 :- import length/2 from lists.
 :- import dataset/1 from securityInstance.
+:- import world/1 from worldInstance.
 % END IMPORTS
 
 :- set_xsb_flag(write_depth, 9999).
 
-justify_pred(query6(_)).
+justify_pred(query6(_,_)).
 
-query6(Attacker) :- attacker(Attacker), isInSecureWithRespectTo(Attacker).
+query6(Attacker,World) :- attacker(Attacker), isInSecureWithRespectTo(Attacker, World).
 
 nojustify6:-
         write('justify6:'),nl,
-        findall((Attacker), query6(Attacker), Bag),
+        findall((Attacker,World), query6(World,Attacker), Bag),
         length(Bag,L),
         write(Bag),nl,
         write('length:'), write(L), nl.
 justify6 :-
         write('justify6:'),nl,
-        findall((Attacker,E),
-        just_true(query6(Attacker),E),Bag),
+        world(World),
+        write('WORLD: '),write(World), nl,
+        findall(
+          (Attacker,E),
+          just_true(query6(Attacker,World),E),
+          Bag
+        ),
         length(Bag,L),
         write(Bag),nl,
-        write('length:'), write(L), nl.
+        write('length:'), write(L), nl,
+        fail.
 
 

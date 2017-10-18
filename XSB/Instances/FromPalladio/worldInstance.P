@@ -1,0 +1,6 @@
+% BEGIN IMPORTS
+:- import  sworld/1
+           from securityInstance.
+% END IMPORTS
+
+world(world(World)) :- sworld(World).
