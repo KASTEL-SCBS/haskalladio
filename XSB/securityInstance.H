@@ -12,6 +12,7 @@
            mylookup/3,
            unifyAll/2,
            lookupDataSets/3,
+           world/1,
 
            tamperingAbilities/3,                    % tamperingAbilities(Attacker,Location,TamperingAbility)
            locationsAccessibleBy/2,                 % locationsAccessibleBy(Attacker,Location)

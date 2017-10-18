@@ -48,6 +48,7 @@
            providedDelegationConnector/1,
            assignments/2,
            assemblyConnector/1,
+           nameFor/2,
 
 	   parameterizedDataSetMapEntry/1,
 	   parameter/2,
@@ -157,12 +158,33 @@ specificationParameterEquivalences(WithVars) :-
 
 
 
+
+
 specificationParameterEquivalencesWithAssignments(WithVars) :-
 	specificationParameterEquivalences(WithVars),
 	bagof((Left, Key), assigned(Left, Key), Assignments),
 	assignAll(WithVars, Assignments).
 	
 
+
+
+world(WithVars) :-
+	specificationParameterEquivalencesWithAssignments(WithVars),
+	generateWorld(WithVars).
+
+parameterValue(Value) :-
+	dataSetMapEntry(Entry),
+	nameFor(Entry, [Value]).
+generateWorld([]).
+generateWorld([((_AssemblyContext, _Interface, _SpecificationParameter), Key)|Rest]) :-
+	var(Key),
+	!,
+	parameterValue(Key),
+	generateWorld(Rest).
+generateWorld([((_AssemblyContext, _Interface, _SpecificationParameter), _  )|Rest]) :-
+	generateWorld(Rest).
+	
+	
 unifyAll(_, []).
 unifyAll(WithVars, [(Left,Right)|Rest]) :-
 	mylookup(Left,  WithVars, Var1),
