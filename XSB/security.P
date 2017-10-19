@@ -14,8 +14,8 @@
            from securityInstance.
 
 
-:- import  accessibleParameters/3,
-           observableServices/3
+:- import  accessibleParameters/4,
+           observableServices/4
            from abstractAnalysis.
 
 :- import  providedInterfacesOn/3,
@@ -59,11 +59,11 @@ justify_pred(serviceAllowedToBeObservedBy(_,_,_,_)).
 justify_pred(parameterAllowedToBeAccessedBy(_,_,_,_)).
 
 isInSecureWithRespectTo(Attacker, World) :-
-        accessibleParameters(Attacker,Parameter, Context),
+        accessibleParameters(Attacker,Parameter, Context, World),
         not(parameterAllowedToBeAccessedBy(Attacker,Parameter, Context, World)).
 
 isInSecureWithRespectTo(Attacker, World) :-
-        observableServices(Attacker,Service, Context),
+        observableServices(Attacker,Service, Context, World),
         not(serviceAllowedToBeObservedBy(Attacker,Service, Context, World)).
 
 

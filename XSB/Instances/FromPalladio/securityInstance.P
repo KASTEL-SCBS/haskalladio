@@ -153,17 +153,18 @@ mylookup(K,[_|KVS], V) :- mylookup(K,KVS,V).
 
 specificationParameterEquivalences(WithVars) :-
 	setof((_AssemblyContext, _Interface, _SpecificationParameter), specificationParametersAt(_AssemblyContext, _Interface, _SpecificationParameter), _Parameters),
+	!,
 	withVar(_Parameters, WithVars),
 	bagof(     (Left, Right),  equal(Left, Right), Equals),
 	unifyAll(WithVars, Equals).
-
+specificationParameterEquivalences([]).
 
 
 
 
 specificationParameterEquivalencesWithAssignments(WithVars) :-
 	specificationParameterEquivalences(WithVars),
-	bagof((Left, Key), assigned(Left, Key), Assignments),
+	findall((Left, Key), assigned(Left, Key), Assignments),
 	assignAll(WithVars, Assignments).
 	
 

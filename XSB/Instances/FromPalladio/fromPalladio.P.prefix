@@ -21,6 +21,9 @@ map(_,_) :- fail.
 compositeDataType(_) :- fail.
 connectorSpecificParametersAndDataPairs(_,_) :- fail.
 collectionDataType(_) :- fail.
+parameterizedDataSetMapEntry(_) :- fail.
+serviceParameters(_,_) :- fail.
+assignments(_,_) :- fail.
 
 % Suppress warnings wrt unused predicates:
 fake_usage :-
