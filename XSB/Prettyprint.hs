@@ -148,8 +148,9 @@ selectNode ((proofIndex, subGoalIndex):is) proofs = [ Node x (pre ++ [subproof] 
 
 showNode :: [Term] -> [(Int,Int)] -> [Proof] -> IO ()
 showNode descs ns proofs = do
-   forM_ (fmap drawTree $ fmap withLeafIndices $ zipWith withIndex [0..] $ fmap (fmap show) $  (fmap (insertDescriptions descs) $ fmap interestingOnly $ selected)) putStrLn
-  where selected = selectNode ns (fmap (\p -> Node (Assertion $ Node "x" []) [p]) proofs)
+   forM_ (fmap drawTree $ fmap withLeafIndices $ zipWith withIndex [0..] $ fmap (fmap show) $  selected) putStrLn
+  where processed = [ insertDescriptions descs $ interestingOnly $ proof  | proof <- proofs]
+        selected = selectNode ns (fmap (\p -> Node (Assertion $ Node "x" []) [p]) processed)
         withIndex i (Node x xs) = Node ("[" ++ show i ++ "] " ++ x) xs
 
         withLeafIndices (Node x xs)
@@ -221,8 +222,14 @@ showWorld (Node "world" [Node "list" subs]) = intercalate ", " $ fmap showSub su
                 ) = "(" ++ context ++ ", " ++ interface ++ ", " ++ parameter ++ ") ↦ " ++ (fmap toLetter letters)
           where -- toLetter (Node "list" [Node letter []]) = chr (read letter :: Int)
                 toLetter (Node letter [])               = chr (read letter :: Int)
-                toLetter  x                             = error (show x)
-        showSub x = error (show x)
+                toLetter  x                             = error $ "toLetter " ++ (show x)
+        showSub (Node "tuple"
+                  [Node "tuple" [Node context [], Node interface [], Node parameter []],
+                   Node freeVar@('_':_) []
+                  ]
+                ) = "(" ++ context ++ ", " ++ interface ++ ", " ++ parameter ++ ") ↦ " ++ freeVar
+        showSub x = error $ "showSub " ++ (show x)
+
 
 insertDescriptions :: [Term] -> Proof -> Proof
 insertDescriptions descs proof = fmap f proof

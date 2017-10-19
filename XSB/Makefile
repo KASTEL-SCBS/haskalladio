@@ -5,7 +5,7 @@ INSTANCE=Instances/FromPalladio
 LINKMODEL=simpleLinkModel.P
 
 # if INSTANCE==Instances/FromPalladio, specify the path to the exported facts file fromPalladio.P to be used:
-FROMPALLADIO_FACTS=$(FROMPALLADIO_FACTS_EXAMPLE)
+FROMPALLADIO_FACTS=$(FROMPALLADIO_FACTS_CLOUDSCENARIO_MINIMIZED)
 
 # path to the xsb binary, see http://xsb.sourceforge.net/
 # use version 3.5

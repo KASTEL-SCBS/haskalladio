@@ -7,13 +7,13 @@
            assigned/2,                              % assigned((AssemblyContext, Interface, SpecificationParameter), Key)
            uiInterfaceOn/2,                         % uiInterfaceOn(ResourceContainer,Interface)
            mayknow/2,             % mayknow(Attacker,DataSet)
-           includes/4,                      % includes(Parameter, DataSet, AssembluContext, World)
-           includesCall/4,                  % includesCall(Service, DataSet, AssembluContext, World)
+           includes/5,                      % includes(Parameter, DataSet, AssembluContext, World)
+           includesCall/5,                  % includesCall(Service, DataSet, AssembluContext, World)
            mylookup/3,
            unifyAll/2,
            lookupDataSets/3,
            sworld/1,
-           lookupDataSetParameterNames/5,
+           lookupDataSetParameterNames/6,
            dataSetMapEntryFor/2,
 
            tamperingAbilities/3,                    % tamperingAbilities(Attacker,Location,TamperingAbility)
