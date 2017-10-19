@@ -60,6 +60,8 @@
 	   hasService/2,
            hasParameter/2
            from componentRepositoryInstance.
+:- import  world/1
+           from worldInstance.
 % END IMPORTS
 
 justify_pred(mayknow(_,_)).
@@ -297,7 +299,7 @@ dataSetMapEntryFor((DataSetRef, ParameterValue), DataSetMapEntry) :-
 	map(DataSetRef,      [Parameterized]),
 	map(DataSetMapEntry, [Parameterized]),
 	dataSetMapEntry(DataSetMapEntry),
-	nameFor(DataSetMapEntry, ParameterValue).
+	nameFor(DataSetMapEntry, [ParameterValue]).
 
 lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, world(World)) :-
         hasService(Interface,Service),

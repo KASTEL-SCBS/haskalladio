@@ -14,6 +14,7 @@
            lookupDataSets/3,
            sworld/1,
            lookupDataSetParameterNames/5,
+           dataSetMapEntryFor/2,
 
            tamperingAbilities/3,                    % tamperingAbilities(Attacker,Location,TamperingAbility)
            locationsAccessibleBy/2,                 % locationsAccessibleBy(Attacker,Location)
