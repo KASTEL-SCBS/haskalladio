@@ -1,638 +1,466 @@
 
-/** BEGIN informationFlowParameterAssignment, ID: '50', NAME: 'null' */
-description(50,'null','informationFlowParameterAssignment').
-/** END informationFlowParameterAssignment, ID: '50', NAME: 'null' */
+/** BEGIN informationFlowParameterAssignment, ID: '56', NAME: 'null' */
+description(56,'null','informationFlowParameterAssignment').
+assignments(56,[59]).
+/** END informationFlowParameterAssignment, ID: '56', NAME: 'null' */
 
 
-/** BEGIN resourceEnvironment, ID: '54', NAME: 'aName' */
-description(54,'aName','resourceEnvironment').
-resourceEnvironment(54).
-linkingResources(54,[55]).
-resourceContainer(54,[56,57]).
+/** BEGIN resourceEnvironment, ID: '60', NAME: 'aName' */
+description(60,'aName','resourceEnvironment').
+resourceEnvironment(60).
+linkingResources(60,[61]).
+resourceContainer(60,[62,63]).
 
-/** BEGIN linkingResource, ID: '55', NAME: 'Internet' */
-description(55,'Internet','linkingResource').
-linkingResource(55).
-connectedResourceContainers(55,[57,56]).
-communicationLinkResourceSpecifications(55,[]).
-/** END linkingResource, ID: '55', NAME: 'Internet' */
-
-
-/** BEGIN resourceContainer, ID: '56', NAME: 'CloudContainer' */
-description(56,'CloudContainer','resourceContainer').
-resourceContainer(56).
-/** END resourceContainer, ID: '56', NAME: 'CloudContainer' */
+/** BEGIN linkingResource, ID: '61', NAME: 'Internet' */
+description(61,'Internet','linkingResource').
+linkingResource(61).
+connectedResourceContainers(61,[63,62]).
+communicationLinkResourceSpecifications(61,[]).
+/** END linkingResource, ID: '61', NAME: 'Internet' */
 
 
-/** BEGIN resourceContainer, ID: '57', NAME: 'UserContainer' */
-description(57,'UserContainer','resourceContainer').
-resourceContainer(57).
-/** END resourceContainer, ID: '57', NAME: 'UserContainer' */
-
-/** END resourceEnvironment, ID: '54', NAME: 'aName' */
+/** BEGIN resourceContainer, ID: '62', NAME: 'CloudContainer' */
+description(62,'CloudContainer','resourceContainer').
+resourceContainer(62).
+/** END resourceContainer, ID: '62', NAME: 'CloudContainer' */
 
 
-/** BEGIN serviceParameterAddition, ID: '30', NAME: 'null' */
-description(30,'null','serviceParameterAddition').
-serviceParameters(30,[10]).
-/** END serviceParameterAddition, ID: '30', NAME: 'null' */
+/** BEGIN resourceContainer, ID: '63', NAME: 'UserContainer' */
+description(63,'UserContainer','resourceContainer').
+resourceContainer(63).
+/** END resourceContainer, ID: '63', NAME: 'UserContainer' */
+
+/** END resourceEnvironment, ID: '60', NAME: 'aName' */
 
 
-/** BEGIN serviceParameterAddition, ID: '31', NAME: 'null' */
-description(31,'null','serviceParameterAddition').
-serviceParameters(31,[10]).
-/** END serviceParameterAddition, ID: '31', NAME: 'null' */
+/** BEGIN serviceParameterAddition, ID: '26', NAME: 'null' */
+description(26,'null','serviceParameterAddition').
+serviceParameters(26,[46]).
+/** END serviceParameterAddition, ID: '26', NAME: 'null' */
 
 
-/** BEGIN informationFlowParameter, ID: '30', NAME: 'null' */
-description(30,'null','informationFlowParameter').
-/** END informationFlowParameter, ID: '30', NAME: 'null' */
+/** BEGIN serviceParameterAddition, ID: '27', NAME: 'null' */
+description(27,'null','serviceParameterAddition').
+serviceParameters(27,[46]).
+/** END serviceParameterAddition, ID: '27', NAME: 'null' */
 
 
-/** BEGIN informationFlowParameter, ID: '31', NAME: 'null' */
-description(31,'null','informationFlowParameter').
-/** END informationFlowParameter, ID: '31', NAME: 'null' */
+/** BEGIN informationFlowParameter, ID: '26', NAME: 'null' */
+description(26,'null','informationFlowParameter').
+specificationParameters(26,[47,48]).
+/** END informationFlowParameter, ID: '26', NAME: 'null' */
 
 
-/** BEGIN informationFlow, ID: '30', NAME: 'null' */
-parametersAndDataPairs(35,[6, 7]).
-parametersAndDataPairs(36,[6, 7]).
-parametersAndDataPairs(37,[6, 7]).
-parametersAndDataPairs(38,[6, 7]).
-/** END informationFlow, ID: '30', NAME: 'null' */
+/** BEGIN informationFlowParameter, ID: '27', NAME: 'null' */
+description(27,'null','informationFlowParameter').
+specificationParameters(27,[47,48]).
+/** END informationFlowParameter, ID: '27', NAME: 'null' */
 
 
-/** BEGIN informationFlow, ID: '31', NAME: 'null' */
-parametersAndDataPairs(42,[6, 7]).
-parametersAndDataPairs(43,[6, 7]).
-parametersAndDataPairs(44,[6, 7]).
-parametersAndDataPairs(45,[6, 7]).
-/** END informationFlow, ID: '31', NAME: 'null' */
+/** BEGIN informationFlow, ID: '26', NAME: 'null' */
+parametersAndDataPairs(31,[49, 50]).
+parametersAndDataPairs(32,[49, 50]).
+parametersAndDataPairs(33,[49, 50]).
+parametersAndDataPairs(34,[49, 50]).
+/** END informationFlow, ID: '26', NAME: 'null' */
 
 
-/** BEGIN informationFlow, ID: '37', NAME: 'null' */
-description(37,'null','informationFlow').
-parametersAndDataPairs(37,[8]).
-/** END informationFlow, ID: '37', NAME: 'null' */
+/** BEGIN informationFlow, ID: '27', NAME: 'null' */
+parametersAndDataPairs(41,[49, 50]).
+parametersAndDataPairs(42,[49, 50]).
+parametersAndDataPairs(43,[49, 50]).
+parametersAndDataPairs(44,[49, 50]).
+/** END informationFlow, ID: '27', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '33', NAME: 'null' */
+description(33,'null','informationFlow').
+parametersAndDataPairs(33,[51]).
+/** END informationFlow, ID: '33', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '43', NAME: 'null' */
+description(43,'null','informationFlow').
+parametersAndDataPairs(43,[51]).
+/** END informationFlow, ID: '43', NAME: 'null' */
+
+
+/** BEGIN informationFlow, ID: '34', NAME: 'null' */
+description(34,'null','informationFlow').
+parametersAndDataPairs(34,[52]).
+/** END informationFlow, ID: '34', NAME: 'null' */
 
 
 /** BEGIN informationFlow, ID: '44', NAME: 'null' */
 description(44,'null','informationFlow').
-parametersAndDataPairs(44,[8]).
+parametersAndDataPairs(44,[52]).
 /** END informationFlow, ID: '44', NAME: 'null' */
 
 
-/** BEGIN informationFlow, ID: '38', NAME: 'null' */
-description(38,'null','informationFlow').
-parametersAndDataPairs(38,[9]).
-/** END informationFlow, ID: '38', NAME: 'null' */
+/** BEGIN allocation, ID: '66', NAME: 'defaultAllocation' */
+description(66,'defaultAllocation','allocation').
+allocation(66).
+allocationContexts(66,[67,68]).
 
+/** BEGIN allocationContext, ID: '67', NAME: 'Allocation_Assembly_CloudStorage <CloudStorage> <CloudStorage>' */
+description(67,'Allocation_Assembly_CloudStorage <CloudStorage> <CloudStorage>','allocationContext').
+allocationContext(67).
+resourceContainer(67,[62]).
+assemblyContext_AllocationContext(67,[54]).
+/** END allocationContext, ID: '67', NAME: 'Allocation_Assembly_CloudStorage <CloudStorage> <CloudStorage>' */
 
-/** BEGIN informationFlow, ID: '45', NAME: 'null' */
-description(45,'null','informationFlow').
-parametersAndDataPairs(45,[9]).
-/** END informationFlow, ID: '45', NAME: 'null' */
 
+/** BEGIN allocationContext, ID: '68', NAME: 'Allocation_Assembly_FileManager <FileManager> <FileManager>' */
+description(68,'Allocation_Assembly_FileManager <FileManager> <FileManager>','allocationContext').
+allocationContext(68).
+resourceContainer(68,[63]).
+assemblyContext_AllocationContext(68,[55]).
+/** END allocationContext, ID: '68', NAME: 'Allocation_Assembly_FileManager <FileManager> <FileManager>' */
 
-/** BEGIN allocation, ID: '58', NAME: 'defaultAllocation' */
-description(58,'defaultAllocation','allocation').
-allocation(58).
-allocationContexts(58,[59,60]).
+/** END allocation, ID: '66', NAME: 'defaultAllocation' */
 
-/** BEGIN allocationContext, ID: '59', NAME: 'Allocation_Assembly_CloudStorage <CloudStorage> <CloudStorage>' */
-description(59,'Allocation_Assembly_CloudStorage <CloudStorage> <CloudStorage>','allocationContext').
-allocationContext(59).
-resourceContainer(59,[56]).
-assemblyContext_AllocationContext(59,[48]).
-/** END allocationContext, ID: '59', NAME: 'Allocation_Assembly_CloudStorage <CloudStorage> <CloudStorage>' */
 
+/** BEGIN locationAndTamperProtection, ID: '61', NAME: 'null' */
+description(61,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(61,[64]).
+/** END locationAndTamperProtection, ID: '61', NAME: 'null' */
 
-/** BEGIN allocationContext, ID: '60', NAME: 'Allocation_Assembly_FileManager <FileManager> <FileManager>' */
-description(60,'Allocation_Assembly_FileManager <FileManager> <FileManager>','allocationContext').
-allocationContext(60).
-resourceContainer(60,[57]).
-assemblyContext_AllocationContext(60,[49]).
-/** END allocationContext, ID: '60', NAME: 'Allocation_Assembly_FileManager <FileManager> <FileManager>' */
 
-/** END allocation, ID: '58', NAME: 'defaultAllocation' */
+/** BEGIN sharing, ID: '62', NAME: 'null' */
+description(62,'null','sharing').
+sharing(62,[exclusive]).
+/** END sharing, ID: '62', NAME: 'null' */
 
 
-/** BEGIN locationAndTamperProtection, ID: '55', NAME: 'null' */
-description(55,'null','locationAndTamperProtection').
-locationsAndTamperProtectionsPairs(55,[19]).
-/** END locationAndTamperProtection, ID: '55', NAME: 'null' */
+/** BEGIN locationAndTamperProtection, ID: '62', NAME: 'null' */
+description(62,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(62,[65]).
+/** END locationAndTamperProtection, ID: '62', NAME: 'null' */
 
 
-/** BEGIN sharing, ID: '56', NAME: 'null' */
-description(56,'null','sharing').
-sharing(56,[exclusive]).
-/** END sharing, ID: '56', NAME: 'null' */
+/** BEGIN furtherPhysicalConnections, ID: '62', NAME: 'null' */
+description(62,'null','furtherPhysicalConnections').
+connectionType(62,[possible]).
+/** END furtherPhysicalConnections, ID: '62', NAME: 'null' */
 
 
-/** BEGIN locationAndTamperProtection, ID: '56', NAME: 'null' */
-description(56,'null','locationAndTamperProtection').
-locationsAndTamperProtectionsPairs(56,[18]).
-/** END locationAndTamperProtection, ID: '56', NAME: 'null' */
+/** BEGIN sharing, ID: '63', NAME: 'null' */
+description(63,'null','sharing').
+sharing(63,[shared]).
+/** END sharing, ID: '63', NAME: 'null' */
 
 
-/** BEGIN furtherPhysicalConnections, ID: '56', NAME: 'null' */
-description(56,'null','furtherPhysicalConnections').
-connectionType(56,[possible]).
-/** END furtherPhysicalConnections, ID: '56', NAME: 'null' */
+/** BEGIN locationAndTamperProtection, ID: '63', NAME: 'null' */
+description(63,'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs(63,[]).
+/** END locationAndTamperProtection, ID: '63', NAME: 'null' */
 
 
-/** BEGIN sharing, ID: '57', NAME: 'null' */
-description(57,'null','sharing').
-sharing(57,[shared]).
-/** END sharing, ID: '57', NAME: 'null' */
+/** BEGIN system, ID: '53', NAME: 'minicloudSystem' */
+description(53,'minicloudSystem','system').
+system(53).
+assemblyContexts(53,[54,55]).
+connectors(53,[56,57]).
+providedRoles(53,[58]).
+requiredRoles(53,[]).
 
+/** BEGIN assemblyContext, ID: '54', NAME: 'Assembly_CloudStorage <CloudStorage>' */
+description(54,'Assembly_CloudStorage <CloudStorage>','assemblyContext').
+assemblyContext(54).
+encapsulatedComponent(54,[25]).
+/** END assemblyContext, ID: '54', NAME: 'Assembly_CloudStorage <CloudStorage>' */
 
-/** BEGIN locationAndTamperProtection, ID: '57', NAME: 'null' */
-description(57,'null','locationAndTamperProtection').
-locationsAndTamperProtectionsPairs(57,[]).
-/** END locationAndTamperProtection, ID: '57', NAME: 'null' */
 
+/** BEGIN assemblyContext, ID: '55', NAME: 'Assembly_FileManager <FileManager>' */
+description(55,'Assembly_FileManager <FileManager>','assemblyContext').
+assemblyContext(55).
+encapsulatedComponent(55,[24]).
+/** END assemblyContext, ID: '55', NAME: 'Assembly_FileManager <FileManager>' */
 
-/** BEGIN confidentialitySpecification, ID: '1', NAME: 'minimalcloud' */
-description(1,'minimalcloud','confidentialitySpecification').
-confidentialitySpecification(1).
-dataIdentifier(1,[2,3,4]).
-dataSetMaps(1,[5]).
-parametersAndDataPairs(1,[6,7,8,9]).
-addedServiceParameters(1,[10]).
-locations(1,[11,12,13,14]).
-tamperProtections(1,[15]).
-locationsAndTamperProtectionsPairs(1,[16,17,18,19]).
 
-/** BEGIN dataSet, ID: '2', NAME: 'PublicData' */
-description(2,'PublicData','dataSet').
-dataSet(2).
-/** END dataSet, ID: '2', NAME: 'PublicData' */
+/** BEGIN assemblyConnector, ID: '56', NAME: 'Connector Assembly_FileManager <FileManager> -> Assembly_CloudStorage <CloudStorage>' */
+description(56,'Connector Assembly_FileManager <FileManager> -> Assembly_CloudStorage <CloudStorage>','assemblyConnector').
+assemblyConnector(56).
+requiringAssemblyContext(56,[55]).
+providingAssemblyContext(56,[54]).
+providedRole(56,[30]).
+requiredRole(56,[29]).
+/** END assemblyConnector, ID: '56', NAME: 'Connector Assembly_FileManager <FileManager> -> Assembly_CloudStorage <CloudStorage>' */
 
 
-/** BEGIN dataSetMapEntry, ID: '3', NAME: 'A' */
-description(3,'A','dataSetMapEntry').
-dataSetMapEntry(3).
-map(3,[5]).
-/** END dataSetMapEntry, ID: '3', NAME: 'A' */
+/** BEGIN providedDelegationConnector, ID: '57', NAME: 'ProvDelegation Provided_GUI -> Provided_GUI_FileManager' */
+description(57,'ProvDelegation Provided_GUI -> Provided_GUI_FileManager','providedDelegationConnector').
+providedDelegationConnector(57).
+innerProvidedRole(57,[28]).
+outerProvidedRole(57,[58]).
+assemblyContext(57,[55]).
+/** END providedDelegationConnector, ID: '57', NAME: 'ProvDelegation Provided_GUI -> Provided_GUI_FileManager' */
 
 
-/** BEGIN dataSetMapEntry, ID: '4', NAME: 'B' */
-description(4,'B','dataSetMapEntry').
-dataSetMapEntry(4).
-map(4,[5]).
-/** END dataSetMapEntry, ID: '4', NAME: 'B' */
+/** BEGIN operationProvidedRole, ID: '58', NAME: 'Provided_GUI' */
+description(58,'Provided_GUI','operationProvidedRole').
+operationProvidedRole(58).
+providedInterface(58,[27]).
+/** END operationProvidedRole, ID: '58', NAME: 'Provided_GUI' */
+
+/** END system, ID: '53', NAME: 'minicloudSystem' */
+
+
+/** BEGIN repository, ID: '23', NAME: 'minimalcloudRepository' */
+description(23,'minimalcloudRepository','repository').
+repository(23).
+components(23,[24,25]).
+interfaces(23,[26,27]).
+
+/** BEGIN basicComponent, ID: '24', NAME: 'FileManager' */
+description(24,'FileManager','basicComponent').
+basicComponent(24).
+providedRoles(24,[28]).
+requiredRoles(24,[29]).
 
-
-/** BEGIN dataSetMap, ID: '5', NAME: 'UserData' */
-description(5,'UserData','dataSetMap').
-dataSetMap(5).
-/** END dataSetMap, ID: '5', NAME: 'UserData' */
-
-
-/** BEGIN parametersAndDataPair, ID: '6', NAME: 'p=[*, s] - d=[UserData[Self]]' */
-description(6,'p=[*, s] - d=[UserData[Self]]','parametersAndDataPair').
-parametersAndDataPair(6).
-parameterSources(6,[*,20]).
-dataTargets(6,[]).
-/** END parametersAndDataPair, ID: '6', NAME: 'p=[*, s] - d=[UserData[Self]]' */
-
-
-/** BEGIN parametersAndDataPair, ID: '7', NAME: 'p=[sizeOf(*)] - d=[PublicData]' */
-description(7,'p=[sizeOf(*)] - d=[PublicData]','parametersAndDataPair').
-parametersAndDataPair(7).
-parameterSources(7,[sizeOf(*)]).
-dataTargets(7,[2]).
-/** END parametersAndDataPair, ID: '7', NAME: 'p=[sizeOf(*)] - d=[PublicData]' */
-
-
-/** BEGIN parametersAndDataPair, ID: '8', NAME: 'p=[fileName, data, f] - d=[UserData[Friends]]' */
-description(8,'p=[fileName, data, f] - d=[UserData[Friends]]','parametersAndDataPair').
-parametersAndDataPair(8).
-parameterSources(8,[21,22,23]).
-dataTargets(8,[]).
-/** END parametersAndDataPair, ID: '8', NAME: 'p=[fileName, data, f] - d=[UserData[Friends]]' */
-
-
-/** BEGIN parametersAndDataPair, ID: '9', NAME: 'p=[fileName, data] - d=[PublicData]' */
-description(9,'p=[fileName, data] - d=[PublicData]','parametersAndDataPair').
-parametersAndDataPair(9).
-parameterSources(9,[21,22]).
-dataTargets(9,[2]).
-/** END parametersAndDataPair, ID: '9', NAME: 'p=[fileName, data] - d=[PublicData]' */
-
-
-/** BEGIN addedServiceParameter, ID: '10', NAME: 's' */
-description(10,'s','addedServiceParameter').
-addedServiceParameter(10).
-/** END addedServiceParameter, ID: '10', NAME: 's' */
-
-
-/** BEGIN location, ID: '11', NAME: 'internet' */
-description(11,'internet','location').
-location(11).
-/** END location, ID: '11', NAME: 'internet' */
-
-
-/** BEGIN location, ID: '12', NAME: 'userAHome' */
-description(12,'userAHome','location').
-location(12).
-/** END location, ID: '12', NAME: 'userAHome' */
-
-
-/** BEGIN location, ID: '13', NAME: 'userBHome' */
-description(13,'userBHome','location').
-location(13).
-/** END location, ID: '13', NAME: 'userBHome' */
-
-
-/** BEGIN location, ID: '14', NAME: 'outerzone' */
-description(14,'outerzone','location').
-location(14).
-/** END location, ID: '14', NAME: 'outerzone' */
-
-
-/** BEGIN tamperProtection, ID: '15', NAME: 'perimeterprotection' */
-description(15,'perimeterprotection','tamperProtection').
-tamperProtection(15).
-/** END tamperProtection, ID: '15', NAME: 'perimeterprotection' */
-
-
-/** BEGIN locationsAndTamperProtectionsPair, ID: '16', NAME: 'l=[userAHome] - t=[]' */
-description(16,'l=[userAHome] - t=[]','locationsAndTamperProtectionsPair').
-locationsAndTamperProtectionsPair(16).
-locations(16,[12]).
-tamperProtections(16,[]).
-/** END locationsAndTamperProtectionsPair, ID: '16', NAME: 'l=[userAHome] - t=[]' */
-
-
-/** BEGIN locationsAndTamperProtectionsPair, ID: '17', NAME: 'l=[userBHome] - t=[]' */
-description(17,'l=[userBHome] - t=[]','locationsAndTamperProtectionsPair').
-locationsAndTamperProtectionsPair(17).
-locations(17,[13]).
-tamperProtections(17,[]).
-/** END locationsAndTamperProtectionsPair, ID: '17', NAME: 'l=[userBHome] - t=[]' */
-
-
-/** BEGIN locationsAndTamperProtectionsPair, ID: '18', NAME: 'l=[outerzone] - t=[perimeterprotection]' */
-description(18,'l=[outerzone] - t=[perimeterprotection]','locationsAndTamperProtectionsPair').
-locationsAndTamperProtectionsPair(18).
-locations(18,[14]).
-tamperProtections(18,[15]).
-/** END locationsAndTamperProtectionsPair, ID: '18', NAME: 'l=[outerzone] - t=[perimeterprotection]' */
-
-
-/** BEGIN locationsAndTamperProtectionsPair, ID: '19', NAME: 'l=[internet] - t=[]' */
-description(19,'l=[internet] - t=[]','locationsAndTamperProtectionsPair').
-locationsAndTamperProtectionsPair(19).
-locations(19,[11]).
-tamperProtections(19,[]).
-/** END locationsAndTamperProtectionsPair, ID: '19', NAME: 'l=[internet] - t=[]' */
-
-/** END confidentialitySpecification, ID: '1', NAME: 'minimalcloud' */
-
-
-/** BEGIN adversaries, ID: '24', NAME: 'minimalcloud' */
-description(24,'minimalcloud','adversaries').
-adversaries(24).
-adversaries(24,[25,26]).
-
-/** BEGIN adversary, ID: '25', NAME: 'End User A' */
-description(25,'End User A','adversary').
-adversary(25).
-mayKnowData(25,[2,3]).
-locationsAndTamperProtectionsPairs(25,[16,19]).
-/** END adversary, ID: '25', NAME: 'End User A' */
-
-
-/** BEGIN adversary, ID: '26', NAME: 'End User B' */
-description(26,'End User B','adversary').
-adversary(26).
-mayKnowData(26,[2,4]).
-locationsAndTamperProtectionsPairs(26,[17,19]).
-/** END adversary, ID: '26', NAME: 'End User B' */
-
-/** END adversaries, ID: '24', NAME: 'minimalcloud' */
-
-
-/** BEGIN system, ID: '47', NAME: 'minicloudSystem' */
-description(47,'minicloudSystem','system').
-system(47).
-assemblyContexts(47,[48,49]).
-connectors(47,[50,51]).
-providedRoles(47,[52]).
-requiredRoles(47,[]).
-
-/** BEGIN assemblyContext, ID: '48', NAME: 'Assembly_CloudStorage <CloudStorage>' */
-description(48,'Assembly_CloudStorage <CloudStorage>','assemblyContext').
-assemblyContext(48).
-encapsulatedComponent(48,[29]).
-/** END assemblyContext, ID: '48', NAME: 'Assembly_CloudStorage <CloudStorage>' */
-
-
-/** BEGIN assemblyContext, ID: '49', NAME: 'Assembly_FileManager <FileManager>' */
-description(49,'Assembly_FileManager <FileManager>','assemblyContext').
-assemblyContext(49).
-encapsulatedComponent(49,[28]).
-/** END assemblyContext, ID: '49', NAME: 'Assembly_FileManager <FileManager>' */
-
-
-/** BEGIN assemblyConnector, ID: '50', NAME: 'Connector Assembly_FileManager <FileManager> -> Assembly_CloudStorage <CloudStorage>' */
-description(50,'Connector Assembly_FileManager <FileManager> -> Assembly_CloudStorage <CloudStorage>','assemblyConnector').
-assemblyConnector(50).
-requiringAssemblyContext(50,[49]).
-providingAssemblyContext(50,[48]).
-providedRole(50,[34]).
-requiredRole(50,[33]).
-/** END assemblyConnector, ID: '50', NAME: 'Connector Assembly_FileManager <FileManager> -> Assembly_CloudStorage <CloudStorage>' */
-
-
-parametersAndDataPair(53).
-
-parameterSources(53,[*,20]).
-
-dataTargets(53,[3]).
-
-
-originalParametersAndDataPair(53,6).
-
-
-connectorSpecificParametersAndDataPairs(50,[53]).
-
-
-/** BEGIN providedDelegationConnector, ID: '51', NAME: 'ProvDelegation Provided_GUI -> Provided_GUI_FileManager' */
-description(51,'ProvDelegation Provided_GUI -> Provided_GUI_FileManager','providedDelegationConnector').
-providedDelegationConnector(51).
-innerProvidedRole(51,[32]).
-outerProvidedRole(51,[52]).
-assemblyContext(51,[49]).
-/** END providedDelegationConnector, ID: '51', NAME: 'ProvDelegation Provided_GUI -> Provided_GUI_FileManager' */
-
-
-/** BEGIN operationProvidedRole, ID: '52', NAME: 'Provided_GUI' */
-description(52,'Provided_GUI','operationProvidedRole').
-operationProvidedRole(52).
-providedInterface(52,[31]).
-/** END operationProvidedRole, ID: '52', NAME: 'Provided_GUI' */
-
-/** END system, ID: '47', NAME: 'minicloudSystem' */
-
-
-/** BEGIN repository, ID: '27', NAME: 'minimalcloudRepository' */
-description(27,'minimalcloudRepository','repository').
-repository(27).
-components(27,[28,29]).
-interfaces(27,[30,31]).
-
-/** BEGIN basicComponent, ID: '28', NAME: 'FileManager' */
-description(28,'FileManager','basicComponent').
-basicComponent(28).
-providedRoles(28,[32]).
-requiredRoles(28,[33]).
-
-/** BEGIN operationProvidedRole, ID: '32', NAME: 'Provided_GUI_FileManager' */
-description(32,'Provided_GUI_FileManager','operationProvidedRole').
-operationProvidedRole(32).
-providedInterface(32,[31]).
-/** END operationProvidedRole, ID: '32', NAME: 'Provided_GUI_FileManager' */
-
-
-/** BEGIN operationRequiredRole, ID: '33', NAME: 'Required_ObjectStorage_FileManager' */
-description(33,'Required_ObjectStorage_FileManager','operationRequiredRole').
-operationRequiredRole(33).
-requiredInterface(33,[30]).
-/** END operationRequiredRole, ID: '33', NAME: 'Required_ObjectStorage_FileManager' */
-
-/** END basicComponent, ID: '28', NAME: 'FileManager' */
-
-
-/** BEGIN basicComponent, ID: '29', NAME: 'CloudStorage' */
-description(29,'CloudStorage','basicComponent').
-basicComponent(29).
-providedRoles(29,[34]).
-requiredRoles(29,[]).
-
-/** BEGIN operationProvidedRole, ID: '34', NAME: 'Provided_ObjectStorage_CloudStorage' */
-description(34,'Provided_ObjectStorage_CloudStorage','operationProvidedRole').
-operationProvidedRole(34).
-providedInterface(34,[30]).
-/** END operationProvidedRole, ID: '34', NAME: 'Provided_ObjectStorage_CloudStorage' */
-
-/** END basicComponent, ID: '29', NAME: 'CloudStorage' */
-
-
-/** BEGIN operationInterface, ID: '30', NAME: 'ObjectStorage' */
-description(30,'ObjectStorage','operationInterface').
-operationInterface(30).
-parentInterfaces(30,[]).
-signatures(30,[35,36,37,38]).
-
-/** BEGIN operationSignature, ID: '35', NAME: 'get' */
-description(35,'get','operationSignature').
-operationSignature(35).
-parameters(35,[21]).
-returnType(35,[]).
-
-/** BEGIN parameter, ID: '21', NAME: 'fileName' */
-description(21,'fileName','parameter').
-parameter(21).
-/** END parameter, ID: '21', NAME: 'fileName' */
-
-sizeOfParameter(39).
-sizeOf(39,21).
-/** END operationSignature, ID: '35', NAME: 'get' */
-
-
-/** BEGIN operationSignature, ID: '36', NAME: 'putSelf' */
-description(36,'putSelf','operationSignature').
-operationSignature(36).
-parameters(36,[21,22]).
-returnType(36,[]).
-
-/** BEGIN parameter, ID: '21', NAME: 'fileName' */
-description(21,'fileName','parameter').
-parameter(21).
-/** END parameter, ID: '21', NAME: 'fileName' */
-
-sizeOfParameter(39).
-sizeOf(39,21).
-
-/** BEGIN parameter, ID: '22', NAME: 'data' */
-description(22,'data','parameter').
-parameter(22).
-/** END parameter, ID: '22', NAME: 'data' */
+/** BEGIN operationProvidedRole, ID: '28', NAME: 'Provided_GUI_FileManager' */
+description(28,'Provided_GUI_FileManager','operationProvidedRole').
+operationProvidedRole(28).
+providedInterface(28,[27]).
+/** END operationProvidedRole, ID: '28', NAME: 'Provided_GUI_FileManager' */
+
+
+/** BEGIN operationRequiredRole, ID: '29', NAME: 'Required_ObjectStorage_FileManager' */
+description(29,'Required_ObjectStorage_FileManager','operationRequiredRole').
+operationRequiredRole(29).
+requiredInterface(29,[26]).
+/** END operationRequiredRole, ID: '29', NAME: 'Required_ObjectStorage_FileManager' */
+
+/** END basicComponent, ID: '24', NAME: 'FileManager' */
+
+
+/** BEGIN basicComponent, ID: '25', NAME: 'CloudStorage' */
+description(25,'CloudStorage','basicComponent').
+basicComponent(25).
+providedRoles(25,[30]).
+requiredRoles(25,[]).
+
+/** BEGIN operationProvidedRole, ID: '30', NAME: 'Provided_ObjectStorage_CloudStorage' */
+description(30,'Provided_ObjectStorage_CloudStorage','operationProvidedRole').
+operationProvidedRole(30).
+providedInterface(30,[26]).
+/** END operationProvidedRole, ID: '30', NAME: 'Provided_ObjectStorage_CloudStorage' */
+
+/** END basicComponent, ID: '25', NAME: 'CloudStorage' */
+
+
+/** BEGIN operationInterface, ID: '26', NAME: 'ObjectStorage' */
+description(26,'ObjectStorage','operationInterface').
+operationInterface(26).
+parentInterfaces(26,[]).
+signatures(26,[31,32,33,34]).
+
+/** BEGIN operationSignature, ID: '31', NAME: 'get' */
+description(31,'get','operationSignature').
+operationSignature(31).
+parameters(31,[35]).
+returnType(31,[]).
+
+/** BEGIN parameter, ID: '35', NAME: 'fileName' */
+description(35,'fileName','parameter').
+parameter(35).
+/** END parameter, ID: '35', NAME: 'fileName' */
+
+sizeOfParameter(36).
+sizeOf(36,35).
+/** END operationSignature, ID: '31', NAME: 'get' */
+
+
+/** BEGIN operationSignature, ID: '32', NAME: 'putSelf' */
+description(32,'putSelf','operationSignature').
+operationSignature(32).
+parameters(32,[35,37]).
+returnType(32,[]).
+
+/** BEGIN parameter, ID: '35', NAME: 'fileName' */
+description(35,'fileName','parameter').
+parameter(35).
+/** END parameter, ID: '35', NAME: 'fileName' */
+
+sizeOfParameter(36).
+sizeOf(36,35).
+
+/** BEGIN parameter, ID: '37', NAME: 'data' */
+description(37,'data','parameter').
+parameter(37).
+/** END parameter, ID: '37', NAME: 'data' */
+
+sizeOfParameter(38).
+sizeOf(38,37).
+/** END operationSignature, ID: '32', NAME: 'putSelf' */
+
+
+/** BEGIN operationSignature, ID: '33', NAME: 'putFriends' */
+description(33,'putFriends','operationSignature').
+operationSignature(33).
+parameters(33,[35,37,39]).
+returnType(33,[]).
+
+/** BEGIN parameter, ID: '35', NAME: 'fileName' */
+description(35,'fileName','parameter').
+parameter(35).
+/** END parameter, ID: '35', NAME: 'fileName' */
+
+sizeOfParameter(36).
+sizeOf(36,35).
+
+/** BEGIN parameter, ID: '37', NAME: 'data' */
+description(37,'data','parameter').
+parameter(37).
+/** END parameter, ID: '37', NAME: 'data' */
+
+sizeOfParameter(38).
+sizeOf(38,37).
+
+/** BEGIN parameter, ID: '39', NAME: 'f' */
+description(39,'f','parameter').
+parameter(39).
+/** END parameter, ID: '39', NAME: 'f' */
 
 sizeOfParameter(40).
-sizeOf(40,22).
-/** END operationSignature, ID: '36', NAME: 'putSelf' */
+sizeOf(40,39).
+/** END operationSignature, ID: '33', NAME: 'putFriends' */
 
 
-/** BEGIN operationSignature, ID: '37', NAME: 'putFriends' */
-description(37,'putFriends','operationSignature').
-operationSignature(37).
-parameters(37,[21,22,23]).
-returnType(37,[]).
+/** BEGIN operationSignature, ID: '34', NAME: 'putPublic' */
+description(34,'putPublic','operationSignature').
+operationSignature(34).
+parameters(34,[35,37]).
+returnType(34,[]).
 
-/** BEGIN parameter, ID: '21', NAME: 'fileName' */
-description(21,'fileName','parameter').
-parameter(21).
-/** END parameter, ID: '21', NAME: 'fileName' */
+/** BEGIN parameter, ID: '35', NAME: 'fileName' */
+description(35,'fileName','parameter').
+parameter(35).
+/** END parameter, ID: '35', NAME: 'fileName' */
 
-sizeOfParameter(39).
-sizeOf(39,21).
+sizeOfParameter(36).
+sizeOf(36,35).
 
-/** BEGIN parameter, ID: '22', NAME: 'data' */
-description(22,'data','parameter').
-parameter(22).
-/** END parameter, ID: '22', NAME: 'data' */
+/** BEGIN parameter, ID: '37', NAME: 'data' */
+description(37,'data','parameter').
+parameter(37).
+/** END parameter, ID: '37', NAME: 'data' */
 
-sizeOfParameter(40).
-sizeOf(40,22).
+sizeOfParameter(38).
+sizeOf(38,37).
+/** END operationSignature, ID: '34', NAME: 'putPublic' */
 
-/** BEGIN parameter, ID: '23', NAME: 'f' */
-description(23,'f','parameter').
-parameter(23).
-/** END parameter, ID: '23', NAME: 'f' */
-
-sizeOfParameter(41).
-sizeOf(41,23).
-/** END operationSignature, ID: '37', NAME: 'putFriends' */
+/** END operationInterface, ID: '26', NAME: 'ObjectStorage' */
 
 
-/** BEGIN operationSignature, ID: '38', NAME: 'putPublic' */
-description(38,'putPublic','operationSignature').
-operationSignature(38).
-parameters(38,[21,22]).
-returnType(38,[]).
+/** BEGIN operationInterface, ID: '27', NAME: 'GUI' */
+description(27,'GUI','operationInterface').
+operationInterface(27).
+parentInterfaces(27,[]).
+signatures(27,[41,42,43,44]).
 
-/** BEGIN parameter, ID: '21', NAME: 'fileName' */
-description(21,'fileName','parameter').
-parameter(21).
-/** END parameter, ID: '21', NAME: 'fileName' */
+/** BEGIN operationSignature, ID: '41', NAME: 'load' */
+description(41,'load','operationSignature').
+operationSignature(41).
+parameters(41,[35]).
+returnType(41,[]).
 
-sizeOfParameter(39).
-sizeOf(39,21).
+/** BEGIN parameter, ID: '35', NAME: 'fileName' */
+description(35,'fileName','parameter').
+parameter(35).
+/** END parameter, ID: '35', NAME: 'fileName' */
 
-/** BEGIN parameter, ID: '22', NAME: 'data' */
-description(22,'data','parameter').
-parameter(22).
-/** END parameter, ID: '22', NAME: 'data' */
-
-sizeOfParameter(40).
-sizeOf(40,22).
-/** END operationSignature, ID: '38', NAME: 'putPublic' */
-
-/** END operationInterface, ID: '30', NAME: 'ObjectStorage' */
+sizeOfParameter(36).
+sizeOf(36,35).
+/** END operationSignature, ID: '41', NAME: 'load' */
 
 
-/** BEGIN operationInterface, ID: '31', NAME: 'GUI' */
-description(31,'GUI','operationInterface').
-operationInterface(31).
-parentInterfaces(31,[]).
-signatures(31,[42,43,44,45]).
-
-/** BEGIN operationSignature, ID: '42', NAME: 'load' */
-description(42,'load','operationSignature').
+/** BEGIN operationSignature, ID: '42', NAME: 'backup' */
+description(42,'backup','operationSignature').
 operationSignature(42).
-parameters(42,[21]).
+parameters(42,[35,37]).
 returnType(42,[]).
 
-/** BEGIN parameter, ID: '21', NAME: 'fileName' */
-description(21,'fileName','parameter').
-parameter(21).
-/** END parameter, ID: '21', NAME: 'fileName' */
+/** BEGIN parameter, ID: '35', NAME: 'fileName' */
+description(35,'fileName','parameter').
+parameter(35).
+/** END parameter, ID: '35', NAME: 'fileName' */
 
-sizeOfParameter(39).
-sizeOf(39,21).
-/** END operationSignature, ID: '42', NAME: 'load' */
+sizeOfParameter(36).
+sizeOf(36,35).
+
+/** BEGIN parameter, ID: '37', NAME: 'data' */
+description(37,'data','parameter').
+parameter(37).
+/** END parameter, ID: '37', NAME: 'data' */
+
+sizeOfParameter(38).
+sizeOf(38,37).
+/** END operationSignature, ID: '42', NAME: 'backup' */
 
 
-/** BEGIN operationSignature, ID: '43', NAME: 'backup' */
-description(43,'backup','operationSignature').
+/** BEGIN operationSignature, ID: '43', NAME: 'share' */
+description(43,'share','operationSignature').
 operationSignature(43).
-parameters(43,[21,22]).
+parameters(43,[35,37,39]).
 returnType(43,[]).
 
-/** BEGIN parameter, ID: '21', NAME: 'fileName' */
-description(21,'fileName','parameter').
-parameter(21).
-/** END parameter, ID: '21', NAME: 'fileName' */
+/** BEGIN parameter, ID: '35', NAME: 'fileName' */
+description(35,'fileName','parameter').
+parameter(35).
+/** END parameter, ID: '35', NAME: 'fileName' */
 
-sizeOfParameter(39).
-sizeOf(39,21).
+sizeOfParameter(36).
+sizeOf(36,35).
 
-/** BEGIN parameter, ID: '22', NAME: 'data' */
-description(22,'data','parameter').
-parameter(22).
-/** END parameter, ID: '22', NAME: 'data' */
+/** BEGIN parameter, ID: '37', NAME: 'data' */
+description(37,'data','parameter').
+parameter(37).
+/** END parameter, ID: '37', NAME: 'data' */
+
+sizeOfParameter(38).
+sizeOf(38,37).
+
+/** BEGIN parameter, ID: '39', NAME: 'f' */
+description(39,'f','parameter').
+parameter(39).
+/** END parameter, ID: '39', NAME: 'f' */
 
 sizeOfParameter(40).
-sizeOf(40,22).
-/** END operationSignature, ID: '43', NAME: 'backup' */
+sizeOf(40,39).
+/** END operationSignature, ID: '43', NAME: 'share' */
 
 
-/** BEGIN operationSignature, ID: '44', NAME: 'share' */
-description(44,'share','operationSignature').
+/** BEGIN operationSignature, ID: '44', NAME: 'publish' */
+description(44,'publish','operationSignature').
 operationSignature(44).
-parameters(44,[21,22,23]).
+parameters(44,[35,37]).
 returnType(44,[]).
 
-/** BEGIN parameter, ID: '21', NAME: 'fileName' */
-description(21,'fileName','parameter').
-parameter(21).
-/** END parameter, ID: '21', NAME: 'fileName' */
+/** BEGIN parameter, ID: '35', NAME: 'fileName' */
+description(35,'fileName','parameter').
+parameter(35).
+/** END parameter, ID: '35', NAME: 'fileName' */
 
-sizeOfParameter(39).
-sizeOf(39,21).
+sizeOfParameter(36).
+sizeOf(36,35).
 
-/** BEGIN parameter, ID: '22', NAME: 'data' */
-description(22,'data','parameter').
-parameter(22).
-/** END parameter, ID: '22', NAME: 'data' */
+/** BEGIN parameter, ID: '37', NAME: 'data' */
+description(37,'data','parameter').
+parameter(37).
+/** END parameter, ID: '37', NAME: 'data' */
 
-sizeOfParameter(40).
-sizeOf(40,22).
+sizeOfParameter(38).
+sizeOf(38,37).
+/** END operationSignature, ID: '44', NAME: 'publish' */
 
-/** BEGIN parameter, ID: '23', NAME: 'f' */
-description(23,'f','parameter').
-parameter(23).
-/** END parameter, ID: '23', NAME: 'f' */
-
-sizeOfParameter(41).
-sizeOf(41,23).
-/** END operationSignature, ID: '44', NAME: 'share' */
+/** END operationInterface, ID: '27', NAME: 'GUI' */
 
 
-/** BEGIN operationSignature, ID: '45', NAME: 'publish' */
-description(45,'publish','operationSignature').
-operationSignature(45).
-parameters(45,[21,22]).
-returnType(45,[]).
+/** BEGIN collectionDataType, ID: '45', NAME: 'bytes' */
+description(45,'bytes','collectionDataType').
+collectionDataType(45).
+/** END collectionDataType, ID: '45', NAME: 'bytes' */
 
-/** BEGIN parameter, ID: '21', NAME: 'fileName' */
-description(21,'fileName','parameter').
-parameter(21).
-/** END parameter, ID: '21', NAME: 'fileName' */
-
-sizeOfParameter(39).
-sizeOf(39,21).
-
-/** BEGIN parameter, ID: '22', NAME: 'data' */
-description(22,'data','parameter').
-parameter(22).
-/** END parameter, ID: '22', NAME: 'data' */
-
-sizeOfParameter(40).
-sizeOf(40,22).
-/** END operationSignature, ID: '45', NAME: 'publish' */
-
-/** END operationInterface, ID: '31', NAME: 'GUI' */
-
-
-/** BEGIN collectionDataType, ID: '46', NAME: 'bytes' */
-description(46,'bytes','collectionDataType').
-collectionDataType(46).
-/** END collectionDataType, ID: '46', NAME: 'bytes' */
-
-/** END repository, ID: '27', NAME: 'minimalcloudRepository' */
+/** END repository, ID: '23', NAME: 'minimalcloudRepository' */
 
