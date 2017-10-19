@@ -24,6 +24,8 @@ collectionDataType(_) :- fail.
 parameterizedDataSetMapEntry(_) :- fail.
 serviceParameters(_,_) :- fail.
 assignments(_,_) :- fail.
+tamperProtection(_) :- fail.
+addedServiceParameter(_) :- fail.
 
 % Suppress warnings wrt unused predicates:
 fake_usage :-

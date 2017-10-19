@@ -251,48 +251,48 @@ mayknow(Attacker,Dataset) :-
 %    as well as: parameterSources(6,[..,sizeOf(x),..]).
 includes(parm(Service,ParameterName), Dataset, Context, World) :-
         hasParameter(Service, parm(Service,ParameterName)),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
         member(ParameterName, ParameterNames).
 
 % cases such as: parameterSources(6,[..,*,..]).
 includes(parm(Service,ParameterName), Dataset, Context, World) :-
         hasParameter(Service, parm(Service,ParameterName)),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
         member(*, ParameterNames).
 includes(return(Service), Dataset, Context, World) :-
         returnParameter(Service, return(Service)),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
         member(*, ParameterNames).
 includes(sizeOf(return(Service)), Dataset, Context, World) :-
         returnParameter(Service, sizeOf(return(Service))),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
         member(*, ParameterNames).
 
 
 % cases such as: parameterSources(6,[..,sizeOf(*),..]).
 includes(parm(Service,sizeOf(ParameterName)), Dataset,Context, World) :-
         hasParameter(Service, parm(Service,sizeOf(ParameterName))),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
         member(sizeOf(*), ParameterNames).
 
 includes(sizeOf(return(Service)), Dataset,Context, World) :-
         returnParameter(Service, sizeOf(return(Service))),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
         member(sizeOf(*), ParameterNames).
 
 
 % cases such as: parameterSources(6,[..,return,..]).
 includes(return(Service), Dataset, Context, World) :-
         returnParameter(Service, return(Service)),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
         member(return, ParameterNames).
 
 % TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
 includesCall(Service, Dataset,Context, World) :-
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
         member(call, ParameterNames).
 includesCall(Service, Dataset,Context, World) :-
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
         member(*, ParameterNames).
 
 
