@@ -120,8 +120,9 @@ equal((AssemblyContext1, Interface,  SpecificationParameter), (AssemblyContext2,
 	providedRole(Connector, Roles2), member(Role2, Roles2), providedInterface(Role2, Interfaces2), member(Interface, Interfaces2),
 	specificationParametersAt(AssemblyContext1, Interface, SpecificationParameter),
 	specificationParametersAt(AssemblyContext2, Interface, SpecificationParameter).
-	
-assigned((AssemblyContext, Interface, SpecificationParameter), Key) :-
+
+
+assignedBy(Assignment, (AssemblyContext, Interface, SpecificationParameter), Key) :-
 	(  assemblyConnector(Connector)
 	;  providedDelegationConnector(Connector)
 	;  requiredDelegationConnector(Connector)
@@ -164,10 +165,14 @@ specificationParameterEquivalences([]).
 
 
 specificationParameterEquivalencesWithAssignments(WithVars) :-
+	findall((_AnyAssignment), assignedKey(_AnyAssignment, _), AnyAssignments),
+	!,
 	specificationParameterEquivalences(WithVars),
-	findall((Left, Key), assigned(Left, Key), Assignments),
-	assignAll(WithVars, Assignments).
-	
+	assignedKey(Assignment,_),
+	findall((Left, Key), assignedBy(Assignment, Left, Key), EffectiveAssignments),
+	assignAll(WithVars, EffectiveAssignments).
+specificationParameterEquivalencesWithAssignments(WithVars) :-
+	specificationParameterEquivalences(WithVars).
 
 
 
@@ -202,8 +207,8 @@ unifyAll(WithVars, [(_,_)|Rest]) :-
 assignAll(_, []).
 assignAll(WithVars, [(Left,Key)|Rest]) :-
 	mylookup(Left,  WithVars, Var),
-	Var = Key,
 	!,
+	Var = Key,
 	assignAll(WithVars, Rest).
 assignAll(WithVars, [(_,_)|Rest]) :-
 	assignAll(WithVars, Rest).
@@ -326,7 +331,7 @@ lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, world(Wor
 	          % dataSetMapEntryFor((DatasetRef, ParameterValue), Dataset),
 	          % Substitution = subs((Context, Interface, Parameter), ParameterValue)
 	       )
-	     ; (atom(ParameterValue),
+	     ; (nonvar(ParameterValue),
 	          dataSetMapEntryFor((DatasetRef, ParameterValue), Dataset)
 	       )
 	     )
