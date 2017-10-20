@@ -1,4 +1,6 @@
 % BEGIN IMPORTS
+:- import  append/3
+           from basics.
 :- import  none/0
            from security.
 :- import  return/1,
@@ -123,12 +125,12 @@ equal((AssemblyContext1, Interface,  SpecificationParameter), (AssemblyContext2,
 
 
 assignedBy(Assignment, (AssemblyContext, Interface, SpecificationParameter), Key) :-
+	assignments(Connector, Assignments),
+	member(Assignment, Assignments),
 	(  assemblyConnector(Connector)
 	;  providedDelegationConnector(Connector)
 	;  requiredDelegationConnector(Connector)
 	),
-	assignments(Connector, Assignments),
-	member(Assignment, Assignments),
 	% dataSetMapParameter2KeyAssignment(Assignment),
 	assignedKey(Assignment, [Key]),
 	specificationParametersToReplace(Assignment,SpecificationParameters),
@@ -162,8 +164,51 @@ specificationParameterEquivalences(WithVars) :-
 specificationParameterEquivalences([]).
 
 
+mmap([],P,[]).
+mmap([X|Xs],P,[Y|Ys]) :-
+    call(P,X,Y),
+    mmap(Xs,P,Ys).
 
+toList((Left,Key),(Left, [Key])).
+toConstraint(World, Constraints) :- mmap(World, toList, Constraints).
 
+mergeAll([],[]).
+mergeAll([W], Constraints) :- toConstraint(W, Constraints).
+mergeAll([W|Ws], Constraints) :-
+	mergeAll(Ws, Cs),
+	toConstraint(W, C),
+	merge(C,Cs, Constraints).
+
+merge([], [], []).
+merge([(Left, [Var1])|C1s], [(Left, [Var2])|C2s], [(Left, [Var1])|Constraints]) :-
+	var(Var1), var(Var2),
+	!,
+	merge(C1s, C2s, Constraints).
+merge([(Left, [Var1])|C1s], [(Left,  Keys2)|C2s], [(Left,  Keys2)|Constraints]) :-
+	var(Var1),
+	!,
+	merge(C1s, C2s, Constraints).
+merge([(Left,  Keys1)|C1s], [(Left, [Var2])|C2s], [(Left,  Keys1)|Constraints]) :-
+	var(Var2),
+	!,
+	merge(C1s, C2s, Constraints).
+merge([(Left,  Keys1)|C1s], [(Left, Keys2)|C2s], [(Left,   KeysS)|Constraints]) :-
+	append(Keys1, Keys2, Keys),
+	sort(Keys,KeysS),
+	merge(C1s, C2s, Constraints).
+
+	
+
+specificationParameterConstraints(Constraints, AllWithVars) :-
+	specificationParameterEquivalences(WithVars),
+	findall((WithVars), specificationParameterEquivalencesWithAssignment(WithVars, Assignment), AllWithVars).
+
+specificationParameterEquivalencesWithAssignment(WithVars, Assignment) :-
+	assignedKey(Assignment,_),
+	setof((Left, Key), assignedBy(Assignment, Left, Key), EffectiveAssignments),
+	assignAll(WithVars, EffectiveAssignments).
+
+	
 specificationParameterEquivalencesWithAssignments(WithVars) :-
 	findall((_AnyAssignment), assignedKey(_AnyAssignment, _), AnyAssignments),
 	!,

@@ -1,6 +1,7 @@
 :- export  % Predicates
            withVar/2,
            specificationParameterEquivalences/1,
+           specificationParameterEquivalencesWithAssignment/2,
            specificationParameterEquivalencesWithAssignments/1,
            equal/2,
            specificationParametersAt/3,             % specificationParametersAt(AssemblyContext, Interface, SpecificationParameter).
@@ -17,6 +18,10 @@
            dataSetMapEntryFor/2,
            assignedBy/3,
            assignAll/2,
+           specificationParameterConstraints/2,
+           merge/3,
+           mergeAll/2,
+           toList/2,
 
            tamperingAbilities/3,                    % tamperingAbilities(Attacker,Location,TamperingAbility)
            locationsAccessibleBy/2,                 % locationsAccessibleBy(Attacker,Location)
