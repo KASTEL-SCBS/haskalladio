@@ -10,17 +10,26 @@
            includesCall/4,
            includes/4,
            uiInterfaceOn/2,
+           worldFor/3,
+           provided/1,
+           required/1,
+           mylookup/3,
+           assignedBy/4,
+           connectorFor/2,
            linkLocation/3
            from securityInstance.
 
 
-:- import  accessibleParameters/4,
-           observableServices/4
+:- import  accessibleParameters/5,
+           observableServices/5
            from abstractAnalysis.
 
 :- import  providedInterfacesOn/3,
            requiredInterfacesOn/3
            from palladio.
+
+:- import  world/1
+           from worldInstance.
 % END IMPORTS
 
 % BEGIN EXPORTS
@@ -33,8 +42,8 @@
            linkAccessibleBy/3,             % linkAccessibleBy(Attacker,Link,Location)
            containersPhysicalAccessibleBy/3,        % containersPhysicalAccessibleBy(Attacker,Container,Location)
 
-           providedInterfacesAccessibleTo/3,        % providedInterfacesAccessibleTo(Attacker, Interface, AssemblyContext)
-           requiredInterfacesAccessibleTo/3,        % requiredInterfacesAccessibleTo(Attacker, Interface, AssemblyContext)
+           providedInterfacesAccessibleTo/4,        % providedInterfacesAccessibleTo(Attacker, Interface, AssemblyContext, World)
+           requiredInterfacesAccessibleTo/4,        % requiredInterfacesAccessibleTo(Attacker, Interface, AssemblyContext, World)
 
            parameterAllowedToBeAccessedBy/4,        % parameterAllowedToBeAccessedBy(Attacker, Parameter, World)
            serviceAllowedToBeObservedBy/4,          % parameterAllowedToBeAccessedBy(Attacker, Parameter, World)
@@ -49,22 +58,39 @@
 % END EXPORTS
 
 justify_pred(isInSecureWithRespectTo(_,_)).
+justify_pred(isInSecureWithRespectToService(_,_,_,_,_)).
+justify_pred(isInSecureWithRespectToParameter(_,_,_,_,_)).
 justify_pred(containersFullyAccessibleBy(_,_)).
 justify_pred(linksDataAccessibleBy(_,_,_)).
 justify_pred(linkAccessibleBy(_,_,_)).
 justify_pred(containersPhysicalAccessibleBy(_,_,_)).
-justify_pred(providedInterfacesAccessibleTo(_,_,_)).
-justify_pred(requiredInterfacesAccessibleTo(_,_,_)).
+justify_pred(providedInterfacesAccessibleTo(_,_,_,_)).
+justify_pred(requiredInterfacesAccessibleTo(_,_,_,_)).
 justify_pred(serviceAllowedToBeObservedBy(_,_,_,_)).
 justify_pred(parameterAllowedToBeAccessedBy(_,_,_,_)).
+justify_pred(serviceForbiddenToBeObservedBy(_,_,_,_)).
+justify_pred(parameterForbiddenToBeAccessedBy(_,_,_,_)).
+justify_pred(isInSecureWithRespectToService(_,_,_,_,_)).
+
 
 isInSecureWithRespectTo(Attacker, World) :-
-        accessibleParameters(Attacker,Parameter, Context, World),
-        not(parameterAllowedToBeAccessedBy(Attacker,Parameter, Context, World)).
+        accessibleParameters(Attacker,Parameter, Context, InterfaceWithRole, World),
+        isInSecureWithRespectToParameter(Attacker,Parameter, Context, InterfaceWithRole, World).
+isInSecureWithRespectToParameter(Attacker,Parameter, Context, InterfaceWithRole, World) :-
+        worldFor((Context, InterfaceWithRole), World, WorldFor),
+        parameterForbiddenToBeAccessedBy(Attacker,Parameter, Context, WorldFor), !. % Fow now, only report the first world a violation is found in. TODO: somehow deal with "equivalent" violations?
+% This is needed because of https://sourceforge.net/p/xsb/bugs/227/
+parameterForbiddenToBeAccessedBy(Attacker,Parameter, Context, WorldFor) :- not(parameterAllowedToBeAccessedBy(Attacker,Parameter, Context, WorldFor)). 
 
 isInSecureWithRespectTo(Attacker, World) :-
-        observableServices(Attacker,Service, Context, World),
-        not(serviceAllowedToBeObservedBy(Attacker,Service, Context, World)).
+        observableServices(Attacker,Service, Context, InterfaceWithRole, World),
+        isInSecureWithRespectToService(Attacker,Service, Context, InterfaceWithRole, World).
+isInSecureWithRespectToService(Attacker,Service, Context, InterfaceWithRole, World) :-
+        worldFor((Context, InterfaceWithRole), World, WorldFor),
+        serviceForbiddenToBeObservedBy(Attacker,Service, Context, WorldFor), !.  % Fow now, only report the first world a violation is found in. TODO: somehow deal with "equivalent" violations?
+% This is needed because of https://sourceforge.net/p/xsb/bugs/227/
+serviceForbiddenToBeObservedBy(Attacker,Service, Context, WorldFor) :- not(serviceAllowedToBeObservedBy(Attacker,Service, Context, WorldFor)).
+
 
 
 serviceAllowedToBeObservedBy(Attacker, Service, Context, World) :-
@@ -105,12 +131,22 @@ containersPhysicalAccessibleBy(Attacker,Container,Location) :-
     location(Container,Location,_),
     locationsAccessibleBy(Attacker,Location).
 
-providedInterfacesAccessibleTo(Attacker, Interface, Context) :-
+providedInterfacesAccessibleTo(Attacker, Interface, Context, world((World, _Constraints))) :- 
     containersPhysicalAccessibleBy(Attacker,Container,_),
     providedInterfacesOn(Container, Interface, Context),
-    uiInterfaceOn(Container, Interface).
+    uiInterfaceOn(Container, Interface),
+    connectorFor((Context, provided(Interface)), Connector),
+    (  not(assignedBy(Assignment, Connector, SpecificationParameter, ParameterValue))
+    ;     (assignedBy(Assignment, Connector, SpecificationParameter, ParameterValue),
+           mylookup((Context, provided(Interface), SpecificationParameter), World, ParameterValue))
+    ).
 
-requiredInterfacesAccessibleTo(Attacker, Interface, Context) :-
+requiredInterfacesAccessibleTo(Attacker, Interface, Context, world((World, _Constraints))) :- 
     containersPhysicalAccessibleBy(Attacker,Container,_),
     requiredInterfacesOn(Container, Interface, Context),
-    uiInterfaceOn(Container, Interface).
+    uiInterfaceOn(Container, Interface),
+    connectorFor((Context, required(Interface)), Connector),
+    (  not(assignedBy(Assignment, Connector, SpecificationParameter, ParameterValue))
+    ;     (assignedBy(Assignment, Connector, SpecificationParameter, ParameterValue),
+           mylookup((Context, required(Interface), SpecificationParameter), World, ParameterValue))
+    ).

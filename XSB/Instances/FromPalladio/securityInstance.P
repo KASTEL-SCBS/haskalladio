@@ -4,10 +4,14 @@
 :- import  none/0
            from security.
 :- import  return/1,
-	   interfacesOn/3
+           providedInterfacesOn/3,
+           requiredInterfacesOn/3
            from palladio.
 :- import  member/2
            from lists.
+
+:- import  world/1
+           from worldInstance.
 
 :- import  mayKnowData/2,
            location/1,
@@ -62,8 +66,6 @@
 	   hasService/2,
            hasParameter/2
            from componentRepositoryInstance.
-:- import  world/1
-           from worldInstance.
 % END IMPORTS
 
 justify_pred(mayknow(_,_)).
@@ -82,9 +84,16 @@ justify_pred(lookupDataSetParameterNames(_,_,_,_,_,_)).
 isLocation(Location) :- location(Location).
 
 
-lookupDataSets(Context, Interface, Dataset) :-
+lookupDataSets(Context, required(Interface), Dataset) :-
         hasService(Interface,Service),
-        interfacesOn(_Container,Interface,Context),
+        requiredInterfacesOn(_Container,Interface,Context),
+        parametersAndDataPairs(Service, Pairs),
+        member(Pair, Pairs),
+        dataTargets(Pair, Datasets),
+        member(Dataset, Datasets).
+lookupDataSets(Context, provided(Interface), Dataset) :-
+        hasService(Interface,Service),
+        providedInterfacesOn(_Container,Interface,Context),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         dataTargets(Pair, Datasets),
@@ -102,128 +111,187 @@ specificationParametersAt(AssemblyContext, Interface, SpecificationParameter) :-
 withVar([],[]).
 withVar([X|XS], [(X,_Y)|WV]) :- withVar(XS, WV).
 
-equal((AssemblyContext, Interface1,  SpecificationParameter1), (AssemblyContext, Interface2,  SpecificationParameter2)) :-
-	equations(AssemblyContext, Equations),
-	member(Equation, Equations),
-	% specificationParameterEquation(Equation),
-	leftSpecificationParameter(Equation, [SpecificationParameter1]),
-	rightSpecificationParameter(Equation, [SpecificationParameter2]),
-	leftInterfaces(Equation,LeftInterfaces),
-	member(Interface1, LeftInterfaces),
-	rightInterfaces(Equation,RightInterfaces),
-	member(Interface2, RightInterfaces).
-equal((AssemblyContext1, Interface,  SpecificationParameter), (AssemblyContext2, Interface,  SpecificationParameter)) :-
-	assemblyConnector(Connector),
-	requiringAssemblyContext(Connector, AssemblyContexts1),
-	member(AssemblyContext1,  AssemblyContexts1),
-	requiredRole(Connector, Roles1), member(Role1, Roles1), requiredInterface(Role1, Interfaces1), member(Interface, Interfaces1),
-	providingAssemblyContext(Connector, AssemblyContexts2),
-	member(AssemblyContext2,  AssemblyContexts2),
-	providedRole(Connector, Roles2), member(Role2, Roles2), providedInterface(Role2, Interfaces2), member(Interface, Interfaces2),
-	specificationParametersAt(AssemblyContext1, Interface, SpecificationParameter),
-	specificationParametersAt(AssemblyContext2, Interface, SpecificationParameter).
 
+equal((AssemblyContext, Interface1WithRole,  SpecificationParameter1), (AssemblyContext, Interface2WithRole,  SpecificationParameter2)) :-
+       ( Interface1WithRole = required(Interface1)
+       ; Interface1WithRole = provided(Interface1)
+       ),
+       ( Interface2WithRole = required(Interface2)
+       ; Interface2WithRole = provided(Interface2)
+       ),
+       equations(AssemblyContext, Equations),
+       member(Equation, Equations),
+       % specificationParameterEquation(Equation),
+       leftSpecificationParameter(Equation, [SpecificationParameter1]),
+       rightSpecificationParameter(Equation, [SpecificationParameter2]),
+       leftInterfaces(Equation,LeftInterfaces),
+       member(Interface1, LeftInterfaces),
+       rightInterfaces(Equation,RightInterfaces),
+       member(Interface2, RightInterfaces).
+equal((AssemblyContext1, required(Interface),  SpecificationParameter), (AssemblyContext2, provided(Interface),  SpecificationParameter)) :-
+       assemblyConnector(Connector),
+       requiringAssemblyContext(Connector, AssemblyContexts1),
+       member(AssemblyContext1,  AssemblyContexts1),
+       requiredRole(Connector, Roles1), member(Role1, Roles1), requiredInterface(Role1, Interfaces1), member(Interface, Interfaces1),
+       providingAssemblyContext(Connector, AssemblyContexts2),
+       member(AssemblyContext2,  AssemblyContexts2),
+       providedRole(Connector, Roles2), member(Role2, Roles2), providedInterface(Role2, Interfaces2), member(Interface, Interfaces2),
+       specificationParametersAt(AssemblyContext1, required(Interface), SpecificationParameter),
+       specificationParametersAt(AssemblyContext2, provided(Interface), SpecificationParameter),
+       not(assignedBy(_Assignment, Connector, SpecificationParameter, _Key)).
 
-assignedBy(Assignment, (AssemblyContext, Interface, SpecificationParameter), Key) :-
-	assignments(Connector, Assignments),
-	member(Assignment, Assignments),
-	(  assemblyConnector(Connector)
-	;  providedDelegationConnector(Connector)
-	;  requiredDelegationConnector(Connector)
-	),
-	% dataSetMapParameter2KeyAssignment(Assignment),
-	assignedKey(Assignment, [Key]),
-	specificationParametersToReplace(Assignment,SpecificationParameters),
-	member(SpecificationParameter, SpecificationParameters),
-	(  (requiringAssemblyContext(Connector, Contexts), requiredRole(Connector, Roles),      member(Role, Roles), requiredInterface(Role, Interfaces))
-	;  (providingAssemblyContext(Connector, Contexts), providedRole(Connector, Roles),      member(Role, Roles), providedInterface(Role, Interfaces))
-	;  (providedDelegationConnector(Connector),
-	             assemblyContext(Connector, Contexts), innerProvidedRole(Connector, Roles), member(Role, Roles), providedInterface(Role, Interfaces)
-	          % ,                                      outerProvidedRole(Connector, Roles), member(Role, Roles), providedInterface(Role, Interfaces)
+connectorFor((AssemblyContext, required(Interface)), Connector) :-
+	(  (assemblyConnector(Connector),
+	    requiringAssemblyContext(Connector, Contexts), member(AssemblyContext, Contexts), requiredRole(Connector, Roles)
 	   )
 	;  (requiredDelegationConnector(Connector),
-	             assemblyContext(Connector, Contexts), innerRequiredRole(Connector, Roles), member(Role, Roles), requiredInterface(Role, Interfaces)
-	          % ,                                      outerRequiredRole(Connector, Roles), member(Role, Roles), requiredInterface(Role, Interfaces)
+	               assemblyContext(Connector, Contexts), member(AssemblyContext, Contexts), innerRequiredRole(Connector, Roles), member(Role, Roles), requiredInterface(Role, Interfaces)
 	   )
 	),
-	member(AssemblyContext, Contexts),
-	member(Interface, Interfaces),
-	specificationParametersAt(AssemblyContext, Interface, SpecificationParameter).
+	member(Role, Roles),
+	requiredInterface(Role, Interfaces),
+	member(Interface, Interfaces).
+connectorFor((AssemblyContext, provided(Interface)), Connector) :-
+	(  (assemblyConnector(Connector),
+	      providingAssemblyContext(Connector, Contexts), member(AssemblyContext, Contexts), providedRole(Connector, Roles)
+	   )
+	;  (providedDelegationConnector(Connector),
+	               assemblyContext(Connector, Contexts), member(AssemblyContext, Contexts), innerProvidedRole(Connector, Roles), member(Role, Roles), providedInterface(Role, Interfaces)
+	   )
+	),
+	member(Role, Roles),
+	providedInterface(Role, Interfaces),
+	member(Interface, Interfaces).
 
 
-mylookup(K,[(K,V)|_], V) :- !.
-mylookup(K,[_|KVS], V) :- mylookup(K,KVS,V).
+keyAt((AssemblyContext, InterfaceWithRole, SpecificationParameter), Key) :-
+	connectorFor((AssemblyContext, InterfaceWithRole), _Connector),
+	assignedBy(_Assignment, _Connector, SpecificationParameter, Key).
+keyAt((AssemblyContext, InterfaceWithRole, SpecificationParameter), Key) :-
+	connectorFor((AssemblyContext, InterfaceWithRole), _Connector),
+	not(assignedBy(_Assignment, _Connector, SpecificationParameter, Key)),
+	(  (InterfaceWithRole = required(Interface))
+	;  (InterfaceWithRole = provided(Interface))
+	),
+        hasService(Interface,Service),
+        parametersAndDataPairs(Service, Pairs),
+        member(Pair, Pairs),
+        dataTargets(Pair, DatasetRefs),
+        member(DatasetRef, DatasetRefs),
+	parameterizedDataSetMapEntry(DatasetRef),
+	parameter(DatasetRef, [SpecificationParameter]),
+	dataSetMapEntryFor((DatasetRef, Key), _Dataset).
 
 
-specificationParameterEquivalences(WithVars) :-
+keysAt((AssemblyContext, Interface, SpecificationParameter), Keys)  :-
+	setof((AssemblyContext, Interface, SpecificationParameter), specificationParametersAt(AssemblyContext, Interface, SpecificationParameter), All),
+	member((AssemblyContext, Interface, SpecificationParameter), All),
+	setof((Key), keyAt((AssemblyContext, Interface, SpecificationParameter), Key), Keys).
+
+assignedBy(Assignment, Connector, SpecificationParameter, Key) :-
+	assignments(Connector, Assignments),
+	member(Assignment, Assignments),
+	assignedKey(Assignment, [Key]),
+	specificationParametersToReplace(Assignment,SpecificationParameters),
+	member(SpecificationParameter, SpecificationParameters).
+
+
+specificationParameters(WithVars) :-
 	setof((_AssemblyContext, _Interface, _SpecificationParameter), specificationParametersAt(_AssemblyContext, _Interface, _SpecificationParameter), _Parameters),
 	!,
 	withVar(_Parameters, WithVars),
 	bagof(     (Left, Right),  equal(Left, Right), Equals),
 	unifyAll(WithVars, Equals).
-specificationParameterEquivalences([]).
+specificationParameters([]).
+
+mylookup(K,[(K,V)|_], V) :- !.
+mylookup(K,[_|KVS], V) :- mylookup(K,KVS,V).
 
 
-mmap([],P,[]).
+mylookupAll(K,[(K,V)|_], V).
+mylookupAll(K,[_|KVS], V) :- mylookupAll(K,KVS,V).
+
+mmap([],_,[]).
 mmap([X|Xs],P,[Y|Ys]) :-
     call(P,X,Y),
     mmap(Xs,P,Ys).
-
 toList((Left,Key),(Left, [Key])).
 toConstraint(World, Constraints) :- mmap(World, toList, Constraints).
 
 mergeAll([],[]).
 mergeAll([W], Constraints) :- toConstraint(W, Constraints).
 mergeAll([W|Ws], Constraints) :-
-	mergeAll(Ws, Cs),
-	toConstraint(W, C),
-	merge(C,Cs, Constraints).
-
+       mergeAll(Ws, Cs),
+       toConstraint(W, C),
+       merge(C,Cs, Constraints).
+ 
 merge([], [], []).
 merge([(Left, [Var1])|C1s], [(Left, [Var2])|C2s], [(Left, [Var1])|Constraints]) :-
-	var(Var1), var(Var2),
-	!,
-	merge(C1s, C2s, Constraints).
+       var(Var1), var(Var2),
+       !,
+       merge(C1s, C2s, Constraints).
 merge([(Left, [Var1])|C1s], [(Left,  Keys2)|C2s], [(Left,  Keys2)|Constraints]) :-
-	var(Var1),
-	!,
-	merge(C1s, C2s, Constraints).
+       var(Var1),
+       !,
+       merge(C1s, C2s, Constraints).
 merge([(Left,  Keys1)|C1s], [(Left, [Var2])|C2s], [(Left,  Keys1)|Constraints]) :-
-	var(Var2),
-	!,
-	merge(C1s, C2s, Constraints).
+       var(Var2),
+       !,
+       merge(C1s, C2s, Constraints).
 merge([(Left,  Keys1)|C1s], [(Left, Keys2)|C2s], [(Left,   KeysS)|Constraints]) :-
-	append(Keys1, Keys2, Keys),
-	sort(Keys,KeysS),
-	merge(C1s, C2s, Constraints).
+       append(Keys1, Keys2, Keys),
+       sort(Keys,KeysS),
+       merge(C1s, C2s, Constraints).
+
+sworld(World) :-
+	specificationParameters(WithVars),
+	World = WithVars.
+sconstraints(WithVars, ExplicitConstraints) :-
+	% specificationParameters(WithVars),
+	findall( (WithVars), assignConnectors(WithVars), Worlds),
+	mergeAll(Worlds, Constraints),
+	makeExplicitUnconstraint(Constraints, ExplicitConstraints).
+	% findall( ((AssemblyContext, Interface, SpecificationParameter), Keys),
+	% 	 ( member(((AssemblyContext, Interface, SpecificationParameter), Key), WithVars),
+	% 	   findall( (Key),
+	% 		    (member(World, Worlds),
+	% 		     mylookup((AssemblyContext, Interface, SpecificationParameter), World, Key)
+	% 		    ),
+	% 		    Keys
+	% 	   )
+	% 	 ),
+	% 	 Constraints
+	% ).
+
+
+possibleValueFor(SpecificationParameter, ParameterValue) :-
+	parameter(DataSetMapEntry, [SpecificationParameter]),
+	% parameterizedDataSetMapEntry(DataSetMapEntry),
+	map(DataSetMapEntry, [Parameterized]),
+	map(DataSetRef,      [Parameterized]),
+	nameFor(DataSetRef, [ParameterValue]),
+	dataSetMapEntry(DataSetRef).
+
+makeExplicitUnconstraint([], []).
+makeExplicitUnconstraint([((AssemblyContext, Interface, SpecificationParameter), [Var])|Cs],
+                         [((AssemblyContext, Interface, SpecificationParameter), ParameterValues)|CsExplicit]) :-
+	var(Var),
+	setof((ParameterValue), possibleValueFor(SpecificationParameter, ParameterValue), ParameterValues),
+	makeExplicitUnconstraint(Cs, CsExplicit).
+makeExplicitUnconstraint([((AssemblyContext, Interface, SpecificationParameter), [Val|Vals])|Cs],
+                         [((AssemblyContext, Interface, SpecificationParameter), [Val|Vals])|CsExplicit]) :-
+	nonvar(Val),
+	makeExplicitUnconstraint(Cs, CsExplicit).
 
 	
-
-specificationParameterConstraints(Constraints, AllWithVars) :-
-	specificationParameterEquivalences(WithVars),
-	findall((WithVars), specificationParameterEquivalencesWithAssignment(WithVars, Assignment), AllWithVars).
-
-specificationParameterEquivalencesWithAssignment(WithVars, Assignment) :-
-	assignedKey(Assignment,_),
-	setof((Left, Key), assignedBy(Assignment, Left, Key), EffectiveAssignments),
-	assignAll(WithVars, EffectiveAssignments).
-
-	
-specificationParameterEquivalencesWithAssignments(WithVars) :-
-	findall((_AnyAssignment), assignedKey(_AnyAssignment, _), AnyAssignments),
-	!,
-	specificationParameterEquivalences(WithVars),
-	assignedKey(Assignment,_),
-	findall((Left, Key), assignedBy(Assignment, Left, Key), EffectiveAssignments),
-	assignAll(WithVars, EffectiveAssignments).
-specificationParameterEquivalencesWithAssignments(WithVars) :-
-	specificationParameterEquivalences(WithVars).
+assignConnectors(World) :-
+	connectorFor((AssemblyContext, InterfaceWithRole), Connector),
+	assignedBy(_Assignment, Connector, SpecificationParameter, Key),
+	mylookup((AssemblyContext, InterfaceWithRole, SpecificationParameter), World, Key).
 
 
 
-sworld(WithVars) :-
-	specificationParameterEquivalencesWithAssignments(WithVars).
-	% generateWorld(WithVars).
+
 
 parameterValue(Value) :-
 	dataSetMapEntry(Entry),
@@ -237,7 +305,8 @@ generateWorld([((_AssemblyContext, _Interface, _SpecificationParameter), Key)|Re
 generateWorld([((_AssemblyContext, _Interface, _SpecificationParameter), _  )|Rest]) :-
 	generateWorld(Rest).
 	
-	
+
+
 unifyAll(_, []).
 unifyAll(WithVars, [(Left,Right)|Rest]) :-
 	mylookup(Left,  WithVars, Var1),
@@ -299,10 +368,10 @@ mayknow(Attacker,Dataset) :-
 % First: non-connection-specific paramatersAndDataPairs
 % cases such as: parameterSources(6,[..,x,..]).
 %    as well as: parameterSources(6,[..,sizeOf(x),..]).
-includes(parm(Service,ParameterName), Dataset, Context, World) :-
-        hasParameter(Service, parm(Service,ParameterName)),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
-        member(ParameterName, ParameterNames).
+% includes(parm(Service,ParameterName), Dataset, Context, World) :-
+%         hasParameter(Service, parm(Service,ParameterName)),
+%         lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
+%         member(ParameterName, ParameterNames).
 
 % cases such as: parameterSources(6,[..,*,..]).
 includes(parm(Service,ParameterName), Dataset, Context, World) :-
@@ -353,9 +422,13 @@ dataSetMapEntryFor((DataSetRef, ParameterValue), DataSetMapEntry) :-
 	dataSetMapEntry(DataSetMapEntry),
 	nameFor(DataSetMapEntry, [ParameterValue]).
 
-lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, world(World), Substitution) :-
+interfaceRole(Context, Interface, required(Interface)) :-
+        requiredInterfacesOn(_Container,Interface,Context).
+interfaceRole(Context, Interface, provided(Interface)) :-
+        providedInterfacesOn(_Container,Interface,Context).
+lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, world((World, Constraints)), Substitution) :-
         hasService(Interface,Service),
-        interfacesOn(_Container,Interface,Context),
+        interfaceRole(Context, Interface, InterfaceWithRole),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         dataTargets(Pair, DatasetRefs),
@@ -365,16 +438,18 @@ lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, world(Wor
 	  )
 	; (parameterizedDataSetMapEntry(DatasetRef),
 	     parameter(DatasetRef, [Parameter]),
-	     mylookup((Context, Interface, Parameter), World, ParameterValue),
+	     mylookup((Context, InterfaceWithRole, Parameter), World, ParameterValue),
 	     ( (var(ParameterValue),
-	          fmt_write_string(SubsLeft, "'subs((%S, %S, %S)", args(Context, Interface, Parameter)),
+	          fmt_write_string(SubsLeft, "'subs((%S, %S, %S)", args(Context, InterfaceWithRole, Parameter)),
 	          atom_concat(SubsLeft, ' ↦ ', SubsLeftMapsTo),
 	          % fmt_write_string(SubsLeft, "'%S |-> ", args(ParameterValue)),
+	          mylookup((Context, InterfaceWithRole, Parameter), Constraints, PossibleParameterValues),
+	          member(ParameterValue, PossibleParameterValues),
 	          dataSetMapEntryFor((DatasetRef, ParameterValue), Dataset),
 	          fmt_write_string(SubsRight, "%s'", args(ParameterValue)),
 	          atom_concat(SubsLeftMapsTo,SubsRight,Substitution)
 	          % dataSetMapEntryFor((DatasetRef, ParameterValue), Dataset),
-	          % Substitution = subs((Context, Interface, Parameter), ParameterValue)
+	          % Substitution = subs((Context, InterfaceWithRole, Parameter), ParameterValue)
 	       )
 	     ; (nonvar(ParameterValue),
 	          dataSetMapEntryFor((DatasetRef, ParameterValue), Dataset)
@@ -387,6 +462,27 @@ lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, world(Wor
 	),
         parameterSources(Pair,ParameterNames).
 
+
+limitTo((              _,                 _), [], []).
+limitTo((AssemblyContext, InterfaceWithRole),
+        [((AssemblyContext, InterfaceWithRole, SpecificationParameter), Val)|Rest],
+        [((AssemblyContext, InterfaceWithRole, SpecificationParameter), Val)|RestLimited]) :-
+	!,
+	limitTo((AssemblyContext, InterfaceWithRole),Rest, RestLimited).
+limitTo((AssemblyContext, InterfaceWithRole),
+        [((              _,                 _,                      _),   _)|Rest],
+                                                                             RestLimited) :-
+	limitTo((AssemblyContext, InterfaceWithRole),Rest, RestLimited).
+
+worldFor((AssemblyContext, InterfaceWithRole), world((World, Constraints)), world((WorldFor, []))) :-
+	limitTo((AssemblyContext, InterfaceWithRole), World, WorldFor),
+	assignAllInWorld(WorldFor, Constraints).
+
+assignAllInWorld([], _).
+assignAllInWorld([((AssemblyContext, InterfaceWithRole, SpecificationParameter), ParameterValue)|Rest],  Constraints) :-
+	mylookup((AssemblyContext, InterfaceWithRole, SpecificationParameter), Constraints, PossibleParameterValues),
+	member(ParameterValue, PossibleParameterValues),
+	assignAllInWorld(Rest, Constraints).
 
 
 

@@ -5,7 +5,7 @@ INSTANCE=Instances/FromPalladio
 LINKMODEL=simpleLinkModel.P
 
 # if INSTANCE==Instances/FromPalladio, specify the path to the exported facts file fromPalladio.P to be used:
-FROMPALLADIO_FACTS=$(FROMPALLADIO_FACTS_CLOUDSCENARIO)
+FROMPALLADIO_FACTS=$(FROMPALLADIO_FACTS_CLOUDSCENARIO_MINIMIZED)
 
 # path to the xsb binary, see http://xsb.sourceforge.net/
 # use version 3.5
@@ -67,10 +67,10 @@ listFacts.result: $(XWAMS)
 	$(XSB) $(XSB_OPTIONS_QUIET) -e "[listFacts],listFacts,halt." > $@
 
 queries.result: $(XWAMS)
-	$(XSB) $(XSB_OPTIONS_QUIET) -e "[queries],(nojustify6 ; halt)." > $@
+	time $(XSB) $(XSB_OPTIONS_QUIET) -e "[queries],((nojustify6, halt) ; halt)." > $@
 
 queries-justify.result.pretty: Prettyprint.hs queries-justify.result descriptions.result
-	$(RUNGHC) $^ > $@
+	time $(RUNGHC) $^ > $@
 
 explore: Explore.hs Prettyprint.hs queries-justify.result descriptions.result
 	@echo "\n\n\n\n"
@@ -81,11 +81,11 @@ explore: Explore.hs Prettyprint.hs queries-justify.result descriptions.result
 	$(GHCI) $<
 
 queries-justify.result.pretty.simplified: Simplify.hs queries-justify.result
-	$(RUNGHC) $^ > $@
+	time $(RUNGHC) $^ > $@
 
 
 queries-justify.result: all_jxm.xwam all.xwam
-	$(XSB) $(XSB_OPTIONS_QUIET) -e "[basics],[all_jxm],[all],(justify6 ; halt)." > $@
+	time $(XSB) $(XSB_OPTIONS_QUIET) -e "[basics],[all_jxm],[all],(justify6 ; halt)." > $@
 
 test-queries-justify: all_jxm.xwam all.xwam
 	rlwrap $(XSB) -e "[basics],[all_jxm],[all]."

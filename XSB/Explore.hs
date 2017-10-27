@@ -15,7 +15,7 @@ descs = descriptionFromFile descriptionFile
 explore w is  = do
     putStrLn $ ""
     putStr   $ "World " ++ (show w) ++ ":  "
-    putStrLn $ (showWorld world)
+    putStrLn $ (showWorld Constraints world)
     showNode descs is proofs
     putStrLn $ ""
   where (world, proofs) = worlds !! w
@@ -24,7 +24,7 @@ main = do
     forM_ (zip [0..] worlds) (\(i,(world, proofs)) -> do
         putStrLn $ ""
         putStr   $ "World " ++ (show i) ++ ":  "
-        putStrLn $ (showWorld world)
+        putStrLn $ (showWorld Constraints world)
         showNode descs [] proofs
         putStrLn $ ""
      )

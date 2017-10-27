@@ -12,49 +12,59 @@
            from palladioInstance.
 
 :- import  interfacesOn/3,
+           providedInterfacesOn/3,
+           requiredInterfacesOn/3,
            parametersOf/2
            from palladio.
 
 :- import  linksDataAccessibleBy/3,
            containersFullyAccessibleBy/2,
-           providedInterfacesAccessibleTo/3,
-           requiredInterfacesAccessibleTo/3
+           providedInterfacesAccessibleTo/4,
+           requiredInterfacesAccessibleTo/4
            from security.
 
 :- import  includesCall/4,
+           required/1,
+	   provided/1,
            includes/4
            from securityInstance.
 % END IMPORTS
 % BEGIN EXPORTS
 :- export  % Predicates
-           accessibleParameters/4,               % accessibleParameters(Attacker,Parameter, Context, World)
-           observableServices/4.                 % observableServices(Attacker,Parameter, Context, World)
+           accessibleParameters/5,               % accessibleParameters(Attacker,Parameter, Context, InterfaceWithRole, World)
+           observableServices/5.                 % observableServices(Attacker,Parameter, Context, InterfaceWithRole,  World)
 
 % END EXPORTS
 
-justify_pred(accessibleParameters(_,_,_,_)).
-justify_pred(observableServices(_,_,_,_)).
+justify_pred(accessibleParameters(_,_,_,_,_)).
+justify_pred(observableServices(_,_,_,_,_)).
 
-accessibleParameters(Attacker,Parameter,Context, _World) :-
+accessibleParameters(Attacker,Parameter,Context, provided(Interface), World) :-
   % Ausgabe-Parameter, auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat
-  providedInterfacesAccessibleTo(Attacker,Interface,Context),
+  providedInterfacesAccessibleTo(Attacker,Interface,Context, World),
   hasService(Interface,Service),
   returnParameter(Service, Parameter).
 
-accessibleParameters(Attacker,Parameter,Context, _World) :-
+accessibleParameters(Attacker,Parameter,Context, required(Interface), World) :-
   % Eingabe-Parameter,auf die der Angreifer als regulärer "Benutzer" des Systems Zugriff hat, weil er vom System Aufgerufen wird.
-  requiredInterfacesAccessibleTo(Attacker,Interface,Context),
+  requiredInterfacesAccessibleTo(Attacker,Interface,Context, World),
   hasService(Interface,Service),
   hasParameter(Service, Parameter).
 
-accessibleParameters(Attacker,Parameter,Context, _World) :-
+accessibleParameters(Attacker,Parameter,Context, provided(Interface), _World) :-
   % Parameter, auf die der Angreifer Zugriff hat, weil er einen entsprechenden ResourceContainer angreifen konnte.
   containersFullyAccessibleBy(Attacker, Container),
-  interfacesOn(Container,Interface,Context),
+  providedInterfacesOn(Container,Interface,Context),
+  hasService(Interface,Service),
+  parametersOf(Service,Parameter).
+accessibleParameters(Attacker,Parameter,Context, required(Interface), _World) :-
+  % Parameter, auf die der Angreifer Zugriff hat, weil er einen entsprechenden ResourceContainer angreifen konnte.
+  containersFullyAccessibleBy(Attacker, Container),
+  requiredInterfacesOn(Container,Interface,Context),
   hasService(Interface,Service),
   parametersOf(Service,Parameter).
 
-accessibleParameters(Attacker,Parameter,Left, World) :-
+accessibleParameters(Attacker,Parameter,Left, required(Interface), World) :-
   % Parameter, auf die der Angreifer Zugriff hat, weil er eine entsprechende LinkResource angreifen konnte.
   linksDataAccessibleBy(Attacker, Link, DataSet),
   connects(Link,ContainerLeft,ContainerRight),
@@ -68,18 +78,24 @@ accessibleParameters(Attacker,Parameter,Left, World) :-
   includes(Parameter,DataSet,Left, World).
 
 
-observableServices(Attacker, Service, Context, _World) :-
+observableServices(Attacker, Service, Context, required(Interface), World) :-
   % Services, deren Aufrufe der Angreifer als regulärer "Benutzer" des Systems beobachten kann
-  requiredInterfacesAccessibleTo(Attacker,Interface,Context),
+  requiredInterfacesAccessibleTo(Attacker,Interface,Context, World),
   hasService(Interface, Service).
 
-observableServices(Attacker,Service,Context, _World) :-
+observableServices(Attacker,Service,Context, required(Interface), _World) :-
   % Services, deren Aufrufe der Angreifer beobachten kann, weil er einen entsprechenden ResourceContainer angreifen konnte.
   containersFullyAccessibleBy(Attacker,Container),
-  interfacesOn(Container,Interface, Context),
+  requiredInterfacesOn(Container,Interface, Context),
+  hasService(Interface,Service).
+observableServices(Attacker,Service,Context, provided(Interface), _World) :-
+  % Services, deren Aufrufe der Angreifer beobachten kann, weil er einen entsprechenden ResourceContainer angreifen konnte.
+  containersFullyAccessibleBy(Attacker,Container),
+  providedInterfacesOn(Container,Interface, Context),
   hasService(Interface,Service).
 
-observableServices(Attacker, Service, Left, World) :-
+
+observableServices(Attacker, Service, Left, required(Interface), World) :-
   % Services, deren Aufrufe der Angreifer beobachten kann, weil er eine entsprechende LinkResource angreifen konnte.
   linksDataAccessibleBy(Attacker, Link, DataSet),
   connects(Link,ContainerLeft, ContainerRight),

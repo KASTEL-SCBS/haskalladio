@@ -1,6 +1,7 @@
 % BEGIN IMPORTS
-:- import  sworld/1
+:- import  sconstraints/2,
+           sworld/1
            from securityInstance.
 % END IMPORTS
 
-world(world(World)) :- sworld(World).
+world(world((World, Constraints))) :- sworld(World), sconstraints(World, Constraints).

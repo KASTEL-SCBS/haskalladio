@@ -14,7 +14,8 @@ query6(Attacker,World) :- attacker(Attacker), isInSecureWithRespectTo(Attacker, 
 
 nojustify6:-
         write('justify6:'),nl,
-        findall((Attacker,World), query6(World,Attacker), Bag),
+        world(World),
+        findall((Attacker), query6(Attacker, World), Bag),
         length(Bag,L),
         write(Bag),nl,
         write('length:'), write(L), nl.

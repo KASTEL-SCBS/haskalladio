@@ -5,7 +5,7 @@ module Prettyprint where
 import Prelude
 import Data.Char(chr)
 import Data.Maybe (fromJust)
-import Data.List (find, intercalate, nub)
+import Data.List (find, intercalate, nub, intersperse)
 import Data.Tree
 import qualified Data.Map (lookup, fromList) 
 
@@ -68,7 +68,7 @@ showTerm (Node f []) = f
 showTerm (Node f xs) = f ++ "(" ++ (intercalate "," (fmap showTerm xs)) ++ ")"
 
 instance Show Assertion where
-  show (World world) = showWorld world
+  show (World world) = showWorld Constraints world
   show (Assertion t) = showTerm t
   show (AbbreviatedProof t n) = "(" ++ (show n) ++ " proofs) " ++ showTerm t
   show (Not a)       = "not " ++ (show a)
@@ -149,7 +149,7 @@ selectNode ((proofIndex, subGoalIndex):is) proofs = [ Node x (pre ++ [subproof] 
 showNode :: [Term] -> [(Int,Int)] -> [Proof] -> IO ()
 showNode descs ns proofs = do
    forM_ (fmap drawTree $ fmap withLeafIndices $ zipWith withIndex [0..] $ fmap (fmap show) $  selected) putStrLn
-  where processed = [ insertDescriptions descs $ interestingOnly $ proof  | proof <- proofs]
+  where processed = [ insertDescriptions descs $ interestingOnly $  termSubst flattenWorld $ proof  | proof <- proofs]
         selected = selectNode ns (fmap (\p -> Node (Assertion $ Node "x" []) [p]) processed)
         withIndex i (Node x xs) = Node ("[" ++ show i ++ "] " ++ x) xs
 
@@ -165,7 +165,8 @@ showNode descs ns proofs = do
         isLeaf (Node _ []) = True
         isLeaf _           = False
 
-
+        flattenWorld w@(Node "world" _) = Node (showWorld Subs w) []
+        flattenWorld x                  = x
 
 showNodeFull :: [Term] ->  Proof -> IO ()
 showNodeFull descs root = do
@@ -194,6 +195,18 @@ termFilter f (Node (NotEq terms1 terms2      ) ns) = Node (NotEq (fmap (tFilter 
                                                                  (fmap (tFilter f) terms2)
                                                           )                                       (fmap (termFilter f) ns)
 
+tSubst :: (Term -> Term) -> Term -> Term
+tSubst subst (Node x ts) = subst (Node x (fmap (tSubst subst) ts))
+
+termSubst :: (Term -> Term) -> Proof -> Proof
+termSubst subst proof = fmap f proof
+  where f (World world)            = World world -- World ((>>=) world g)
+        f (Assertion t)            = Assertion (tSubst subst t)
+        f (AbbreviatedProof t n)   = AbbreviatedProof (tSubst subst t) n
+        f (Not a)         = Not (f a)
+        f (NotEq ts1 ts2) = NotEq (fmap (tSubst subst) ts1) (fmap (tSubst subst) ts2)
+
+
 interestingOnly :: Proof -> Proof
 interestingOnly = (tFilter noFreeIncludesNots) . (termFilter noWorlds)
   where noFreeIncludesNots node@(Not (Assertion (Node "includes" [Node _ _, Node ('_':_) _, Node _ _]))) = False
@@ -205,31 +218,52 @@ prettyPrint :: String -> String -> IO ()
 prettyPrint file descsFile =
   forM_ worlds (\(world,proofs) -> do
       -- putStrLn $ "WORLD: " ++ (drawTree $  fmap show  $ world)
-      putStrLn $ "WORLD:" ++ (showWorld world)
+      putStrLn $ "WORLD:" ++ (showWorld Constraints world)
       forM_ proofs (\proof -> do
-          putStrLn $ drawTree $  fmap show  $ insertDescriptions descs $ interestingOnly proof
+          putStrLn $ drawTree $  fmap show  $ insertDescriptions descs $ interestingOnly $ termSubst flattenWorld $ proof
        )
    )
  where descs = descriptionFromFile descsFile
        worlds = fromFile file
+       flattenWorld w@(Node "world" _) = Node (showWorld Subs w) []
+       flattenWorld x                  = x
 
-showWorld :: Term -> String
-showWorld (Node "world" [Node "list" subs]) = intercalate ", " $ fmap showSub subs
-  where showSub (Node "tuple"
+data Which = Subs | Constraints deriving Show
+showWorld :: Which -> Term -> String
+showWorld which (Node "world" [Node "tuple" [ Node "list" subs, Node "list" constraints ]]) = intercalate ", " $ fmap showSub toShow
+  where toShow = case which of { Subs -> subs ; Constraints -> constraints }
+        showSub (Node "tuple"
                   [Node "tuple" [Node context [], Node interface [], Node parameter []],
                    Node "list" letters
                   ]
                 ) = "(" ++ context ++ ", " ++ interface ++ ", " ++ parameter ++ ") ↦ " ++ (fmap toLetter letters)
-          where -- toLetter (Node "list" [Node letter []]) = chr (read letter :: Int)
-                toLetter (Node letter [])               = chr (read letter :: Int)
-                toLetter  x                             = error $ "toLetter " ++ (show x)
         showSub (Node "tuple"
                   [Node "tuple" [Node context [], Node interface [], Node parameter []],
                    Node freeVar@('_':_) []
                   ]
                 ) = "(" ++ context ++ ", " ++ interface ++ ", " ++ parameter ++ ") ↦ " ++ freeVar
+        showSub (Node "tuple"
+                  [Node "tuple" [Node context [], Node providedRequired [Node interface []], Node parameter []],
+                   Node freeVar@('_':_) []
+                  ]
+                ) = "(" ++ context ++ ", " ++ providedRequired ++ "(" ++ interface ++ ")" ++ ", " ++ parameter ++ ") ↦ " ++ freeVar
+        showSub (Node "tuple"
+                  [Node "tuple" [Node context [], Node providedRequired [Node interface []], Node parameter []],
+                   Node "list" list
+                  ]
+                ) = case list of freeVars@((Node freeVar@('_':_) []):moreVars) -> "(" ++ context ++ ", " ++ providedRequired ++ "(" ++ interface ++ ")" ++ ", " ++ parameter ++ ") ↦ " ++ (showList freeVars)
+                                 values@  ((Node value@"list"     _):moreVals) -> "(" ++ context ++ ", " ++ providedRequired ++ "(" ++ interface ++ ")" ++ ", " ++ parameter ++ ") ↦ " ++ (showList values)
+                                 letters                                       -> "(" ++ context ++ ", " ++ providedRequired ++ "(" ++ interface ++ ")" ++ ", " ++ parameter ++ ") ↦ " ++ (fmap toLetter letters)
         showSub x = error $ "showSub " ++ (show x)
-
+        
+        showList items = "[" ++ (concat $ intersperse "," (fmap showItem items)) ++ "]"
+          where showItem (Node "list" letters) = fmap toLetter letters
+                showItem (Node item []) = item
+        
+        -- toLetter (Node "list" [Node letter []]) = chr (read letter :: Int)
+        toLetter (Node letter [])               = chr (read letter :: Int)
+        toLetter  x                             = error $ "toLetter " ++ (show x)
+showWorld w x = error $ "showWorld " ++ (show w) ++ " " ++ (show x)
 
 insertDescriptions :: [Term] -> Proof -> Proof
 insertDescriptions descs proof = fmap f proof
