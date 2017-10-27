@@ -21,16 +21,23 @@ nojustify6:-
         write('length:'), write(L), nl.
 justify6 :-
         write('justify6:'),nl,
-        world(World),
-        write('WORLD: '),write(World), nl,
-        findall(
-          (Attacker,E),
-          just_true(query6(Attacker,World),E),
-          Bag
+        assert(count(0)),
+        (    world(World),
+             write('WORLD: '),write(World), nl,
+             just_true(query6(Attacker,World),E),
+             count(Count),
+             ( Count  == 0, write('[')
+	     ; Count \== 0, write(',')
+	     ),
+	     write((Attacker,E)),
+             retract(count(_)),
+             CountNew is Count + 1,
+             assert(count(CountNew)),
+             fail
+        ;    count(Count),
+             write(']'),nl,
+             write('length:'), write(Count), nl
         ),
-        length(Bag,L),
-        write(Bag),nl,
-        write('length:'), write(L), nl,
         fail.
 
 
