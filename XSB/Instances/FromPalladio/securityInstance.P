@@ -163,31 +163,6 @@ connectorFor((AssemblyContext, provided(Interface)), Connector) :-
 	providedInterface(Role, Interfaces),
 	member(Interface, Interfaces).
 
-
-keyAt((AssemblyContext, InterfaceWithRole, SpecificationParameter), Key) :-
-	connectorFor((AssemblyContext, InterfaceWithRole), _Connector),
-	assignedBy(_Assignment, _Connector, SpecificationParameter, Key).
-keyAt((AssemblyContext, InterfaceWithRole, SpecificationParameter), Key) :-
-	connectorFor((AssemblyContext, InterfaceWithRole), _Connector),
-	not(assignedBy(_Assignment, _Connector, SpecificationParameter, Key)),
-	(  (InterfaceWithRole = required(Interface))
-	;  (InterfaceWithRole = provided(Interface))
-	),
-        hasService(Interface,Service),
-        parametersAndDataPairs(Service, Pairs),
-        member(Pair, Pairs),
-        dataTargets(Pair, DatasetRefs),
-        member(DatasetRef, DatasetRefs),
-	parameterizedDataSetMapEntry(DatasetRef),
-	parameter(DatasetRef, [SpecificationParameter]),
-	dataSetMapEntryFor((DatasetRef, Key), _Dataset).
-
-
-keysAt((AssemblyContext, Interface, SpecificationParameter), Keys)  :-
-	setof((AssemblyContext, Interface, SpecificationParameter), specificationParametersAt(AssemblyContext, Interface, SpecificationParameter), All),
-	member((AssemblyContext, Interface, SpecificationParameter), All),
-	setof((Key), keyAt((AssemblyContext, Interface, SpecificationParameter), Key), Keys).
-
 assignedBy(Assignment, Connector, SpecificationParameter, Key) :-
 	assignments(Connector, Assignments),
 	member(Assignment, Assignments),
@@ -206,10 +181,6 @@ specificationParameters([]).
 
 mylookup(K,[(K,V)|_], V) :- !.
 mylookup(K,[_|KVS], V) :- mylookup(K,KVS,V).
-
-
-mylookupAll(K,[(K,V)|_], V).
-mylookupAll(K,[_|KVS], V) :- mylookupAll(K,KVS,V).
 
 mmap([],_,[]).
 mmap([X|Xs],P,[Y|Ys]) :-
@@ -247,22 +218,9 @@ sworld(World) :-
 	specificationParameters(WithVars),
 	World = WithVars.
 sconstraints(WithVars, ExplicitConstraints) :-
-	% specificationParameters(WithVars),
 	findall( (WithVars), assignConnectors(WithVars), Worlds),
 	mergeAll(Worlds, Constraints),
 	makeExplicitUnconstraint(Constraints, ExplicitConstraints).
-	% findall( ((AssemblyContext, Interface, SpecificationParameter), Keys),
-	% 	 ( member(((AssemblyContext, Interface, SpecificationParameter), Key), WithVars),
-	% 	   findall( (Key),
-	% 		    (member(World, Worlds),
-	% 		     mylookup((AssemblyContext, Interface, SpecificationParameter), World, Key)
-	% 		    ),
-	% 		    Keys
-	% 	   )
-	% 	 ),
-	% 	 Constraints
-	% ).
-
 
 possibleValueFor(SpecificationParameter, ParameterValue) :-
 	parameter(DataSetMapEntry, [SpecificationParameter]),
@@ -291,22 +249,6 @@ assignConnectors(World) :-
 
 
 
-
-
-parameterValue(Value) :-
-	dataSetMapEntry(Entry),
-	nameFor(Entry, [Value]).
-generateWorld([]).
-generateWorld([((_AssemblyContext, _Interface, _SpecificationParameter), Key)|Rest]) :-
-	var(Key),
-	!,
-	parameterValue(Key),
-	generateWorld(Rest).
-generateWorld([((_AssemblyContext, _Interface, _SpecificationParameter), _  )|Rest]) :-
-	generateWorld(Rest).
-	
-
-
 unifyAll(_, []).
 unifyAll(WithVars, [(Left,Right)|Rest]) :-
 	mylookup(Left,  WithVars, Var1),
@@ -316,27 +258,6 @@ unifyAll(WithVars, [(Left,Right)|Rest]) :-
 	unifyAll(WithVars, Rest).
 unifyAll(WithVars, [(_,_)|Rest]) :-
 	unifyAll(WithVars, Rest).
-
-
-assignAll(_, []).
-assignAll(WithVars, [(Left,Key)|Rest]) :-
-	mylookup(Left,  WithVars, Var),
-	!,
-	Var = Key,
-	assignAll(WithVars, Rest).
-assignAll(WithVars, [(_,_)|Rest]) :-
-	assignAll(WithVars, Rest).
-
-
-% unifyAll(WithVars, Var1, Var2) :-
-% 	% equal((AssemblyContext, Interface1,  SpecificationParameter1), (AssemblyContext, Interface2,  SpecificationParameter2)),
-% 	mylookup((AssemblyContext, Interface1,  SpecificationParameter1), WithVars, Var1),
-% 	mylookup((AssemblyContext, Interface2,  SpecificationParameter2), WithVars, Var2),
-% 	Var1 = Var2.
-% 	% unify(((AssemblyContext, Interface1,  SpecificationParameter1), Var1),
-% 	%       ((AssemblyContext, Interface2,  SpecificationParameter2), Var2)).
-
-
 
 
 
@@ -431,6 +352,7 @@ lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, world((Wo
         interfaceRole(Context, Interface, InterfaceWithRole),
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
+        parameterSources(Pair,ParameterNames),
         dataTargets(Pair, DatasetRefs),
         member(DatasetRef, DatasetRefs),
         ( (dataSetMapEntry(DatasetRef),
@@ -459,8 +381,7 @@ lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, world((Wo
 	; (dataSet(DatasetRef),
 	     Dataset = DatasetRef
 	  )
-	),
-        parameterSources(Pair,ParameterNames).
+	).
 
 
 limitTo((              _,                 _), [], []).

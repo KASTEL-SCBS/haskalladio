@@ -1,9 +1,5 @@
 :- export  % Predicates
            withVar/2,
-           specificationParameters/1,
-           specificationParameterEquivalences/1,
-           specificationParameterEquivalencesWithAssignment/2,
-           specificationParameterEquivalencesWithAssignments/1,
            equal/2,
            specificationParametersAt/3,             % specificationParametersAt(AssemblyContext, Interface, SpecificationParameter).
            assigned/2,                              % assigned((AssemblyContext, Interface, SpecificationParameter), Key)
@@ -12,28 +8,14 @@
            includes/4,                      % includes(Parameter, DataSet, AssembluContext, World)
            includesCall/4,                  % includesCall(Service, DataSet, AssembluContext, World)
            mylookup/3,
-           mylookupAll/3,
-           unifyAll/2,
-           lookupDataSets/3,
            sworld/1,
            sconstraints/2,
-           lookupDataSetParameterNames/6,
-           dataSetMapEntryFor/2,
            assignedBy/4,
-           assignAll/2,
-           specificationParameterConstraints/1,
-           merge/3,
-           mergeAll/2,
            toList/2,
            connectorFor/2,
-           keyAt/2,
-	   keysAt/2,
+	   worldFor/3,
 	   required/1,
 	   provided/1,
-	   worldFor/3,
-	   assignAllInWorld/2,
-	   assignConnectors/1,
-	   possibleValueFor/2,
 
            tamperingAbilities/3,                    % tamperingAbilities(Attacker,Location,TamperingAbility)
            locationsAccessibleBy/2,                 % locationsAccessibleBy(Attacker,Location)

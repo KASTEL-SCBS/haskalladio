@@ -11,8 +11,7 @@
            byAssembly/1
            from palladioInstance.
 
-:- import  interfacesOn/3,
-           providedInterfacesOn/3,
+:- import  providedInterfacesOn/3,
            requiredInterfacesOn/3,
            parametersOf/2
            from palladio.
