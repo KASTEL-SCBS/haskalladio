@@ -45,8 +45,8 @@
            providedInterfacesAccessibleTo/4,        % providedInterfacesAccessibleTo(Attacker, Interface, AssemblyContext, World)
            requiredInterfacesAccessibleTo/4,        % requiredInterfacesAccessibleTo(Attacker, Interface, AssemblyContext, World)
 
-           parameterAllowedToBeAccessedBy/4,        % parameterAllowedToBeAccessedBy(Attacker, Parameter, World)
-           serviceAllowedToBeObservedBy/4,          % parameterAllowedToBeAccessedBy(Attacker, Parameter, World)
+           parameterAllowedToBeAccessedBy/4,        % parameterAllowedToBeAccessedBy(Attacker, Parameter, (Context, InterfaceWithRole), World)
+           serviceAllowedToBeObservedBy/4,          % parameterAllowedToBeAccessedBy(Attacker, Parameter, (Context, InterfaceWithRole), World)
 
            % Used Functors
            % Sharing = OpenShared | ControlledExclusive
@@ -58,8 +58,8 @@
 % END EXPORTS
 
 justify_pred(isInSecureWithRespectTo(_,_)).
-justify_pred(isInSecureWithRespectToService(_,_,_,_,_)).
-justify_pred(isInSecureWithRespectToParameter(_,_,_,_,_)).
+justify_pred(isInSecureWithRespectToService(_,_,_,_)).
+justify_pred(isInSecureWithRespectToParameter(_,_,_,_)).
 justify_pred(containersFullyAccessibleBy(_,_)).
 justify_pred(linksDataAccessibleBy(_,_,_)).
 justify_pred(linkAccessibleBy(_,_,_)).
@@ -70,36 +70,35 @@ justify_pred(serviceAllowedToBeObservedBy(_,_,_,_)).
 justify_pred(parameterAllowedToBeAccessedBy(_,_,_,_)).
 justify_pred(serviceForbiddenToBeObservedBy(_,_,_,_)).
 justify_pred(parameterForbiddenToBeAccessedBy(_,_,_,_)).
-justify_pred(isInSecureWithRespectToService(_,_,_,_,_)).
 
 
 isInSecureWithRespectTo(Attacker, World) :-
         accessibleParameters(Attacker,Parameter, Context, InterfaceWithRole, World),
-        isInSecureWithRespectToParameter(Attacker,Parameter, Context, InterfaceWithRole, World).
-isInSecureWithRespectToParameter(Attacker,Parameter, Context, InterfaceWithRole, World) :-
+        isInSecureWithRespectToParameter(Attacker,Parameter, (Context, InterfaceWithRole), World).
+isInSecureWithRespectToParameter(Attacker,Parameter, (Context, InterfaceWithRole), World) :-
         worldFor((Context, InterfaceWithRole), World, WorldFor),
-        parameterForbiddenToBeAccessedBy(Attacker,Parameter, Context, WorldFor), !. % Fow now, only report the first world a violation is found in. TODO: somehow deal with "equivalent" violations?
+        parameterForbiddenToBeAccessedBy(Attacker,Parameter, (Context, InterfaceWithRole), WorldFor), !. % Fow now, only report the first world a violation is found in. TODO: somehow deal with "equivalent" violations?
 % This is needed because of https://sourceforge.net/p/xsb/bugs/227/
-parameterForbiddenToBeAccessedBy(Attacker,Parameter, Context, WorldFor) :- not(parameterAllowedToBeAccessedBy(Attacker,Parameter, Context, WorldFor)). 
+parameterForbiddenToBeAccessedBy(Attacker,Parameter, (Context, InterfaceWithRole), WorldFor) :- not(parameterAllowedToBeAccessedBy(Attacker,Parameter, (Context, InterfaceWithRole), WorldFor)). 
 
 isInSecureWithRespectTo(Attacker, World) :-
         observableServices(Attacker,Service, Context, InterfaceWithRole, World),
-        isInSecureWithRespectToService(Attacker,Service, Context, InterfaceWithRole, World).
-isInSecureWithRespectToService(Attacker,Service, Context, InterfaceWithRole, World) :-
+        isInSecureWithRespectToService(Attacker,Service, (Context, InterfaceWithRole), World).
+isInSecureWithRespectToService(Attacker,Service, (Context, InterfaceWithRole), World) :-
         worldFor((Context, InterfaceWithRole), World, WorldFor),
-        serviceForbiddenToBeObservedBy(Attacker,Service, Context, WorldFor), !.  % Fow now, only report the first world a violation is found in. TODO: somehow deal with "equivalent" violations?
+        serviceForbiddenToBeObservedBy(Attacker,Service, (Context, InterfaceWithRole), WorldFor), !.  % Fow now, only report the first world a violation is found in. TODO: somehow deal with "equivalent" violations?
 % This is needed because of https://sourceforge.net/p/xsb/bugs/227/
-serviceForbiddenToBeObservedBy(Attacker,Service, Context, WorldFor) :- not(serviceAllowedToBeObservedBy(Attacker,Service, Context, WorldFor)).
+serviceForbiddenToBeObservedBy(Attacker,Service, (Context, InterfaceWithRole), WorldFor) :- not(serviceAllowedToBeObservedBy(Attacker,Service, (Context, InterfaceWithRole), WorldFor)).
 
 
 
-serviceAllowedToBeObservedBy(Attacker, Service, Context, World) :-
-        includesCall(Service, DataSet, Context, World),
+serviceAllowedToBeObservedBy(Attacker, Service, (Context, InterfaceWithRole), World) :-
+        includesCall(Service, DataSet, (Context, InterfaceWithRole), World),
         mayknow(Attacker, DataSet).
 
 
-parameterAllowedToBeAccessedBy(Attacker, Parameter, Context, World) :-
-        includes(Parameter, DataSet, Context, World),
+parameterAllowedToBeAccessedBy(Attacker, Parameter, (Context, InterfaceWithRole), World) :-
+        includes(Parameter, DataSet, (Context, InterfaceWithRole), World),
         mayknow(Attacker, DataSet).
 
 

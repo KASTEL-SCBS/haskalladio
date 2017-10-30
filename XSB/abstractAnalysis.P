@@ -74,7 +74,7 @@ accessibleParameters(Attacker,Parameter,Left, required(Interface), World) :-
   runsOn(Right,ContainerRight),
   hasService(Interface, Service),
   parametersOf(Service,Parameter),
-  includes(Parameter,DataSet,Left, World).
+  includes(Parameter,DataSet,(Left, required(Interface)), World).
 
 
 observableServices(Attacker, Service, Context, required(Interface), World) :-
@@ -104,5 +104,5 @@ observableServices(Attacker, Service, Left, required(Interface), World) :-
   systemAssembledTo(Left,Interface,byAssembly(Right)),
   runsOn(Right,ContainerRight),
   hasService(Interface,Service),
-  includesCall(Service,DataSet, Left, World).
+  includesCall(Service,DataSet, (Left, required(Interface)), World).
 

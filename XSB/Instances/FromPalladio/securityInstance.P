@@ -289,50 +289,50 @@ mayknow(Attacker,Dataset) :-
 % First: non-connection-specific paramatersAndDataPairs
 % cases such as: parameterSources(6,[..,x,..]).
 %    as well as: parameterSources(6,[..,sizeOf(x),..]).
-includes(parm(Service,ParameterName), Dataset, Context, World) :-
+includes(parm(Service,ParameterName), Dataset, (Context, InterfaceWithRole), World) :-
         hasParameter(Service, parm(Service,ParameterName)),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
+        lookupDataSetParameterNames((Context, InterfaceWithRole), Service, Dataset, ParameterNames, World),
         member(ParameterName, ParameterNames).
 
 % cases such as: parameterSources(6,[..,*,..]).
-includes(parm(Service,ParameterName), Dataset, Context, World) :-
+includes(parm(Service,ParameterName), Dataset, (Context, InterfaceWithRole), World) :-
         hasParameter(Service, parm(Service,ParameterName)),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
+        lookupDataSetParameterNames((Context, InterfaceWithRole), Service, Dataset, ParameterNames, World),
         member(*, ParameterNames).
-includes(return(Service), Dataset, Context, World) :-
+includes(return(Service), Dataset, (Context, InterfaceWithRole), World) :-
         returnParameter(Service, return(Service)),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
+        lookupDataSetParameterNames((Context, InterfaceWithRole), Service, Dataset, ParameterNames, World),
         member(*, ParameterNames).
-includes(sizeOf(return(Service)), Dataset, Context, World) :-
+includes(sizeOf(return(Service)), Dataset, (Context, InterfaceWithRole), World) :-
         returnParameter(Service, sizeOf(return(Service))),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
+        lookupDataSetParameterNames((Context, InterfaceWithRole), Service, Dataset, ParameterNames, World),
         member(*, ParameterNames).
 
 
 % cases such as: parameterSources(6,[..,sizeOf(*),..]).
-includes(parm(Service,sizeOf(ParameterName)), Dataset,Context, World) :-
+includes(parm(Service,sizeOf(ParameterName)), Dataset,(Context, InterfaceWithRole), World) :-
         hasParameter(Service, parm(Service,sizeOf(ParameterName))),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
+        lookupDataSetParameterNames((Context, InterfaceWithRole), Service, Dataset, ParameterNames, World),
         member(sizeOf(*), ParameterNames).
 
-includes(sizeOf(return(Service)), Dataset,Context, World) :-
+includes(sizeOf(return(Service)), Dataset,(Context, InterfaceWithRole), World) :-
         returnParameter(Service, sizeOf(return(Service))),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
+        lookupDataSetParameterNames((Context, InterfaceWithRole), Service, Dataset, ParameterNames, World),
         member(sizeOf(*), ParameterNames).
 
 
 % cases such as: parameterSources(6,[..,return,..]).
-includes(return(Service), Dataset, Context, World) :-
+includes(return(Service), Dataset, (Context, InterfaceWithRole), World) :-
         returnParameter(Service, return(Service)),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
+        lookupDataSetParameterNames((Context, InterfaceWithRole), Service, Dataset, ParameterNames, World),
         member(return, ParameterNames).
 
 % TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
-includesCall(Service, Dataset,Context, World) :-
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
+includesCall(Service, Dataset,(Context, InterfaceWithRole), World) :-
+        lookupDataSetParameterNames((Context, InterfaceWithRole), Service, Dataset, ParameterNames, World),
         member(call, ParameterNames).
-includesCall(Service, Dataset,Context, World) :-
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
+includesCall(Service, Dataset,(Context, InterfaceWithRole), World) :-
+        lookupDataSetParameterNames((Context, InterfaceWithRole), Service, Dataset, ParameterNames, World),
         member(*, ParameterNames).
 
 
@@ -343,13 +343,7 @@ dataSetMapEntryFor((DataSetRef, ParameterValue), DataSetMapEntry) :-
 	dataSetMapEntry(DataSetMapEntry),
 	nameFor(DataSetMapEntry, [ParameterValue]).
 
-interfaceRole(Context, Interface, required(Interface)) :-
-        requiredInterfacesOn(_Container,Interface,Context).
-interfaceRole(Context, Interface, provided(Interface)) :-
-        providedInterfacesOn(_Container,Interface,Context).
-lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, world((World, Constraints))) :-
-        hasService(Interface,Service),
-        interfaceRole(Context, Interface, InterfaceWithRole),
+lookupDataSetParameterNames((Context, InterfaceWithRole), Service, Dataset, ParameterNames, world((World, _Constraints))) :-
         parametersAndDataPairs(Service, Pairs),
         member(Pair, Pairs),
         parameterSources(Pair,ParameterNames),

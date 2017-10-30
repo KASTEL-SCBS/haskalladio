@@ -5,8 +5,8 @@
            assigned/2,                              % assigned((AssemblyContext, Interface, SpecificationParameter), Key)
            uiInterfaceOn/2,                         % uiInterfaceOn(ResourceContainer,Interface)
            mayknow/2,             % mayknow(Attacker,DataSet)
-           includes/4,                      % includes(Parameter, DataSet, AssembluContext, World)
-           includesCall/4,                  % includesCall(Service, DataSet, AssembluContext, World)
+           includes/4,                      % includes(Parameter, DataSet, (AssemblyContext, InterfaceWithRole), World)
+           includesCall/4,                  % includesCall(Service, DataSet, (AssemblyContext, InterfaceWithRole), World)
            mylookup/3,
            sworld/1,
            sconstraints/2,

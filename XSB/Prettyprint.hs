@@ -170,7 +170,9 @@ showNode descs ns proofs = do
 
 showNodeFull :: [Term] ->  Proof -> IO ()
 showNodeFull descs root = do
-    putStrLn $ drawTree $ (fmap show) $ (insertDescriptions descs $ interestingOnly $ root)
+    putStrLn $ drawTree $ (fmap show) $ (insertDescriptions descs $ interestingOnly $  termSubst flattenWorld $ root)
+  where flattenWorld w@(Node "world" _) = Node (showWorld Subs w) []
+        flattenWorld x                  = x
 
 
 type Proof = Tree Assertion
