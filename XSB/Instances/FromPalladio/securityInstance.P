@@ -79,7 +79,7 @@ justify_pred(location(_,_,_)).
 justify_pred(linkLocation(_,_,_)).
 justify_pred(dataset(_)).
 justify_pred(attacker(_)).
-justify_pred(lookupDataSetParameterNames(_,_,_,_,_,_)).
+justify_pred(lookupDataSetParameterNames(_,_,_,_,_)).
 
 isLocation(Location) :- location(Location).
 
@@ -289,50 +289,50 @@ mayknow(Attacker,Dataset) :-
 % First: non-connection-specific paramatersAndDataPairs
 % cases such as: parameterSources(6,[..,x,..]).
 %    as well as: parameterSources(6,[..,sizeOf(x),..]).
-% includes(parm(Service,ParameterName), Dataset, Context, World) :-
-%         hasParameter(Service, parm(Service,ParameterName)),
-%         lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
-%         member(ParameterName, ParameterNames).
+includes(parm(Service,ParameterName), Dataset, Context, World) :-
+        hasParameter(Service, parm(Service,ParameterName)),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
+        member(ParameterName, ParameterNames).
 
 % cases such as: parameterSources(6,[..,*,..]).
 includes(parm(Service,ParameterName), Dataset, Context, World) :-
         hasParameter(Service, parm(Service,ParameterName)),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
         member(*, ParameterNames).
 includes(return(Service), Dataset, Context, World) :-
         returnParameter(Service, return(Service)),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
         member(*, ParameterNames).
 includes(sizeOf(return(Service)), Dataset, Context, World) :-
         returnParameter(Service, sizeOf(return(Service))),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
         member(*, ParameterNames).
 
 
 % cases such as: parameterSources(6,[..,sizeOf(*),..]).
 includes(parm(Service,sizeOf(ParameterName)), Dataset,Context, World) :-
         hasParameter(Service, parm(Service,sizeOf(ParameterName))),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
         member(sizeOf(*), ParameterNames).
 
 includes(sizeOf(return(Service)), Dataset,Context, World) :-
         returnParameter(Service, sizeOf(return(Service))),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
         member(sizeOf(*), ParameterNames).
 
 
 % cases such as: parameterSources(6,[..,return,..]).
 includes(return(Service), Dataset, Context, World) :-
         returnParameter(Service, return(Service)),
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
         member(return, ParameterNames).
 
 % TODO ALL default for calls? if nothing is specified no knowledge that a call has happened my flow
 includesCall(Service, Dataset,Context, World) :-
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
         member(call, ParameterNames).
 includesCall(Service, Dataset,Context, World) :-
-        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World, _Substitution),
+        lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, World),
         member(*, ParameterNames).
 
 
@@ -347,7 +347,7 @@ interfaceRole(Context, Interface, required(Interface)) :-
         requiredInterfacesOn(_Container,Interface,Context).
 interfaceRole(Context, Interface, provided(Interface)) :-
         providedInterfacesOn(_Container,Interface,Context).
-lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, world((World, Constraints)), Substitution) :-
+lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, world((World, Constraints))) :-
         hasService(Interface,Service),
         interfaceRole(Context, Interface, InterfaceWithRole),
         parametersAndDataPairs(Service, Pairs),
@@ -362,16 +362,8 @@ lookupDataSetParameterNames(Context, Service, Dataset, ParameterNames, world((Wo
 	     parameter(DatasetRef, [Parameter]),
 	     mylookup((Context, InterfaceWithRole, Parameter), World, ParameterValue),
 	     ( (var(ParameterValue),
-	          fmt_write_string(SubsLeft, "'subs((%S, %S, %S)", args(Context, InterfaceWithRole, Parameter)),
-	          atom_concat(SubsLeft, ' ↦ ', SubsLeftMapsTo),
-	          % fmt_write_string(SubsLeft, "'%S |-> ", args(ParameterValue)),
-	          mylookup((Context, InterfaceWithRole, Parameter), Constraints, PossibleParameterValues),
-	          member(ParameterValue, PossibleParameterValues),
-	          dataSetMapEntryFor((DatasetRef, ParameterValue), Dataset),
-	          fmt_write_string(SubsRight, "%s'", args(ParameterValue)),
-	          atom_concat(SubsLeftMapsTo,SubsRight,Substitution)
-	          % dataSetMapEntryFor((DatasetRef, ParameterValue), Dataset),
-	          % Substitution = subs((Context, InterfaceWithRole, Parameter), ParameterValue)
+	          fmt_write_string(Error, "uninstantiated ParameterValue %S for (%S, %S, %S) in world %S", args(ParameterValue, Context, InterfaceWithRole, Parameter, World)),
+	          throw(Error)
 	       )
 	     ; (nonvar(ParameterValue),
 	          dataSetMapEntryFor((DatasetRef, ParameterValue), Dataset)

@@ -17,6 +17,9 @@
 	   required/1,
 	   provided/1,
 
+           % For Debugging:
+           lookupDataSetParameterNames/5,
+
            tamperingAbilities/3,                    % tamperingAbilities(Attacker,Location,TamperingAbility)
            locationsAccessibleBy/2,                 % locationsAccessibleBy(Attacker,Location)
            furtherConnections/2,                    % furtherConnections(ResourceContainer,FurtherConnections)
