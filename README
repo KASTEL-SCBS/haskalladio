@@ -1,6 +1,6 @@
-Hier werde ich hin- und wieder den aktuellen Stand dieser protoypischen Implementierung 'reinstellen.
+The up to date access analysis in Prolog can be found in the ```XSB/``` subdirectory.
 
-Den jederzeit aktuellen Stand verwalte ich per git. 
-Fragen? GIT-Zugriff? Einfach bei mir melden! 
+The ```Noninterference/``` subdirectory contains definitions for two different interpretations of the 'mayKnow' specification elements,
+and predicates to validate their equivalence.
 
-martin.hecker@kit.edu
+
