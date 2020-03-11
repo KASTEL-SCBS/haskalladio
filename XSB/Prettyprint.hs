@@ -1,6 +1,17 @@
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE TypeSynonymInstances #-}
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE DeriveGeneric #-}
+
+{-# LANGUAGE CPP #-}
+-- #define USE_GENERIC_TOJSON_INSTANCE
+
 module Prettyprint where 
 
+import GHC.Generics
+import Data.Aeson
+import qualified Data.ByteString.Lazy.Char8 as LBS
 
 import Prelude
 import Data.Char(chr)
@@ -59,8 +70,45 @@ data Assertion = Assertion Term
                | Not Assertion
                | NotEq [Term] [Term]
                | World World
-     deriving (Eq)
+     deriving (Eq, Generic)
 type Term = Tree Atom
+
+
+{- Test with something like:
+  let { p = Node (Not $ NotEq [Node "a" []] [Node "b" [] ])  []  :: Proof } in LBS.putStrLn  $ encode p
+-}
+#ifdef USE_GENERIC_TOJSON_INSTANCE
+instance ToJSON Assertion where
+    toEncoding = genericToEncoding defaultOptions
+#else
+instance ToJSON Assertion where
+  toJSON (Assertion t )   = termToJSON t
+  toJSON (AbbreviatedProof t n) =
+                            object ["abbreviated" .= termToJSON t, "n" .= n ]
+  toJSON (Not a )         = object ["not"         .= toJSON a ]
+  toJSON (NotEq ts1 ts2 ) = object ["notEq"       .= [ toJSON ts1, toJSON ts2] ]
+  toJSON (World world)    = object ["world"       .= termToJSON world ]
+
+
+{- this overlaps with the Data.Tree instance -}
+instance ToJSON Proof where
+  toJSON = proofToJSON
+
+{- this overlaps with the Data.Tree instance -}
+instance ToJSON Term where
+  toJSON = termToJSON
+
+proofToJSON :: Proof -> Value
+proofToJSON (Node a []) = toJSON a
+proofToJSON (Node a as) = object [ "conclusion" .= toJSON a, "premises" .= toJSON (fmap toJSON as) ]
+
+termToJSON :: Term -> Value
+termToJSON (Node a []) = toJSON a
+termToJSON (Node a ts) = toJSON [ toJSON a, toJSON (fmap termToJSON ts) ]
+#endif
+
+
+
 
 
 showTerm :: Term -> String
