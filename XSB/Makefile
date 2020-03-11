@@ -72,6 +72,9 @@ queries.result: $(XWAMS)
 queries-justify.result.pretty: Prettyprint.hs queries-justify.result descriptions.result
 	time $(RUNGHC) $^ > $@
 
+queries-justify.result.json: PrettyprintToJSON.hs queries-justify.result descriptions.result
+	time $(RUNGHC) $^ > $@
+
 explore: Explore.hs Prettyprint.hs queries-justify.result descriptions.result
 	@echo "\n\n\n\n"
 	@echo "Use\n"
@@ -85,7 +88,7 @@ queries-justify.result.pretty.simplified: Simplify.hs queries-justify.result
 
 
 queries-justify.result: all_jxm.xwam all.xwam
-	time $(XSB) $(XSB_OPTIONS_QUIET) -e "[basics],[all_jxm],[all],(justify6 ; halt)." > $@
+	time $(XSB) $(XSB_OPTIONS_QUIET) -e "[basics],[all_jxm],[all],(justify6 ; halt)." | sed '/Waiting for compilation.*/d' > $@
 
 test-queries-justify: all_jxm.xwam all.xwam
 	rlwrap $(XSB) -e "[basics],[all_jxm],[all]."
@@ -106,6 +109,7 @@ clean: clean-xwam
 	rm -f *_jxm.*
 	rm -f *.result
 	rm -f *.result.pretty
+	rm -f *.result.pretty.json
 	rm -f *.result.pretty.simplified
 	rm -f all.P
 	rm -f all-with-imports.P
