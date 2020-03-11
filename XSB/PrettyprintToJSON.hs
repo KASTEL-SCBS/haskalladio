@@ -65,7 +65,8 @@ proofToJSON (Node a as) = object [ "conclusion" .= toJSON a, "premises" .= toJSO
 
 termToJSON :: Term -> Value
 termToJSON (Node a []) = toJSON a
-termToJSON (Node a ts) = toJSON [ toJSON a, toJSON (fmap termToJSON ts) ]
+termToJSON (Node a ts) = toJSON $ Vector.fromList $ [ toJSON a ] ++ [toJSON (fmap termToJSON ts) ]
+
 #endif
 
 
