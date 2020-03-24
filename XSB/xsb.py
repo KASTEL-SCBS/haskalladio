@@ -62,15 +62,15 @@ class Id:
                                 ]
         """
         try:
+            if l[0] == "list":
+                name = "".join(chr(int(c)) for c in l[1])
+                return Id(hash(name), name)
             return Id(int(l[1][0]), l[1][1])
         except:
             try:
-                return Id(int(l[1][0][1][0]), l[1][0][1][1])
+                return Id.from_arr(l[1][0])
             except:
                 return None
-
-    def __int__(self) -> int:
-        return self.id
 
 
 def ids(ls: list) -> List[Id]:
@@ -122,9 +122,10 @@ class AccessibleParameter:
 
 
 @dataclass
-class AdversaryResourceTuple:
+class AdversaryInterfaceTuple:
     adversary: Id
-    resource_container: Id
+    operation_interface: Id
+    assembly_context: Id
 
 
 @dataclass
@@ -185,16 +186,40 @@ class ServiceNotAllowedToBeObservedBy:
             calls.append(Call.from_dicts(lookup, knows))
         return ServiceNotAllowedToBeObservedBy(service, calls)
 
+@dataclass
+class ContainerPhysicalAccessibleBy:
+
+    adversary: Id
+    resourceContainer: Id
+    location: Id
+
+
+@dataclass
+class Location:
+
+    resourceCountainer: Id
+    location: Id
+    tamperProtection: Id
+
+
+@dataclass
+class Interface:
+
+    resourceContainer: Id
+    operationInterface: Id
+    assemblyContext: Id
+    basicComponent: Id
+
 
 @dataclass
 class SecureWithRespectToConclusion(Conclusion):
     observable_service: Optional[ObservableService]
     # both exclude each other
     accessible_parameter: Optional[AccessibleParameter]
-    containers_fully_accessible_by: AdversaryResourceTuple
-    shared_of_resource_container: Id
-    further_existing_connection: Id
-    provided_interface: ProvidedInterface
+    requiredInterfacesAccessibleTo: AdversaryInterfaceTuple
+    containerPhysicalAccessibleBy: ContainerPhysicalAccessibleBy
+    location: Location
+    requiredInterfacesOn: Interface
     with_respect_to_service: Service
     service_forbidden_to_be_observed_by: Service
     service_not_allowed_to_be_observed_by: ServiceNotAllowedToBeObservedBy
@@ -222,10 +247,11 @@ class SecureWithRespectToConclusion(Conclusion):
                                                        operation_signature=Id.from_arr(obs["conclusion"][1][1][1][0]),
                                                        assembly_context=Id.from_arr(obs["conclusion"][1][2]),
                                                        required_interface=Id.from_arr(obs["conclusion"][1][3]))
-        containers_fully_accessible_by = AdversaryResourceTuple(*ids(obs["premises"][0]["conclusion"][1]))
-        shared_res_container = Id.from_arr(obs["premises"][0]["premises"][0][1][0])
-        further_ex_interface = Id.from_arr(obs["premises"][0]["premises"][1][1][0])
-        provided_interface = ProvidedInterface(*ids(obs["premises"][1]["conclusion"][1]))
+        requiredInterfacesAccessibleTo = AdversaryInterfaceTuple(*ids(obs["premises"][0]["conclusion"][1]))
+        containerPhysicalAccessibleBy = ContainerPhysicalAccessibleBy(*ids(obs["premises"][0]["premises"][0]["conclusion"][1]))
+        location = Location(*ids(obs["premises"][0]["premises"][0]["premises"][0][1]))
+        requiredInterfacesOn = Interface(*ids(obs["premises"][0]["premises"][1]["conclusion"][1]), Id.from_arr(obs["premises"][0]["premises"][1]["premises"][0][1][0][1]))
+
         wrts = d[1]["premises"][1]
         wrt = Service(Id.from_arr(wrts["conclusion"][1][1]),
                       *ids(wrts["conclusion"][1][2][1]))
@@ -233,9 +259,9 @@ class SecureWithRespectToConclusion(Conclusion):
         service_forbidden_to_be_obs_by = Service(Id.from_arr(wrt_prem["conclusion"][1][1]),
                                                  *ids(wrt_prem["conclusion"][1][2][1]))
         wrt_prem2 = wrt_prem["premises"][0]
-        return SecureWithRespectToConclusion(observable_service, accessible_parameter, containers_fully_accessible_by,
-                                             shared_res_container,
-                                             further_ex_interface, provided_interface, wrt,
+        return SecureWithRespectToConclusion(observable_service, accessible_parameter, requiredInterfacesAccessibleTo,
+                                             containerPhysicalAccessibleBy,
+                                             location, requiredInterfacesOn, wrt,
                                              service_forbidden_to_be_obs_by,
                                              ServiceNotAllowedToBeObservedBy.from_dict(wrt_prem2))
 
