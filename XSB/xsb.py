@@ -28,17 +28,9 @@ FILE = os.path.join(os.path.dirname(__file__), "queries-justify.result.json")
 
 @dataclass
 class Id:
-    id: int
-    name: str
-
-    def __hash__(self) -> int:
-        return self.id
-
-    def __eq__(self, other) -> bool:
-        return isinstance(other, self.__class__) and other.id == id
 
     @staticmethod
-    def from_arr(l: list) -> Optional['Id']:
+    def from_arr(l: list) -> Optional[str]:
         """
          [
                                     "adversary",
@@ -64,8 +56,9 @@ class Id:
         try:
             if l[0] == "list":
                 name = "".join(chr(int(c)) for c in l[1])
-                return Id(hash(name), name)
-            return Id(int(l[1][0]), l[1][1])
+                return name
+            _, name = int(l[1][0]), l[1][1]
+            return name
         except:
             try:
                 return Id.from_arr(l[1][0])
@@ -106,51 +99,51 @@ class Conclusion:
 
 @dataclass
 class ObservableService:
-    adversary: Id
-    operation_signature: Id
-    assembly_context: Id
-    provided_operation_interface: Id
+    adversary: str
+    operation_signature: str
+    assembly_context: str
+    provided_operation_interface: str
 
 
 @dataclass
 class AccessibleParameter:
-    adversary: Id
+    adversary: str
     name: str
-    operation_signature: Id
-    assembly_context: Id
-    required_interface: Id
+    operation_signature: str
+    assembly_context: str
+    required_interface: str
 
 
 @dataclass
 class AdversaryInterfaceTuple:
-    adversary: Id
-    operation_interface: Id
-    assembly_context: Id
+    adversary: str
+    operation_interface: str
+    assembly_context: str
 
 
 @dataclass
 class ProvidedInterface:
-    resource_container: Id
-    operation_interface: Id
-    assembly_context: Id
+    resource_container: str
+    operation_interface: str
+    assembly_context: str
 
 
 @dataclass
 class Service:
-    operation_signature: Id
-    assembly_context: Id
-    provided_interface: Id
+    operation_signature: str
+    assembly_context: str
+    provided_interface: str
 
 
 @dataclass
 class Call:
-    operation_signature: Id
+    operation_signature: str
     is_return: bool  # is operation signature prefixed by "return"
     name: Optional[str]  # if is_return == True
-    dataset_map_entry: Id
-    assembly_context: Id
-    provided_interface: Id  # operation interface
-    not_may_know_dataset_map_entry: Id
+    dataset_map_entry: str
+    assembly_context: str
+    provided_interface: str  # operation interface
+    not_may_know_dataset_map_entry: str
     may_know_data_set_map_entry: List[Id]
 
     @classmethod
@@ -189,26 +182,26 @@ class ServiceNotAllowedToBeObservedBy:
 @dataclass
 class ContainerPhysicalAccessibleBy:
 
-    adversary: Id
-    resourceContainer: Id
-    location: Id
+    adversary: str
+    resourceContainer: str
+    location: str
 
 
 @dataclass
 class Location:
 
-    resourceCountainer: Id
-    location: Id
-    tamperProtection: Id
+    resourceCountainer: str
+    location: str
+    tamperProtection: str
 
 
 @dataclass
 class Interface:
 
-    resourceContainer: Id
-    operationInterface: Id
-    assemblyContext: Id
-    basicComponent: Id
+    resourceContainer: str
+    operationInterface: str
+    assemblyContext: str
+    basicComponent: str
 
 
 @dataclass
