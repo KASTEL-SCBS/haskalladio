@@ -9,6 +9,8 @@ import json
 from dataclasses import dataclass
 from typing import List, Dict, Optional
 
+from oquery import OQuery
+
 try:
     from prettyprinter import cpprint, prettyprinter
 
@@ -278,9 +280,17 @@ class World:
         return Id.from_arr(d["conclusion"])
 
 
+def conv_list(l: OQuery) -> str:
+    return "".join(chr(int(c.obj)) for c in l[1])
+
+
 def parse(file: str) -> World:
     with open(file, "r") as f:
-        return World.from_arr(json.loads(f.read()))
+        d = json.loads(f.read())
+        o = OQuery(d)
+        #res = o.not_all(lambda x: x[0] == "isInSecureWithRespectTo").all(lambda x: x[0] == "list", conv_list)
+        #print(res)
+        return World.from_arr(d)
 
 
 if __name__ == '__main__':
