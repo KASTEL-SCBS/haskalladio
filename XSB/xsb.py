@@ -93,6 +93,7 @@ class IsInSecureInRespectToService(AbstractProofObjectClass, ABC):
     required: str  # required interface
     resourceContainer: str
     location: str
+    basicComponent: str
 
     def mode(self) -> Mode:
         raise NotImplementedError()
@@ -106,6 +107,8 @@ class IsInSecureInRespectToObservableService(IsInSecureInRespectToService):
 
     @classmethod
     def _from_oquery(cls, o: OQuery, attribute: str) -> Any:
+        if attribute == "basicComponent":
+            return o.first(lambda x: x[0] == "requires").all(*id_conv)[0].obj
         ret = o.first(lambda x: x[0] == "observableServices").all(*id_conv)
         attrs = ["adversary", "operationSignature", "assemblyContext", "required"]
         if attribute in attrs:
@@ -122,6 +125,8 @@ class IsInSecureInRespectToObservableParameters(IsInSecureInRespectToService):
 
     @classmethod
     def _from_oquery(cls, o: OQuery, attribute: str) -> Any:
+        if attribute == "basicComponent":
+            return o.first(lambda x: x[0] == "requires").all(*id_conv)[0].obj
         ret = o.first(lambda x: x[0] == "accessibleParameters").all(*id_conv)
         has_param = not o.any(lambda x: x[0] == "accessibleParameters" and x.any(lambda x: x == "return"))
         attrs = ["adversary", "operationSignature"] + (["parameter"] if has_param else []) + ["assemblyContext", "required"]
