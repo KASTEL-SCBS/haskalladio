@@ -69,7 +69,7 @@ class AbstractProofObjectClass:
 
 @dataclass
 class World:
-    proofs: List[AbstractProofObjectClass]
+    proofs: List["IsInSecureInRespectToService"]
 
     @staticmethod
     def _single_from_oquery(o: OQuery) -> "IsInSecureInRespectToService":
@@ -124,9 +124,12 @@ class IsInSecureInRespectToObservableParameters(IsInSecureInRespectToService):
     @classmethod
     def _from_oquery(cls, o: OQuery, attribute: str) -> Any:
         ret = o.first(_[0] == "accessibleParameters").all(*id_conv)
-        attrs = ["adversary", "operationSignature"] + (["parameter"] if not ret.any(_ == "return") else []) + ["assemblyContext", "required"]
+        has_param = not o.any(lambda x: x[0] == "accessibleParameters" and x.any(_ == "return"))
+        attrs = ["adversary", "operationSignature"] + (["parameter"] if has_param else []) + ["assemblyContext", "required"]
         if attribute in attrs:
             return ret[attrs.index(attribute)].obj
+        if attribute == "parameter":
+            return None
         return o.first(_[0] == "location").all(*id_conv)[["resourceContainer", "location"].index(attribute)].obj
 
 
