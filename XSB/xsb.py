@@ -3,13 +3,18 @@
 """
 Parses the queries-justify.result.json and parses it into basic data structures
 """
+import dataclasses
 import os
 import sys
 import json
+from abc import ABC
 from dataclasses import dataclass
-from typing import List, Dict, Optional
+from enum import Enum
+from typing import List, Dict, Optional, Any, cast
 
 from oquery import OQuery
+
+from fn import _
 
 try:
     from prettyprinter import cpprint, prettyprinter
@@ -28,269 +33,107 @@ except:
 FILE = os.path.join(os.path.dirname(__file__), "queries-justify.result.json")
 
 
-@dataclass
-class Id:
+class Mode(Enum):
 
-    @staticmethod
-    def from_arr(l: list) -> Optional[str]:
-        """
-         [
-                                    "adversary",
-                                    [
-                                        "30",
-                                        "cloud service administrator"
-                                    ]
-                                ]
-        or
-        [
-                                    "provided",
-                                    [
-                                        [
-                                            "operationInterface",
-                                            [
-                                                "26",
-                                                "FileManGUI"
-                                            ]
-                                        ]
-                                    ]
-                                ]
-        """
-        try:
-            if l[0] == "list":
-                name = "".join(chr(int(c)) for c in l[1])
-                return name
-            _, name = int(l[1][0]), l[1][1]
-            return name
-        except:
+    RETURN = 1
+    PARAMETER = 2
+    SERVICE = 3
+
+
+id_conv = _[0] == "list", lambda x: "".join(chr(int(c.obj)) for c in x[1])
+
+
+@dataclass
+class AbstractProofObjectClass:
+    """ Abstract class for proofs, used to construct generic objects """
+
+    @classmethod
+    def from_oquery(cls, o: OQuery) -> "AbstractProofObjectClass":
+        """ For each field f: look for [field_name, id] and use the id as its value """
+        ps: Dict[str, str] = {}
+        for f in dataclasses.fields(cls):
+            query = _[0] == f.name, lambda x: x.first(*id_conv)
             try:
-                return Id.from_arr(l[1][0])
+                ps[f.name] = cls._from_oquery(o, f.name)
             except:
-                return None
-
-
-def ids(ls: list) -> List[Id]:
-    return [Id.from_arr(l) for l in ls if Id.from_arr(l) is not None]
-
-
-class Conclusion:
+                if f.type is Optional:
+                    ps[f.name] = (o.maybe_first(*query) or OQuery(None)).obj
+                else:
+                    ps[f.name] = o.first(*query).obj
+        return cls(**ps)
 
     @classmethod
-    def _get_conclusion_d(cls, d: dict) -> dict:
-        """
-
-        :return: "conclusion": [
-                    "isInSecureWithRespectTo",
-                    [
-                        [
-                            "adversary",
-                            [
-                                "30",
-                                "cloud service administrator"
-                            ]
-                        ],
-                        …
-                       ]
-                ],
-        """
-        return d[1]["conclusion"]
-
-    @classmethod
-    def _get_conclusion_name(cls, d: dict) -> str:
-        return cls._get_conclusion_d(d)[0]
-
-
-@dataclass
-class ObservableService:
-    adversary: str
-    operation_signature: str
-    assembly_context: str
-    provided_operation_interface: str
-
-
-@dataclass
-class AccessibleParameter:
-    adversary: str
-    name: str
-    operation_signature: str
-    assembly_context: str
-    required_interface: str
-
-
-@dataclass
-class AdversaryInterfaceTuple:
-    adversary: str
-    operation_interface: str
-    assembly_context: str
-
-
-@dataclass
-class ProvidedInterface:
-    resource_container: str
-    operation_interface: str
-    assembly_context: str
-
-
-@dataclass
-class Service:
-    operation_signature: str
-    assembly_context: str
-    provided_interface: str
-
-
-@dataclass
-class Call:
-    operation_signature: str
-    is_return: bool  # is operation signature prefixed by "return"
-    name: Optional[str]  # if is_return == True
-    dataset_map_entry: str
-    assembly_context: str
-    provided_interface: str  # operation interface
-    not_may_know_dataset_map_entry: str
-    may_know_data_set_map_entry: List[Id]
-
-    @classmethod
-    def from_dicts(cls, l: dict, k: dict) -> 'Call':
-        op, d, ret, name = None, None, None, None
-        try:
-            op, d = ids(l["conclusion"][1][0:2])
-            ret = False
-        except:
-            name = l["conclusion"][1][0][0]
-            op = Id.from_arr(l["conclusion"][1][0][1][0][1][0])
-            d = Id.from_arr(l["conclusion"][1][2])
-            ret = True
-        return Call(op, ret, name, d, Id.from_arr(l["conclusion"][1][2][1][0]),
-                    Id.from_arr(l["conclusion"][1][2][1][1]),
-                    Id.from_arr(k["conclusion"]["not"][1][1]),
-                    ids(k["premises"][0][1][1][1]))
-
-
-@dataclass
-class ServiceNotAllowedToBeObservedBy:
-    service: Service
-    included_calls: List[Call]
-
-    @classmethod
-    def from_dict(cls, d: dict) -> 'ServiceNotAllowedToBeObservedBy':
-        service = Service(Id.from_arr(d["conclusion"]["not"][1][1]), *ids(d["conclusion"]["not"][1][2][1]))
-        prems = d["premises"]
-        calls = []
-        for i in range(0, len(prems), 2):
-            lookup = prems[i]
-            knows = prems[i + 1]
-            calls.append(Call.from_dicts(lookup, knows))
-        return ServiceNotAllowedToBeObservedBy(service, calls)
-
-@dataclass
-class ContainerPhysicalAccessibleBy:
-
-    adversary: str
-    resourceContainer: str
-    location: str
-
-
-@dataclass
-class Location:
-
-    resourceCountainer: str
-    location: str
-    tamperProtection: str
-
-
-@dataclass
-class Interface:
-
-    resourceContainer: str
-    operationInterface: str
-    assemblyContext: str
-    basicComponent: str
-
-
-@dataclass
-class SecureWithRespectToConclusion(Conclusion):
-    observable_service: Optional[ObservableService]
-    # both exclude each other
-    accessible_parameter: Optional[AccessibleParameter]
-    requiredInterfacesAccessibleTo: AdversaryInterfaceTuple
-    containerPhysicalAccessibleBy: ContainerPhysicalAccessibleBy
-    location: Location
-    requiredInterfacesOn: Interface
-    with_respect_to_service: Service
-    service_forbidden_to_be_observed_by: Service
-    service_not_allowed_to_be_observed_by: ServiceNotAllowedToBeObservedBy
-
-    @classmethod
-    def from_dict(cls, d: dict) -> 'SecureWithRespectToConclusion':
-        """
-          "premises": [
-            [
-                "attacker",
-                …
-            ],
-            {
-                "conclusion": [
-                    "isInSecureWithRespectTo",
-        """
-        obs = d[1]["premises"][0]
-        observable_service = None
-        accessible_parameter = None
-        try:
-            observable_service = ObservableService(*ids(obs["conclusion"][1]))
-        except:
-            accessible_parameter = AccessibleParameter(adversary=Id.from_arr(obs["conclusion"][1][0]),
-                                                       name=obs["conclusion"][1][1][0],
-                                                       operation_signature=Id.from_arr(obs["conclusion"][1][1][1][0]),
-                                                       assembly_context=Id.from_arr(obs["conclusion"][1][2]),
-                                                       required_interface=Id.from_arr(obs["conclusion"][1][3]))
-        requiredInterfacesAccessibleTo = AdversaryInterfaceTuple(*ids(obs["premises"][0]["conclusion"][1]))
-        containerPhysicalAccessibleBy = ContainerPhysicalAccessibleBy(*ids(obs["premises"][0]["premises"][0]["conclusion"][1]))
-        location = Location(*ids(obs["premises"][0]["premises"][0]["premises"][0][1]))
-        requiredInterfacesOn = Interface(*ids(obs["premises"][0]["premises"][1]["conclusion"][1]), Id.from_arr(obs["premises"][0]["premises"][1]["premises"][0][1][0][1]))
-
-        wrts = d[1]["premises"][1]
-        wrt = Service(Id.from_arr(wrts["conclusion"][1][1]),
-                      *ids(wrts["conclusion"][1][2][1]))
-        wrt_prem = wrts["premises"][0]
-        service_forbidden_to_be_obs_by = Service(Id.from_arr(wrt_prem["conclusion"][1][1]),
-                                                 *ids(wrt_prem["conclusion"][1][2][1]))
-        wrt_prem2 = wrt_prem["premises"][0]
-        return SecureWithRespectToConclusion(observable_service, accessible_parameter, requiredInterfacesAccessibleTo,
-                                             containerPhysicalAccessibleBy,
-                                             location, requiredInterfacesOn, wrt,
-                                             service_forbidden_to_be_obs_by,
-                                             ServiceNotAllowedToBeObservedBy.from_dict(wrt_prem2))
-
-    @classmethod
-    def is_applicable(cls, d: dict) -> bool:
-        """ see above """
-        return cls._get_conclusion_name(d) == "isInSecureWithRespectTo"
+    def _from_oquery(cls, o: OQuery, attribute: str) -> Any:
+        raise NotImplementedError()
 
 
 @dataclass
 class World:
-    conclusions_per_attacker: Dict[Id, List[SecureWithRespectToConclusion]]
+    proofs: List[AbstractProofObjectClass]
 
     @staticmethod
-    def from_arr(arr: List[dict]) -> 'World':
-        return World({World._attacker(d): SecureWithRespectToConclusion.from_dict(d["premises"])
-                      for d in arr if SecureWithRespectToConclusion.is_applicable(d["premises"])})
+    def _single_from_oquery(o: OQuery) -> "IsInSecureInRespectToService":
+        """ Turns the passed object into a specific sub class """
+        return cast(IsInSecureInRespectToService,
+                    (IsInSecureInRespectToObservableParameters
+                     if o.any(_ == "accessibleParameters") else
+                     IsInSecureInRespectToObservableService)
+                    .from_oquery(o))
 
     @staticmethod
-    def _attacker(d: dict) -> Id:
-        return Id.from_arr(d["conclusion"])
+    def from_obj(obj: Any) -> 'World':
+        return World(OQuery(obj).all(_["conclusion"][0] == "isInSecureWithRespectTo").map_all(World._single_from_oquery))
 
 
-def conv_list(l: OQuery) -> str:
-    return "".join(chr(int(c.obj)) for c in l[1])
+@dataclass
+class IsInSecureInRespectToService(AbstractProofObjectClass, ABC):
+
+    adversary: str
+    operationSignature: str
+    assemblyContext: str
+    required: str  # required interface
+    resourceContainer: str
+    location: str
+
+    def mode(self) -> Mode:
+        raise NotImplementedError()
+
+
+@dataclass
+class IsInSecureInRespectToObservableService(IsInSecureInRespectToService):
+
+    def mode(self) -> Mode:
+        return Mode.SERVICE
+
+    @classmethod
+    def _from_oquery(cls, o: OQuery, attribute: str) -> Any:
+        ret = o.first(_[0] == "observableServices").all(*id_conv)
+        attrs = ["adversary", "operationSignature", "assemblyContext", "required"]
+        if attribute in attrs:
+            return ret[attrs.index(attribute)].obj
+        return o.first(_[0] == "location").all(*id_conv)[["resourceContainer", "location"].index(attribute)].obj
+
+
+@dataclass
+class IsInSecureInRespectToObservableParameters(IsInSecureInRespectToService):
+    parameter: Optional[str]
+
+    def mode(self) -> Mode:
+        return Mode.RETURN if self.parameter is None else Mode.PARAMETER
+
+    @classmethod
+    def _from_oquery(cls, o: OQuery, attribute: str) -> Any:
+        ret = o.first(_[0] == "accessibleParameters").all(*id_conv)
+        attrs = ["adversary", "operationSignature"] + (["parameter"] if not ret.any(_ == "return") else []) + ["assemblyContext", "required"]
+        if attribute in attrs:
+            return ret[attrs.index(attribute)].obj
+        return o.first(_[0] == "location").all(*id_conv)[["resourceContainer", "location"].index(attribute)].obj
 
 
 def parse(file: str) -> World:
     with open(file, "r") as f:
         d = json.loads(f.read())
-        o = OQuery(d)
-        #res = o.not_all(lambda x: x[0] == "isInSecureWithRespectTo").all(lambda x: x[0] == "list", conv_list)
-        #print(res)
-        return World.from_arr(d)
+        return World.from_obj(d)
 
 
 if __name__ == '__main__':
