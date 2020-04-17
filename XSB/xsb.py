@@ -14,7 +14,6 @@ from typing import List, Dict, Optional, Any, cast
 
 from oquery import OQuery
 
-from fn import _
 
 try:
     from prettyprinter import cpprint, prettyprinter
@@ -40,7 +39,7 @@ class Mode(Enum):
     SERVICE = 3
 
 
-id_conv = _[0] == "list", lambda x: "".join(chr(int(c.obj)) for c in x[1])
+id_conv = lambda x: x[0] == "list", lambda x: "".join(chr(int(c.obj)) for c in x[1])
 
 
 @dataclass
@@ -52,7 +51,7 @@ class AbstractProofObjectClass:
         """ For each field f: look for [field_name, id] and use the id as its value """
         ps: Dict[str, str] = {}
         for f in dataclasses.fields(cls):
-            query = _[0] == f.name, lambda x: x.first(*id_conv)
+            query = lambda x: x[0] == f.name, lambda x: x.first(*id_conv)
             try:
                 ps[f.name] = cls._from_oquery(o, f.name)
             except:
@@ -76,13 +75,13 @@ class World:
         """ Turns the passed object into a specific sub class """
         return cast(IsInSecureInRespectToService,
                     (IsInSecureInRespectToObservableParameters
-                     if o.any(_ == "accessibleParameters") else
+                     if o.any(lambda x: x == "accessibleParameters") else
                      IsInSecureInRespectToObservableService)
                     .from_oquery(o))
 
     @staticmethod
     def from_obj(obj: Any) -> 'World':
-        return World(OQuery(obj).all(_["conclusion"][0] == "isInSecureWithRespectTo").map_all(World._single_from_oquery))
+        return World(OQuery(obj).all(lambda x: x["conclusion"][0] == "isInSecureWithRespectTo").map_all(World._single_from_oquery))
 
 
 @dataclass
@@ -107,11 +106,11 @@ class IsInSecureInRespectToObservableService(IsInSecureInRespectToService):
 
     @classmethod
     def _from_oquery(cls, o: OQuery, attribute: str) -> Any:
-        ret = o.first(_[0] == "observableServices").all(*id_conv)
+        ret = o.first(lambda x: x[0] == "observableServices").all(*id_conv)
         attrs = ["adversary", "operationSignature", "assemblyContext", "required"]
         if attribute in attrs:
             return ret[attrs.index(attribute)].obj
-        return o.first(_[0] == "location").all(*id_conv)[["resourceContainer", "location"].index(attribute)].obj
+        return o.first(lambda x: x[0] == "location").all(*id_conv)[["resourceContainer", "location"].index(attribute)].obj
 
 
 @dataclass
@@ -123,14 +122,14 @@ class IsInSecureInRespectToObservableParameters(IsInSecureInRespectToService):
 
     @classmethod
     def _from_oquery(cls, o: OQuery, attribute: str) -> Any:
-        ret = o.first(_[0] == "accessibleParameters").all(*id_conv)
-        has_param = not o.any(lambda x: x[0] == "accessibleParameters" and x.any(_ == "return"))
+        ret = o.first(lambda x: x[0] == "accessibleParameters").all(*id_conv)
+        has_param = not o.any(lambda x: x[0] == "accessibleParameters" and x.any(lambda x: x == "return"))
         attrs = ["adversary", "operationSignature"] + (["parameter"] if has_param else []) + ["assemblyContext", "required"]
         if attribute in attrs:
             return ret[attrs.index(attribute)].obj
         if attribute == "parameter":
             return None
-        return o.first(_[0] == "location").all(*id_conv)[["resourceContainer", "location"].index(attribute)].obj
+        return o.first(lambda x: x[0] == "location").all(*id_conv)[["resourceContainer", "location"].index(attribute)].obj
 
 
 def parse(file: str) -> World:
