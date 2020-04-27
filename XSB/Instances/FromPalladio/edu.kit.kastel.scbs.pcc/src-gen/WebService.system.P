@@ -1,0 +1,351 @@
+
+/** BEGIN system, ID: '"_-J3kwIiWEemd3YbtesF-Rw"', NAME: 'IWebService' */
+description("_-J3kwIiWEemd3YbtesF-Rw",'IWebService','system').
+system("_-J3kwIiWEemd3YbtesF-Rw").
+assemblyContexts("_-J3kwIiWEemd3YbtesF-Rw",["_jA3QAIzcEemffLcsUip71A","_yp3F0KFvEemsnYu_0k9cuQ","_ZlsWEIzcEemffLcsUip71A","_a3Tu8IzcEemffLcsUip71A","_fcyFQIzcEemffLcsUip71A","_a6MLgKFvEemsnYu_0k9cuQ","_eGRlUIzcEemffLcsUip71A","_WMaNwKFvEemsnYu_0k9cuQ","_YPaAQKFvEemsnYu_0k9cuQ","_d_i_kILfEeqXjvnfpEBkMw"]).
+connectors("_-J3kwIiWEemd3YbtesF-Rw",["_2YqyMIzcEemffLcsUip71A","_SsP5sKFvEemsnYu_0k9cuQ","_0Cdv0IzcEemffLcsUip71A","_y9KUoIzcEemffLcsUip71A","_wkvEsIzcEemffLcsUip71A","_SVtB8KFvEemsnYu_0k9cuQ","_mqQYkIzcEemffLcsUip71A","_nFVyEIzcEemffLcsUip71A","_o8SsoIzcEemffLcsUip71A","_RmfykKFvEemsnYu_0k9cuQ","_qf1DoKFvEemsnYu_0k9cuQ","_u2UiwKFvEemsnYu_0k9cuQ","_CLVPoKFwEemsnYu_0k9cuQ","_Dcjm8KFwEemsnYu_0k9cuQ","_IauKEKFwEemsnYu_0k9cuQ","_K0yYwKFwEemsnYu_0k9cuQ","_NzV0kKFwEemsnYu_0k9cuQ","_PrqBEKFwEemsnYu_0k9cuQ","_p6dSYILfEeqXjvnfpEBkMw","_rTaCUILfEeqXjvnfpEBkMw","_sbj9MILfEeqXjvnfpEBkMw","_tUiMkILfEeqXjvnfpEBkMw","_eYM6sILgEeqXjvnfpEBkMw"]).
+providedRoles("_-J3kwIiWEemd3YbtesF-Rw",["_-F280IzbEemffLcsUip71A","_8mNvAIzbEemffLcsUip71A","__ipD4IzbEemffLcsUip71A","_hslSAILfEeqXjvnfpEBkMw","_jTvdEILfEeqXjvnfpEBkMw","_ndaoMILfEeqXjvnfpEBkMw","_cdSGIILgEeqXjvnfpEBkMw"]).
+requiredRoles("_-J3kwIiWEemd3YbtesF-Rw",[]).
+
+/** BEGIN assemblyContext, ID: '"_jA3QAIzcEemffLcsUip71A"', NAME: 'Assembly_JavaRSA+AESFileDecryptor' */
+description("_jA3QAIzcEemffLcsUip71A",'Assembly_JavaRSA+AESFileDecryptor','assemblyContext').
+assemblyContext("_jA3QAIzcEemffLcsUip71A").
+encapsulatedComponent("_jA3QAIzcEemffLcsUip71A",[]).
+/** END assemblyContext, ID: '"_jA3QAIzcEemffLcsUip71A"', NAME: 'Assembly_JavaRSA+AESFileDecryptor' */
+
+
+/** BEGIN assemblyContext, ID: '"_yp3F0KFvEemsnYu_0k9cuQ"', NAME: 'Assembly_VideoProcessingManager' */
+description("_yp3F0KFvEemsnYu_0k9cuQ",'Assembly_VideoProcessingManager','assemblyContext').
+assemblyContext("_yp3F0KFvEemsnYu_0k9cuQ").
+encapsulatedComponent("_yp3F0KFvEemsnYu_0k9cuQ",["_RNKM4KFsEemsnYu_0k9cuQ"]).
+/** END assemblyContext, ID: '"_yp3F0KFvEemsnYu_0k9cuQ"', NAME: 'Assembly_VideoProcessingManager' */
+
+
+/** BEGIN assemblyContext, ID: '"_ZlsWEIzcEemffLcsUip71A"', NAME: 'Assembly_UserService' */
+description("_ZlsWEIzcEemffLcsUip71A",'Assembly_UserService','assemblyContext').
+assemblyContext("_ZlsWEIzcEemffLcsUip71A").
+encapsulatedComponent("_ZlsWEIzcEemffLcsUip71A",["_2gxJkIiPEemd3YbtesF-Rw"]).
+/** END assemblyContext, ID: '"_ZlsWEIzcEemffLcsUip71A"', NAME: 'Assembly_UserService' */
+
+
+/** BEGIN assemblyContext, ID: '"_a3Tu8IzcEemffLcsUip71A"', NAME: 'Assembly_UserSqlDB' */
+description("_a3Tu8IzcEemffLcsUip71A",'Assembly_UserSqlDB','assemblyContext').
+assemblyContext("_a3Tu8IzcEemffLcsUip71A").
+encapsulatedComponent("_a3Tu8IzcEemffLcsUip71A",["_6loGIIiPEemd3YbtesF-Rw"]).
+/** END assemblyContext, ID: '"_a3Tu8IzcEemffLcsUip71A"', NAME: 'Assembly_UserSqlDB' */
+
+
+/** BEGIN assemblyContext, ID: '"_fcyFQIzcEemffLcsUip71A"', NAME: 'Assembly_OpenCVVideoChain' */
+description("_fcyFQIzcEemffLcsUip71A",'Assembly_OpenCVVideoChain','assemblyContext').
+assemblyContext("_fcyFQIzcEemffLcsUip71A").
+encapsulatedComponent("_fcyFQIzcEemffLcsUip71A",[]).
+/** END assemblyContext, ID: '"_fcyFQIzcEemffLcsUip71A"', NAME: 'Assembly_OpenCVVideoChain' */
+
+
+/** BEGIN assemblyContext, ID: '"_a6MLgKFvEemsnYu_0k9cuQ"', NAME: 'Assembly_VideoFilesManager' */
+description("_a6MLgKFvEemsnYu_0k9cuQ",'Assembly_VideoFilesManager','assemblyContext').
+assemblyContext("_a6MLgKFvEemsnYu_0k9cuQ").
+encapsulatedComponent("_a6MLgKFvEemsnYu_0k9cuQ",["_d8eNkKFrEemsnYu_0k9cuQ"]).
+/** END assemblyContext, ID: '"_a6MLgKFvEemsnYu_0k9cuQ"', NAME: 'Assembly_VideoFilesManager' */
+
+
+/** BEGIN assemblyContext, ID: '"_eGRlUIzcEemffLcsUip71A"', NAME: 'Assembly_VideoService' */
+description("_eGRlUIzcEemffLcsUip71A",'Assembly_VideoService','assemblyContext').
+assemblyContext("_eGRlUIzcEemffLcsUip71A").
+encapsulatedComponent("_eGRlUIzcEemffLcsUip71A",["_Bm0mEIiSEemd3YbtesF-Rw"]).
+/** END assemblyContext, ID: '"_eGRlUIzcEemffLcsUip71A"', NAME: 'Assembly_VideoService' */
+
+
+/** BEGIN assemblyContext, ID: '"_WMaNwKFvEemsnYu_0k9cuQ"', NAME: 'Assembly_KeyManager' */
+description("_WMaNwKFvEemsnYu_0k9cuQ",'Assembly_KeyManager','assemblyContext').
+assemblyContext("_WMaNwKFvEemsnYu_0k9cuQ").
+encapsulatedComponent("_WMaNwKFvEemsnYu_0k9cuQ",["_d8eNkKFrEemsnYu_0k9cuQ"]).
+/** END assemblyContext, ID: '"_WMaNwKFvEemsnYu_0k9cuQ"', NAME: 'Assembly_KeyManager' */
+
+
+/** BEGIN assemblyContext, ID: '"_YPaAQKFvEemsnYu_0k9cuQ"', NAME: 'Assembly_TemporaryFileManager' */
+description("_YPaAQKFvEemsnYu_0k9cuQ",'Assembly_TemporaryFileManager','assemblyContext').
+assemblyContext("_YPaAQKFvEemsnYu_0k9cuQ").
+encapsulatedComponent("_YPaAQKFvEemsnYu_0k9cuQ",["_d8eNkKFrEemsnYu_0k9cuQ"]).
+/** END assemblyContext, ID: '"_YPaAQKFvEemsnYu_0k9cuQ"', NAME: 'Assembly_TemporaryFileManager' */
+
+
+/** BEGIN assemblyContext, ID: '"_d_i_kILfEeqXjvnfpEBkMw"', NAME: 'Assembly_AnonymizationService <AnonymizationService>' */
+description("_d_i_kILfEeqXjvnfpEBkMw",'Assembly_AnonymizationService <AnonymizationService>','assemblyContext').
+assemblyContext("_d_i_kILfEeqXjvnfpEBkMw").
+encapsulatedComponent("_d_i_kILfEeqXjvnfpEBkMw",["_CsEZkW9SEeqa34g-QYI2IQ"]).
+/** END assemblyContext, ID: '"_d_i_kILfEeqXjvnfpEBkMw"', NAME: 'Assembly_AnonymizationService <AnonymizationService>' */
+
+
+/** BEGIN assemblyConnector, ID: '"_2YqyMIzcEemffLcsUip71A"', NAME: 'newAssemblyConnector' */
+description("_2YqyMIzcEemffLcsUip71A",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_2YqyMIzcEemffLcsUip71A").
+requiringAssemblyContext("_2YqyMIzcEemffLcsUip71A",["_eGRlUIzcEemffLcsUip71A"]).
+providingAssemblyContext("_2YqyMIzcEemffLcsUip71A",["_fcyFQIzcEemffLcsUip71A"]).
+providedRole("_2YqyMIzcEemffLcsUip71A",["_W_zfYIieEemLvvX0_kElJw"]).
+requiredRole("_2YqyMIzcEemffLcsUip71A",[]).
+/** END assemblyConnector, ID: '"_2YqyMIzcEemffLcsUip71A"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN providedDelegationConnector, ID: '"_SsP5sKFvEemsnYu_0k9cuQ"', NAME: 'newProvidedDelegationConnector' */
+description("_SsP5sKFvEemsnYu_0k9cuQ",'newProvidedDelegationConnector','providedDelegationConnector').
+providedDelegationConnector("_SsP5sKFvEemsnYu_0k9cuQ").
+innerProvidedRole("_SsP5sKFvEemsnYu_0k9cuQ",["_UFjqmIYzEeqwMvpD1m6yYA"]).
+outerProvidedRole("_SsP5sKFvEemsnYu_0k9cuQ",["__ipD4IzbEemffLcsUip71A"]).
+assemblyContext("_SsP5sKFvEemsnYu_0k9cuQ",[]).
+/** END providedDelegationConnector, ID: '"_SsP5sKFvEemsnYu_0k9cuQ"', NAME: 'newProvidedDelegationConnector' */
+
+
+/** BEGIN assemblyConnector, ID: '"_0Cdv0IzcEemffLcsUip71A"', NAME: 'newAssemblyConnector' */
+description("_0Cdv0IzcEemffLcsUip71A",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_0Cdv0IzcEemffLcsUip71A").
+requiringAssemblyContext("_0Cdv0IzcEemffLcsUip71A",["_eGRlUIzcEemffLcsUip71A"]).
+providingAssemblyContext("_0Cdv0IzcEemffLcsUip71A",["_jA3QAIzcEemffLcsUip71A"]).
+providedRole("_0Cdv0IzcEemffLcsUip71A",["_-1ozQIuDEemfksrLlsx5_w"]).
+requiredRole("_0Cdv0IzcEemffLcsUip71A",[]).
+/** END assemblyConnector, ID: '"_0Cdv0IzcEemffLcsUip71A"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN assemblyConnector, ID: '"_y9KUoIzcEemffLcsUip71A"', NAME: 'newAssemblyConnector' */
+description("_y9KUoIzcEemffLcsUip71A",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_y9KUoIzcEemffLcsUip71A").
+requiringAssemblyContext("_y9KUoIzcEemffLcsUip71A",[]).
+providingAssemblyContext("_y9KUoIzcEemffLcsUip71A",["_eGRlUIzcEemffLcsUip71A"]).
+providedRole("_y9KUoIzcEemffLcsUip71A",["_Ec0i0IiSEemd3YbtesF-Rw"]).
+requiredRole("_y9KUoIzcEemffLcsUip71A",["_UFjqnYYzEeqwMvpD1m6yYA"]).
+/** END assemblyConnector, ID: '"_y9KUoIzcEemffLcsUip71A"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN assemblyConnector, ID: '"_wkvEsIzcEemffLcsUip71A"', NAME: 'newAssemblyConnector' */
+description("_wkvEsIzcEemffLcsUip71A",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_wkvEsIzcEemffLcsUip71A").
+requiringAssemblyContext("_wkvEsIzcEemffLcsUip71A",[]).
+providingAssemblyContext("_wkvEsIzcEemffLcsUip71A",["_jA3QAIzcEemffLcsUip71A"]).
+providedRole("_wkvEsIzcEemffLcsUip71A",["__hArgIuDEemfksrLlsx5_w"]).
+requiredRole("_wkvEsIzcEemffLcsUip71A",["_UFjqoIYzEeqwMvpD1m6yYA"]).
+/** END assemblyConnector, ID: '"_wkvEsIzcEemffLcsUip71A"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN providedDelegationConnector, ID: '"_SVtB8KFvEemsnYu_0k9cuQ"', NAME: 'newProvidedDelegationConnector' */
+description("_SVtB8KFvEemsnYu_0k9cuQ",'newProvidedDelegationConnector','providedDelegationConnector').
+providedDelegationConnector("_SVtB8KFvEemsnYu_0k9cuQ").
+innerProvidedRole("_SVtB8KFvEemsnYu_0k9cuQ",["_UFjqooYzEeqwMvpD1m6yYA"]).
+outerProvidedRole("_SVtB8KFvEemsnYu_0k9cuQ",["_-F280IzbEemffLcsUip71A"]).
+assemblyContext("_SVtB8KFvEemsnYu_0k9cuQ",[]).
+/** END providedDelegationConnector, ID: '"_SVtB8KFvEemsnYu_0k9cuQ"', NAME: 'newProvidedDelegationConnector' */
+
+
+/** BEGIN assemblyConnector, ID: '"_mqQYkIzcEemffLcsUip71A"', NAME: 'newAssemblyConnector' */
+description("_mqQYkIzcEemffLcsUip71A",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_mqQYkIzcEemffLcsUip71A").
+requiringAssemblyContext("_mqQYkIzcEemffLcsUip71A",[]).
+providingAssemblyContext("_mqQYkIzcEemffLcsUip71A",["_ZlsWEIzcEemffLcsUip71A"]).
+providedRole("_mqQYkIzcEemffLcsUip71A",["_MA4cEIiQEemd3YbtesF-Rw"]).
+requiredRole("_mqQYkIzcEemffLcsUip71A",["_UFjqpYYzEeqwMvpD1m6yYA"]).
+/** END assemblyConnector, ID: '"_mqQYkIzcEemffLcsUip71A"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN assemblyConnector, ID: '"_nFVyEIzcEemffLcsUip71A"', NAME: 'newAssemblyConnector' */
+description("_nFVyEIzcEemffLcsUip71A",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_nFVyEIzcEemffLcsUip71A").
+requiringAssemblyContext("_nFVyEIzcEemffLcsUip71A",[]).
+providingAssemblyContext("_nFVyEIzcEemffLcsUip71A",["_ZlsWEIzcEemffLcsUip71A"]).
+providedRole("_nFVyEIzcEemffLcsUip71A",["_5A_qoIiPEemd3YbtesF-Rw"]).
+requiredRole("_nFVyEIzcEemffLcsUip71A",["_UFjqqIYzEeqwMvpD1m6yYA"]).
+/** END assemblyConnector, ID: '"_nFVyEIzcEemffLcsUip71A"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN assemblyConnector, ID: '"_o8SsoIzcEemffLcsUip71A"', NAME: 'newAssemblyConnector' */
+description("_o8SsoIzcEemffLcsUip71A",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_o8SsoIzcEemffLcsUip71A").
+requiringAssemblyContext("_o8SsoIzcEemffLcsUip71A",["_ZlsWEIzcEemffLcsUip71A"]).
+providingAssemblyContext("_o8SsoIzcEemffLcsUip71A",["_a3Tu8IzcEemffLcsUip71A"]).
+providedRole("_o8SsoIzcEemffLcsUip71A",["_7eOiEIiPEemd3YbtesF-Rw"]).
+requiredRole("_o8SsoIzcEemffLcsUip71A",["_4PeuIIiPEemd3YbtesF-Rw"]).
+/** END assemblyConnector, ID: '"_o8SsoIzcEemffLcsUip71A"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN providedDelegationConnector, ID: '"_RmfykKFvEemsnYu_0k9cuQ"', NAME: 'newProvidedDelegationConnector' */
+description("_RmfykKFvEemsnYu_0k9cuQ",'newProvidedDelegationConnector','providedDelegationConnector').
+providedDelegationConnector("_RmfykKFvEemsnYu_0k9cuQ").
+innerProvidedRole("_RmfykKFvEemsnYu_0k9cuQ",["_UFjqrYYzEeqwMvpD1m6yYA"]).
+outerProvidedRole("_RmfykKFvEemsnYu_0k9cuQ",["_8mNvAIzbEemffLcsUip71A"]).
+assemblyContext("_RmfykKFvEemsnYu_0k9cuQ",[]).
+/** END providedDelegationConnector, ID: '"_RmfykKFvEemsnYu_0k9cuQ"', NAME: 'newProvidedDelegationConnector' */
+
+
+/** BEGIN assemblyConnector, ID: '"_qf1DoKFvEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+description("_qf1DoKFvEemsnYu_0k9cuQ",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_qf1DoKFvEemsnYu_0k9cuQ").
+requiringAssemblyContext("_qf1DoKFvEemsnYu_0k9cuQ",["_jA3QAIzcEemffLcsUip71A"]).
+providingAssemblyContext("_qf1DoKFvEemsnYu_0k9cuQ",["_WMaNwKFvEemsnYu_0k9cuQ"]).
+providedRole("_qf1DoKFvEemsnYu_0k9cuQ",["_gMNbkKFrEemsnYu_0k9cuQ"]).
+requiredRole("_qf1DoKFvEemsnYu_0k9cuQ",["_mIo9wKFrEemsnYu_0k9cuQ"]).
+/** END assemblyConnector, ID: '"_qf1DoKFvEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN assemblyConnector, ID: '"_u2UiwKFvEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+description("_u2UiwKFvEemsnYu_0k9cuQ",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_u2UiwKFvEemsnYu_0k9cuQ").
+requiringAssemblyContext("_u2UiwKFvEemsnYu_0k9cuQ",["_ZlsWEIzcEemffLcsUip71A"]).
+providingAssemblyContext("_u2UiwKFvEemsnYu_0k9cuQ",["_a3Tu8IzcEemffLcsUip71A"]).
+providedRole("_u2UiwKFvEemsnYu_0k9cuQ",["_wrK2cKFtEemsnYu_0k9cuQ"]).
+requiredRole("_u2UiwKFvEemsnYu_0k9cuQ",["_-LtqUKFtEemsnYu_0k9cuQ"]).
+/** END assemblyConnector, ID: '"_u2UiwKFvEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN assemblyConnector, ID: '"_CLVPoKFwEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+description("_CLVPoKFwEemsnYu_0k9cuQ",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_CLVPoKFwEemsnYu_0k9cuQ").
+requiringAssemblyContext("_CLVPoKFwEemsnYu_0k9cuQ",["_eGRlUIzcEemffLcsUip71A"]).
+providingAssemblyContext("_CLVPoKFwEemsnYu_0k9cuQ",["_a6MLgKFvEemsnYu_0k9cuQ"]).
+providedRole("_CLVPoKFwEemsnYu_0k9cuQ",["_fvtFwKFrEemsnYu_0k9cuQ"]).
+requiredRole("_CLVPoKFwEemsnYu_0k9cuQ",["_sHY-sKFsEemsnYu_0k9cuQ"]).
+/** END assemblyConnector, ID: '"_CLVPoKFwEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN assemblyConnector, ID: '"_Dcjm8KFwEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+description("_Dcjm8KFwEemsnYu_0k9cuQ",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_Dcjm8KFwEemsnYu_0k9cuQ").
+requiringAssemblyContext("_Dcjm8KFwEemsnYu_0k9cuQ",["_eGRlUIzcEemffLcsUip71A"]).
+providingAssemblyContext("_Dcjm8KFwEemsnYu_0k9cuQ",["_YPaAQKFvEemsnYu_0k9cuQ"]).
+providedRole("_Dcjm8KFwEemsnYu_0k9cuQ",["_gMNbkKFrEemsnYu_0k9cuQ"]).
+requiredRole("_Dcjm8KFwEemsnYu_0k9cuQ",["_uKSDgKFsEemsnYu_0k9cuQ"]).
+/** END assemblyConnector, ID: '"_Dcjm8KFwEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN assemblyConnector, ID: '"_IauKEKFwEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+description("_IauKEKFwEemsnYu_0k9cuQ",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_IauKEKFwEemsnYu_0k9cuQ").
+requiringAssemblyContext("_IauKEKFwEemsnYu_0k9cuQ",["_eGRlUIzcEemffLcsUip71A"]).
+providingAssemblyContext("_IauKEKFwEemsnYu_0k9cuQ",["_yp3F0KFvEemsnYu_0k9cuQ"]).
+providedRole("_IauKEKFwEemsnYu_0k9cuQ",["_cZ_4wKFsEemsnYu_0k9cuQ"]).
+requiredRole("_IauKEKFwEemsnYu_0k9cuQ",["_v4xloKFsEemsnYu_0k9cuQ"]).
+/** END assemblyConnector, ID: '"_IauKEKFwEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN assemblyConnector, ID: '"_K0yYwKFwEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+description("_K0yYwKFwEemsnYu_0k9cuQ",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_K0yYwKFwEemsnYu_0k9cuQ").
+requiringAssemblyContext("_K0yYwKFwEemsnYu_0k9cuQ",["_yp3F0KFvEemsnYu_0k9cuQ"]).
+providingAssemblyContext("_K0yYwKFwEemsnYu_0k9cuQ",["_YPaAQKFvEemsnYu_0k9cuQ"]).
+providedRole("_K0yYwKFwEemsnYu_0k9cuQ",["_gMNbkKFrEemsnYu_0k9cuQ"]).
+requiredRole("_K0yYwKFwEemsnYu_0k9cuQ",["_dihAAKFsEemsnYu_0k9cuQ"]).
+/** END assemblyConnector, ID: '"_K0yYwKFwEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN assemblyConnector, ID: '"_NzV0kKFwEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+description("_NzV0kKFwEemsnYu_0k9cuQ",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_NzV0kKFwEemsnYu_0k9cuQ").
+requiringAssemblyContext("_NzV0kKFwEemsnYu_0k9cuQ",["_yp3F0KFvEemsnYu_0k9cuQ"]).
+providingAssemblyContext("_NzV0kKFwEemsnYu_0k9cuQ",["_jA3QAIzcEemffLcsUip71A"]).
+providedRole("_NzV0kKFwEemsnYu_0k9cuQ",["_-1ozQIuDEemfksrLlsx5_w"]).
+requiredRole("_NzV0kKFwEemsnYu_0k9cuQ",["_e5faAKFsEemsnYu_0k9cuQ"]).
+/** END assemblyConnector, ID: '"_NzV0kKFwEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN assemblyConnector, ID: '"_PrqBEKFwEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+description("_PrqBEKFwEemsnYu_0k9cuQ",'newAssemblyConnector','assemblyConnector').
+assemblyConnector("_PrqBEKFwEemsnYu_0k9cuQ").
+requiringAssemblyContext("_PrqBEKFwEemsnYu_0k9cuQ",["_yp3F0KFvEemsnYu_0k9cuQ"]).
+providingAssemblyContext("_PrqBEKFwEemsnYu_0k9cuQ",["_fcyFQIzcEemffLcsUip71A"]).
+providedRole("_PrqBEKFwEemsnYu_0k9cuQ",["_W_zfYIieEemLvvX0_kElJw"]).
+requiredRole("_PrqBEKFwEemsnYu_0k9cuQ",["_hGh5UKFsEemsnYu_0k9cuQ"]).
+/** END assemblyConnector, ID: '"_PrqBEKFwEemsnYu_0k9cuQ"', NAME: 'newAssemblyConnector' */
+
+
+/** BEGIN providedDelegationConnector, ID: '"_p6dSYILfEeqXjvnfpEBkMw"', NAME: 'ProvDelegation Provided_PersecutionInformationProvision -> Provided_PersecutionInformationProvision_AnonymizationService' */
+description("_p6dSYILfEeqXjvnfpEBkMw",'ProvDelegation Provided_PersecutionInformationProvision -> Provided_PersecutionInformationProvision_AnonymizationService','providedDelegationConnector').
+providedDelegationConnector("_p6dSYILfEeqXjvnfpEBkMw").
+innerProvidedRole("_p6dSYILfEeqXjvnfpEBkMw",["_aJHrIG9YEeqCJcfpuZsnYQ"]).
+outerProvidedRole("_p6dSYILfEeqXjvnfpEBkMw",["_jTvdEILfEeqXjvnfpEBkMw"]).
+assemblyContext("_p6dSYILfEeqXjvnfpEBkMw",["_d_i_kILfEeqXjvnfpEBkMw"]).
+/** END providedDelegationConnector, ID: '"_p6dSYILfEeqXjvnfpEBkMw"', NAME: 'ProvDelegation Provided_PersecutionInformationProvision -> Provided_PersecutionInformationProvision_AnonymizationService' */
+
+
+/** BEGIN providedDelegationConnector, ID: '"_rTaCUILfEeqXjvnfpEBkMw"', NAME: 'ProvDelegation Provided_VideoReceiving -> Provided_VideoReceiving_AnonymizationService' */
+description("_rTaCUILfEeqXjvnfpEBkMw",'ProvDelegation Provided_VideoReceiving -> Provided_VideoReceiving_AnonymizationService','providedDelegationConnector').
+providedDelegationConnector("_rTaCUILfEeqXjvnfpEBkMw").
+innerProvidedRole("_rTaCUILfEeqXjvnfpEBkMw",["_YBPYoG9YEeqCJcfpuZsnYQ"]).
+outerProvidedRole("_rTaCUILfEeqXjvnfpEBkMw",["_ndaoMILfEeqXjvnfpEBkMw"]).
+assemblyContext("_rTaCUILfEeqXjvnfpEBkMw",["_d_i_kILfEeqXjvnfpEBkMw"]).
+/** END providedDelegationConnector, ID: '"_rTaCUILfEeqXjvnfpEBkMw"', NAME: 'ProvDelegation Provided_VideoReceiving -> Provided_VideoReceiving_AnonymizationService' */
+
+
+/** BEGIN providedDelegationConnector, ID: '"_sbj9MILfEeqXjvnfpEBkMw"', NAME: 'ProvDelegation Provided_JudgeAccess -> Provided_JudgeAccess_AnonymizationService' */
+description("_sbj9MILfEeqXjvnfpEBkMw",'ProvDelegation Provided_JudgeAccess -> Provided_JudgeAccess_AnonymizationService','providedDelegationConnector').
+providedDelegationConnector("_sbj9MILfEeqXjvnfpEBkMw").
+innerProvidedRole("_sbj9MILfEeqXjvnfpEBkMw",["_b0mVgG9YEeqCJcfpuZsnYQ"]).
+outerProvidedRole("_sbj9MILfEeqXjvnfpEBkMw",["_hslSAILfEeqXjvnfpEBkMw"]).
+assemblyContext("_sbj9MILfEeqXjvnfpEBkMw",["_d_i_kILfEeqXjvnfpEBkMw"]).
+/** END providedDelegationConnector, ID: '"_sbj9MILfEeqXjvnfpEBkMw"', NAME: 'ProvDelegation Provided_JudgeAccess -> Provided_JudgeAccess_AnonymizationService' */
+
+
+/** BEGIN providedDelegationConnector, ID: '"_tUiMkILfEeqXjvnfpEBkMw"', NAME: 'ProvDelegation IUserManagement -> Provided_IUserManagement_AnonymizationService' */
+description("_tUiMkILfEeqXjvnfpEBkMw",'ProvDelegation IUserManagement -> Provided_IUserManagement_AnonymizationService','providedDelegationConnector').
+providedDelegationConnector("_tUiMkILfEeqXjvnfpEBkMw").
+innerProvidedRole("_tUiMkILfEeqXjvnfpEBkMw",["_spM7IG9YEeqCJcfpuZsnYQ"]).
+outerProvidedRole("_tUiMkILfEeqXjvnfpEBkMw",["_8mNvAIzbEemffLcsUip71A"]).
+assemblyContext("_tUiMkILfEeqXjvnfpEBkMw",["_d_i_kILfEeqXjvnfpEBkMw"]).
+/** END providedDelegationConnector, ID: '"_tUiMkILfEeqXjvnfpEBkMw"', NAME: 'ProvDelegation IUserManagement -> Provided_IUserManagement_AnonymizationService' */
+
+
+/** BEGIN providedDelegationConnector, ID: '"_eYM6sILgEeqXjvnfpEBkMw"', NAME: 'ProvDelegation Provided_VideoHandling -> Provided_VideoHandling_AnonymizationService' */
+description("_eYM6sILgEeqXjvnfpEBkMw",'ProvDelegation Provided_VideoHandling -> Provided_VideoHandling_AnonymizationService','providedDelegationConnector').
+providedDelegationConnector("_eYM6sILgEeqXjvnfpEBkMw").
+innerProvidedRole("_eYM6sILgEeqXjvnfpEBkMw",["_YzeG0G9YEeqCJcfpuZsnYQ"]).
+outerProvidedRole("_eYM6sILgEeqXjvnfpEBkMw",["_cdSGIILgEeqXjvnfpEBkMw"]).
+assemblyContext("_eYM6sILgEeqXjvnfpEBkMw",["_d_i_kILfEeqXjvnfpEBkMw"]).
+/** END providedDelegationConnector, ID: '"_eYM6sILgEeqXjvnfpEBkMw"', NAME: 'ProvDelegation Provided_VideoHandling -> Provided_VideoHandling_AnonymizationService' */
+
+
+/** BEGIN operationProvidedRole, ID: '"_-F280IzbEemffLcsUip71A"', NAME: 'IWebVideoService' */
+description("_-F280IzbEemffLcsUip71A",'IWebVideoService','operationProvidedRole').
+operationProvidedRole("_-F280IzbEemffLcsUip71A").
+providedInterface("_-F280IzbEemffLcsUip71A",["_ABzs4IiOEemd3YbtesF-Rw"]).
+/** END operationProvidedRole, ID: '"_-F280IzbEemffLcsUip71A"', NAME: 'IWebVideoService' */
+
+
+/** BEGIN operationProvidedRole, ID: '"_8mNvAIzbEemffLcsUip71A"', NAME: 'IUserManagement' */
+description("_8mNvAIzbEemffLcsUip71A",'IUserManagement','operationProvidedRole').
+operationProvidedRole("_8mNvAIzbEemffLcsUip71A").
+providedInterface("_8mNvAIzbEemffLcsUip71A",["_JGrmsIiOEemd3YbtesF-Rw"]).
+/** END operationProvidedRole, ID: '"_8mNvAIzbEemffLcsUip71A"', NAME: 'IUserManagement' */
+
+
+/** BEGIN operationProvidedRole, ID: '"__ipD4IzbEemffLcsUip71A"', NAME: 'IPublicKeyProvider' */
+description("__ipD4IzbEemffLcsUip71A",'IPublicKeyProvider','operationProvidedRole').
+operationProvidedRole("__ipD4IzbEemffLcsUip71A").
+providedInterface("__ipD4IzbEemffLcsUip71A",["__3mqwIt8EemfksrLlsx5_w"]).
+/** END operationProvidedRole, ID: '"__ipD4IzbEemffLcsUip71A"', NAME: 'IPublicKeyProvider' */
+
+
+/** BEGIN operationProvidedRole, ID: '"_hslSAILfEeqXjvnfpEBkMw"', NAME: 'Provided_JudgeAccess' */
+description("_hslSAILfEeqXjvnfpEBkMw",'Provided_JudgeAccess','operationProvidedRole').
+operationProvidedRole("_hslSAILfEeqXjvnfpEBkMw").
+providedInterface("_hslSAILfEeqXjvnfpEBkMw",["_CsAIIG9SEeqa34g-QYI2IQ"]).
+/** END operationProvidedRole, ID: '"_hslSAILfEeqXjvnfpEBkMw"', NAME: 'Provided_JudgeAccess' */
+
+
+/** BEGIN operationProvidedRole, ID: '"_jTvdEILfEeqXjvnfpEBkMw"', NAME: 'Provided_PersecutionInformationProvision' */
+description("_jTvdEILfEeqXjvnfpEBkMw",'Provided_PersecutionInformationProvision','operationProvidedRole').
+operationProvidedRole("_jTvdEILfEeqXjvnfpEBkMw").
+providedInterface("_jTvdEILfEeqXjvnfpEBkMw",["_L_RBMM8KEemLXKRETzetgA"]).
+/** END operationProvidedRole, ID: '"_jTvdEILfEeqXjvnfpEBkMw"', NAME: 'Provided_PersecutionInformationProvision' */
+
+
+/** BEGIN operationProvidedRole, ID: '"_ndaoMILfEeqXjvnfpEBkMw"', NAME: 'Provided_VideoReceiving' */
+description("_ndaoMILfEeqXjvnfpEBkMw",'Provided_VideoReceiving','operationProvidedRole').
+operationProvidedRole("_ndaoMILfEeqXjvnfpEBkMw").
+providedInterface("_ndaoMILfEeqXjvnfpEBkMw",["_CsAvNG9SEeqa34g-QYI2IQ"]).
+/** END operationProvidedRole, ID: '"_ndaoMILfEeqXjvnfpEBkMw"', NAME: 'Provided_VideoReceiving' */
+
+
+/** BEGIN operationProvidedRole, ID: '"_cdSGIILgEeqXjvnfpEBkMw"', NAME: 'Provided_VideoHandling' */
+description("_cdSGIILgEeqXjvnfpEBkMw",'Provided_VideoHandling','operationProvidedRole').
+operationProvidedRole("_cdSGIILgEeqXjvnfpEBkMw").
+providedInterface("_cdSGIILgEeqXjvnfpEBkMw",["_ABzs4IiOEemd3YbtesF-Rw"]).
+/** END operationProvidedRole, ID: '"_cdSGIILgEeqXjvnfpEBkMw"', NAME: 'Provided_VideoHandling' */
+
+/** END system, ID: '"_-J3kwIiWEemd3YbtesF-Rw"', NAME: 'IWebService' */
+

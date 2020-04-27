@@ -5,11 +5,11 @@ INSTANCE=Instances/FromPalladio
 LINKMODEL=simpleLinkModel.P
 
 # if INSTANCE==Instances/FromPalladio, specify the path to the exported facts file fromPalladio.P to be used:
-FROMPALLADIO_FACTS=$(FROMPALLADIO_FACTS_CLOUDSCENARIO_MINIMIZED)
+FROMPALLADIO_FACTS=$(FROMPALLADIO_FACTS_PCC)
 
 # path to the xsb binary, see http://xsb.sourceforge.net/
 # use version 3.5
-XSB=xsb
+XSB= ~/XSB/bin/xsb
 XSB_OPTIONS_QUIET=--noprompt --quietload --nobanner --nofeedback
 
 # path to runghc, required for pretty-printed proofs
@@ -27,6 +27,7 @@ FROMPALLADIO_FACTS_CLOUDSCENARIO_MINIMIZED=Instances/FromPalladio/edu.kit.kastel
 FROMPALLADIO_FACTS_MINIMAL=Instances/FromPalladio/edu.kit.kastel.scbs.minimalexample/src-gen/fromPalladio.P
 FROMPALLADIO_FACTS_EXAMPLE=Instances/FromPalladio/edu.kit.kastel.scbs.paperexample/src-gen/fromPalladio.P
 FROMPALLADIO_FACTS_TRAVELPLANNER=Instances/FromPalladio/edu.kit.kastel.scbs.travelplanner/src-gen/fromPalladio.P
+FROMPALLADIO_FACTS_PCC=Instances/FromPalladio/edu.kit.kastel.scbs.pcc/src-gen/fromPalladio.P
 FROMPALLADIO_FACTS_EMPTY=Instances/FromPalladio/empty.P
 FROMPALLADIO_PREFIX=Instances/FromPalladio/fromPalladio.P.prefix
 INSTANCE_SYMLINKS=componentRepositoryInstance.P palladioInstance.P securityInstance.P simpleLinkModelInstance.P descriptionInstance.P worldInstance.P

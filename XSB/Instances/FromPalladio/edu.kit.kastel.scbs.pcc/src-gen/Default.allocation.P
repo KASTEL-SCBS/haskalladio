@@ -1,0 +1,183 @@
+
+/** BEGIN allocation, ID: '"_lwsywIicEemmgJbOCYBzSQ"', NAME: 'Default' */
+description("_lwsywIicEemmgJbOCYBzSQ",'Default','allocation').
+allocation("_lwsywIicEemmgJbOCYBzSQ").
+allocationContexts("_lwsywIicEemmgJbOCYBzSQ",["_RDmkUMpVEemVkJoNuJTOzQ","_SHId4MpVEemVkJoNuJTOzQ","_TRv24MpVEemVkJoNuJTOzQ","_T8n_4MpVEemVkJoNuJTOzQ","_qxVt0MpVEemVkJoNuJTOzQ","_p2mj4MpVEemVkJoNuJTOzQ","_sruW4MpVEemVkJoNuJTOzQ","_UozJYMpVEemVkJoNuJTOzQ","_WlnbYMpVEemVkJoNuJTOzQ","_YMYk4MpVEemVkJoNuJTOzQ","_ZziI4MpVEemVkJoNuJTOzQ","_cnqdYMpVEemVkJoNuJTOzQ","_pAbw4MpVEemVkJoNuJTOzQ","_roDTYMpVEemVkJoNuJTOzQ","_vW7Y4MpVEemVkJoNuJTOzQ","_ucaRYMpVEemVkJoNuJTOzQ","_yxIO4MpVEemVkJoNuJTOzQ","_w9PPYMpVEemVkJoNuJTOzQ","_0WhfYMpVEemVkJoNuJTOzQ","_OZZn4MpVEemVkJoNuJTOzQ","_TCm1YMpaEemVkJoNuJTOzQ","_OC2nsMsnEem-wKcS6YCLdw"]).
+
+/** BEGIN allocationContext, ID: '"_RDmkUMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_WebService <WebService>' */
+description("_RDmkUMpVEemVkJoNuJTOzQ",'Allocation_Assembly_WebService <WebService>','allocationContext').
+allocationContext("_RDmkUMpVEemVkJoNuJTOzQ").
+resourceContainer("_RDmkUMpVEemVkJoNuJTOzQ",["_P42d4MpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_RDmkUMpVEemVkJoNuJTOzQ",["_UFs0dIYzEeqwMvpD1m6yYA"]).
+/** END allocationContext, ID: '"_RDmkUMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_WebService <WebService>' */
+
+
+/** BEGIN allocationContext, ID: '"_SHId4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_UserService <UserService>' */
+description("_SHId4MpVEemVkJoNuJTOzQ",'Allocation_Assembly_UserService <UserService>','allocationContext').
+allocationContext("_SHId4MpVEemVkJoNuJTOzQ").
+resourceContainer("_SHId4MpVEemVkJoNuJTOzQ",["_P42d4MpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_SHId4MpVEemVkJoNuJTOzQ",["_ZlsWEIzcEemffLcsUip71A"]).
+/** END allocationContext, ID: '"_SHId4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_UserService <UserService>' */
+
+
+/** BEGIN allocationContext, ID: '"_TRv24MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_UserSqlDB <UserSQLDB>' */
+description("_TRv24MpVEemVkJoNuJTOzQ",'Allocation_Assembly_UserSqlDB <UserSQLDB>','allocationContext').
+allocationContext("_TRv24MpVEemVkJoNuJTOzQ").
+resourceContainer("_TRv24MpVEemVkJoNuJTOzQ",["_P42d4MpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_TRv24MpVEemVkJoNuJTOzQ",["_a3Tu8IzcEemffLcsUip71A"]).
+/** END allocationContext, ID: '"_TRv24MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_UserSqlDB <UserSQLDB>' */
+
+
+/** BEGIN allocationContext, ID: '"_T8n_4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_OpenCVVideoChain <OpenCVVideoChain>' */
+description("_T8n_4MpVEemVkJoNuJTOzQ",'Allocation_Assembly_OpenCVVideoChain <OpenCVVideoChain>','allocationContext').
+allocationContext("_T8n_4MpVEemVkJoNuJTOzQ").
+resourceContainer("_T8n_4MpVEemVkJoNuJTOzQ",["_P42d4MpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_T8n_4MpVEemVkJoNuJTOzQ",["_fcyFQIzcEemffLcsUip71A"]).
+/** END allocationContext, ID: '"_T8n_4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_OpenCVVideoChain <OpenCVVideoChain>' */
+
+
+/** BEGIN allocationContext, ID: '"_qxVt0MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_UserNetworkAdapter <UserNetworkAdapter>' */
+description("_qxVt0MpVEemVkJoNuJTOzQ",'Allocation_Assembly_UserNetworkAdapter <UserNetworkAdapter>','allocationContext').
+allocationContext("_qxVt0MpVEemVkJoNuJTOzQ").
+resourceContainer("_qxVt0MpVEemVkJoNuJTOzQ",["_DpjPcMpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_qxVt0MpVEemVkJoNuJTOzQ",["_3_ClAIzaEemffLcsUip71A"]).
+/** END allocationContext, ID: '"_qxVt0MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_UserNetworkAdapter <UserNetworkAdapter>' */
+
+
+/** BEGIN allocationContext, ID: '"_p2mj4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_JavaRSA+AESFileEncryptor <JavaRSA_AESFileEncryptor>' */
+description("_p2mj4MpVEemVkJoNuJTOzQ",'Allocation_Assembly_JavaRSA+AESFileEncryptor <JavaRSA_AESFileEncryptor>','allocationContext').
+allocationContext("_p2mj4MpVEemVkJoNuJTOzQ").
+resourceContainer("_p2mj4MpVEemVkJoNuJTOzQ",["_DpjPcMpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_p2mj4MpVEemVkJoNuJTOzQ",["_9_aMAIzaEemffLcsUip71A"]).
+/** END allocationContext, ID: '"_p2mj4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_JavaRSA+AESFileEncryptor <JavaRSA_AESFileEncryptor>' */
+
+
+/** BEGIN allocationContext, ID: '"_sruW4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_SessionManager <SessionManager>' */
+description("_sruW4MpVEemVkJoNuJTOzQ",'Allocation_Assembly_SessionManager <SessionManager>','allocationContext').
+allocationContext("_sruW4MpVEemVkJoNuJTOzQ").
+resourceContainer("_sruW4MpVEemVkJoNuJTOzQ",["_DpjPcMpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_sruW4MpVEemVkJoNuJTOzQ",["_yQGaUKooEemZD4TzTudR9g"]).
+/** END allocationContext, ID: '"_sruW4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_SessionManager <SessionManager>' */
+
+
+/** BEGIN allocationContext, ID: '"_UozJYMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_VideoFilesManager <FileSystemManager>' */
+description("_UozJYMpVEemVkJoNuJTOzQ",'Allocation_Assembly_VideoFilesManager <FileSystemManager>','allocationContext').
+allocationContext("_UozJYMpVEemVkJoNuJTOzQ").
+resourceContainer("_UozJYMpVEemVkJoNuJTOzQ",["_P42d4MpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_UozJYMpVEemVkJoNuJTOzQ",["_a6MLgKFvEemsnYu_0k9cuQ"]).
+/** END allocationContext, ID: '"_UozJYMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_VideoFilesManager <FileSystemManager>' */
+
+
+/** BEGIN allocationContext, ID: '"_WlnbYMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_VideoService <VideoService>' */
+description("_WlnbYMpVEemVkJoNuJTOzQ",'Allocation_Assembly_VideoService <VideoService>','allocationContext').
+allocationContext("_WlnbYMpVEemVkJoNuJTOzQ").
+resourceContainer("_WlnbYMpVEemVkJoNuJTOzQ",["_P42d4MpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_WlnbYMpVEemVkJoNuJTOzQ",["_eGRlUIzcEemffLcsUip71A"]).
+/** END allocationContext, ID: '"_WlnbYMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_VideoService <VideoService>' */
+
+
+/** BEGIN allocationContext, ID: '"_YMYk4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_KeyManager <FileSystemManager>' */
+description("_YMYk4MpVEemVkJoNuJTOzQ",'Allocation_Assembly_KeyManager <FileSystemManager>','allocationContext').
+allocationContext("_YMYk4MpVEemVkJoNuJTOzQ").
+resourceContainer("_YMYk4MpVEemVkJoNuJTOzQ",["_P42d4MpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_YMYk4MpVEemVkJoNuJTOzQ",["_WMaNwKFvEemsnYu_0k9cuQ"]).
+/** END allocationContext, ID: '"_YMYk4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_KeyManager <FileSystemManager>' */
+
+
+/** BEGIN allocationContext, ID: '"_ZziI4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_TemporaryFileManager <FileSystemManager>' */
+description("_ZziI4MpVEemVkJoNuJTOzQ",'Allocation_Assembly_TemporaryFileManager <FileSystemManager>','allocationContext').
+allocationContext("_ZziI4MpVEemVkJoNuJTOzQ").
+resourceContainer("_ZziI4MpVEemVkJoNuJTOzQ",["_P42d4MpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_ZziI4MpVEemVkJoNuJTOzQ",["_YPaAQKFvEemsnYu_0k9cuQ"]).
+/** END allocationContext, ID: '"_ZziI4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_TemporaryFileManager <FileSystemManager>' */
+
+
+/** BEGIN allocationContext, ID: '"_cnqdYMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_VideoProcessingManager <VideoProcessingManager>' */
+description("_cnqdYMpVEemVkJoNuJTOzQ",'Allocation_Assembly_VideoProcessingManager <VideoProcessingManager>','allocationContext').
+allocationContext("_cnqdYMpVEemVkJoNuJTOzQ").
+resourceContainer("_cnqdYMpVEemVkJoNuJTOzQ",["_P42d4MpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_cnqdYMpVEemVkJoNuJTOzQ",["_yp3F0KFvEemsnYu_0k9cuQ"]).
+/** END allocationContext, ID: '"_cnqdYMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_VideoProcessingManager <VideoProcessingManager>' */
+
+
+/** BEGIN allocationContext, ID: '"_pAbw4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_VideoNetworkAdapter <VideoNetworkAdapter>' */
+description("_pAbw4MpVEemVkJoNuJTOzQ",'Allocation_Assembly_VideoNetworkAdapter <VideoNetworkAdapter>','allocationContext').
+allocationContext("_pAbw4MpVEemVkJoNuJTOzQ").
+resourceContainer("_pAbw4MpVEemVkJoNuJTOzQ",["_DpjPcMpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_pAbw4MpVEemVkJoNuJTOzQ",["_42w3MIzaEemffLcsUip71A"]).
+/** END allocationContext, ID: '"_pAbw4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_VideoNetworkAdapter <VideoNetworkAdapter>' */
+
+
+/** BEGIN allocationContext, ID: '"_roDTYMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_FileSystemManager <FileSystemManager>' */
+description("_roDTYMpVEemVkJoNuJTOzQ",'Allocation_Assembly_FileSystemManager <FileSystemManager>','allocationContext').
+allocationContext("_roDTYMpVEemVkJoNuJTOzQ").
+resourceContainer("_roDTYMpVEemVkJoNuJTOzQ",["_DpjPcMpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_roDTYMpVEemVkJoNuJTOzQ",["_WM-4YKopEemZD4TzTudR9g"]).
+/** END allocationContext, ID: '"_roDTYMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_FileSystemManager <FileSystemManager>' */
+
+
+/** BEGIN allocationContext, ID: '"_vW7Y4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_SettingsManager <SettingsManager>' */
+description("_vW7Y4MpVEemVkJoNuJTOzQ",'Allocation_Assembly_SettingsManager <SettingsManager>','allocationContext').
+allocationContext("_vW7Y4MpVEemVkJoNuJTOzQ").
+resourceContainer("_vW7Y4MpVEemVkJoNuJTOzQ",["_DpjPcMpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_vW7Y4MpVEemVkJoNuJTOzQ",["_0y3SAKooEemZD4TzTudR9g"]).
+/** END allocationContext, ID: '"_vW7Y4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_SettingsManager <SettingsManager>' */
+
+
+/** BEGIN allocationContext, ID: '"_ucaRYMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_PreferencesStorage <PreferencesStorage>' */
+description("_ucaRYMpVEemVkJoNuJTOzQ",'Allocation_Assembly_PreferencesStorage <PreferencesStorage>','allocationContext').
+allocationContext("_ucaRYMpVEemVkJoNuJTOzQ").
+resourceContainer("_ucaRYMpVEemVkJoNuJTOzQ",["_DpjPcMpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_ucaRYMpVEemVkJoNuJTOzQ",["_zDLdEKooEemZD4TzTudR9g"]).
+/** END allocationContext, ID: '"_ucaRYMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_PreferencesStorage <PreferencesStorage>' */
+
+
+/** BEGIN allocationContext, ID: '"_yxIO4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_TemporaryFileManager <FileSystemManager>' */
+description("_yxIO4MpVEemVkJoNuJTOzQ",'Allocation_Assembly_TemporaryFileManager <FileSystemManager>','allocationContext').
+allocationContext("_yxIO4MpVEemVkJoNuJTOzQ").
+resourceContainer("_yxIO4MpVEemVkJoNuJTOzQ",["_DpjPcMpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_yxIO4MpVEemVkJoNuJTOzQ",["_Ypkz0KpvEemIzIuHgLGL0g"]).
+/** END allocationContext, ID: '"_yxIO4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_TemporaryFileManager <FileSystemManager>' */
+
+
+/** BEGIN allocationContext, ID: '"_w9PPYMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_LocalVideoManager <LocalVideoManager>' */
+description("_w9PPYMpVEemVkJoNuJTOzQ",'Allocation_Assembly_LocalVideoManager <LocalVideoManager>','allocationContext').
+allocationContext("_w9PPYMpVEemVkJoNuJTOzQ").
+resourceContainer("_w9PPYMpVEemVkJoNuJTOzQ",["_DpjPcMpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_w9PPYMpVEemVkJoNuJTOzQ",["_IOSI4KopEemZD4TzTudR9g"]).
+/** END allocationContext, ID: '"_w9PPYMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_LocalVideoManager <LocalVideoManager>' */
+
+
+/** BEGIN allocationContext, ID: '"_0WhfYMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_VideoUploadWrapper <VideoUploadWrapper>' */
+description("_0WhfYMpVEemVkJoNuJTOzQ",'Allocation_Assembly_VideoUploadWrapper <VideoUploadWrapper>','allocationContext').
+allocationContext("_0WhfYMpVEemVkJoNuJTOzQ").
+resourceContainer("_0WhfYMpVEemVkJoNuJTOzQ",["_P42d4MpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_0WhfYMpVEemVkJoNuJTOzQ",["_xWs_cKpwEemIzIuHgLGL0g"]).
+/** END allocationContext, ID: '"_0WhfYMpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_VideoUploadWrapper <VideoUploadWrapper>' */
+
+
+/** BEGIN allocationContext, ID: '"_OZZn4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_JavaRSA+AESFileDecryptor <JavaRSA_AESFileDecryptor>' */
+description("_OZZn4MpVEemVkJoNuJTOzQ",'Allocation_Assembly_JavaRSA+AESFileDecryptor <JavaRSA_AESFileDecryptor>','allocationContext').
+allocationContext("_OZZn4MpVEemVkJoNuJTOzQ").
+resourceContainer("_OZZn4MpVEemVkJoNuJTOzQ",["_P42d4MpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_OZZn4MpVEemVkJoNuJTOzQ",["_jA3QAIzcEemffLcsUip71A"]).
+/** END allocationContext, ID: '"_OZZn4MpVEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_JavaRSA+AESFileDecryptor <JavaRSA_AESFileDecryptor>' */
+
+
+/** BEGIN allocationContext, ID: '"_TCm1YMpaEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_PersecutionWebinterface <PersecutionWebinterface>' */
+description("_TCm1YMpaEemVkJoNuJTOzQ",'Allocation_Assembly_PersecutionWebinterface <PersecutionWebinterface>','allocationContext').
+allocationContext("_TCm1YMpaEemVkJoNuJTOzQ").
+resourceContainer("_TCm1YMpaEemVkJoNuJTOzQ",["_MhhqAYibEemd3YbtesF-Rw"]).
+assemblyContext_AllocationContext("_TCm1YMpaEemVkJoNuJTOzQ",["_zW1AIMpZEemVkJoNuJTOzQ"]).
+/** END allocationContext, ID: '"_TCm1YMpaEemVkJoNuJTOzQ"', NAME: 'Allocation_Assembly_PersecutionWebinterface <PersecutionWebinterface>' */
+
+
+/** BEGIN allocationContext, ID: '"_OC2nsMsnEem-wKcS6YCLdw"', NAME: 'Allocation_Assembly_Webinterface <Webinterface>' */
+description("_OC2nsMsnEem-wKcS6YCLdw",'Allocation_Assembly_Webinterface <Webinterface>','allocationContext').
+allocationContext("_OC2nsMsnEem-wKcS6YCLdw").
+resourceContainer("_OC2nsMsnEem-wKcS6YCLdw",["_DpjPcMpUEemVkJoNuJTOzQ"]).
+assemblyContext_AllocationContext("_OC2nsMsnEem-wKcS6YCLdw",["_UFtbjIYzEeqwMvpD1m6yYA"]).
+/** END allocationContext, ID: '"_OC2nsMsnEem-wKcS6YCLdw"', NAME: 'Allocation_Assembly_Webinterface <Webinterface>' */
+
+/** END allocation, ID: '"_lwsywIicEemmgJbOCYBzSQ"', NAME: 'Default' */
+

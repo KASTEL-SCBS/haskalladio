@@ -1,0 +1,31 @@
+
+/** BEGIN adversaries, ID: '"_dFha0MsVEemrhoDAp3YLbQ"', NAME: 'null' */
+description("_dFha0MsVEemrhoDAp3YLbQ",'null','adversaries').
+adversaries("_dFha0MsVEemrhoDAp3YLbQ").
+adversaries("_dFha0MsVEemrhoDAp3YLbQ",["_dFha0csVEemrhoDAp3YLbQ","_dFha0ssVEemrhoDAp3YLbQ","_dFha08sVEemrhoDAp3YLbQ"]).
+
+/** BEGIN adversary, ID: '"_dFha0csVEemrhoDAp3YLbQ"', NAME: 'Officer' */
+description("_dFha0csVEemrhoDAp3YLbQ",'Officer','adversary').
+adversary("_dFha0csVEemrhoDAp3YLbQ").
+mayKnowData("_dFha0csVEemrhoDAp3YLbQ",["_mvvxkMpeEemgl9nKPVXm3g"]).
+locationsAndTamperProtectionsPairs("_dFha0csVEemrhoDAp3YLbQ",["_L98GjMpfEemgl9nKPVXm3g"]).
+/** END adversary, ID: '"_dFha0csVEemrhoDAp3YLbQ"', NAME: 'Officer' */
+
+
+/** BEGIN adversary, ID: '"_dFha0ssVEemrhoDAp3YLbQ"', NAME: 'Judge' */
+description("_dFha0ssVEemrhoDAp3YLbQ",'Judge','adversary').
+adversary("_dFha0ssVEemrhoDAp3YLbQ").
+mayKnowData("_dFha0ssVEemrhoDAp3YLbQ",["_3EkTcM8KEemLXKRETzetgA","_mvvxkMpeEemgl9nKPVXm3g"]).
+locationsAndTamperProtectionsPairs("_dFha0ssVEemrhoDAp3YLbQ",["_L98GjMpfEemgl9nKPVXm3g"]).
+/** END adversary, ID: '"_dFha0ssVEemrhoDAp3YLbQ"', NAME: 'Judge' */
+
+
+/** BEGIN adversary, ID: '"_dFha08sVEemrhoDAp3YLbQ"', NAME: 'User' */
+description("_dFha08sVEemrhoDAp3YLbQ",'User','adversary').
+adversary("_dFha08sVEemrhoDAp3YLbQ").
+mayKnowData("_dFha08sVEemrhoDAp3YLbQ",["_kkk6gMpeEemgl9nKPVXm3g"]).
+locationsAndTamperProtectionsPairs("_dFha08sVEemrhoDAp3YLbQ",["_ltF2jNLJEemj7YE_mr27Gg"]).
+/** END adversary, ID: '"_dFha08sVEemrhoDAp3YLbQ"', NAME: 'User' */
+
+/** END adversaries, ID: '"_dFha0MsVEemrhoDAp3YLbQ"', NAME: 'null' */
+

@@ -1,0 +1,42 @@
+
+/** BEGIN resourceEnvironment, ID: '"Default"', NAME: 'Default' */
+description("Default",'Default','resourceEnvironment').
+resourceEnvironment("Default").
+linkingResources("Default",["_gSlFYMpUEemVkJoNuJTOzQ","_arHIsMsnEem-wKcS6YCLdw"]).
+resourceContainer("Default",["_MhhqAYibEemd3YbtesF-Rw","_P42d4MpUEemVkJoNuJTOzQ","_DpjPcMpUEemVkJoNuJTOzQ"]).
+
+/** BEGIN linkingResource, ID: '"_gSlFYMpUEemVkJoNuJTOzQ"', NAME: 'Internet' */
+description("_gSlFYMpUEemVkJoNuJTOzQ",'Internet','linkingResource').
+linkingResource("_gSlFYMpUEemVkJoNuJTOzQ").
+connectedResourceContainers("_gSlFYMpUEemVkJoNuJTOzQ",["_MhhqAYibEemd3YbtesF-Rw","_P42d4MpUEemVkJoNuJTOzQ"]).
+communicationLinkResourceSpecifications("_gSlFYMpUEemVkJoNuJTOzQ",[]).
+/** END linkingResource, ID: '"_gSlFYMpUEemVkJoNuJTOzQ"', NAME: 'Internet' */
+
+
+/** BEGIN linkingResource, ID: '"_arHIsMsnEem-wKcS6YCLdw"', NAME: 'PrivatePhoneConnection' */
+description("_arHIsMsnEem-wKcS6YCLdw",'PrivatePhoneConnection','linkingResource').
+linkingResource("_arHIsMsnEem-wKcS6YCLdw").
+connectedResourceContainers("_arHIsMsnEem-wKcS6YCLdw",["_DpjPcMpUEemVkJoNuJTOzQ","_P42d4MpUEemVkJoNuJTOzQ"]).
+communicationLinkResourceSpecifications("_arHIsMsnEem-wKcS6YCLdw",[]).
+/** END linkingResource, ID: '"_arHIsMsnEem-wKcS6YCLdw"', NAME: 'PrivatePhoneConnection' */
+
+
+/** BEGIN resourceContainer, ID: '"_MhhqAYibEemd3YbtesF-Rw"', NAME: 'Persecution Office Terminal' */
+description("_MhhqAYibEemd3YbtesF-Rw",'Persecution Office Terminal','resourceContainer').
+resourceContainer("_MhhqAYibEemd3YbtesF-Rw").
+/** END resourceContainer, ID: '"_MhhqAYibEemd3YbtesF-Rw"', NAME: 'Persecution Office Terminal' */
+
+
+/** BEGIN resourceContainer, ID: '"_P42d4MpUEemVkJoNuJTOzQ"', NAME: 'Driversoffice Server' */
+description("_P42d4MpUEemVkJoNuJTOzQ",'Driversoffice Server','resourceContainer').
+resourceContainer("_P42d4MpUEemVkJoNuJTOzQ").
+/** END resourceContainer, ID: '"_P42d4MpUEemVkJoNuJTOzQ"', NAME: 'Driversoffice Server' */
+
+
+/** BEGIN resourceContainer, ID: '"_DpjPcMpUEemVkJoNuJTOzQ"', NAME: 'Private Phone' */
+description("_DpjPcMpUEemVkJoNuJTOzQ",'Private Phone','resourceContainer').
+resourceContainer("_DpjPcMpUEemVkJoNuJTOzQ").
+/** END resourceContainer, ID: '"_DpjPcMpUEemVkJoNuJTOzQ"', NAME: 'Private Phone' */
+
+/** END resourceEnvironment, ID: '"Default"', NAME: 'Default' */
+

@@ -1,0 +1,78 @@
+
+/** BEGIN encryption, ID: '"_gSlFYMpUEemVkJoNuJTOzQ"', NAME: 'null' */
+description("_gSlFYMpUEemVkJoNuJTOzQ",'null','encryption').
+unencryptedData("_gSlFYMpUEemVkJoNuJTOzQ",[]).
+/** END encryption, ID: '"_gSlFYMpUEemVkJoNuJTOzQ"', NAME: 'null' */
+
+
+/** BEGIN locationAndTamperProtection, ID: '"_gSlFYMpUEemVkJoNuJTOzQ"', NAME: 'null' */
+description("_gSlFYMpUEemVkJoNuJTOzQ",'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs("_gSlFYMpUEemVkJoNuJTOzQ",["_4tPwTNCxEemzZtxQ8qw-hw"]).
+/** END locationAndTamperProtection, ID: '"_gSlFYMpUEemVkJoNuJTOzQ"', NAME: 'null' */
+
+
+/** BEGIN locationAndTamperProtection, ID: '"_arHIsMsnEem-wKcS6YCLdw"', NAME: 'null' */
+description("_arHIsMsnEem-wKcS6YCLdw",'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs("_arHIsMsnEem-wKcS6YCLdw",["_N363jNLREemj7YE_mr27Gg"]).
+/** END locationAndTamperProtection, ID: '"_arHIsMsnEem-wKcS6YCLdw"', NAME: 'null' */
+
+
+/** BEGIN encryption, ID: '"_arHIsMsnEem-wKcS6YCLdw"', NAME: 'null' */
+description("_arHIsMsnEem-wKcS6YCLdw",'null','encryption').
+unencryptedData("_arHIsMsnEem-wKcS6YCLdw",[]).
+/** END encryption, ID: '"_arHIsMsnEem-wKcS6YCLdw"', NAME: 'null' */
+
+
+/** BEGIN furtherPhysicalConnections, ID: '"_MhhqAYibEemd3YbtesF-Rw"', NAME: 'null' */
+description("_MhhqAYibEemd3YbtesF-Rw",'null','furtherPhysicalConnections').
+connectionType("_MhhqAYibEemd3YbtesF-Rw",[complete]).
+/** END furtherPhysicalConnections, ID: '"_MhhqAYibEemd3YbtesF-Rw"', NAME: 'null' */
+
+
+/** BEGIN locationAndTamperProtection, ID: '"_MhhqAYibEemd3YbtesF-Rw"', NAME: 'null' */
+description("_MhhqAYibEemd3YbtesF-Rw",'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs("_MhhqAYibEemd3YbtesF-Rw",["_L98GjMpfEemgl9nKPVXm3g"]).
+/** END locationAndTamperProtection, ID: '"_MhhqAYibEemd3YbtesF-Rw"', NAME: 'null' */
+
+
+/** BEGIN sharing, ID: '"_MhhqAYibEemd3YbtesF-Rw"', NAME: 'null' */
+description("_MhhqAYibEemd3YbtesF-Rw",'null','sharing').
+sharing("_MhhqAYibEemd3YbtesF-Rw",[exclusive]).
+/** END sharing, ID: '"_MhhqAYibEemd3YbtesF-Rw"', NAME: 'null' */
+
+
+/** BEGIN furtherPhysicalConnections, ID: '"_P42d4MpUEemVkJoNuJTOzQ"', NAME: 'null' */
+description("_P42d4MpUEemVkJoNuJTOzQ",'null','furtherPhysicalConnections').
+connectionType("_P42d4MpUEemVkJoNuJTOzQ",[complete]).
+/** END furtherPhysicalConnections, ID: '"_P42d4MpUEemVkJoNuJTOzQ"', NAME: 'null' */
+
+
+/** BEGIN locationAndTamperProtection, ID: '"_P42d4MpUEemVkJoNuJTOzQ"', NAME: 'null' */
+description("_P42d4MpUEemVkJoNuJTOzQ",'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs("_P42d4MpUEemVkJoNuJTOzQ",["_SrvOXM8MEemLXKRETzetgA"]).
+/** END locationAndTamperProtection, ID: '"_P42d4MpUEemVkJoNuJTOzQ"', NAME: 'null' */
+
+
+/** BEGIN sharing, ID: '"_P42d4MpUEemVkJoNuJTOzQ"', NAME: 'null' */
+description("_P42d4MpUEemVkJoNuJTOzQ",'null','sharing').
+sharing("_P42d4MpUEemVkJoNuJTOzQ",[exclusive]).
+/** END sharing, ID: '"_P42d4MpUEemVkJoNuJTOzQ"', NAME: 'null' */
+
+
+/** BEGIN furtherPhysicalConnections, ID: '"_DpjPcMpUEemVkJoNuJTOzQ"', NAME: 'null' */
+description("_DpjPcMpUEemVkJoNuJTOzQ",'null','furtherPhysicalConnections').
+connectionType("_DpjPcMpUEemVkJoNuJTOzQ",[complete]).
+/** END furtherPhysicalConnections, ID: '"_DpjPcMpUEemVkJoNuJTOzQ"', NAME: 'null' */
+
+
+/** BEGIN locationAndTamperProtection, ID: '"_DpjPcMpUEemVkJoNuJTOzQ"', NAME: 'null' */
+description("_DpjPcMpUEemVkJoNuJTOzQ",'null','locationAndTamperProtection').
+locationsAndTamperProtectionsPairs("_DpjPcMpUEemVkJoNuJTOzQ",["_oxcYXNLJEemj7YE_mr27Gg"]).
+/** END locationAndTamperProtection, ID: '"_DpjPcMpUEemVkJoNuJTOzQ"', NAME: 'null' */
+
+
+/** BEGIN sharing, ID: '"_DpjPcMpUEemVkJoNuJTOzQ"', NAME: 'null' */
+description("_DpjPcMpUEemVkJoNuJTOzQ",'null','sharing').
+sharing("_DpjPcMpUEemVkJoNuJTOzQ",[exclusive]).
+/** END sharing, ID: '"_DpjPcMpUEemVkJoNuJTOzQ"', NAME: 'null' */
+

@@ -1,0 +1,67 @@
+
+/** BEGIN system, ID: '"_ugSvAMpZEemVkJoNuJTOzQ"', NAME: 'PersecutionAuthoritySystem' */
+description("_ugSvAMpZEemVkJoNuJTOzQ",'PersecutionAuthoritySystem','system').
+system("_ugSvAMpZEemVkJoNuJTOzQ").
+assemblyContexts("_ugSvAMpZEemVkJoNuJTOzQ",["_zW1AIMpZEemVkJoNuJTOzQ"]).
+connectors("_ugSvAMpZEemVkJoNuJTOzQ",["_QpawcMpaEemVkJoNuJTOzQ","_SAw94MpaEemVkJoNuJTOzQ","_YszgUNC2EemzZtxQ8qw-hw","_7e2U0NLYEemj7YE_mr27Gg"]).
+providedRoles("_ugSvAMpZEemVkJoNuJTOzQ",[]).
+requiredRoles("_ugSvAMpZEemVkJoNuJTOzQ",["_JurL4MpaEemVkJoNuJTOzQ","_5ogeQNLYEemj7YE_mr27Gg"]).
+
+/** BEGIN assemblyContext, ID: '"_zW1AIMpZEemVkJoNuJTOzQ"', NAME: 'Assembly_PersecutionWebinterface' */
+description("_zW1AIMpZEemVkJoNuJTOzQ",'Assembly_PersecutionWebinterface','assemblyContext').
+assemblyContext("_zW1AIMpZEemVkJoNuJTOzQ").
+encapsulatedComponent("_zW1AIMpZEemVkJoNuJTOzQ",["_Xc7BYMpWEemVkJoNuJTOzQ"]).
+/** END assemblyContext, ID: '"_zW1AIMpZEemVkJoNuJTOzQ"', NAME: 'Assembly_PersecutionWebinterface' */
+
+
+/** BEGIN requiredDelegationConnector, ID: '"_QpawcMpaEemVkJoNuJTOzQ"', NAME: 'ReqDelegation Required_IWebVideoServiceInformation_PersecutionWebinterface -> Required_IWebVideoServiceInformation' */
+description("_QpawcMpaEemVkJoNuJTOzQ",'ReqDelegation Required_IWebVideoServiceInformation_PersecutionWebinterface -> Required_IWebVideoServiceInformation','requiredDelegationConnector').
+requiredDelegationConnector("_QpawcMpaEemVkJoNuJTOzQ").
+innerRequiredRole("_QpawcMpaEemVkJoNuJTOzQ",["_UFhORIYzEeqwMvpD1m6yYA"]).
+outerRequiredRole("_QpawcMpaEemVkJoNuJTOzQ",[]).
+assemblyContext("_QpawcMpaEemVkJoNuJTOzQ",["_zW1AIMpZEemVkJoNuJTOzQ"]).
+/** END requiredDelegationConnector, ID: '"_QpawcMpaEemVkJoNuJTOzQ"', NAME: 'ReqDelegation Required_IWebVideoServiceInformation_PersecutionWebinterface -> Required_IWebVideoServiceInformation' */
+
+
+/** BEGIN requiredDelegationConnector, ID: '"_SAw94MpaEemVkJoNuJTOzQ"', NAME: 'ReqDelegation Required_IWebVideoServiceInformationForPersecution_PersecutionWebinterface -> Required_IWebVideoServiceInformationForPersecution' */
+description("_SAw94MpaEemVkJoNuJTOzQ",'ReqDelegation Required_IWebVideoServiceInformationForPersecution_PersecutionWebinterface -> Required_IWebVideoServiceInformationForPersecution','requiredDelegationConnector').
+requiredDelegationConnector("_SAw94MpaEemVkJoNuJTOzQ").
+innerRequiredRole("_SAw94MpaEemVkJoNuJTOzQ",["_UFhORoYzEeqwMvpD1m6yYA"]).
+outerRequiredRole("_SAw94MpaEemVkJoNuJTOzQ",["_JurL4MpaEemVkJoNuJTOzQ"]).
+assemblyContext("_SAw94MpaEemVkJoNuJTOzQ",["_zW1AIMpZEemVkJoNuJTOzQ"]).
+/** END requiredDelegationConnector, ID: '"_SAw94MpaEemVkJoNuJTOzQ"', NAME: 'ReqDelegation Required_IWebVideoServiceInformationForPersecution_PersecutionWebinterface -> Required_IWebVideoServiceInformationForPersecution' */
+
+
+/** BEGIN requiredDelegationConnector, ID: '"_YszgUNC2EemzZtxQ8qw-hw"', NAME: 'ReqDelegation Required_PersecutionInterface_PersecutionWebinterface -> Required_IWebVideoServiceInformationForPersecution' */
+description("_YszgUNC2EemzZtxQ8qw-hw",'ReqDelegation Required_PersecutionInterface_PersecutionWebinterface -> Required_IWebVideoServiceInformationForPersecution','requiredDelegationConnector').
+requiredDelegationConnector("_YszgUNC2EemzZtxQ8qw-hw").
+innerRequiredRole("_YszgUNC2EemzZtxQ8qw-hw",["_vt3ysM8KEemLXKRETzetgA"]).
+outerRequiredRole("_YszgUNC2EemzZtxQ8qw-hw",["_JurL4MpaEemVkJoNuJTOzQ"]).
+assemblyContext("_YszgUNC2EemzZtxQ8qw-hw",["_zW1AIMpZEemVkJoNuJTOzQ"]).
+/** END requiredDelegationConnector, ID: '"_YszgUNC2EemzZtxQ8qw-hw"', NAME: 'ReqDelegation Required_PersecutionInterface_PersecutionWebinterface -> Required_IWebVideoServiceInformationForPersecution' */
+
+
+/** BEGIN requiredDelegationConnector, ID: '"_7e2U0NLYEemj7YE_mr27Gg"', NAME: 'ReqDelegation Required_JudgeInterface_PersecutionWebinterface -> Required_JudgeInterface' */
+description("_7e2U0NLYEemj7YE_mr27Gg",'ReqDelegation Required_JudgeInterface_PersecutionWebinterface -> Required_JudgeInterface','requiredDelegationConnector').
+requiredDelegationConnector("_7e2U0NLYEemj7YE_mr27Gg").
+innerRequiredRole("_7e2U0NLYEemj7YE_mr27Gg",["_Ibq0wNLSEemj7YE_mr27Gg"]).
+outerRequiredRole("_7e2U0NLYEemj7YE_mr27Gg",["_5ogeQNLYEemj7YE_mr27Gg"]).
+assemblyContext("_7e2U0NLYEemj7YE_mr27Gg",["_zW1AIMpZEemVkJoNuJTOzQ"]).
+/** END requiredDelegationConnector, ID: '"_7e2U0NLYEemj7YE_mr27Gg"', NAME: 'ReqDelegation Required_JudgeInterface_PersecutionWebinterface -> Required_JudgeInterface' */
+
+
+/** BEGIN operationRequiredRole, ID: '"_JurL4MpaEemVkJoNuJTOzQ"', NAME: 'Required_IWebVideoServiceInformationForPersecution' */
+description("_JurL4MpaEemVkJoNuJTOzQ",'Required_IWebVideoServiceInformationForPersecution','operationRequiredRole').
+operationRequiredRole("_JurL4MpaEemVkJoNuJTOzQ").
+requiredInterface("_JurL4MpaEemVkJoNuJTOzQ",["_UFhOTIYzEeqwMvpD1m6yYA"]).
+/** END operationRequiredRole, ID: '"_JurL4MpaEemVkJoNuJTOzQ"', NAME: 'Required_IWebVideoServiceInformationForPersecution' */
+
+
+/** BEGIN operationRequiredRole, ID: '"_5ogeQNLYEemj7YE_mr27Gg"', NAME: 'Required_JudgeInterface' */
+description("_5ogeQNLYEemj7YE_mr27Gg",'Required_JudgeInterface','operationRequiredRole').
+operationRequiredRole("_5ogeQNLYEemj7YE_mr27Gg").
+requiredInterface("_5ogeQNLYEemj7YE_mr27Gg",["_UFhOToYzEeqwMvpD1m6yYA"]).
+/** END operationRequiredRole, ID: '"_5ogeQNLYEemj7YE_mr27Gg"', NAME: 'Required_JudgeInterface' */
+
+/** END system, ID: '"_ugSvAMpZEemVkJoNuJTOzQ"', NAME: 'PersecutionAuthoritySystem' */
+
