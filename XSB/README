@@ -10,13 +10,19 @@ Requirements:
 
 Running:  On a Linux system with XSB installed, run
   "make"
-to create a text file "queries-justify.result"
-containing all vulnerabilities in the sample architectural and confidentiality model
-defined in the *.P files from directory "Instances/PaperExample/ExampleOne/".
+can be used to create a text file "queries-justify.result" containing all vulnerabilities in the analysed architectural and confidentiality model.
+
+Several variables need to be set in the *Makefile* to run the analysis. 
+- *XSB* defines the path to XSB on your local machine. 
+- *FROMPALLADIO_FACTS* takes a path to the folder containing the *.P Files (prolog model) of an architectural and confidentiality model. 
+Several existing palladio models are already included. 
 
 If a suitable ghc distribution is available, you can run
   "make queries-justify.result.pretty"
 to create a text file "queries-justify.result.pretty" with more readable formatting
+
+With the prototypical command 
+ "make queries-justify.result.json" the vulnerabilities are provided in the JavaScript Object Notation (JSON) format. 
 
 
 
