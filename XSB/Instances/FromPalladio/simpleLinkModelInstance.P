@@ -1,5 +1,5 @@
 % BEGIN IMPORTS
-:- import  unencryptedDataSets/2,
+:- import  unencryptedData/2,
            dataSet/1
            from fromPalladio.
 :- import  member/2
@@ -13,10 +13,10 @@ justify_pred(encryptsExcept(_,_)).
 % which it currently does not.
 encryptsExcept(Link,Dataset) :-
         dataSet(Dataset),
-        not(unencryptedDataSets(Link, _)). % the two subgoals need to be ordered like this in order to please "justify".
+        not(unencryptedData(Link, _)). % the two subgoals need to be ordered like this in order to please "justify".
 
 encryptsExcept(Link,Dataset) :-
-        unencryptedDataSets(Link, Datasets),
+        unencryptedData(Link, Datasets),
         member(Dataset, Datasets).
 
 
